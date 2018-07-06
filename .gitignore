@@ -15,7 +15,7 @@
 *.iso
 *.jar
 *.rar
-*.tar
+
 # *.zip
 *.war
 *.ear
