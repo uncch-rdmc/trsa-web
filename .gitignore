@@ -13,10 +13,10 @@
 *.dmg
 *.gz
 *.iso
-*.jar
+
 *.rar
 
-# *.zip
+
 *.war
 *.ear
 *.sar
