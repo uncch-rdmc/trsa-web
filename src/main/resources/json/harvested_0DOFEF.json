@@ -1,0 +1,274 @@
+{
+    "id": 2839589,
+    "identifier": "0DOFEF",
+    "persistentUrl": "http://dx.doi.org/10.7910/DVN/0DOFEF",
+    "protocol": "doi",
+    "authority": "10.7910/DVN",
+    "publisher": "Harvard Dataverse",
+    "publicationDate": "2016-06-07",
+    "datasetVersion": {
+        "id": 96827,
+        "versionNumber": 2,
+        "versionMinorNumber": 0,
+        "versionState": "RELEASED",
+        "productionDate": "Production Date",
+        "UNF": "UNF:6:a7S5Uyu/rnjY+KxTCgM+Qw==",
+        "lastUpdateTime": "2016-12-21T21:44:05Z",
+        "releaseTime": "2016-12-21T21:44:05Z",
+        "createTime": "2016-12-21T21:43:12Z",
+        "license": "CC0",
+        "termsOfUse": "CC0 Waiver",
+        "metadataBlocks": {
+            "citation": {
+                "displayName": "Citation Metadata",
+                "fields": [{
+                        "typeName": "title",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "Replication data for: Public perceptions of air pollution and climate change"
+                    }, {
+                        "typeName": "author",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "authorName": {
+                                    "typeName": "authorName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Tvinnereim, Endre"
+                                },
+                                "authorAffiliation": {
+                                    "typeName": "authorAffiliation",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Uni Research Rokkan Center"
+                                }
+                            }]
+                    }, {
+                        "typeName": "datasetContact",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "datasetContactName": {
+                                    "typeName": "datasetContactName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Tvinnereim, Endre"
+                                },
+                                "datasetContactAffiliation": {
+                                    "typeName": "datasetContactAffiliation",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Uni Research Rokkan Center"
+                                },
+                                "datasetContactEmail": {
+                                    "typeName": "datasetContactEmail",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "tvinner@post.harvard.edu"
+                                }
+                            }]
+                    }, {
+                        "typeName": "dsDescription",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "dsDescriptionValue": {
+                                    "typeName": "dsDescriptionValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Substitutions of Chinese words/characters, including stop word removals and standardizations of identical or mis-spelled words. Removal of punctuation marks. "
+                                },
+                                "dsDescriptionDate": {
+                                    "typeName": "dsDescriptionDate",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "2016-06-01"
+                                }
+                            }]
+                    }, {
+                        "typeName": "subject",
+                        "multiple": true,
+                        "typeClass": "controlledVocabulary",
+                        "value": ["Social Sciences"]
+                    }, {
+                        "typeName": "keyword",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "air pollution, climate change, survey experiments, China, structural topic modeling"
+                                }
+                            }]
+                    }, {
+                        "typeName": "publication",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "publicationCitation": {
+                                    "typeName": "publicationCitation",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "10.1007/s10584-016-1871-2"
+                                },
+                                "publicationIDType": {
+                                    "typeName": "publicationIDType",
+                                    "multiple": false,
+                                    "typeClass": "controlledVocabulary",
+                                    "value": "doi"
+                                }
+                            }]
+                    }, {
+                        "typeName": "depositor",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "Tvinnereim, Endre"
+                    }, {
+                        "typeName": "dateOfDeposit",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "2016-06-07"
+                    }]
+            }
+        },
+        "files": [{
+                "description": "Numeric data from the survey. ",
+                "label": "CC_China_2015_Adult_Final_9.07.15_cutduplicate88.tab",
+                "version": 2,
+                "datasetVersionId": 96827,
+                "dataFile": {
+                    "id": 2966406,
+                    "filename": "CC_China_2015_Adult_Final_9.07.15_cutduplicate88.tab",
+                    "contentType": "text/tab-separated-values",
+                    "storageIdentifier": "15923542c80-9375ede13b89",
+                    "originalFileFormat": "text/csv",
+                    "originalFormatLabel": "Comma Separated Values",
+                    "UNF": "UNF:6:mZEhe9cD5abJdbEtpgwiqg==",
+                    "md5": "e30a96e6ec91b277eec1115d46b0cb57",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "e30a96e6ec91b277eec1115d46b0cb57"
+                    },
+                    "description": "Numeric data from the survey. "
+                }
+            }, {
+                "description": "Code for running STM model and analysis on the data",
+                "label": "china-stm.R",
+                "version": 1,
+                "datasetVersionId": 96827,
+                "dataFile": {
+                    "id": 2966405,
+                    "filename": "china-stm.R",
+                    "contentType": "type/x-r-syntax",
+                    "storageIdentifier": "15923542f01-0882c8cddd6b",
+                    "originalFormatLabel": "UNKNOWN",
+                    "md5": "98ad0b2637f36102eeeab503430e3d97",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "98ad0b2637f36102eeeab503430e3d97"
+                    },
+                    "description": "Code for running STM model and analysis on the data"
+                }
+            }, {
+                "description": "Code for preparing the data set, merging the numeric and text data, etc. ",
+                "label": "chinopen-prep.R",
+                "version": 1,
+                "datasetVersionId": 96827,
+                "dataFile": {
+                    "id": 2966404,
+                    "filename": "chinopen-prep.R",
+                    "contentType": "type/x-r-syntax",
+                    "storageIdentifier": "159235431a3-da832d05ff39",
+                    "originalFormatLabel": "UNKNOWN",
+                    "md5": "efabdcffdc08d338ce951b4f175d9619",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "efabdcffdc08d338ce951b4f175d9619"
+                    },
+                    "description": "Code for preparing the data set, merging the numeric and text data, etc. "
+                }
+            }, {
+                "description": "List of substitutions made, including stop words and standardizations. ",
+                "label": "chinopen-substitutions-lean.tab",
+                "version": 1,
+                "datasetVersionId": 96827,
+                "dataFile": {
+                    "id": 2839590,
+                    "filename": "chinopen-substitutions-lean.tab",
+                    "contentType": "text/tab-separated-values",
+                    "storageIdentifier": "1552b13ce38-ea67d8feab04",
+                    "originalFileFormat": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "originalFormatLabel": "MS Excel (XLSX)",
+                    "UNF": "UNF:6:m8wElxLRCikNnfOqeRZWgQ==",
+                    "md5": "1ece427a11360bd6005e765ad5ccd862",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "1ece427a11360bd6005e765ad5ccd862"
+                    },
+                    "description": "List of substitutions made, including stop words and standardizations. "
+                }
+            }, {
+                "description": "Segmented Chinese text, two versions, to be analysed in STM runs. ",
+                "label": "CN_segmented_text_for_R.tab",
+                "version": 2,
+                "datasetVersionId": 96827,
+                "dataFile": {
+                    "id": 2966401,
+                    "filename": "CN_segmented_text_for_R.tab",
+                    "contentType": "text/tab-separated-values",
+                    "storageIdentifier": "15923543600-4b716dc51758",
+                    "originalFileFormat": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "originalFormatLabel": "MS Excel (XLSX)",
+                    "UNF": "UNF:6:KLhrh7s1bg7U8yfDpqi7tQ==",
+                    "md5": "dfd16e77c155d0bb4b7d93e9a61ae05f",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "dfd16e77c155d0bb4b7d93e9a61ae05f"
+                    },
+                    "description": "Segmented Chinese text, two versions, to be analysed in STM runs. "
+                }
+            }, {
+                "description": "Key used to merge numeric and text data.",
+                "label": "Open_End_Question_Id_Vector.tab",
+                "version": 2,
+                "datasetVersionId": 96827,
+                "dataFile": {
+                    "id": 2966403,
+                    "filename": "Open_End_Question_Id_Vector.tab",
+                    "contentType": "text/tab-separated-values",
+                    "storageIdentifier": "159235439df-4e0fdd0d7efb",
+                    "originalFileFormat": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "originalFormatLabel": "MS Excel (XLSX)",
+                    "UNF": "UNF:6:zRM4vxlJp3at03sXM9U63A==",
+                    "md5": "cadae65c0b951abccfa2f6650d3c8711",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "cadae65c0b951abccfa2f6650d3c8711"
+                    },
+                    "description": "Key used to merge numeric and text data."
+                }
+            }, {
+                "description": "Analysis of the chosen STM model run, including graph and tables. ",
+                "label": "stm-analysis.R",
+                "version": 1,
+                "datasetVersionId": 96827,
+                "dataFile": {
+                    "id": 2966402,
+                    "filename": "stm-analysis.R",
+                    "contentType": "type/x-r-syntax",
+                    "storageIdentifier": "15923542851-3800d7902559",
+                    "originalFormatLabel": "UNKNOWN",
+                    "md5": "19bd3dfd0c7509d63cd33f657f1c505a",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "19bd3dfd0c7509d63cd33f657f1c505a"
+                    },
+                    "description": "Analysis of the chosen STM model run, including graph and tables. "
+                }
+            }],
+        "citation": "Tvinnereim, Endre, 2016, \"Replication data for: Public perceptions of air pollution and climate change\", doi:10.7910/DVN/0DOFEF, Harvard Dataverse, V2, UNF:6:a7S5Uyu/rnjY+KxTCgM+Qw=="
+    }
+}

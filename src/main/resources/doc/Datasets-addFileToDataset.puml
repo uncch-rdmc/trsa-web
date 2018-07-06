@@ -1,0 +1,25 @@
+@startuml
+actor apiclient
+
+apiclient -> Datasets: /add?datafile&datasetId
+activate Datasets
+Datasets -> AddFileHelper: addFileToDataset()
+activate AddFileHelper
+AddFileHelper -> FileUtil: createDataFiles()
+activate FileUtil
+FileUtil -> FileUtil: determineFileType()
+FileUtil -> FileUtil: createSingleDataFile()
+AddFileHelper <-- FileUtil: return Datafile List
+deactivate FileUtil
+AddFileHelper -> ISB: addFilesToDataset()
+activate ISB
+AddFileHelper <-- ISB: return dataset
+AddFileHelper -> ISB: addFiles()
+AddFileHelper <-- ISB: ingest scheduled
+AddFileHelper -> ISB: ingestAsTabular()
+
+deactivate ISB
+Datasets <-- AddFileHelper: return JsonObjectBuilder object
+apiclient <-- Datasets: response as JSON object
+deactivate Datasets
+@enduml

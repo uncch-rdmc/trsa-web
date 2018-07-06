@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codeBook xmlns="ddi:codebook:2_5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:codebook:2_5 http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd" version="2.5">
+    <docDscr>
+        <citation>
+            <titlStmt>
+                <titl>minimum dataset without datafiles</titl>
+                <IDNo agency="DOI">doi:10.5072/FK2/ZZB78M</IDNo>
+            </titlStmt>
+            <distStmt>
+                <distrbtr>UNC Dataverse</distrbtr>
+                <distDate>2017-12-14</distDate>
+            </distStmt>
+            <verStmt source="DVN">
+                <version date="2017-12-14" type="RELEASED">1</version>
+            </verStmt>
+            <biblCit>
+                Admin, Dataverse, 2017, "minimum dataset without datafiles", doi:10.5072/FK2/ZZB78M, UNC Dataverse, V1
+            </biblCit>
+        </citation>
+    </docDscr>
+    <stdyDscr>
+        <citation>
+            <titlStmt>
+                <titl>minimum dataset without datafiles</titl>
+                <IDNo agency="DOI">doi:10.5072/FK2/ZZB78M</IDNo>
+            </titlStmt>
+            <rspStmt>
+                <AuthEnty affiliation="Dataverse.org">Admin, Dataverse</AuthEnty>
+            </rspStmt>
+            <prodStmt/>
+            <distStmt>
+                <distrbtr>UNC Dataverse</distrbtr>
+                <distDate>2017-12-14</distDate>
+            </distStmt>
+        </citation>
+        <stdyInfo>
+            <subject>
+                <keyword>Other</keyword>
+            </subject>
+            <abstract>this dataset does not have a datafile</abstract>
+            <sumDscr/>
+            <contact affiliation="Dataverse.org" email="asone@unc.edu">Admin, Dataverse</contact>
+            <depositr>Admin, Dataverse</depositr>
+            <depDate>2017-12-14</depDate>
+        </stdyInfo>
+        <method>
+            <dataColl/>
+            <anlyInfo/>
+        </method>
+        <useStmt>CC0 Waiver</useStmt>
+    </stdyDscr>
+</codeBook>

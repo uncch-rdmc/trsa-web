@@ -1,0 +1,76 @@
+{
+  "datasetVersion": {
+    "metadataBlocks": {
+      "citation": {
+        "displayName": "Citation Metadata",
+        "fields": [
+          {
+            "multiple": false,
+            "typeClass": "primitive",
+            "typeName": "title",
+            "value": "dataset created by native api with minimal meta data"
+          },
+          {
+            "multiple": true,
+            "typeClass": "compound",
+            "typeName": "author",
+            "value": [
+              {
+                "authorAffiliation": {
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "typeName": "authorAffiliation",
+                  "value": "UNC Odum Inst"
+                },
+                "authorName": {
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "typeName": "authorName",
+                  "value": "Sone, Akio"
+                }
+              }
+            ]
+          },
+          {
+            "multiple": true,
+            "typeClass": "compound",
+            "typeName": "datasetContact",
+            "value": [
+              {
+                "datasetContactEmail": {
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "typeName": "datasetContactEmail",
+                  "value": "asone@email.unc.edu"
+                }
+              }
+            ]
+          },
+          {
+            "multiple": true,
+            "typeClass": "compound",
+            "typeName": "dsDescription",
+            "value": [
+              {
+                "dsDescriptionValue": {
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "typeName": "dsDescriptionValue",
+                  "value": "required description."
+                }
+              }
+            ]
+          },
+          {
+            "multiple": true,
+            "typeClass": "controlledVocabulary",
+            "typeName": "subject",
+            "value": [
+              "Other"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

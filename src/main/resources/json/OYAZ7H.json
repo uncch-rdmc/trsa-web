@@ -1,0 +1,268 @@
+{
+    "id": 3097018,
+    "identifier": "OYAZ7H",
+    "persistentUrl": "http://dx.doi.org/10.7910/DVN/OYAZ7H",
+    "protocol": "doi",
+    "authority": "10.7910/DVN",
+    "publisher": "Harvard Dataverse",
+    "publicationDate": "2018-01-11",
+    "datasetVersion": {
+        "id": 132033,
+        "versionNumber": 1,
+        "versionMinorNumber": 0,
+        "versionState": "RELEASED",
+        "productionDate": "Production Date",
+        "lastUpdateTime": "2018-01-12T04:11:20Z",
+        "releaseTime": "2018-01-12T04:11:20Z",
+        "createTime": "2018-01-04T16:40:31Z",
+        "license": "CC0",
+        "termsOfUse": "CC0 Waiver",
+        "metadataBlocks": {
+            "citation": {
+                "displayName": "Citation Metadata",
+                "fields": [{
+                        "typeName": "title",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "Replication Data for: The Absence of Consumer Interests in Trade Policy"
+                    }, {
+                        "typeName": "author",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "authorName": {
+                                    "typeName": "authorName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Betz, Timm"
+                                },
+                                "authorAffiliation": {
+                                    "typeName": "authorAffiliation",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Texas A&M University"
+                                },
+                                "authorIdentifierScheme": {
+                                    "typeName": "authorIdentifierScheme",
+                                    "multiple": false,
+                                    "typeClass": "controlledVocabulary",
+                                    "value": "ORCID"
+                                },
+                                "authorIdentifier": {
+                                    "typeName": "authorIdentifier",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "0000-0001-5632-2832"
+                                }
+                            }, {
+                                "authorName": {
+                                    "typeName": "authorName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Pond, Amy"
+                                },
+                                "authorAffiliation": {
+                                    "typeName": "authorAffiliation",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Texas A&M University"
+                                },
+                                "authorIdentifierScheme": {
+                                    "typeName": "authorIdentifierScheme",
+                                    "multiple": false,
+                                    "typeClass": "controlledVocabulary",
+                                    "value": "ORCID"
+                                },
+                                "authorIdentifier": {
+                                    "typeName": "authorIdentifier",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "0000-0002-6908-2791 "
+                                }
+                            }]
+                    }, {
+                        "typeName": "datasetContact",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "datasetContactName": {
+                                    "typeName": "datasetContactName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Betz, Timm"
+                                },
+                                "datasetContactAffiliation": {
+                                    "typeName": "datasetContactAffiliation",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Texas A&M University"
+                                },
+                                "datasetContactEmail": {
+                                    "typeName": "datasetContactEmail",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "timm.betz@tamu.edu"
+                                }
+                            }]
+                    }, {
+                        "typeName": "dsDescription",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "dsDescriptionValue": {
+                                    "typeName": "dsDescriptionValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Replication data for \"The Absence of Consumer Interests in Trade Policy.\" "
+                                },
+                                "dsDescriptionDate": {
+                                    "typeName": "dsDescriptionDate",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "2018-01-04"
+                                }
+                            }]
+                    }, {
+                        "typeName": "subject",
+                        "multiple": true,
+                        "typeClass": "controlledVocabulary",
+                        "value": ["Social Sciences"]
+                    }, {
+                        "typeName": "keyword",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "trade"
+                                }
+                            }, {
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "consumers"
+                                }
+                            }, {
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "democracy"
+                                }
+                            }, {
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "contract enforcement"
+                                }
+                            }, {
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "tariffs"
+                                }
+                            }]
+                    }, {
+                        "typeName": "depositor",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "Betz, Timm"
+                    }, {
+                        "typeName": "dateOfDeposit",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "2018-01-04"
+                    }]
+            }
+        },
+        "files": [{
+                "description": "Main data file",
+                "label": "jop_data.dta",
+                "restricted": false,
+                "version": 1,
+                "datasetVersionId": 132033,
+                "dataFile": {
+                    "id": 3097021,
+                    "filename": "jop_data.dta",
+                    "contentType": "application/x-stata",
+                    "filesize": 28549300,
+                    "description": "Main data file",
+                    "storageIdentifier": "160c20383a1-8e1e5cceed4f",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "7b8ebbddaad81b73f24d19249f9672c3",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "7b8ebbddaad81b73f24d19249f9672c3"
+                    }
+                }
+            }, {
+                "description": "Stata code for replication",
+                "label": "jop_replication.do",
+                "restricted": false,
+                "version": 1,
+                "datasetVersionId": 132033,
+                "dataFile": {
+                    "id": 3097019,
+                    "filename": "jop_replication.do",
+                    "contentType": "application/x-stata-syntax",
+                    "filesize": 3319,
+                    "description": "Stata code for replication",
+                    "storageIdentifier": "160c2038af7-2775bb75ed3f",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "456c8c3dcc0ce70126d5b7a7fb8367de",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "456c8c3dcc0ce70126d5b7a7fb8367de"
+                    }
+                }
+            }, {
+                "description": "Additional data",
+                "label": "mex_isic.dta",
+                "restricted": false,
+                "version": 1,
+                "datasetVersionId": 132033,
+                "dataFile": {
+                    "id": 3097020,
+                    "filename": "mex_isic.dta",
+                    "contentType": "application/x-stata",
+                    "filesize": 6555,
+                    "description": "Additional data",
+                    "storageIdentifier": "160c2038de1-f9d640552dd4",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "3b42c1c5d3d1e468ec9f098e84cc5081",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "3b42c1c5d3d1e468ec9f098e84cc5081"
+                    }
+                }
+            }, {
+                "label": "README.txt",
+                "restricted": false,
+                "version": 1,
+                "datasetVersionId": 132033,
+                "dataFile": {
+                    "id": 3097022,
+                    "filename": "README.txt",
+                    "contentType": "text/plain",
+                    "filesize": 243,
+                    "storageIdentifier": "160c2039098-66e860d9f90e",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "290debb06513bbd91612bbefef6a5d79",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "290debb06513bbd91612bbefef6a5d79"
+                    }
+                }
+            }],
+        "citation": "Betz, Timm; Pond, Amy, 2018, \"Replication Data for: The Absence of Consumer Interests in Trade Policy\", doi:10.7910/DVN/OYAZ7H, Harvard Dataverse, V1"
+    }
+}

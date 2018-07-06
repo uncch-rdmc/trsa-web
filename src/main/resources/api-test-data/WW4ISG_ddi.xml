@@ -1,0 +1,184 @@
+<codeBook xmlns="ddi:codebook:2_5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:codebook:2_5 http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd" version="2.5">
+    <docDscr>
+        <citation>
+            <titlStmt>
+                <titl>test dataset for the new api with min setup data</titl>
+                <IDNo agency="DOI">doi:10.5072/FK2/WW4ISG</IDNo>
+            </titlStmt>
+            <distStmt>
+                <distrbtr>Root</distrbtr>
+                <distDate>2018-05-07</distDate>
+            </distStmt>
+            <verStmt source="DVN">
+                <version date="2018-05-07" type="RELEASED">1</version>
+            </verStmt>
+            <biblCit>Admin, Dataverse, 2018, "test dataset for the new api with min setup data", https://doi.org/10.5072/FK2/WW4ISG, Root, V1, UNF:6:3HbF8/CEW1+Xz7COXSnsDQ==</biblCit>
+        </citation>
+    </docDscr>
+    <stdyDscr>
+        <citation>
+            <titlStmt>
+                <titl>test dataset for the new api with min setup data</titl>
+                <IDNo agency="DOI">doi:10.5072/FK2/WW4ISG</IDNo>
+            </titlStmt>
+            <rspStmt>
+                <AuthEnty affiliation="Dataverse.org">Admin, Dataverse</AuthEnty>
+            </rspStmt>
+            <prodStmt/>
+            <distStmt>
+                <distrbtr>Root</distrbtr>
+                <distDate>2018-05-07</distDate>
+            </distStmt>
+        </citation>
+        <stdyInfo>
+            <subject>
+                <keyword>Other</keyword>
+            </subject>
+            <abstract>This is the required description.</abstract>
+            <sumDscr/>
+            <contact affiliation="Dataverse.org" email="asone@email.unc.edu">Admin, Dataverse</contact>
+            <depositr>Admin, Dataverse</depositr>
+            <depDate>2018-05-07</depDate>
+        </stdyInfo>
+        <method>
+            <dataColl/>
+            <anlyInfo/>
+        </method>
+        <useStmt>CC0 Waiver</useStmt>
+    </stdyDscr>
+    <fileDscr ID="f10" URI="https://impacttest.irss.unc.edu/api/access/datafile/10">
+        <fileTxt>
+            <fileName>wrld96z8 sav 14.tab</fileName>
+            <dimensns>
+                <caseQnty>10</caseQnty>
+                <varQnty>5</varQnty>
+            </dimensns>
+            <fileType>text/tab-separated-values</fileType>
+        </fileTxt>
+        <notes level="file" type="VDC:UNF" subject="Universal Numeric Fingerprint">UNF:6:3HbF8/CEW1+Xz7COXSnsDQ==</notes>
+    </fileDscr>
+    <dataDscr>
+        <var ID="v298" name="country" intrvl="discrete">
+            <location fileid="f10"/>
+            <labl level="variable">country long name</labl>
+            <varFormat type="character"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:FXNrKsbddRDGB725BP4BfQ==</notes>
+        </var>
+        <var ID="v300" name="phones" intrvl="contin">
+            <location fileid="f10"/>
+            <labl level="variable">telephone mainlines per 1000</labl>
+            <sumStat type="mean">409.30708482530383</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="max">613.4227294921875</sumStat>
+            <sumStat type="medn">487.16986083984375</sumStat>
+            <sumStat type="stdev">176.01005489193847</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="min">148.356689453125</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:7E2uwEwKLej3A3UkTPbxqg==</notes>
+        </var>
+        <var ID="v297" name="doctors" intrvl="discrete">
+            <location fileid="f10"/>
+            <labl level="variable">physicians per pop</labl>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="medn">282.0</sumStat>
+            <sumStat type="stdev">95.45260604090387</sumStat>
+            <sumStat type="min">232.0</sumStat>
+            <sumStat type="max">455.0</sumStat>
+            <sumStat type="mean">329.8</sumStat>
+            <sumStat type="vald">5.0</sumStat>
+            <sumStat type="invd">5.0</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:ygyy7i6eTmZfHJ3HwBfLag==</notes>
+        </var>
+        <var ID="v299" name="xconst" intrvl="discrete">
+            <location fileid="f10"/>
+            <labl level="variable">executive constraints</labl>
+            <sumStat type="stdev">1.6914819275153699</sumStat>
+            <sumStat type="min">2.0</sumStat>
+            <sumStat type="max">7.0</sumStat>
+            <sumStat type="medn">7.0</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="mean">6.111111111111111</sumStat>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">unlimite</labl>
+            </catgry>
+            <catgry>
+                <catValu>7</catValu>
+                <labl level="category">executiv</labl>
+            </catgry>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">slight t</labl>
+            </catgry>
+            <catgry>
+                <catValu>4</catValu>
+                <labl level="category">intermed</labl>
+            </catgry>
+            <catgry>
+                <catValu>5</catValu>
+                <labl level="category">substant</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">intermed</labl>
+            </catgry>
+            <catgry>
+                <catValu>6</catValu>
+                <labl level="category">intermed</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:VF7/+3MGLFrPegGD9MyXLQ==</notes>
+        </var>
+        <var ID="v296" name="srvcomp2" intrvl="discrete">
+            <location fileid="f10"/>
+            <labl level="variable">recoded  % service labor force</labl>
+            <sumStat type="mean">2.4444444444444446</sumStat>
+            <sumStat type="medn">3.0</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="stdev">0.7264831572567788</sumStat>
+            <sumStat type="max">3.0</sumStat>
+            <sumStat type="min">1.0</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">&lt; 40%</labl>
+            </catgry>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">&gt;60%</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">40-60</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:10A1sJH7QmMyPfS8DpSwuQ==</notes>
+        </var>
+    </dataDscr>
+    <otherMat ID="f13" URI="https://impacttest.irss.unc.edu/api/access/datafile/13" level="datafile">
+        <labl>13 enforcer_menu_2012-10-08.png</labl>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">image/png</notes>
+    </otherMat>
+    <otherMat ID="f12" URI="https://impacttest.irss.unc.edu/api/access/datafile/12" level="datafile">
+        <labl>14 400-405_8162010.pdf</labl>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">application/pdf</notes>
+    </otherMat>
+    <otherMat ID="f8" URI="https://impacttest.irss.unc.edu/api/access/datafile/8" level="datafile">
+        <labl>14 New Text Document.txt</labl>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">text/plain</notes>
+    </otherMat>
+    <otherMat ID="f11" URI="https://impacttest.irss.unc.edu/api/access/datafile/11" level="datafile">
+        <labl>14 ReportData.java</labl>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">text/x-java-source</notes>
+    </otherMat>
+    <otherMat ID="f9" URI="https://impacttest.irss.unc.edu/api/access/datafile/9" level="datafile">
+        <labl>readme.md</labl>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">application/octet-stream</notes>
+    </otherMat>
+</codeBook>

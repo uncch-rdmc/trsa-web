@@ -1,0 +1,105 @@
+{
+    "status": "OK",
+    "data": {
+        "id": 7547160,
+        "identifier": "ZZB78M",
+        "persistentUrl": "http://dx.doi.org/10.5072/FK2/ZZB78M",
+        "protocol": "doi",
+        "authority": "10.5072/FK2",
+        "publisher": "UNC Dataverse",
+        "publicationDate": "2017-12-14",
+        "latestVersion": {
+            "id": 33223,
+            "versionNumber": 1,
+            "versionMinorNumber": 0,
+            "versionState": "RELEASED",
+            "productionDate": "Production Date",
+            "lastUpdateTime": "2017-12-14T19:12:24Z",
+            "releaseTime": "2017-12-14T19:12:24Z",
+            "createTime": "2017-12-14T19:12:17Z",
+            "license": "CC0",
+            "termsOfUse": "CC0 Waiver",
+            "metadataBlocks": {
+                "citation": {
+                    "displayName": "Citation Metadata",
+                    "fields": [{
+                            "typeName": "title",
+                            "multiple": false,
+                            "typeClass": "primitive",
+                            "value": "minimum dataset without datafiles"
+                        }, {
+                            "typeName": "author",
+                            "multiple": true,
+                            "typeClass": "compound",
+                            "value": [{
+                                    "authorName": {
+                                        "typeName": "authorName",
+                                        "multiple": false,
+                                        "typeClass": "primitive",
+                                        "value": "Admin, Dataverse"
+                                    },
+                                    "authorAffiliation": {
+                                        "typeName": "authorAffiliation",
+                                        "multiple": false,
+                                        "typeClass": "primitive",
+                                        "value": "Dataverse.org"
+                                    }
+                                }]
+                        }, {
+                            "typeName": "datasetContact",
+                            "multiple": true,
+                            "typeClass": "compound",
+                            "value": [{
+                                    "datasetContactName": {
+                                        "typeName": "datasetContactName",
+                                        "multiple": false,
+                                        "typeClass": "primitive",
+                                        "value": "Admin, Dataverse"
+                                    },
+                                    "datasetContactAffiliation": {
+                                        "typeName": "datasetContactAffiliation",
+                                        "multiple": false,
+                                        "typeClass": "primitive",
+                                        "value": "Dataverse.org"
+                                    },
+                                    "datasetContactEmail": {
+                                        "typeName": "datasetContactEmail",
+                                        "multiple": false,
+                                        "typeClass": "primitive",
+                                        "value": "asone@unc.edu"
+                                    }
+                                }]
+                        }, {
+                            "typeName": "dsDescription",
+                            "multiple": true,
+                            "typeClass": "compound",
+                            "value": [{
+                                    "dsDescriptionValue": {
+                                        "typeName": "dsDescriptionValue",
+                                        "multiple": false,
+                                        "typeClass": "primitive",
+                                        "value": "this dataset does not have a datafile"
+                                    }
+                                }]
+                        }, {
+                            "typeName": "subject",
+                            "multiple": true,
+                            "typeClass": "controlledVocabulary",
+                            "value": ["Other"]
+                        }, {
+                            "typeName": "depositor",
+                            "multiple": false,
+                            "typeClass": "primitive",
+                            "value": "Admin, Dataverse"
+                        }, {
+                            "typeName": "dateOfDeposit",
+                            "multiple": false,
+                            "typeClass": "primitive",
+                            "value": "2017-12-14"
+                        }]
+                }
+            },
+            "files": []
+        }
+    }
+}

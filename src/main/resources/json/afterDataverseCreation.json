@@ -1,0 +1,31 @@
+{
+    "status": "OK",
+    "data": {
+        "id": 7502296,
+        "alias": "zzz01",
+        "name": "Dataverse Admin Dataverse",
+        "affiliation": "UNC Odum",
+        "dataverseContacts": [],
+        "permissionRoot": true,
+        "description": "This dataverse is for internal testing only",
+        "dataverseType": "UNCATEGORIZED",
+        "ownerId": 1,
+        "creationDate": "2018-04-06T16:06:40Z",
+        "creator": {
+            "id": 1,
+            "identifier": "@dataverseAdmin",
+            "displayName": "Dataverse Admin",
+            "firstName": "Dataverse",
+            "lastName": "Admin",
+            "email": "odumarchive@unc.edu",
+            "superuser": true,
+            "affiliation": "Dataverse.org",
+            "position": "Admin",
+            "persistentUserId": "dataverseAdmin",
+            "createdTime": "2000-01-01T05:00:00Z",
+            "lastLoginTime": "2018-04-11T15:57:30Z",
+            "lastApiUseTime": "2018-04-09T17:21:14Z",
+            "authenticationProviderId": "builtin"
+        }
+    }
+}

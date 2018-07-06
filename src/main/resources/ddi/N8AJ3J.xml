@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codeBook xmlns="ddi:codebook:2_5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:codebook:2_5 http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd" version="2.5">
+    <docDscr>
+        <citation>
+            <titlStmt>
+                <titl>Test dataset to see version numbers</titl>
+                <IDNo agency="DOI">doi:10.5072/FK2/N8AJ3J</IDNo>
+            </titlStmt>
+            <distStmt>
+                <distrbtr>UNC Dataverse</distrbtr>
+                <distDate>2018-04-06</distDate>
+            </distStmt>
+            <verStmt source="DVN">
+                <version date="2018-04-06" type="RELEASED">2</version>
+            </verStmt>
+            <biblCit>
+                Admin, Dataverse, 2018, "Test dataset to see version numbers", https://doi.org/10.5072/FK2/N8AJ3J, UNC Dataverse, V2, UNF:6:ZWIYlMKfx+MHLqGRd3MLuA==
+            </biblCit>
+        </citation>
+    </docDscr>
+    <stdyDscr>
+        <citation>
+            <titlStmt>
+                <titl>Test dataset to see version numbers</titl>
+                <IDNo agency="DOI">doi:10.5072/FK2/N8AJ3J</IDNo>
+            </titlStmt>
+            <rspStmt>
+                <AuthEnty affiliation="Dataverse.org">Admin, Dataverse</AuthEnty>
+            </rspStmt>
+            <prodStmt/>
+            <distStmt>
+                <distrbtr>UNC Dataverse</distrbtr>
+                <distDate>2018-04-06</distDate>
+            </distStmt>
+        </citation>
+        <stdyInfo>
+            <subject>
+                <keyword>Other</keyword>
+            </subject>
+            <abstract>To check version-numbers</abstract>
+            <sumDscr/>
+            <contact affiliation="UNC Odum" email="asone@unc.edu">Admin, Dataverse</contact>
+            <depositr>Admin, Dataverse</depositr>
+            <depDate>2018-04-06</depDate>
+        </stdyInfo>
+        <method>
+            <dataColl/>
+            <anlyInfo/>
+        </method>
+        <useStmt>CC0 Waiver</useStmt>
+    </stdyDscr>
+    <fileDscr ID="f7502304" URI="https://dataverse-test.irss.unc.edu/api/access/datafile/7502304">
+        <fileTxt>
+            <fileName>wrld96z8_dta_12.tab</fileName>
+            <dimensns>
+                <caseQnty>10</caseQnty>
+                <varQnty>12</varQnty>
+            </dimensns>
+            <fileType>text/tab-separated-values</fileType>
+        </fileTxt>
+        <notes level="file" type="VDC:UNF" subject="Universal Numeric Fingerprint">UNF:6:MG63BIvFTMRK6Otb0lnKXA==</notes>
+    </fileDscr>
+    <fileDscr ID="f7502298" URI="https://dataverse-test.irss.unc.edu/api/access/datafile/7502298">
+        <fileTxt>
+            <fileName>wrld96z8_por_12.tab</fileName>
+            <dimensns>
+                <caseQnty>10</caseQnty>
+                <varQnty>12</varQnty>
+            </dimensns>
+            <fileType>text/tab-separated-values</fileType>
+        </fileTxt>
+        <notes level="file" type="VDC:UNF" subject="Universal Numeric Fingerprint">UNF:6:MG63BIvFTMRK6Otb0lnKXA==</notes>
+    </fileDscr>
+    <fileDscr ID="f7502300" URI="https://dataverse-test.irss.unc.edu/api/access/datafile/7502300">
+        <fileTxt>
+            <fileName>wrld96z8_sav_12.tab</fileName>
+            <dimensns>
+                <caseQnty>10</caseQnty>
+                <varQnty>12</varQnty>
+            </dimensns>
+            <fileType>text/tab-separated-values</fileType>
+        </fileTxt>
+        <notes level="file" type="VDC:UNF" subject="Universal Numeric Fingerprint">UNF:6:MG63BIvFTMRK6Otb0lnKXA==</notes>
+    </fileDscr>
+    <dataDscr>
+        <var ID="v39940910" name="ccode" intrvl="discrete">
+            <location fileid="f7502304"/>
+            <labl level="variable">country code</labl>
+            <varFormat type="character"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:4QFp4Zj0buidpN6UoHca9Q==</notes>
+        </var>
+        <var ID="v39940911" name="country" intrvl="discrete">
+            <location fileid="f7502304"/>
+            <labl level="variable">country long name</labl>
+            <varFormat type="character"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:FXNrKsbddRDGB725BP4BfQ==</notes>
+        </var>
+        <var ID="v39940903" name="phones" intrvl="contin">
+            <location fileid="f7502304"/>
+            <labl level="variable">telephone mainlines per 1000</labl>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="mean">409.30708482530383</sumStat>
+            <sumStat type="stdev">176.01005489193847</sumStat>
+            <sumStat type="medn">487.16986083984375</sumStat>
+            <sumStat type="min">148.356689453125</sumStat>
+            <sumStat type="max">613.4227294921875</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:7E2uwEwKLej3A3UkTPbxqg==</notes>
+        </var>
+        <var ID="v39940908" name="birthrat" intrvl="contin">
+            <location fileid="f7502304"/>
+            <labl level="variable">birth rate per 1000 pop</labl>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="mean">12.190740797254774</sumStat>
+            <sumStat type="max">13.633333206176758</sumStat>
+            <sumStat type="medn">12.433333396911621</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="min">10.166666984558105</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="stdev">0.9717219970019222</sumStat>
+            <varFormat type="numeric" formatname="float"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:TuY2N/4TecWqfRnov7KKSw==</notes>
+        </var>
+        <var ID="v39940914" name="gnp" intrvl="discrete">
+            <location fileid="f7502304"/>
+            <labl level="variable">gnp per capita us$</labl>
+            <sumStat type="max">40630.0</sumStat>
+            <sumStat type="vald">8.0</sumStat>
+            <sumStat type="min">2790.0</sumStat>
+            <sumStat type="mean">21750.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="stdev">14212.286435133712</sumStat>
+            <sumStat type="medn">22290.0</sumStat>
+            <sumStat type="invd">2.0</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:IMONE5YTBoGxZanolV6c/Q==</notes>
+        </var>
+        <var ID="v39940912" name="doctors" intrvl="discrete">
+            <location fileid="f7502304"/>
+            <labl level="variable">physicians per pop</labl>
+            <sumStat type="invd">5.0</sumStat>
+            <sumStat type="stdev">95.45260604090387</sumStat>
+            <sumStat type="medn">282.0</sumStat>
+            <sumStat type="min">232.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="vald">5.0</sumStat>
+            <sumStat type="max">455.0</sumStat>
+            <sumStat type="mean">329.8</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:ygyy7i6eTmZfHJ3HwBfLag==</notes>
+        </var>
+        <var ID="v39940906" name="democ" intrvl="discrete">
+            <location fileid="f7502304"/>
+            <labl level="variable">institutional democracy index</labl>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="mean">8.444444444444445</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="min">0.0</sumStat>
+            <sumStat type="medn">10.0</sumStat>
+            <sumStat type="max">10.0</sumStat>
+            <sumStat type="stdev">3.2829526005987018</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:tsVKXwllgLNiZnVoIPQ00Q==</notes>
+        </var>
+        <var ID="v39940907" name="xconst" intrvl="discrete">
+            <location fileid="f7502304"/>
+            <labl level="variable">executive constraints</labl>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="stdev">1.6914819275153699</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="min">2.0</sumStat>
+            <sumStat type="medn">7.0</sumStat>
+            <sumStat type="mean">6.111111111111111</sumStat>
+            <sumStat type="max">7.0</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">unlimite</labl>
+            </catgry>
+            <catgry>
+                <catValu>6</catValu>
+                <labl level="category">intermed</labl>
+            </catgry>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">slight t</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">intermed</labl>
+            </catgry>
+            <catgry>
+                <catValu>4</catValu>
+                <labl level="category">intermed</labl>
+            </catgry>
+            <catgry>
+                <catValu>7</catValu>
+                <labl level="category">executiv</labl>
+            </catgry>
+            <catgry>
+                <catValu>5</catValu>
+                <labl level="category">substant</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:VF7/+3MGLFrPegGD9MyXLQ==</notes>
+        </var>
+        <var ID="v39940913" name="parcomp" intrvl="discrete">
+            <location fileid="f7502304"/>
+            <labl level="variable">competitiveness of participatio</labl>
+            <sumStat type="mean">4.555555555555555</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="medn">5.0</sumStat>
+            <sumStat type="min">2.0</sumStat>
+            <sumStat type="max">5.0</sumStat>
+            <sumStat type="stdev">1.0137937550497031</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">factiona</labl>
+            </catgry>
+            <catgry>
+                <catValu>5</catValu>
+                <labl level="category">competit</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">restrict</labl>
+            </catgry>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">suppress</labl>
+            </catgry>
+            <catgry>
+                <catValu>4</catValu>
+                <labl level="category">transiti</labl>
+            </catgry>
+            <catgry>
+                <catValu>0</catValu>
+                <labl level="category">unregula</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:xSoxtTqahPbAnjsf0xyuZA==</notes>
+        </var>
+        <var ID="v39940904" name="religion" intrvl="discrete">
+            <location fileid="f7502304"/>
+            <labl level="variable">predominant religion</labl>
+            <sumStat type="medn">1.0</sumStat>
+            <sumStat type="vald">10.0</sumStat>
+            <sumStat type="mean">1.8</sumStat>
+            <sumStat type="max">7.0</sumStat>
+            <sumStat type="stdev">1.8737959096740262</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="invd">0.0</sumStat>
+            <sumStat type="min">1.0</sumStat>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">muslim</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">otrchris</labl>
+            </catgry>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">cathorth</labl>
+            </catgry>
+            <catgry>
+                <catValu>5</catValu>
+                <labl level="category">indigen</labl>
+            </catgry>
+            <catgry>
+                <catValu>4</catValu>
+                <labl level="category">buddhist</labl>
+            </catgry>
+            <catgry>
+                <catValu>7</catValu>
+                <labl level="category">nonepred</labl>
+            </catgry>
+            <catgry>
+                <catValu>6</catValu>
+                <labl level="category">other</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:Q5rBxCu++e/gnQ5k/9L8jw==</notes>
+        </var>
+        <var ID="v39940909" name="gnp2" intrvl="discrete">
+            <location fileid="f7502304"/>
+            <labl level="variable">recoded gnp, < & > 5500</labl>
+            <sumStat type="min">0.0</sumStat>
+            <sumStat type="max">1.0</sumStat>
+            <sumStat type="medn">1.0</sumStat>
+            <sumStat type="invd">2.0</sumStat>
+            <sumStat type="vald">8.0</sumStat>
+            <sumStat type="mean">0.75</sumStat>
+            <sumStat type="stdev">0.4629100498862757</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">>$5500yr</labl>
+            </catgry>
+            <catgry>
+                <catValu>0</catValu>
+                <labl level="category"><$5500yr</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:RJ684tkqEvysZNZOcSBhQQ==</notes>
+        </var>
+        <var ID="v39940905" name="srvcomp2" intrvl="discrete">
+            <location fileid="f7502304"/>
+            <labl level="variable">recoded % service labor force</labl>
+            <sumStat type="max">3.0</sumStat>
+            <sumStat type="stdev">0.7264831572567788</sumStat>
+            <sumStat type="medn">3.0</sumStat>
+            <sumStat type="mean">2.4444444444444446</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="min">1.0</sumStat>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">40-60</labl>
+            </catgry>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">< 40%</labl>
+            </catgry>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">>60%</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:10A1sJH7QmMyPfS8DpSwuQ==</notes>
+        </var>
+        <var ID="v39940884" name="CCODE" intrvl="discrete">
+            <location fileid="f7502298"/>
+            <labl level="variable">country code</labl>
+            <varFormat type="character"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:4QFp4Zj0buidpN6UoHca9Q==</notes>
+        </var>
+        <var ID="v39940880" name="COUNTRY" intrvl="discrete">
+            <location fileid="f7502298"/>
+            <labl level="variable">country long name</labl>
+            <varFormat type="character"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:FXNrKsbddRDGB725BP4BfQ==</notes>
+        </var>
+        <var ID="v39940879" name="PHONES" intrvl="contin">
+            <location fileid="f7502298"/>
+            <labl level="variable">telephone mainlines per 1000</labl>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="stdev">176.0100548919382</sumStat>
+            <sumStat type="medn">487.169860839844</sumStat>
+            <sumStat type="max">613.422729492186</sumStat>
+            <sumStat type="mean">409.3070848253038</sumStat>
+            <sumStat type="min">148.356689453125</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:7E2uwEwKLej3A3UkTPbxqg==</notes>
+        </var>
+        <var ID="v39940887" name="BIRTHRAT" intrvl="contin">
+            <location fileid="f7502298"/>
+            <labl level="variable">birth rate per 1000 pop</labl>
+            <sumStat type="medn">12.4333333969116</sumStat>
+            <sumStat type="stdev">0.9717219970019356</sumStat>
+            <sumStat type="min">10.1666669845581</sumStat>
+            <sumStat type="max">13.6333332061768</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="mean">12.190740797254788</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:TuY2N/4TecWqfRnov7KKSw==</notes>
+        </var>
+        <var ID="v39940885" name="GNP" intrvl="discrete">
+            <location fileid="f7502298"/>
+            <labl level="variable">gnp per capita us$</labl>
+            <sumStat type="mean">21750.0</sumStat>
+            <sumStat type="stdev">14212.286435133712</sumStat>
+            <sumStat type="min">2790.0</sumStat>
+            <sumStat type="max">40630.0</sumStat>
+            <sumStat type="vald">8.0</sumStat>
+            <sumStat type="medn">22290.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="invd">2.0</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:IMONE5YTBoGxZanolV6c/Q==</notes>
+        </var>
+        <var ID="v39940886" name="DOCTORS" intrvl="discrete">
+            <location fileid="f7502298"/>
+            <labl level="variable">physicians per pop</labl>
+            <sumStat type="min">232.0</sumStat>
+            <sumStat type="stdev">95.45260604090387</sumStat>
+            <sumStat type="vald">5.0</sumStat>
+            <sumStat type="invd">5.0</sumStat>
+            <sumStat type="max">455.0</sumStat>
+            <sumStat type="mean">329.8</sumStat>
+            <sumStat type="medn">282.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:ygyy7i6eTmZfHJ3HwBfLag==</notes>
+        </var>
+        <var ID="v39940882" name="DEMOC" intrvl="discrete">
+            <location fileid="f7502298"/>
+            <labl level="variable">institutional democracy index</labl>
+            <sumStat type="stdev">3.2829526005987018</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="medn">10.0</sumStat>
+            <sumStat type="max">10.0</sumStat>
+            <sumStat type="mean">8.444444444444445</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="min">0.0</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:tsVKXwllgLNiZnVoIPQ00Q==</notes>
+        </var>
+        <var ID="v39940890" name="XCONST" intrvl="discrete">
+            <location fileid="f7502298"/>
+            <labl level="variable">executive constraints</labl>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="stdev">1.6914819275153699</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="min">2.0</sumStat>
+            <sumStat type="medn">7.0</sumStat>
+            <sumStat type="mean">6.111111111111111</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="max">7.0</sumStat>
+            <catgry>
+                <catValu>4</catValu>
+                <labl level="category">intermed</labl>
+            </catgry>
+            <catgry>
+                <catValu>5</catValu>
+                <labl level="category">substant</labl>
+            </catgry>
+            <catgry>
+                <catValu>7</catValu>
+                <labl level="category">executiv</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">intermed</labl>
+            </catgry>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">slight t</labl>
+            </catgry>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">unlimite</labl>
+            </catgry>
+            <catgry>
+                <catValu>6</catValu>
+                <labl level="category">intermed</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:VF7/+3MGLFrPegGD9MyXLQ==</notes>
+        </var>
+        <var ID="v39940888" name="PARCOMP" intrvl="discrete">
+            <location fileid="f7502298"/>
+            <labl level="variable">competitiveness of participatio</labl>
+            <sumStat type="max">5.0</sumStat>
+            <sumStat type="min">2.0</sumStat>
+            <sumStat type="stdev">1.0137937550497031</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="medn">5.0</sumStat>
+            <sumStat type="mean">4.555555555555555</sumStat>
+            <catgry>
+                <catValu>0</catValu>
+                <labl level="category">unregula</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">restrict</labl>
+            </catgry>
+            <catgry>
+                <catValu>4</catValu>
+                <labl level="category">transiti</labl>
+            </catgry>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">factiona</labl>
+            </catgry>
+            <catgry>
+                <catValu>5</catValu>
+                <labl level="category">competit</labl>
+            </catgry>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">suppress</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:xSoxtTqahPbAnjsf0xyuZA==</notes>
+        </var>
+        <var ID="v39940881" name="RELIGION" intrvl="discrete">
+            <location fileid="f7502298"/>
+            <labl level="variable">predominant religion</labl>
+            <sumStat type="medn">1.0</sumStat>
+            <sumStat type="stdev">1.8737959096740262</sumStat>
+            <sumStat type="invd">0.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="min">1.0</sumStat>
+            <sumStat type="mean">1.8</sumStat>
+            <sumStat type="vald">10.0</sumStat>
+            <sumStat type="max">7.0</sumStat>
+            <catgry>
+                <catValu>4</catValu>
+                <labl level="category">buddhist</labl>
+            </catgry>
+            <catgry>
+                <catValu>7</catValu>
+                <labl level="category">nonepred</labl>
+            </catgry>
+            <catgry>
+                <catValu>6</catValu>
+                <labl level="category">other</labl>
+            </catgry>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">cathorth</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">otrchris</labl>
+            </catgry>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">muslim</labl>
+            </catgry>
+            <catgry>
+                <catValu>5</catValu>
+                <labl level="category">indigen</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:Q5rBxCu++e/gnQ5k/9L8jw==</notes>
+        </var>
+        <var ID="v39940883" name="GNP2" intrvl="discrete">
+            <location fileid="f7502298"/>
+            <labl level="variable">recoded gnp, < & > 5500</labl>
+            <sumStat type="min">0.0</sumStat>
+            <sumStat type="mean">0.75</sumStat>
+            <sumStat type="invd">2.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="medn">1.0</sumStat>
+            <sumStat type="stdev">0.4629100498862757</sumStat>
+            <sumStat type="vald">8.0</sumStat>
+            <sumStat type="max">1.0</sumStat>
+            <catgry>
+                <catValu>0</catValu>
+                <labl level="category"><$5500yr</labl>
+            </catgry>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">>$5500yr</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:RJ684tkqEvysZNZOcSBhQQ==</notes>
+        </var>
+        <var ID="v39940889" name="SRVCOMP2" intrvl="discrete">
+            <location fileid="f7502298"/>
+            <labl level="variable">recoded % service labor force</labl>
+            <sumStat type="stdev">0.7264831572567788</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="min">1.0</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="max">3.0</sumStat>
+            <sumStat type="medn">3.0</sumStat>
+            <sumStat type="mean">2.4444444444444446</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">>60%</labl>
+            </catgry>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">< 40%</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">40-60</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:10A1sJH7QmMyPfS8DpSwuQ==</notes>
+        </var>
+        <var ID="v39940897" name="ccode" intrvl="discrete">
+            <location fileid="f7502300"/>
+            <labl level="variable">country code</labl>
+            <varFormat type="character"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:4QFp4Zj0buidpN6UoHca9Q==</notes>
+        </var>
+        <var ID="v39940902" name="country" intrvl="discrete">
+            <location fileid="f7502300"/>
+            <labl level="variable">country long name</labl>
+            <varFormat type="character"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:FXNrKsbddRDGB725BP4BfQ==</notes>
+        </var>
+        <var ID="v39940899" name="phones" intrvl="contin">
+            <location fileid="f7502300"/>
+            <labl level="variable">telephone mainlines per 1000</labl>
+            <sumStat type="medn">487.16986083984375</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="max">613.4227294921875</sumStat>
+            <sumStat type="mean">409.30708482530383</sumStat>
+            <sumStat type="min">148.356689453125</sumStat>
+            <sumStat type="stdev">176.01005489193847</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:7E2uwEwKLej3A3UkTPbxqg==</notes>
+        </var>
+        <var ID="v39940901" name="birthrat" intrvl="contin">
+            <location fileid="f7502300"/>
+            <labl level="variable">birth rate per 1000 pop</labl>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="max">13.633333206176758</sumStat>
+            <sumStat type="mean">12.190740797254774</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="min">10.166666984558105</sumStat>
+            <sumStat type="stdev">0.9717219970019222</sumStat>
+            <sumStat type="medn">12.433333396911621</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:TuY2N/4TecWqfRnov7KKSw==</notes>
+        </var>
+        <var ID="v39940900" name="gnp" intrvl="discrete">
+            <location fileid="f7502300"/>
+            <labl level="variable">gnp per capita us$</labl>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="medn">22290.0</sumStat>
+            <sumStat type="vald">8.0</sumStat>
+            <sumStat type="mean">21750.0</sumStat>
+            <sumStat type="min">2790.0</sumStat>
+            <sumStat type="invd">2.0</sumStat>
+            <sumStat type="max">40630.0</sumStat>
+            <sumStat type="stdev">14212.286435133712</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:IMONE5YTBoGxZanolV6c/Q==</notes>
+        </var>
+        <var ID="v39940896" name="doctors" intrvl="discrete">
+            <location fileid="f7502300"/>
+            <labl level="variable">physicians per pop</labl>
+            <sumStat type="vald">5.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="min">232.0</sumStat>
+            <sumStat type="stdev">95.45260604090387</sumStat>
+            <sumStat type="medn">282.0</sumStat>
+            <sumStat type="max">455.0</sumStat>
+            <sumStat type="invd">5.0</sumStat>
+            <sumStat type="mean">329.8</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:ygyy7i6eTmZfHJ3HwBfLag==</notes>
+        </var>
+        <var ID="v39940894" name="democ" intrvl="discrete">
+            <location fileid="f7502300"/>
+            <labl level="variable">institutional democracy index</labl>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="medn">10.0</sumStat>
+            <sumStat type="max">10.0</sumStat>
+            <sumStat type="mean">8.444444444444445</sumStat>
+            <sumStat type="stdev">3.2829526005987018</sumStat>
+            <sumStat type="min">0.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:tsVKXwllgLNiZnVoIPQ00Q==</notes>
+        </var>
+        <var ID="v39940893" name="xconst" intrvl="discrete">
+            <location fileid="f7502300"/>
+            <labl level="variable">executive constraints</labl>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="stdev">1.6914819275153699</sumStat>
+            <sumStat type="mean">6.111111111111111</sumStat>
+            <sumStat type="min">2.0</sumStat>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="max">7.0</sumStat>
+            <sumStat type="medn">7.0</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">slight t</labl>
+            </catgry>
+            <catgry>
+                <catValu>4</catValu>
+                <labl level="category">intermed</labl>
+            </catgry>
+            <catgry>
+                <catValu>5</catValu>
+                <labl level="category">substant</labl>
+            </catgry>
+            <catgry>
+                <catValu>7</catValu>
+                <labl level="category">executiv</labl>
+            </catgry>
+            <catgry>
+                <catValu>6</catValu>
+                <labl level="category">intermed</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">intermed</labl>
+            </catgry>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">unlimite</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:VF7/+3MGLFrPegGD9MyXLQ==</notes>
+        </var>
+        <var ID="v39940895" name="parcomp" intrvl="discrete">
+            <location fileid="f7502300"/>
+            <labl level="variable">competitiveness of participatio</labl>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="max">5.0</sumStat>
+            <sumStat type="min">2.0</sumStat>
+            <sumStat type="medn">5.0</sumStat>
+            <sumStat type="mean">4.555555555555555</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="stdev">1.0137937550497031</sumStat>
+            <catgry>
+                <catValu>4</catValu>
+                <labl level="category">transiti</labl>
+            </catgry>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">suppress</labl>
+            </catgry>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">factiona</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">restrict</labl>
+            </catgry>
+            <catgry>
+                <catValu>0</catValu>
+                <labl level="category">unregula</labl>
+            </catgry>
+            <catgry>
+                <catValu>5</catValu>
+                <labl level="category">competit</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:xSoxtTqahPbAnjsf0xyuZA==</notes>
+        </var>
+        <var ID="v39940891" name="religion" intrvl="discrete">
+            <location fileid="f7502300"/>
+            <labl level="variable">predominant religion</labl>
+            <sumStat type="vald">10.0</sumStat>
+            <sumStat type="min">1.0</sumStat>
+            <sumStat type="max">7.0</sumStat>
+            <sumStat type="medn">1.0</sumStat>
+            <sumStat type="stdev">1.8737959096740262</sumStat>
+            <sumStat type="invd">0.0</sumStat>
+            <sumStat type="mean">1.8</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">cathorth</labl>
+            </catgry>
+            <catgry>
+                <catValu>4</catValu>
+                <labl level="category">buddhist</labl>
+            </catgry>
+            <catgry>
+                <catValu>7</catValu>
+                <labl level="category">nonepred</labl>
+            </catgry>
+            <catgry>
+                <catValu>6</catValu>
+                <labl level="category">other</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">otrchris</labl>
+            </catgry>
+            <catgry>
+                <catValu>5</catValu>
+                <labl level="category">indigen</labl>
+            </catgry>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">muslim</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:Q5rBxCu++e/gnQ5k/9L8jw==</notes>
+        </var>
+        <var ID="v39940898" name="gnp2" intrvl="discrete">
+            <location fileid="f7502300"/>
+            <labl level="variable">recoded gnp, < & > 5500</labl>
+            <sumStat type="vald">8.0</sumStat>
+            <sumStat type="stdev">0.4629100498862757</sumStat>
+            <sumStat type="medn">1.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="invd">2.0</sumStat>
+            <sumStat type="max">1.0</sumStat>
+            <sumStat type="mean">0.75</sumStat>
+            <sumStat type="min">0.0</sumStat>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">>$5500yr</labl>
+            </catgry>
+            <catgry>
+                <catValu>0</catValu>
+                <labl level="category"><$5500yr</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:RJ684tkqEvysZNZOcSBhQQ==</notes>
+        </var>
+        <var ID="v39940892" name="srvcomp2" intrvl="discrete">
+            <location fileid="f7502300"/>
+            <labl level="variable">recoded % service labor force</labl>
+            <sumStat type="vald">9.0</sumStat>
+            <sumStat type="mode">.</sumStat>
+            <sumStat type="max">3.0</sumStat>
+            <sumStat type="stdev">0.7264831572567788</sumStat>
+            <sumStat type="min">1.0</sumStat>
+            <sumStat type="medn">3.0</sumStat>
+            <sumStat type="invd">1.0</sumStat>
+            <sumStat type="mean">2.4444444444444446</sumStat>
+            <catgry>
+                <catValu>1</catValu>
+                <labl level="category">< 40%</labl>
+            </catgry>
+            <catgry>
+                <catValu>2</catValu>
+                <labl level="category">40-60</labl>
+            </catgry>
+            <catgry>
+                <catValu>3</catValu>
+                <labl level="category">>60%</labl>
+            </catgry>
+            <varFormat type="numeric"/>
+            <notes subject="Universal Numeric Fingerprint" level="variable" type="Dataverse:UNF">UNF:6:10A1sJH7QmMyPfS8DpSwuQ==</notes>
+        </var>
+    </dataDscr>
+    <otherMat ID="f7502303" URI="https://dataverse-test.irss.unc.edu/api/access/datafile/7502303" level="datafile">
+        <labl>12_400-405_8162010.pdf</labl>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">application/pdf</notes>
+    </otherMat>
+    <otherMat ID="f7502301" URI="https://dataverse-test.irss.unc.edu/api/access/datafile/7502301" level="datafile">
+        <labl>12_Blank_US_map_borders_labels.svg</labl>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">image/svg+xml</notes>
+    </otherMat>
+    <otherMat ID="f7502302" URI="https://dataverse-test.irss.unc.edu/api/access/datafile/7502302" level="datafile">
+        <labl>12_enforcer_menu_2012-10-08.png</labl>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">image/png</notes>
+    </otherMat>
+    <otherMat ID="f7502299" URI="https://dataverse-test.irss.unc.edu/api/access/datafile/7502299" level="datafile">
+        <labl>12_ReportData.java</labl>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">text/x-java-source</notes>
+    </otherMat>
+</codeBook>

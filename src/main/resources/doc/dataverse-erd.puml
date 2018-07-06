@@ -1,0 +1,39 @@
+@startuml
+
+entity DatasetVersion {
+}
+entity Dataset {
+}
+entity DataFile {
+}
+entity DataTable {
+}
+entity DataVariable {
+}
+entity SummaryStatistic {
+}
+entity VariableCategory {
+}
+entity FileMetadata{
+}
+entity MetadataBlock{
+}
+entity Field {
+}
+entity File {
+}
+
+
+Dataset      --{ DataFile
+Dataset      -{ DatasetVersion
+DataFile     --{ DataTable
+DataTable    --{ DataVariable
+DataVariable --{ VariableCategory
+DataVariable --{ SummaryStatistic
+MetadataBlock --{ Field
+DatasetVersion --{ MetadataBlock
+DatasetVersion --{ FileMetadata
+DatasetVersion   --{ File
+File -- DataFile
+FileMetadata -- DataFile
+@enduml

@@ -1,0 +1,103 @@
+{
+    "id": 7549096,
+    "identifier": "FKPGNM",
+    "persistentUrl": "http://dx.doi.org/10.5072/FK2/FKPGNM",
+    "protocol": "doi",
+    "authority": "10.5072/FK2",
+    "publisher": "UNC Dataverse",
+    "publicationDate": "2018-01-05",
+    "datasetVersion": {
+        "id": 33368,
+        "versionNumber": 1,
+        "versionMinorNumber": 0,
+        "versionState": "RELEASED",
+        "productionDate": "Production Date",
+        "lastUpdateTime": "2018-01-05T14:21:58Z",
+        "releaseTime": "2018-01-05T14:21:58Z",
+        "createTime": "2018-01-05T14:21:49Z",
+        "license": "CC0",
+        "termsOfUse": "CC0 Waiver",
+        "metadataBlocks": {
+            "citation": {
+                "displayName": "Citation Metadata",
+                "fields": [{
+                        "typeName": "title",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "minimum dataset with multiple subjects"
+                    }, {
+                        "typeName": "author",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "authorName": {
+                                    "typeName": "authorName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Admin, Dataverse"
+                                },
+                                "authorAffiliation": {
+                                    "typeName": "authorAffiliation",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Dataverse.org"
+                                }
+                            }]
+                    }, {
+                        "typeName": "datasetContact",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "datasetContactName": {
+                                    "typeName": "datasetContactName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Admin, Dataverse"
+                                },
+                                "datasetContactAffiliation": {
+                                    "typeName": "datasetContactAffiliation",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Dataverse.org"
+                                },
+                                "datasetContactEmail": {
+                                    "typeName": "datasetContactEmail",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "asone@unc.edu"
+                                }
+                            }]
+                    }, {
+                        "typeName": "dsDescription",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "dsDescriptionValue": {
+                                    "typeName": "dsDescriptionValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "This is the description"
+                                }
+                            }]
+                    }, {
+                        "typeName": "subject",
+                        "multiple": true,
+                        "typeClass": "controlledVocabulary",
+                        "value": ["Social Sciences", "Other"]
+                    }, {
+                        "typeName": "depositor",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "Admin, Dataverse"
+                    }, {
+                        "typeName": "dateOfDeposit",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "2018-01-05"
+                    }]
+            }
+        },
+        "files": [],
+        "citation": "Admin, Dataverse, 2018, \"minimum dataset with multiple subjects\", doi:10.5072/FK2/FKPGNM, UNC Dataverse, V1"
+    }
+}

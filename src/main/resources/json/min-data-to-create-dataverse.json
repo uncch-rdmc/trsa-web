@@ -1,0 +1,12 @@
+{
+    "alias": "new-dataverse-by-api",
+    "name": "new dataverse created by native api",
+    "affiliation": "Affiliation value",
+    "permissionRoot": true,
+    "description": "new dataverse created by native api under the root dataverse",
+    "dataverseContacts": [
+        {
+            "contactEmail": "asone@email.unc.edu"
+        }
+    ]
+}

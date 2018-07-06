@@ -1,0 +1,30 @@
+{
+    "@context": "http://schema.org",
+    "@type": "Dataset",
+    "identifier": "http://dx.doi.org/10.5072/FK2/ZZB78M",
+    "name": "minimum dataset without datafiles",
+    "author": [{
+            "name": "Admin, Dataverse",
+            "affiliation": "Dataverse.org"
+        }],
+    "datePublished": "2017-12-14",
+    "dateModified": "2017-12-14",
+    "version": "1",
+    "description": "this dataset does not have a datafile",
+    "keywords": ["Other"],
+    "schemaVersion": "https://schema.org/version/3.3",
+    "license": {
+        "@type": "Dataset",
+        "text": "CC0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    "includedInDataCatalog": {
+        "@type": "DataCatalog",
+        "name": "UNC Dataverse",
+        "url": "https://dataverse-test.irss.unc.edu"
+    },
+    "provider": {
+        "@type": "Organization",
+        "name": "Dataverse"
+    }
+}

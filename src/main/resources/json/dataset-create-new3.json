@@ -1,0 +1,258 @@
+{
+    "authority": "anAuthority",
+    "datasetVersion": {
+        "UNF": "UNF",
+        "createTime": "2014-05-20 11:52:55 -04",
+        "distributionDate": "Distribution Date",
+        "id": 1,
+        "metadataBlocks": {
+            "citation": {
+                "displayName": "Citation Metadata",
+                "fields": [
+                    {
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "typeName": "title",
+                        "value": "SampleTitle"
+                    },
+                    {
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "typeName": "author",
+                        "value": [
+                            {
+                                "authorAffiliation": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "authorAffiliation",
+                                    "value": "Top"
+                                },
+                                "authorName": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "authorName",
+                                    "value": "Privileged, Pete"
+                                }
+                            },
+                            {
+                                "authorAffiliation": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "authorAffiliation",
+                                    "value": "UMASS, Amherst"
+                                },
+                                "authorName": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "authorName",
+                                    "value": "Borrator, Colla"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "typeName": "datasetContact",
+                        "value": [
+                            {
+                                "datasetContactAffiliation": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "datasetContactAffiliation",
+                                    "value": "Sample Datasets, ltd."
+                                },
+                                "datasetContactEmail": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "datasetContactEmail",
+                                    "value": "susie@sample.com"
+                                },
+                                "datasetContactName": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "datasetContactName",
+                                    "value": "Dataverse, Admin"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "typeName": "dsDescription",
+                        "value": [
+                            {
+                                "dsDescriptionDate": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "dsDescriptionDate",
+                                    "value": "2015-01-19"
+                                },
+                                "dsDescriptionValue": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "dsDescriptionValue",
+                                    "value": "Description field filled with descriptions. "
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "multiple": true,
+                        "typeClass": "controlledVocabulary",
+                        "typeName": "subject",
+                        "value": [
+                            "Arts and Humanities",
+                            "Astronomy and Astrophysics"
+                        ]
+                    },
+                    {
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "typeName": "notesText",
+                        "value": "Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note Note note note note.\r\nNOTANOTANOTANOTANnot.e\r\n"
+                    },
+                    {
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "typeName": "distributor",
+                        "value": [
+                            {
+                                "distributorAbbreviation": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "distributorAbbreviation",
+                                    "value": "dst"
+                                },
+                                "distributorAffiliation": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "distributorAffiliation",
+                                    "value": "Science Mag"
+                                },
+                                "distributorName": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "distributorName",
+                                    "value": "Ibutor, Dist r."
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "typeName": "otherId",
+                        "value": [
+                            {
+                                "otherIdAgency": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "otherIdAgency",
+                                    "value": "NSF"
+                                },
+                                "otherIdValue": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "otherIdValue",
+                                    "value": "NSF1234"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "typeName": "productionDate",
+                        "value": "2014-02-03"
+                    },
+                    {
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "typeName": "productionPlace",
+                        "value": "Cambridge, MA"
+                    },
+                    {
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "typeName": "grantNumber",
+                        "value": [
+                            {
+                                "grantNumberAgency": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "grantNumberAgency",
+                                    "value": "NIH"
+                                },
+                                "grantNumberValue": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "grantNumberValue",
+                                    "value": "NIH1231245154"
+                                }
+                            },
+                            {
+                                "grantNumberAgency": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "grantNumberAgency",
+                                    "value": "NIH"
+                                },
+                                "grantNumberValue": {
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "typeName": "grantNumberValue",
+                                    "value": "NIH99999999"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "typeName": "depositor",
+                        "value": "Privileged, Pete"
+                    },
+                    {
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "typeName": "dateOfDeposit",
+                        "value": "2014-05-20"
+                    },
+                    {
+                        "multiple": true,
+                        "typeClass": "primitive",
+                        "typeName": "relatedMaterial",
+                        "value": [
+                            "Bananas"
+                        ]
+                    },
+                    {
+                        "multiple": true,
+                        "typeClass": "primitive",
+                        "typeName": "relatedDatasets",
+                        "value": [
+                            "Data about bananas"
+                        ]
+                    },
+                    {
+                        "multiple": true,
+                        "typeClass": "primitive",
+                        "typeName": "otherReferences",
+                        "value": [
+                            "other ref other ref other ref ef ef"
+                        ]
+                    }
+                ]
+            }
+        },
+        "productionDate": "Production Date",
+        "versionMinorNumber": 0,
+        "versionNumber": 1,
+        "versionState": "DRAFT"
+    },
+    "identifier": "dataset-three",
+    "persistentUrl": "http://dx.doi.org/10.5072/FK2/9",
+    "protocol": "chadham-house-rule"
+}

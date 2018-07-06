@@ -1,0 +1,341 @@
+{
+    "id": 14,
+    "identifier": "YIQB7Q",
+    "persistentUrl": "https://doi.org/10.5072/FK2/YIQB7Q",
+    "protocol": "doi",
+    "authority": "10.5072/FK2",
+    "publisher": "Root",
+    "publicationDate": "2018-05-08",
+    "datasetVersion": {
+        "id": 5,
+        "versionNumber": 1,
+        "versionMinorNumber": 1,
+        "versionState": "RELEASED",
+        "productionDate": "Production Date",
+        "UNF": "UNF:6:3HbF8/CEW1+Xz7COXSnsDQ==",
+        "lastUpdateTime": "2018-05-08T18:55:37Z",
+        "releaseTime": "2018-05-08T18:55:37Z",
+        "createTime": "2018-05-08T18:55:13Z",
+        "license": "CC0",
+        "termsOfUse": "CC0 Waiver",
+        "metadataBlocks": {
+            "citation": {
+                "displayName": "Citation Metadata",
+                "fields": [{
+                        "typeName": "title",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "2nd test dataset for the new api"
+                    }, {
+                        "typeName": "author",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "authorName": {
+                                    "typeName": "authorName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Admin, Dataverse"
+                                },
+                                "authorAffiliation": {
+                                    "typeName": "authorAffiliation",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Dataverse.org"
+                                }
+                            }]
+                    }, {
+                        "typeName": "datasetContact",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "datasetContactName": {
+                                    "typeName": "datasetContactName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Admin, Dataverse"
+                                },
+                                "datasetContactAffiliation": {
+                                    "typeName": "datasetContactAffiliation",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Dataverse.org"
+                                },
+                                "datasetContactEmail": {
+                                    "typeName": "datasetContactEmail",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "asone@email.unc.edu"
+                                }
+                            }]
+                    }, {
+                        "typeName": "dsDescription",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "dsDescriptionValue": {
+                                    "typeName": "dsDescriptionValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "objective: checking whether newly added JsonPrinter methods make differences in exporting metadata."
+                                }
+                            }]
+                    }, {
+                        "typeName": "subject",
+                        "multiple": true,
+                        "typeClass": "controlledVocabulary",
+                        "value": ["Other"]
+                    }]
+            }
+        },
+        "files": [{
+                "label": "13 enforcer_menu_2012-10-08.png",
+                "restricted": false,
+                "directoryLabel": "test-data-files 14/images",
+                "version": 1,
+                "datasetVersionId": 5,
+                "dataFile": {
+                    "id": 18,
+                    "filename": "13 enforcer_menu_2012-10-08.png",
+                    "contentType": "image/png",
+                    "filesize": 6173,
+                    "storageIdentifier": "16340c6f457-2dd8f41549f6",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "1ca862c29aa84178c165e52485e26799",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "1ca862c29aa84178c165e52485e26799"
+                    }
+                }
+            }, {
+                "label": "14 400-405_8162010.pdf",
+                "restricted": false,
+                "directoryLabel": "test-data-files 14/pdf",
+                "version": 1,
+                "datasetVersionId": 5,
+                "dataFile": {
+                    "id": 17,
+                    "filename": "14 400-405_8162010.pdf",
+                    "contentType": "application/pdf",
+                    "filesize": 528587,
+                    "storageIdentifier": "16340c6f473-bb658fbd2267",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "504e5c3a4431ab2518bbdd6f3993a346",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "504e5c3a4431ab2518bbdd6f3993a346"
+                    }
+                }
+            }, {
+                "label": "14 New Text Document.txt",
+                "restricted": false,
+                "directoryLabel": "test-data-files 14",
+                "version": 1,
+                "datasetVersionId": 5,
+                "dataFile": {
+                    "id": 20,
+                    "filename": "14 New Text Document.txt",
+                    "contentType": "text/plain",
+                    "filesize": 0,
+                    "storageIdentifier": "16340c6f43a-c065b996ccc1",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "d41d8cd98f00b204e9800998ecf8427e",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "d41d8cd98f00b204e9800998ecf8427e"
+                    }
+                }
+            }, {
+                "label": "14 ReportData.java",
+                "restricted": false,
+                "directoryLabel": "test-data-files 14",
+                "version": 1,
+                "datasetVersionId": 5,
+                "dataFile": {
+                    "id": 19,
+                    "filename": "14 ReportData.java",
+                    "contentType": "text/x-java-source",
+                    "filesize": 14091,
+                    "storageIdentifier": "16340c6f43d-af5d356410e5",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "951615f3d5bacf4562a8b55af33f96e7",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "951615f3d5bacf4562a8b55af33f96e7"
+                    }
+                }
+            }, {
+                "label": "readme.md",
+                "restricted": false,
+                "directoryLabel": "test-data-files 14",
+                "version": 1,
+                "datasetVersionId": 5,
+                "dataFile": {
+                    "id": 16,
+                    "filename": "readme.md",
+                    "contentType": "application/octet-stream",
+                    "filesize": 42,
+                    "storageIdentifier": "16340c6f487-f8230ce0ef54",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "19eb8c9d9828490d05a0a28520fc7bd3",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "19eb8c9d9828490d05a0a28520fc7bd3"
+                    }
+                }
+            }, {
+                "label": "wrld96z8 sav 14.tab",
+                "restricted": false,
+                "directoryLabel": "test-data-files 14/binary data files",
+                "version": 1,
+                "datasetVersionId": 5,
+                "dataFile": {
+                    "id": 15,
+                    "filename": "wrld96z8 sav 14.tab",
+                    "contentType": "text/tab-separated-values",
+                    "filesize": 328,
+                    "storageIdentifier": "16340c6f455-b2a84a731366",
+                    "originalFileFormat": "application/x-spss-sav",
+                    "originalFormatLabel": "SPSS SAV",
+                    "UNF": "UNF:6:3HbF8/CEW1+Xz7COXSnsDQ==",
+                    "rootDataFileId": -1,
+                    "md5": "5f301b7af55bc4cf169609987e159f94",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "5f301b7af55bc4cf169609987e159f94"
+                    },
+                    "dataTables": [{
+                            "dataTable": {
+                                "varQuantity": 5,
+                                "caseQuantity": 10,
+                                "UNF": "UNF:6:3HbF8/CEW1+Xz7COXSnsDQ==",
+                                "dataVariables": [{
+                                        "name": "country",
+                                        "label": "country long name",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "CHARACTER",
+                                        "orderedFactor": false,
+                                        "fileOrder": 0,
+                                        "UNF": "UNF:6:FXNrKsbddRDGB725BP4BfQ=="
+                                    }, {
+                                        "name": "phones",
+                                        "label": "telephone mainlines per 1000",
+                                        "weighted": false,
+                                        "variableIntervalType": "contin",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 1,
+                                        "UNF": "UNF:6:7E2uwEwKLej3A3UkTPbxqg==",
+                                        "summaryStatistics": {
+                                            "mean": "409.30708482530383",
+                                            "medn": "487.16986083984375",
+                                            "min": "148.356689453125",
+                                            "mode": ".",
+                                            "invd": "1.0",
+                                            "max": "613.4227294921875",
+                                            "vald": "9.0",
+                                            "stdev": "176.01005489193847"
+                                        }
+                                    }, {
+                                        "name": "doctors",
+                                        "label": "physicians per pop",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 2,
+                                        "UNF": "UNF:6:ygyy7i6eTmZfHJ3HwBfLag==",
+                                        "summaryStatistics": {
+                                            "mean": "329.8",
+                                            "max": "455.0",
+                                            "medn": "282.0",
+                                            "mode": ".",
+                                            "vald": "5.0",
+                                            "stdev": "95.45260604090387",
+                                            "invd": "5.0",
+                                            "min": "232.0"
+                                        }
+                                    }, {
+                                        "name": "xconst",
+                                        "label": "executive constraints",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 3,
+                                        "UNF": "UNF:6:VF7/+3MGLFrPegGD9MyXLQ==",
+                                        "summaryStatistics": {
+                                            "medn": "7.0",
+                                            "mean": "6.111111111111111",
+                                            "invd": "1.0",
+                                            "min": "2.0",
+                                            "stdev": "1.6914819275153699",
+                                            "mode": ".",
+                                            "max": "7.0",
+                                            "vald": "9.0"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "unlimite",
+                                                "value": "1"
+                                            }, {
+                                                "label": "intermed",
+                                                "value": "4"
+                                            }, {
+                                                "label": "intermed",
+                                                "value": "6"
+                                            }, {
+                                                "label": "intermed",
+                                                "value": "2"
+                                            }, {
+                                                "label": "substant",
+                                                "value": "5"
+                                            }, {
+                                                "label": "executiv",
+                                                "value": "7"
+                                            }, {
+                                                "label": "slight t",
+                                                "value": "3"
+                                            }]
+                                    }, {
+                                        "name": "srvcomp2",
+                                        "label": "recoded  % service labor force",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 4,
+                                        "UNF": "UNF:6:10A1sJH7QmMyPfS8DpSwuQ==",
+                                        "summaryStatistics": {
+                                            "medn": "3.0",
+                                            "stdev": "0.7264831572567788",
+                                            "mean": "2.4444444444444446",
+                                            "max": "3.0",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "min": "1.0",
+                                            "invd": "1.0"
+                                        },
+                                        "variableCategories": [{
+                                                "label": ">60%",
+                                                "value": "3"
+                                            }, {
+                                                "label": "< 40%",
+                                                "value": "1"
+                                            }, {
+                                                "label": "40-60",
+                                                "value": "2"
+                                            }]
+                                    }]
+                            }
+                        }]
+                }
+            }],
+        "citation": "Admin, Dataverse, 2018, \"2nd test dataset for the new api\", https://doi.org/10.5072/FK2/YIQB7Q, Root, V1, UNF:6:3HbF8/CEW1+Xz7COXSnsDQ=="
+    }
+}

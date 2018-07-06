@@ -1,0 +1,111 @@
+{
+    "status": "OK",
+    "data": {
+        "q": "title:carolina",
+        "total_count": 268,
+        "start": 0,
+        "spelling_alternatives": {},
+        "items": [{
+                "name": "North Carolina survey on aging",
+                "type": "dataset",
+                "url": "http://hdl.handle.net/1902.29/D-330",
+                "global_id": "hdl:1902.29/D-330",
+                "description": "This survey gathered data on the following: housing, health, social relations and activities, life satisfaction, independence, and economics. Respondents assessed neighborhood privacy, crime, quality of housing, and economic well-being.",
+                "published_at": "2007-11-30T00:00:00Z",
+                "citationHtml": "Research Triangle Institute; Governor's Council on Aging, 2007, \"North Carolina survey on aging\", <a href=\"http://hdl.handle.net/1902.29/D-330\" target=\"_blank\">hdl:1902.29/D-330</a>, UNC Dataverse, V1",
+                "citation": "Research Triangle Institute; Governor's Council on Aging, 2007, \"North Carolina survey on aging\", hdl:1902.29/D-330, UNC Dataverse, V1",
+                "authors": ["Research Triangle Institute", "Governor's Council on Aging"]
+            }, {
+                "name": "North Carolina ... tomorrow",
+                "type": "dataset",
+                "url": "http://hdl.handle.net/1902.29/D-630",
+                "global_id": "hdl:1902.29/D-630",
+                "description": "This survey is a mass survey that was distributed through various media agencies including newspapers and the public schools. Opinions were gathered on citizens' attitudes toward state government and state services, the tax structure, and problems facing the state. Respondents were also asked to choose the most important factors in selecting a place to live.",
+                "published_at": "2007-11-30T00:00:00Z",
+                "citationHtml": "North Carolina Department of Administration; North Carolina, 2007, \"North Carolina ... tomorrow\", <a href=\"http://hdl.handle.net/1902.29/D-630\" target=\"_blank\">hdl:1902.29/D-630</a>, UNC Dataverse, V1",
+                "citation": "North Carolina Department of Administration; North Carolina, 2007, \"North Carolina ... tomorrow\", hdl:1902.29/D-630, UNC Dataverse, V1",
+                "authors": ["North Carolina Department of Administration", "North Carolina"]
+            }, {
+                "name": "Carolina Poll, Spring 1984",
+                "type": "dataset",
+                "url": "http://hdl.handle.net/1902.29/D-30463",
+                "global_id": "hdl:1902.29/D-30463",
+                "description": "This survey asked questions of political and social concerns, including rating of President Reagan, candidate preference for US Senate (Hunt vs. Helms) and President, NC Governor, voting behavior, social security, church attendance, education in NC, abortion, death penalty, ERA, federal budget, computers, and media use.",
+                "published_at": "2007-11-30T00:00:00Z",
+                "citationHtml": "School of Journalism, University of North Carolina at Chapel Hill, 1984, \"Carolina Poll, Spring 1984\", <a href=\"http://hdl.handle.net/1902.29/D-30463\" target=\"_blank\">hdl:1902.29/D-30463</a>, UNC Dataverse, V1",
+                "citation": "School of Journalism, University of North Carolina at Chapel Hill, 1984, \"Carolina Poll, Spring 1984\", hdl:1902.29/D-30463, UNC Dataverse, V1",
+                "authors": ["School of Journalism, University of North Carolina at Chapel Hill"]
+            }, {
+                "name": "Carolina Poll, Spring 1983",
+                "type": "dataset",
+                "url": "http://hdl.handle.net/1902.29/D-30461",
+                "global_id": "hdl:1902.29/D-30461",
+                "description": "This survey asked questions of political and social concerns, including rating of President Reagan, candidate preference for US Senate (Hunt vs. Helms), economy, alcohol, lottery, second four-year term for Governor, computers, social security system, smoking, media use, freedom of speech, censorship of books, and freedom of the press.",
+                "published_at": "2007-11-30T00:00:00Z",
+                "citationHtml": "School of Journalism, University of North Carolina at Chapel Hill, 1983, \"Carolina Poll, Spring 1983\", <a href=\"http://hdl.handle.net/1902.29/D-30461\" target=\"_blank\">hdl:1902.29/D-30461</a>, UNC Dataverse, V1",
+                "citation": "School of Journalism, University of North Carolina at Chapel Hill, 1983, \"Carolina Poll, Spring 1983\", hdl:1902.29/D-30461, UNC Dataverse, V1",
+                "authors": ["School of Journalism, University of North Carolina at Chapel Hill"]
+            }, {
+                "name": "Carolina Poll, Fall 1982",
+                "type": "dataset",
+                "url": "http://hdl.handle.net/1902.29/D-30460",
+                "global_id": "hdl:1902.29/D-30460",
+                "description": "This survey asked questions of political and social concerns, including rating of President Reagan, candidate preference for US Senate (Hunt vs. Helms), abortion, prayer in schools, theory of evolution in the schools, tax on cigarettes, freeze on nuclear weapons, acid rain, cancer, pollution, casino gambling, TV viewing, and media use, knowledge of UNC Public TV.",
+                "published_at": "2007-11-30T00:00:00Z",
+                "citationHtml": "School of Journalism, University of North Carolina at Chapel Hill, 1982, \"Carolina Poll, Fall 1982\", <a href=\"http://hdl.handle.net/1902.29/D-30460\" target=\"_blank\">hdl:1902.29/D-30460</a>, UNC Dataverse, V1",
+                "citation": "School of Journalism, University of North Carolina at Chapel Hill, 1982, \"Carolina Poll, Fall 1982\", hdl:1902.29/D-30460, UNC Dataverse, V1",
+                "authors": ["School of Journalism, University of North Carolina at Chapel Hill"]
+            }, {
+                "name": "Carolina Poll, Spring 1982",
+                "type": "dataset",
+                "url": "http://hdl.handle.net/1902.29/D-30459",
+                "global_id": "hdl:1902.29/D-30459",
+                "description": "This survey asked questions of political and social concerns, including North Carolina as a place to live, rating of President Reagan, new federalism, candidate preference for US Senate and NC Governor, drunk driving, media use, and knowledge of UNC Center for Public TV.",
+                "published_at": "2007-11-30T00:00:00Z",
+                "citationHtml": "School of Journalism, University of North Carolina at Chapel Hill, 1982, \"Carolina Poll, Spring 1982\", <a href=\"http://hdl.handle.net/1902.29/D-30459\" target=\"_blank\">hdl:1902.29/D-30459</a>, UNC Dataverse, V1",
+                "citation": "School of Journalism, University of North Carolina at Chapel Hill, 1982, \"Carolina Poll, Spring 1982\", hdl:1902.29/D-30459, UNC Dataverse, V1",
+                "authors": ["School of Journalism, University of North Carolina at Chapel Hill"]
+            }, {
+                "name": "Carolina Poll, Fall 1980",
+                "type": "dataset",
+                "url": "http://hdl.handle.net/1902.29/D-30456",
+                "global_id": "hdl:1902.29/D-30456",
+                "description": "This survey asked questions of political and social concerns, including quality of life, seat belts, candidate preference for US President, cancer information, TV viewing and knowledge of UNC Center for Public TV.",
+                "published_at": "2007-11-30T00:00:00Z",
+                "citationHtml": "School of Journalism, University of North Carolina at Chapel Hill, 1980, \"Carolina Poll, Fall 1980\", <a href=\"http://hdl.handle.net/1902.29/D-30456\" target=\"_blank\">hdl:1902.29/D-30456</a>, UNC Dataverse, V1",
+                "citation": "School of Journalism, University of North Carolina at Chapel Hill, 1980, \"Carolina Poll, Fall 1980\", hdl:1902.29/D-30456, UNC Dataverse, V1",
+                "authors": ["School of Journalism, University of North Carolina at Chapel Hill"]
+            }, {
+                "name": "Carolina Poll, Fall 1981",
+                "type": "dataset",
+                "url": "http://hdl.handle.net/1902.29/D-30458",
+                "global_id": "hdl:1902.29/D-30458",
+                "description": "This survey asked questions of political and social concerns, including rating of Hunt, Helms, and Reagan, candidate preference for US Senate, Nixon library at Duke University, best barbecue, North Carolina best features, knowledge of foreign people and places, city tax, media use, and quality of life.",
+                "published_at": "2007-11-30T00:00:00Z",
+                "citationHtml": "School of Journalism, University of North Carolina at Chapel Hill, 1981, \"Carolina Poll, Fall 1981\", <a href=\"http://hdl.handle.net/1902.29/D-30458\" target=\"_blank\">hdl:1902.29/D-30458</a>, UNC Dataverse, V1",
+                "citation": "School of Journalism, University of North Carolina at Chapel Hill, 1981, \"Carolina Poll, Fall 1981\", hdl:1902.29/D-30458, UNC Dataverse, V1",
+                "authors": ["School of Journalism, University of North Carolina at Chapel Hill"]
+            }, {
+                "name": "Carolina Poll, Spring 1980",
+                "type": "dataset",
+                "url": "http://hdl.handle.net/1902.29/D-30455",
+                "global_id": "hdl:1902.29/D-30455",
+                "description": "This survey asked questions of political and social concerns, including local services of public libraries, parks, police, garbage collection and the court system, cancer information, TV viewing, and local elections.",
+                "published_at": "2007-11-30T00:00:00Z",
+                "citationHtml": "School of Journalism, University of North Carolina at Chapel Hill, 1980, \"Carolina Poll, Spring 1980\", <a href=\"http://hdl.handle.net/1902.29/D-30455\" target=\"_blank\">hdl:1902.29/D-30455</a>, UNC Dataverse, V1",
+                "citation": "School of Journalism, University of North Carolina at Chapel Hill, 1980, \"Carolina Poll, Spring 1980\", hdl:1902.29/D-30455, UNC Dataverse, V1",
+                "authors": ["School of Journalism, University of North Carolina at Chapel Hill"]
+            }, {
+                "name": "Carolina Poll, Fall 1979",
+                "type": "dataset",
+                "url": "http://hdl.handle.net/1902.29/D-30454",
+                "global_id": "hdl:1902.29/D-30454",
+                "description": "This survey asked questions of political and social concerns, including rating of President Carter and Governor Hunt, SALT treaty, Soviet troops in Cuba, local schools, alienation, TV and reading habits, and source of TV programming.",
+                "published_at": "2007-11-30T00:00:00Z",
+                "citationHtml": "School of Journalism, University of North Carolina at Chapel Hill, 1979, \"Carolina Poll, Fall 1979\", <a href=\"http://hdl.handle.net/1902.29/D-30454\" target=\"_blank\">hdl:1902.29/D-30454</a>, UNC Dataverse, V1",
+                "citation": "School of Journalism, University of North Carolina at Chapel Hill, 1979, \"Carolina Poll, Fall 1979\", hdl:1902.29/D-30454, UNC Dataverse, V1",
+                "authors": ["School of Journalism, University of North Carolina at Chapel Hill"]
+            }],
+        "count_in_response": 10
+    }
+}

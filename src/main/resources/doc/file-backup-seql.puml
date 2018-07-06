@@ -1,0 +1,20 @@
+@startuml
+participant ":ISB" as isb
+participant "dataFile:DataFile" as df
+
+participant ":DataAccess" as dac
+participant "dataAccess:StorageIO<DataFile>" as da
+participant ":FileAccessIO" as faio
+
+isb -> df : getStorageIO()
+df -> dac : getStorageIO()
+dac -> da : getStorageIO()
+da -> faio: new FileAccessIO(dataFile, null) 
+faio -> isb : dataAccess
+isb -> faio : open()
+isb -> faio : backupAsAux("orig")
+note right : rename (attach the extention ".orig" to)\n a Datatable-generated DataFile 
+isb ->  faio : savePath(tabFile.getAbsolutePath())
+note right : copy tabFile to its Dataset Directory
+isb -> isb : delete the tabFile
+@enduml

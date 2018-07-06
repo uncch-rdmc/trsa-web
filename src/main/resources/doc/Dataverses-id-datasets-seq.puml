@@ -1,0 +1,21 @@
+@startuml
+actor apiClient
+apiClient ->Dataverses: post /{identifier}/datasets
+activate Dataverses
+Dataverses -> JsonObject: create JsonObject
+activate JsonObject
+Dataverses -> Dataset: create a new Dataset
+activate Dataset
+Dataverses -> Dataset: set its owner (Dataverse)
+Dataverses -> JsonObject: get JsonVerison
+Dataverses -> DatasetVersion: create DasetVersion
+
+DatasetVersion -> Dataset: set its Dataset
+Dataverses -> JsonParser: parse JsonObject
+note left: "if no versionNumber, -1 is used;\n a sample json file uses 1"
+Dataverses -> DatasetVersion: furbish DatasetVersion
+Dataverses -> Dataverses: create an empty list of DatasetVersion
+Dataverses -> Dataverses: add DatasetVersion to the above list
+Dataverses -> Dataset: set the list to Dataset 
+
+@end uml

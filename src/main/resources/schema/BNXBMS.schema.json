@@ -1,0 +1,30 @@
+{
+    "@context": "http://schema.org",
+    "@type": "Dataset",
+    "identifier": "http://dx.doi.org/10.5072/FK2/BNXBMS",
+    "name": "mini2 test dataset",
+    "author": [{
+            "name": "Admin, Dataverse",
+            "affiliation": "Dataverse.org"
+        }],
+    "datePublished": "2017-12-12",
+    "dateModified": "2017-12-12",
+    "version": "1",
+    "description": "required field(d)",
+    "keywords": ["Other"],
+    "schemaVersion": "https://schema.org/version/3.3",
+    "license": {
+        "@type": "Dataset",
+        "text": "CC0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    "includedInDataCatalog": {
+        "@type": "DataCatalog",
+        "name": "UNC Dataverse",
+        "url": "https://dataverse-test.irss.unc.edu"
+    },
+    "provider": {
+        "@type": "Organization",
+        "name": "Dataverse"
+    }
+}

@@ -1,0 +1,1141 @@
+{
+    "id": 1,
+    "identifier": "DS9IGZ",
+    "persistentUrl": "http://dx.doi.org/10.5072/FK2/DS9IGZ",
+    "protocol": "doi",
+    "authority": "10.5072/FK2",
+    "publisher": "",
+    "datasetVersion": {
+        "id": 1,
+        "versionNumber": 1,
+        "versionMinorNumber": 0,
+        "versionState": "DRAFT",
+        "productionDate": "Production Date",
+        "lastUpdateTime": "2018-04-26T03:31:15Z",
+        "createTime": "2018-04-26T03:31:05Z",
+        "license": "CC0",
+        "termsOfUse": "CC0 Waiver",
+        "metadataBlocks": {},
+        "files": [{
+                "description": "",
+                "label": "13 New Text Document.txt",
+                "restricted": false,
+                "directoryLabel": "test-data-files_13",
+                "version": 1,
+                "datasetVersionId": 1,
+                "dataFile": {
+                    "id": 1,
+                    "filename": "13 New Text Document.txt",
+                    "contentType": "text/plain",
+                    "filesize": 0,
+                    "description": "",
+                    "storageIdentifier": "16300012818-01f894c3c8b9",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "d41d8cd98f00b204e9800998ecf8427e",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "d41d8cd98f00b204e9800998ecf8427e"
+                    }
+                }
+            }, {
+                "description": "",
+                "label": "13 ReportData.java",
+                "restricted": false,
+                "directoryLabel": "test-data-files_13",
+                "version": 1,
+                "datasetVersionId": 1,
+                "dataFile": {
+                    "id": 9,
+                    "filename": "13 ReportData.java",
+                    "contentType": "application/octet-stream",
+                    "filesize": 14091,
+                    "description": "",
+                    "storageIdentifier": "1630001282d-5ba80f68cddd",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "951615f3d5bacf4562a8b55af33f96e7",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "951615f3d5bacf4562a8b55af33f96e7"
+                    }
+                }
+            }, {
+                "description": "",
+                "label": "wrld96z8 dta 13.dta",
+                "restricted": false,
+                "directoryLabel": "test-data-files_13/binary_data_files",
+                "version": 1,
+                "datasetVersionId": 1,
+                "dataFile": {
+                    "id": 6,
+                    "filename": "wrld96z8 dta 13.dta",
+                    "contentType": "text/tab-separated-values",
+                    "filesize": 600,
+                    "description": "",
+                    "storageIdentifier": "1630001284a-0f4ce6e94d2b",
+                    "originalFileFormat": "application/x-stata",
+                    "originalFormatLabel": "application/x-stata",
+                    "UNF": "UNF:6:eigfejXbDluB7NfJIusKaw==",
+                    "rootDataFileId": -1,
+                    "md5": "2385f5f725d612c5f621a94f55d25683",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "2385f5f725d612c5f621a94f55d25683"
+                    },
+                    "dataTables": [{
+                            "dataTable": {
+                                "varQuantity": 12,
+                                "caseQuantity": 10,
+                                "UNF": "UNF:6:eigfejXbDluB7NfJIusKaw==",
+                                "dataVariables": [{
+                                        "name": "ccode",
+                                        "label": "country code",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "CHARACTER",
+                                        "orderedFactor": false,
+                                        "fileOrder": 0,
+                                        "UNF": "UNF:6:4QFp4Zj0buidpN6UoHca9Q==",
+                                        "summaryStatistics": {},
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "country",
+                                        "label": "country long name",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "CHARACTER",
+                                        "orderedFactor": false,
+                                        "fileOrder": 1,
+                                        "UNF": "UNF:6:FXNrKsbddRDGB725BP4BfQ==",
+                                        "summaryStatistics": {},
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "phones",
+                                        "label": "telephone mainlines per 1000",
+                                        "weighted": false,
+                                        "variableIntervalType": "contin",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 2,
+                                        "UNF": "UNF:6:7E2uwEwKLej3A3UkTPbxqg==",
+                                        "summaryStatistics": {
+                                            "mean": "409.30708482530383",
+                                            "medn": "487.16986083984375",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "148.356689453125",
+                                            "max": "613.4227294921875",
+                                            "stdev": "176.01005489193847"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "birthrat",
+                                        "label": "birth rate per 1000 pop",
+                                        "weighted": false,
+                                        "variableIntervalType": "contin",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 3,
+                                        "UNF": "UNF:6:TuY2N/4TecWqfRnov7KKSw==",
+                                        "summaryStatistics": {
+                                            "mean": "12.190740797254774",
+                                            "medn": "12.433333396911621",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "10.166666984558105",
+                                            "max": "13.633333206176758",
+                                            "stdev": "0.9717219970019222"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "gnp",
+                                        "label": "gnp per capita us$",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 4,
+                                        "UNF": "UNF:6:IMONE5YTBoGxZanolV6c/Q==",
+                                        "summaryStatistics": {
+                                            "mean": "21750.0",
+                                            "medn": "22290.0",
+                                            "mode": ".",
+                                            "vald": "8.0",
+                                            "invd": "2.0",
+                                            "min": "2790.0",
+                                            "max": "40630.0",
+                                            "stdev": "14212.286435133712"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "doctors",
+                                        "label": "physicians per pop",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 5,
+                                        "UNF": "UNF:6:ygyy7i6eTmZfHJ3HwBfLag==",
+                                        "summaryStatistics": {
+                                            "mean": "329.8",
+                                            "medn": "282.0",
+                                            "mode": ".",
+                                            "vald": "5.0",
+                                            "invd": "5.0",
+                                            "min": "232.0",
+                                            "max": "455.0",
+                                            "stdev": "95.45260604090387"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "democ",
+                                        "label": "institutional democracy index",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 6,
+                                        "UNF": "UNF:6:tsVKXwllgLNiZnVoIPQ00Q==",
+                                        "summaryStatistics": {
+                                            "mean": "8.444444444444445",
+                                            "medn": "10.0",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "0.0",
+                                            "max": "10.0",
+                                            "stdev": "3.2829526005987018"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "xconst",
+                                        "label": "executive constraints",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 7,
+                                        "UNF": "UNF:6:VF7/+3MGLFrPegGD9MyXLQ==",
+                                        "summaryStatistics": {
+                                            "mean": "6.111111111111111",
+                                            "medn": "7.0",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "2.0",
+                                            "max": "7.0",
+                                            "stdev": "1.6914819275153699"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "unlimite",
+                                                "value": "1"
+                                            }, {
+                                                "label": "intermed",
+                                                "value": "2"
+                                            }, {
+                                                "label": "slight t",
+                                                "value": "3"
+                                            }, {
+                                                "label": "intermed",
+                                                "value": "4"
+                                            }, {
+                                                "label": "substant",
+                                                "value": "5"
+                                            }, {
+                                                "label": "intermed",
+                                                "value": "6"
+                                            }, {
+                                                "label": "executiv",
+                                                "value": "7"
+                                            }]
+                                    }, {
+                                        "name": "parcomp",
+                                        "label": "competitiveness of participatio",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 8,
+                                        "UNF": "UNF:6:xSoxtTqahPbAnjsf0xyuZA==",
+                                        "summaryStatistics": {
+                                            "mean": "4.555555555555555",
+                                            "medn": "5.0",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "2.0",
+                                            "max": "5.0",
+                                            "stdev": "1.0137937550497031"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "unregula",
+                                                "value": "0"
+                                            }, {
+                                                "label": "suppress",
+                                                "value": "1"
+                                            }, {
+                                                "label": "restrict",
+                                                "value": "2"
+                                            }, {
+                                                "label": "factiona",
+                                                "value": "3"
+                                            }, {
+                                                "label": "transiti",
+                                                "value": "4"
+                                            }, {
+                                                "label": "competit",
+                                                "value": "5"
+                                            }]
+                                    }, {
+                                        "name": "religion",
+                                        "label": "predominant religion",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 9,
+                                        "UNF": "UNF:6:Q5rBxCu++e/gnQ5k/9L8jw==",
+                                        "summaryStatistics": {
+                                            "mean": "1.8",
+                                            "medn": "1.0",
+                                            "mode": ".",
+                                            "vald": "10.0",
+                                            "invd": "0.0",
+                                            "min": "1.0",
+                                            "max": "7.0",
+                                            "stdev": "1.8737959096740262"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "cathorth",
+                                                "value": "1"
+                                            }, {
+                                                "label": "otrchris",
+                                                "value": "2"
+                                            }, {
+                                                "label": "muslim",
+                                                "value": "3"
+                                            }, {
+                                                "label": "buddhist",
+                                                "value": "4"
+                                            }, {
+                                                "label": "indigen",
+                                                "value": "5"
+                                            }, {
+                                                "label": "other",
+                                                "value": "6"
+                                            }, {
+                                                "label": "nonepred",
+                                                "value": "7"
+                                            }]
+                                    }, {
+                                        "name": "gnp2",
+                                        "label": "recoded gnp,  < & > 5500",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 10,
+                                        "UNF": "UNF:6:RJ684tkqEvysZNZOcSBhQQ==",
+                                        "summaryStatistics": {
+                                            "mean": "0.75",
+                                            "medn": "1.0",
+                                            "mode": ".",
+                                            "vald": "8.0",
+                                            "invd": "2.0",
+                                            "min": "0.0",
+                                            "max": "1.0",
+                                            "stdev": "0.4629100498862757"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "<$5500yr",
+                                                "value": "0"
+                                            }, {
+                                                "label": ">$5500yr",
+                                                "value": "1"
+                                            }]
+                                    }, {
+                                        "name": "srvcomp2",
+                                        "label": "recoded  % service labor force",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 11,
+                                        "UNF": "UNF:6:BnkkbWxCFt4NqgjlUj+yZw==",
+                                        "summaryStatistics": {
+                                            "mean": "NaN",
+                                            "medn": "NaN",
+                                            "mode": ".",
+                                            "vald": "0.0",
+                                            "invd": "10.0",
+                                            "min": "NaN",
+                                            "max": "NaN",
+                                            "stdev": "NaN"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "< 40%",
+                                                "value": "1"
+                                            }, {
+                                                "label": "40-60",
+                                                "value": "2"
+                                            }, {
+                                                "label": ">60%",
+                                                "value": "3"
+                                            }]
+                                    }]
+                            }
+                        }]
+                }
+            }, {
+                "description": "",
+                "label": "wrld96z8 por 13.por",
+                "restricted": false,
+                "directoryLabel": "test-data-files_13/binary_data_files",
+                "version": 1,
+                "datasetVersionId": 1,
+                "dataFile": {
+                    "id": 4,
+                    "filename": "wrld96z8 por 13.por",
+                    "contentType": "text/tab-separated-values",
+                    "filesize": 672,
+                    "description": "",
+                    "storageIdentifier": "16300012864-5633f6066b3e",
+                    "originalFileFormat": "application/x-spss-por",
+                    "originalFormatLabel": "application/x-spss-por",
+                    "UNF": "UNF:6:eigfejXbDluB7NfJIusKaw==",
+                    "rootDataFileId": -1,
+                    "md5": "9925a62c824cb25e39e0172e83267dc1",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "9925a62c824cb25e39e0172e83267dc1"
+                    },
+                    "dataTables": [{
+                            "dataTable": {
+                                "varQuantity": 12,
+                                "caseQuantity": 10,
+                                "UNF": "UNF:6:eigfejXbDluB7NfJIusKaw==",
+                                "dataVariables": [{
+                                        "name": "CCODE",
+                                        "label": "country code",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "CHARACTER",
+                                        "orderedFactor": false,
+                                        "fileOrder": 0,
+                                        "UNF": "UNF:6:4QFp4Zj0buidpN6UoHca9Q==",
+                                        "summaryStatistics": {},
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "COUNTRY",
+                                        "label": "country long name",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "CHARACTER",
+                                        "orderedFactor": false,
+                                        "fileOrder": 1,
+                                        "UNF": "UNF:6:FXNrKsbddRDGB725BP4BfQ==",
+                                        "summaryStatistics": {},
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "PHONES",
+                                        "label": "telephone mainlines per 1000",
+                                        "weighted": false,
+                                        "variableIntervalType": "contin",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 2,
+                                        "UNF": "UNF:6:7E2uwEwKLej3A3UkTPbxqg==",
+                                        "summaryStatistics": {
+                                            "mean": "409.3070848253038",
+                                            "medn": "487.169860839844",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "148.356689453125",
+                                            "max": "613.422729492186",
+                                            "stdev": "176.0100548919382"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "BIRTHRAT",
+                                        "label": "birth rate per 1000 pop",
+                                        "weighted": false,
+                                        "variableIntervalType": "contin",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 3,
+                                        "UNF": "UNF:6:TuY2N/4TecWqfRnov7KKSw==",
+                                        "summaryStatistics": {
+                                            "mean": "12.190740797254788",
+                                            "medn": "12.4333333969116",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "10.1666669845581",
+                                            "max": "13.6333332061768",
+                                            "stdev": "0.9717219970019356"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "GNP",
+                                        "label": "gnp per capita us$",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 4,
+                                        "UNF": "UNF:6:IMONE5YTBoGxZanolV6c/Q==",
+                                        "summaryStatistics": {
+                                            "mean": "21750.0",
+                                            "medn": "22290.0",
+                                            "mode": ".",
+                                            "vald": "8.0",
+                                            "invd": "2.0",
+                                            "min": "2790.0",
+                                            "max": "40630.0",
+                                            "stdev": "14212.286435133712"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "DOCTORS",
+                                        "label": "physicians per pop",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 5,
+                                        "UNF": "UNF:6:ygyy7i6eTmZfHJ3HwBfLag==",
+                                        "summaryStatistics": {
+                                            "mean": "329.8",
+                                            "medn": "282.0",
+                                            "mode": ".",
+                                            "vald": "5.0",
+                                            "invd": "5.0",
+                                            "min": "232.0",
+                                            "max": "455.0",
+                                            "stdev": "95.45260604090387"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "DEMOC",
+                                        "label": "institutional democracy index",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 6,
+                                        "UNF": "UNF:6:tsVKXwllgLNiZnVoIPQ00Q==",
+                                        "summaryStatistics": {
+                                            "mean": "8.444444444444445",
+                                            "medn": "10.0",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "0.0",
+                                            "max": "10.0",
+                                            "stdev": "3.2829526005987018"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "XCONST",
+                                        "label": "executive constraints",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 7,
+                                        "UNF": "UNF:6:VF7/+3MGLFrPegGD9MyXLQ==",
+                                        "summaryStatistics": {
+                                            "mean": "6.111111111111111",
+                                            "medn": "7.0",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "2.0",
+                                            "max": "7.0",
+                                            "stdev": "1.6914819275153699"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "unlimite",
+                                                "value": "1"
+                                            }, {
+                                                "label": "intermed",
+                                                "value": "2"
+                                            }, {
+                                                "label": "slight t",
+                                                "value": "3"
+                                            }, {
+                                                "label": "intermed",
+                                                "value": "4"
+                                            }, {
+                                                "label": "substant",
+                                                "value": "5"
+                                            }, {
+                                                "label": "intermed",
+                                                "value": "6"
+                                            }, {
+                                                "label": "executiv",
+                                                "value": "7"
+                                            }]
+                                    }, {
+                                        "name": "PARCOMP",
+                                        "label": "competitiveness of participatio",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 8,
+                                        "UNF": "UNF:6:xSoxtTqahPbAnjsf0xyuZA==",
+                                        "summaryStatistics": {
+                                            "mean": "4.555555555555555",
+                                            "medn": "5.0",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "2.0",
+                                            "max": "5.0",
+                                            "stdev": "1.0137937550497031"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "unregula",
+                                                "value": "0"
+                                            }, {
+                                                "label": "suppress",
+                                                "value": "1"
+                                            }, {
+                                                "label": "restrict",
+                                                "value": "2"
+                                            }, {
+                                                "label": "factiona",
+                                                "value": "3"
+                                            }, {
+                                                "label": "transiti",
+                                                "value": "4"
+                                            }, {
+                                                "label": "competit",
+                                                "value": "5"
+                                            }]
+                                    }, {
+                                        "name": "RELIGION",
+                                        "label": "predominant religion",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 9,
+                                        "UNF": "UNF:6:Q5rBxCu++e/gnQ5k/9L8jw==",
+                                        "summaryStatistics": {
+                                            "mean": "1.8",
+                                            "medn": "1.0",
+                                            "mode": ".",
+                                            "vald": "10.0",
+                                            "invd": "0.0",
+                                            "min": "1.0",
+                                            "max": "7.0",
+                                            "stdev": "1.8737959096740262"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "cathorth",
+                                                "value": "1"
+                                            }, {
+                                                "label": "otrchris",
+                                                "value": "2"
+                                            }, {
+                                                "label": "muslim",
+                                                "value": "3"
+                                            }, {
+                                                "label": "buddhist",
+                                                "value": "4"
+                                            }, {
+                                                "label": "indigen",
+                                                "value": "5"
+                                            }, {
+                                                "label": "other",
+                                                "value": "6"
+                                            }, {
+                                                "label": "nonepred",
+                                                "value": "7"
+                                            }]
+                                    }, {
+                                        "name": "GNP2",
+                                        "label": "recoded gnp,  < & > 5500",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 10,
+                                        "UNF": "UNF:6:RJ684tkqEvysZNZOcSBhQQ==",
+                                        "summaryStatistics": {
+                                            "mean": "0.75",
+                                            "medn": "1.0",
+                                            "mode": ".",
+                                            "vald": "8.0",
+                                            "invd": "2.0",
+                                            "min": "0.0",
+                                            "max": "1.0",
+                                            "stdev": "0.4629100498862757"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "<$5500yr",
+                                                "value": "0"
+                                            }, {
+                                                "label": ">$5500yr",
+                                                "value": "1"
+                                            }]
+                                    }, {
+                                        "name": "SRVCOMP2",
+                                        "label": "recoded  % service labor force",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 11,
+                                        "UNF": "UNF:6:BnkkbWxCFt4NqgjlUj+yZw==",
+                                        "summaryStatistics": {
+                                            "mean": "NaN",
+                                            "medn": "NaN",
+                                            "mode": ".",
+                                            "vald": "0.0",
+                                            "invd": "10.0",
+                                            "min": "NaN",
+                                            "max": "NaN",
+                                            "stdev": "NaN"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "< 40%",
+                                                "value": "1"
+                                            }, {
+                                                "label": "40-60",
+                                                "value": "2"
+                                            }, {
+                                                "label": ">60%",
+                                                "value": "3"
+                                            }]
+                                    }]
+                            }
+                        }]
+                }
+            }, {
+                "description": "",
+                "label": "wrld96z8 sav 13.sav",
+                "restricted": false,
+                "directoryLabel": "test-data-files_13/binary_data_files",
+                "version": 1,
+                "datasetVersionId": 1,
+                "dataFile": {
+                    "id": 2,
+                    "filename": "wrld96z8 sav 13.sav",
+                    "contentType": "text/tab-separated-values",
+                    "filesize": 700,
+                    "description": "",
+                    "storageIdentifier": "16300012879-1ef2f9c5226e",
+                    "originalFileFormat": "application/x-spss-sav",
+                    "originalFormatLabel": "application/x-spss-sav",
+                    "UNF": "UNF:6:eigfejXbDluB7NfJIusKaw==",
+                    "rootDataFileId": -1,
+                    "md5": "c313e24689379d87e38e0fe0230d5112",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "c313e24689379d87e38e0fe0230d5112"
+                    },
+                    "dataTables": [{
+                            "dataTable": {
+                                "varQuantity": 12,
+                                "caseQuantity": 10,
+                                "UNF": "UNF:6:eigfejXbDluB7NfJIusKaw==",
+                                "dataVariables": [{
+                                        "name": "ccode",
+                                        "label": "country code",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "CHARACTER",
+                                        "orderedFactor": false,
+                                        "fileOrder": 0,
+                                        "UNF": "UNF:6:4QFp4Zj0buidpN6UoHca9Q==",
+                                        "summaryStatistics": {},
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "country",
+                                        "label": "country long name",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "CHARACTER",
+                                        "orderedFactor": false,
+                                        "fileOrder": 1,
+                                        "UNF": "UNF:6:FXNrKsbddRDGB725BP4BfQ==",
+                                        "summaryStatistics": {},
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "phones",
+                                        "label": "telephone mainlines per 1000",
+                                        "weighted": false,
+                                        "variableIntervalType": "contin",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 2,
+                                        "UNF": "UNF:6:7E2uwEwKLej3A3UkTPbxqg==",
+                                        "summaryStatistics": {
+                                            "mean": "409.30708482530383",
+                                            "medn": "487.16986083984375",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "148.356689453125",
+                                            "max": "613.4227294921875",
+                                            "stdev": "176.01005489193847"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "birthrat",
+                                        "label": "birth rate per 1000 pop",
+                                        "weighted": false,
+                                        "variableIntervalType": "contin",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 3,
+                                        "UNF": "UNF:6:TuY2N/4TecWqfRnov7KKSw==",
+                                        "summaryStatistics": {
+                                            "mean": "12.190740797254774",
+                                            "medn": "12.433333396911621",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "10.166666984558105",
+                                            "max": "13.633333206176758",
+                                            "stdev": "0.9717219970019222"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "gnp",
+                                        "label": "gnp per capita us$",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 4,
+                                        "UNF": "UNF:6:IMONE5YTBoGxZanolV6c/Q==",
+                                        "summaryStatistics": {
+                                            "mean": "21750.0",
+                                            "medn": "22290.0",
+                                            "mode": ".",
+                                            "vald": "8.0",
+                                            "invd": "2.0",
+                                            "min": "2790.0",
+                                            "max": "40630.0",
+                                            "stdev": "14212.286435133712"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "doctors",
+                                        "label": "physicians per pop",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 5,
+                                        "UNF": "UNF:6:ygyy7i6eTmZfHJ3HwBfLag==",
+                                        "summaryStatistics": {
+                                            "mean": "329.8",
+                                            "medn": "282.0",
+                                            "mode": ".",
+                                            "vald": "5.0",
+                                            "invd": "5.0",
+                                            "min": "232.0",
+                                            "max": "455.0",
+                                            "stdev": "95.45260604090387"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "democ",
+                                        "label": "institutional democracy index",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 6,
+                                        "UNF": "UNF:6:tsVKXwllgLNiZnVoIPQ00Q==",
+                                        "summaryStatistics": {
+                                            "mean": "8.444444444444445",
+                                            "medn": "10.0",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "0.0",
+                                            "max": "10.0",
+                                            "stdev": "3.2829526005987018"
+                                        },
+                                        "variableCategories": []
+                                    }, {
+                                        "name": "xconst",
+                                        "label": "executive constraints",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 7,
+                                        "UNF": "UNF:6:VF7/+3MGLFrPegGD9MyXLQ==",
+                                        "summaryStatistics": {
+                                            "mean": "6.111111111111111",
+                                            "medn": "7.0",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "2.0",
+                                            "max": "7.0",
+                                            "stdev": "1.6914819275153699"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "unlimite",
+                                                "value": "1"
+                                            }, {
+                                                "label": "intermed",
+                                                "value": "2"
+                                            }, {
+                                                "label": "slight t",
+                                                "value": "3"
+                                            }, {
+                                                "label": "intermed",
+                                                "value": "4"
+                                            }, {
+                                                "label": "substant",
+                                                "value": "5"
+                                            }, {
+                                                "label": "intermed",
+                                                "value": "6"
+                                            }, {
+                                                "label": "executiv",
+                                                "value": "7"
+                                            }]
+                                    }, {
+                                        "name": "parcomp",
+                                        "label": "competitiveness of participatio",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 8,
+                                        "UNF": "UNF:6:xSoxtTqahPbAnjsf0xyuZA==",
+                                        "summaryStatistics": {
+                                            "mean": "4.555555555555555",
+                                            "medn": "5.0",
+                                            "mode": ".",
+                                            "vald": "9.0",
+                                            "invd": "1.0",
+                                            "min": "2.0",
+                                            "max": "5.0",
+                                            "stdev": "1.0137937550497031"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "unregula",
+                                                "value": "0"
+                                            }, {
+                                                "label": "suppress",
+                                                "value": "1"
+                                            }, {
+                                                "label": "restrict",
+                                                "value": "2"
+                                            }, {
+                                                "label": "factiona",
+                                                "value": "3"
+                                            }, {
+                                                "label": "transiti",
+                                                "value": "4"
+                                            }, {
+                                                "label": "competit",
+                                                "value": "5"
+                                            }]
+                                    }, {
+                                        "name": "religion",
+                                        "label": "predominant religion",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 9,
+                                        "UNF": "UNF:6:Q5rBxCu++e/gnQ5k/9L8jw==",
+                                        "summaryStatistics": {
+                                            "mean": "1.8",
+                                            "medn": "1.0",
+                                            "mode": ".",
+                                            "vald": "10.0",
+                                            "invd": "0.0",
+                                            "min": "1.0",
+                                            "max": "7.0",
+                                            "stdev": "1.8737959096740262"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "cathorth",
+                                                "value": "1"
+                                            }, {
+                                                "label": "otrchris",
+                                                "value": "2"
+                                            }, {
+                                                "label": "muslim",
+                                                "value": "3"
+                                            }, {
+                                                "label": "buddhist",
+                                                "value": "4"
+                                            }, {
+                                                "label": "indigen",
+                                                "value": "5"
+                                            }, {
+                                                "label": "other",
+                                                "value": "6"
+                                            }, {
+                                                "label": "nonepred",
+                                                "value": "7"
+                                            }]
+                                    }, {
+                                        "name": "gnp2",
+                                        "label": "recoded gnp,  < & > 5500",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 10,
+                                        "UNF": "UNF:6:RJ684tkqEvysZNZOcSBhQQ==",
+                                        "summaryStatistics": {
+                                            "mean": "0.75",
+                                            "medn": "1.0",
+                                            "mode": ".",
+                                            "vald": "8.0",
+                                            "invd": "2.0",
+                                            "min": "0.0",
+                                            "max": "1.0",
+                                            "stdev": "0.4629100498862757"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "<$5500yr",
+                                                "value": "0"
+                                            }, {
+                                                "label": ">$5500yr",
+                                                "value": "1"
+                                            }]
+                                    }, {
+                                        "name": "srvcomp2",
+                                        "label": "recoded  % service labor force",
+                                        "weighted": false,
+                                        "variableIntervalType": "discrete",
+                                        "variableFormatType": "NUMERIC",
+                                        "orderedFactor": false,
+                                        "fileOrder": 11,
+                                        "UNF": "UNF:6:BnkkbWxCFt4NqgjlUj+yZw==",
+                                        "summaryStatistics": {
+                                            "mean": "NaN",
+                                            "medn": "NaN",
+                                            "mode": ".",
+                                            "vald": "0.0",
+                                            "invd": "10.0",
+                                            "min": "NaN",
+                                            "max": "NaN",
+                                            "stdev": "NaN"
+                                        },
+                                        "variableCategories": [{
+                                                "label": "< 40%",
+                                                "value": "1"
+                                            }, {
+                                                "label": "40-60",
+                                                "value": "2"
+                                            }, {
+                                                "label": ">60%",
+                                                "value": "3"
+                                            }]
+                                    }]
+                            }
+                        }]
+                }
+            }, {
+                "description": "",
+                "label": "13 Blank_US_map_borders_labels.svg",
+                "restricted": false,
+                "directoryLabel": "test-data-files_13/images",
+                "version": 1,
+                "datasetVersionId": 1,
+                "dataFile": {
+                    "id": 3,
+                    "filename": "13 Blank_US_map_borders_labels.svg",
+                    "contentType": "application/octet-stream",
+                    "filesize": 86558,
+                    "description": "",
+                    "storageIdentifier": "163000128a1-97032342bead",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "c7ce4539d261d22451079e4f6322839c",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "c7ce4539d261d22451079e4f6322839c"
+                    }
+                }
+            }, {
+                "description": "",
+                "label": "13 enforcer_menu_2012-10-08.png",
+                "restricted": false,
+                "directoryLabel": "test-data-files_13/images",
+                "version": 1,
+                "datasetVersionId": 1,
+                "dataFile": {
+                    "id": 7,
+                    "filename": "13 enforcer_menu_2012-10-08.png",
+                    "contentType": "application/octet-stream",
+                    "filesize": 6173,
+                    "description": "",
+                    "storageIdentifier": "163000131a0-6f39ca88dd0a",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "1ca862c29aa84178c165e52485e26799",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "1ca862c29aa84178c165e52485e26799"
+                    }
+                }
+            }, {
+                "description": "",
+                "label": "13 400-405_8162010.pdf",
+                "restricted": false,
+                "directoryLabel": "test-data-files_13/pdf",
+                "version": 1,
+                "datasetVersionId": 1,
+                "dataFile": {
+                    "id": 8,
+                    "filename": "13 400-405_8162010.pdf",
+                    "contentType": "application/octet-stream",
+                    "filesize": 528587,
+                    "description": "",
+                    "storageIdentifier": "163000131fa-749a3f1aefa0",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "504e5c3a4431ab2518bbdd6f3993a346",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "504e5c3a4431ab2518bbdd6f3993a346"
+                    }
+                }
+            }, {
+                "description": "",
+                "label": "readme.md",
+                "restricted": false,
+                "directoryLabel": "test-data-files_13",
+                "version": 1,
+                "datasetVersionId": 1,
+                "dataFile": {
+                    "id": 5,
+                    "filename": "readme.md",
+                    "contentType": "application/octet-stream",
+                    "filesize": 0,
+                    "description": "",
+                    "storageIdentifier": "16300013364-9d522453eb3f",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "d41d8cd98f00b204e9800998ecf8427e",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "d41d8cd98f00b204e9800998ecf8427e"
+                    }
+                }
+            }],
+        "citation": "2018, doi:10.5072/FK2/DS9IGZ, UNC Dataverse, DRAFT VERSION"
+    }
+}

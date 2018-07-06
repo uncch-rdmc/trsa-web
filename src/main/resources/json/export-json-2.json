@@ -1,0 +1,45 @@
+{
+    "id": 1,
+    "identifier": "wrld96z8_sav_10.sav",
+    "persistentUrl": "http://dx.doi.org/10.5072/FK2/wrld96z8_sav_10.sav",
+    "protocol": "doi",
+    "authority": "10.5072/FK2",
+    "publisher": "",
+    "datasetVersion": {
+        "id": 1,
+        "versionNumber": 1,
+        "versionMinorNumber": 0,
+        "versionState": "DRAFT",
+        "productionDate": "Production Date",
+        "lastUpdateTime": "2018-04-17T16:18:40Z",
+        "createTime": "2018-04-17T16:18:37Z",
+        "license": "CC0",
+        "termsOfUse": "CC0 Waiver",
+        "metadataBlocks": {},
+        "files": [{
+                "description": "",
+                "label": "wrld96z8_sav_10.sav",
+                "restricted": false,
+                "version": 1,
+                "datasetVersionId": 1,
+                "dataFile": {
+                    "id": 1,
+                    "filename": "wrld96z8_sav_10.sav",
+                    "contentType": "text/tab-separated-values",
+                    "filesize": 700,
+                    "description": "",
+                    "storageIdentifier": "162d4669fc8-39aa7439df56",
+                    "originalFileFormat": "application/x-spss-sav",
+                    "originalFormatLabel": "application/x-spss-sav",
+                    "UNF": "UNF:6:eigfejXbDluB7NfJIusKaw==",
+                    "rootDataFileId": -1,
+                    "md5": "c313e24689379d87e38e0fe0230d5112",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "c313e24689379d87e38e0fe0230d5112"
+                    }
+                }
+            }],
+        "citation": "2018, doi:10.5072/FK2/wrld96z8_sav_10.sav, UNC Dataverse, DRAFT VERSION"
+    }
+}

@@ -1,0 +1,412 @@
+{
+    "id": 2405,
+    "identifier": "H-812109",
+    "persistentUrl": "http://hdl.handle.net/1902.29/H-812109",
+    "protocol": "hdl",
+    "authority": "1902.29",
+    "publisher": "UNC Dataverse",
+    "publicationDate": "2007-11-30",
+    "datasetVersion": {
+        "id": 2736,
+        "versionNumber": 1,
+        "versionMinorNumber": 0,
+        "versionState": "RELEASED",
+        "versionNote": "Initial version",
+        "distributionDate": "1984",
+        "productionDate": "Production Date",
+        "lastUpdateTime": "2007-11-30T05:00:00Z",
+        "releaseTime": "2007-11-30T00:00:00Z",
+        "createTime": "2007-08-29T14:51:05Z",
+        "license": "NONE",
+        "citationRequirements": "Research publications, news or magazine articles and radio or television broadcasts employing statistical summaries of the Odum Institute data should give an appropriate citation to the Institute as the source of the data.",
+        "conditions": "Files are publicly available.  Institute staff <B>are not</B> available to assist extramural clients with accessing and using these files.",
+        "disclaimer": "Files are offered \"as is\" with no warranty or claim of fitness for any purpose. In no event shall the University be liable for any actual, incidental or consequential damages arising from use of these files.",
+        "metadataBlocks": {
+            "citation": {
+                "displayName": "Citation Metadata",
+                "fields": [{
+                        "typeName": "title",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "Harris 1981 Omnibus Reagan Administration Survey, study no. 812109"
+                    }, {
+                        "typeName": "otherId",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "otherIdAgency": {
+                                    "typeName": "otherIdAgency",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "odum"
+                                },
+                                "otherIdValue": {
+                                    "typeName": "otherIdValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "H-812109"
+                                }
+                            }, {
+                                "otherIdAgency": {
+                                    "typeName": "otherIdAgency",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "odum:extended"
+                                },
+                                "otherIdValue": {
+                                    "typeName": "otherIdValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Harris study no. 812109"
+                                }
+                            }]
+                    }, {
+                        "typeName": "author",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "authorName": {
+                                    "typeName": "authorName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Louis Harris and Associates, Inc."
+                                }
+                            }]
+                    }, {
+                        "typeName": "datasetContact",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "datasetContactEmail": {
+                                    "typeName": "datasetContactEmail",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "N/A"
+                                }
+                            }]
+                    }, {
+                        "typeName": "dsDescription",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "dsDescriptionValue": {
+                                    "typeName": "dsDescriptionValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "<p>This omnibus survey focuses on the Reagan administration and economic policies</p><p>\"Additional variables includes: first women on the Supreme Court; sale or supply of weapons to other countries; status of women in society; Equal Rights Amendment; sport of left-wing, Communist, Socialist, and authoritarian governments; favorite sport; baseball strike; favorite tennis player; political philosophy; and past voting behavior\"</p>"
+                                }
+                            }]
+                    }, {
+                        "typeName": "keyword",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Sports"
+                                },
+                                "keywordVocabulary": {
+                                    "typeName": "keywordVocabulary",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "ODUM:INDEX.TERMS"
+                                }
+                            }, {
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Economy"
+                                },
+                                "keywordVocabulary": {
+                                    "typeName": "keywordVocabulary",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "ODUM:INDEX.TERMS"
+                                }
+                            }, {
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Supreme Court"
+                                },
+                                "keywordVocabulary": {
+                                    "typeName": "keywordVocabulary",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "ODUM:INDEX.TERMS"
+                                }
+                            }, {
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Baseball"
+                                },
+                                "keywordVocabulary": {
+                                    "typeName": "keywordVocabulary",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "ODUM:INDEX.TERMS"
+                                }
+                            }, {
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Equal rights amendment"
+                                },
+                                "keywordVocabulary": {
+                                    "typeName": "keywordVocabulary",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "ODUM:INDEX.TERMS"
+                                }
+                            }, {
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Military"
+                                },
+                                "keywordVocabulary": {
+                                    "typeName": "keywordVocabulary",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "ODUM:INDEX.TERMS"
+                                }
+                            }, {
+                                "keywordValue": {
+                                    "typeName": "keywordValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Women--Status"
+                                },
+                                "keywordVocabulary": {
+                                    "typeName": "keywordVocabulary",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "ODUM:INDEX.TERMS"
+                                }
+                            }]
+                    }, {
+                        "typeName": "topicClassification",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "topicClassValue": {
+                                    "typeName": "topicClassValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Omnibus and public opinion"
+                                },
+                                "topicClassVocab": {
+                                    "typeName": "topicClassVocab",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "ODUM:MAIN.HEADING"
+                                }
+                            }, {
+                                "topicClassValue": {
+                                    "typeName": "topicClassValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Public opinion"
+                                },
+                                "topicClassVocab": {
+                                    "typeName": "topicClassVocab",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "ODUM:PUBLIC.OPINION.POLLS"
+                                }
+                            }]
+                    }, {
+                        "typeName": "notesText",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "Subject: Study Level Error Note, Notes: Harris telephone surveys use a form of random digit dialing. From a random multi-stage cluster sampling design, they obtain a national cross-section of U.S. adults. Interviewers are usually given the first five digits of a series of randomly selected residential telephone numbers that have previously been stratified by geographic locations, including minor civil divisions. The interviewer then adds two randomly generated digits to complete a new seven-digit number;Type: ODUM:ACCESS.CATEGORY Notes: I;Type: ODUM:CODEBOOK.NUMBER Notes: H-8121-09;"
+                    }, {
+                        "typeName": "producer",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "producerName": {
+                                    "typeName": "producerName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Louis Harris and Associates, Inc."
+                                }
+                            }]
+                    }, {
+                        "typeName": "productionDate",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "1981-07"
+                    }, {
+                        "typeName": "productionPlace",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "New York, NY"
+                    }, {
+                        "typeName": "distributor",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "distributorName": {
+                                    "typeName": "distributorName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Odum Institute"
+                                }
+                            }, {
+                                "distributorName": {
+                                    "typeName": "distributorName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Louis Harris Data Center"
+                                }
+                            }]
+                    }, {
+                        "typeName": "distributionDate",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "1984"
+                    }, {
+                        "typeName": "kindOfData",
+                        "multiple": true,
+                        "typeClass": "primitive",
+                        "value": ["Numeric (survey)"]
+                    }, {
+                        "typeName": "series",
+                        "multiple": false,
+                        "typeClass": "compound",
+                        "value": {
+                            "seriesName": {
+                                "typeName": "seriesName",
+                                "multiple": false,
+                                "typeClass": "primitive",
+                                "value": "Harris public opinion survey"
+                            }
+                        }
+                    }]
+            }
+        },
+        "files": [{
+                "description": "",
+                "label": "harris_s812109_colbin",
+                "restricted": false,
+                "version": 1,
+                "datasetVersionId": 2736,
+                "categories": ["Column Binary File"],
+                "dataFile": {
+                    "id": 25036,
+                    "filename": "harris_s812109_colbin",
+                    "contentType": "application/octet-stream",
+                    "filesize": 600960,
+                    "description": "",
+                    "storageIdentifier": "harris_s812109_colbin",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": ""
+                    }
+                }
+            }, {
+                "description": "",
+                "label": "harris_s812109_quest.pdf",
+                "restricted": false,
+                "version": 1,
+                "datasetVersionId": 2736,
+                "categories": ["Questionnaire, PDF File"],
+                "dataFile": {
+                    "id": 25041,
+                    "filename": "harris_s812109_quest.pdf",
+                    "contentType": "application/pdf",
+                    "filesize": 538478,
+                    "description": "",
+                    "storageIdentifier": "harris_s812109_quest.pdf",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": ""
+                    }
+                }
+            }, {
+                "description": "",
+                "label": "harris_s812109_sascode",
+                "restricted": false,
+                "version": 1,
+                "datasetVersionId": 2736,
+                "categories": ["SAS Code"],
+                "dataFile": {
+                    "id": 25038,
+                    "filename": "harris_s812109_sascode",
+                    "contentType": "text/x-sas-syntax",
+                    "filesize": 44515,
+                    "description": "",
+                    "storageIdentifier": "harris_s812109_sascode",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": ""
+                    }
+                }
+            }, {
+                "description": "",
+                "label": "harris_s812109_sas.export",
+                "restricted": false,
+                "version": 1,
+                "datasetVersionId": 2736,
+                "categories": ["SAS Export Library"],
+                "dataFile": {
+                    "id": 31933,
+                    "filename": "harris_s812109_sas.export",
+                    "contentType": "application/x-sas-transport",
+                    "filesize": 1470400,
+                    "description": "",
+                    "storageIdentifier": "134",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": ""
+                    }
+                }
+            }, {
+                "description": "",
+                "label": "harris_s812109_spss.tab",
+                "restricted": false,
+                "version": 1,
+                "datasetVersionId": 2736,
+                "categories": ["Data Files"],
+                "dataFile": {
+                    "id": 31934,
+                    "filename": "harris_s812109_spss.tab",
+                    "contentType": "text/tab-separated-values",
+                    "filesize": 369293,
+                    "description": "",
+                    "storageIdentifier": "135",
+                    "originalFileFormat": "application/x-spss-por",
+                    "originalFormatLabel": "SPSS Portable",
+                    "UNF": "UNF:3:qz+P7qUhOFjSUD66h14Npw==",
+                    "rootDataFileId": -1,
+                    "md5": "",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": ""
+                    }
+                }
+            }],
+        "citation": "Louis Harris and Associates, Inc., 1984, \"Harris 1981 Omnibus Reagan Administration Survey, study no. 812109\", hdl:1902.29/H-812109, UNC Dataverse, V1"
+    }
+}

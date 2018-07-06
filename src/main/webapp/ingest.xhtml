@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Ingest Page</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+<a href="http://cyberimpact.us/" title="Infrastructure for Privacy-Assured CompuTations"  target="_blank">
+<img width="169" height="79" src="resources/images/cropped-impactlogoFINAL.png" alt="Infrastructure for Privacy-Assured CompuTations" />
+</a>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+<div>
+<aside>
+<ul>
+<li><strong>Email</strong><br/><div><a href="mailto:&#105;mpa&#99;t&#64;r&#101;&#110;c&#105;.&#111;r&#103;">&#105;mpa&#99;t&#64;r&#101;&#110;c&#105;.&#111;r&#103;</a></div></li>
+<li><strong>Phone</strong><br/><div>(919) 962-4879</div></li>
+<li><strong>Address</strong><br/><div>100 Europa Drive, Suite 540<br />
+Chapel Hill, NC 27517</div></li>
+</ul>
+</aside>
+</div>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                    <p:menu>
+                        <p:submenu label="Resources">
+                            <p:menuitem value="Project Home" url="http://cyberimpact.us/" />
+                            <p:menuitem value="Resources" url="http://cyberimpact.us/services/publications-powerpoints/" />
+                            <p:menuitem value="demo home" url="/index.xhtml" />
+                            <p:menuitem value="file upload" url="/fileupload.xhtml" />
+
+                        </p:submenu>
+
+                    </p:menu>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <h:outputText value="#{ingestPageView.ingestedFile}"/> was ingested!
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+

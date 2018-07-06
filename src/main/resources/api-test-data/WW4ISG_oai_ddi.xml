@@ -1,0 +1,79 @@
+<codeBook xmlns="ddi:codebook:2_5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:codebook:2_5 http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd" version="2.5">
+    <docDscr>
+        <citation>
+            <titlStmt>
+                <titl>test dataset for the new api with min setup data</titl>
+                <IDNo agency="DOI">doi:10.5072/FK2/WW4ISG</IDNo>
+            </titlStmt>
+            <distStmt>
+                <distrbtr>Root</distrbtr>
+                <distDate>2018-05-07</distDate>
+            </distStmt>
+            <verStmt source="DVN">
+                <version date="2018-05-07" type="RELEASED">1</version>
+            </verStmt>
+            <biblCit>Admin, Dataverse, 2018, "test dataset for the new api with min setup data", https://doi.org/10.5072/FK2/WW4ISG, Root, V1, UNF:6:3HbF8/CEW1+Xz7COXSnsDQ==</biblCit>
+        </citation>
+    </docDscr>
+    <stdyDscr>
+        <citation>
+            <titlStmt>
+                <titl>test dataset for the new api with min setup data</titl>
+                <IDNo agency="DOI">doi:10.5072/FK2/WW4ISG</IDNo>
+            </titlStmt>
+            <rspStmt>
+                <AuthEnty affiliation="Dataverse.org">Admin, Dataverse</AuthEnty>
+            </rspStmt>
+            <prodStmt/>
+            <distStmt>
+                <distrbtr>Root</distrbtr>
+                <distDate>2018-05-07</distDate>
+            </distStmt>
+        </citation>
+        <stdyInfo>
+            <subject>
+                <keyword>Other</keyword>
+            </subject>
+            <abstract>This is the required description.</abstract>
+            <sumDscr/>
+            <contact affiliation="Dataverse.org" email="asone@email.unc.edu">Admin, Dataverse</contact>
+            <depositr>Admin, Dataverse</depositr>
+            <depDate>2018-05-07</depDate>
+        </stdyInfo>
+        <method>
+            <dataColl/>
+            <anlyInfo/>
+        </method>
+        <useStmt>CC0 Waiver</useStmt>
+    </stdyDscr>
+    <otherMat ID="f13" URI="https://impacttest.irss.unc.edu/api/access/datafile/13" level="datafile">
+        <labl>13 enforcer_menu_2012-10-08.png</labl>
+        <txt/>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">image/png</notes>
+    </otherMat>
+    <otherMat ID="f12" URI="https://impacttest.irss.unc.edu/api/access/datafile/12" level="datafile">
+        <labl>14 400-405_8162010.pdf</labl>
+        <txt/>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">application/pdf</notes>
+    </otherMat>
+    <otherMat ID="f8" URI="https://impacttest.irss.unc.edu/api/access/datafile/8" level="datafile">
+        <labl>14 New Text Document.txt</labl>
+        <txt/>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">text/plain</notes>
+    </otherMat>
+    <otherMat ID="f11" URI="https://impacttest.irss.unc.edu/api/access/datafile/11" level="datafile">
+        <labl>14 ReportData.java</labl>
+        <txt/>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">text/x-java-source</notes>
+    </otherMat>
+    <otherMat ID="f9" URI="https://impacttest.irss.unc.edu/api/access/datafile/9" level="datafile">
+        <labl>readme.md</labl>
+        <txt/>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">application/octet-stream</notes>
+    </otherMat>
+    <otherMat ID="f10" URI="https://impacttest.irss.unc.edu/api/access/datafile/10" level="datafile">
+        <labl>wrld96z8 sav 14.tab</labl>
+        <txt/>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">text/tab-separated-values</notes>
+    </otherMat>
+</codeBook>

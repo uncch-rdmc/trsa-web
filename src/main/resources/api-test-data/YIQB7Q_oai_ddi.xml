@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codeBook xmlns="ddi:codebook:2_5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:codebook:2_5 http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd" version="2.5">
+    <docDscr>
+        <citation>
+            <titlStmt>
+                <titl>2nd test dataset for the new api</titl>
+                <IDNo agency="DOI">doi:10.5072/FK2/YIQB7Q</IDNo>
+            </titlStmt>
+            <distStmt>
+                <distrbtr>Root</distrbtr>
+                <distDate>2018-05-08</distDate>
+            </distStmt>
+            <verStmt source="DVN">
+                <version date="2018-05-08" type="RELEASED">1</version>
+            </verStmt>
+            <biblCit>Admin, Dataverse, 2018, "2nd test dataset for the new api", https://doi.org/10.5072/FK2/YIQB7Q, Root, V1, UNF:6:3HbF8/CEW1+Xz7COXSnsDQ==</biblCit>
+        </citation>
+    </docDscr>
+    <stdyDscr>
+        <citation>
+            <titlStmt>
+                <titl>2nd test dataset for the new api</titl>
+                <IDNo agency="DOI">doi:10.5072/FK2/YIQB7Q</IDNo>
+            </titlStmt>
+            <rspStmt>
+                <AuthEnty affiliation="Dataverse.org">Admin, Dataverse</AuthEnty>
+            </rspStmt>
+            <prodStmt/>
+            <distStmt>
+                <distrbtr>Root</distrbtr>
+                <distDate>2018-05-08</distDate>
+            </distStmt>
+        </citation>
+        <stdyInfo>
+            <subject>
+                <keyword>Other</keyword>
+            </subject>
+            <abstract>objective: checking whether newly added JsonPrinter methods make differences in exporting metadata.</abstract>
+            <sumDscr/>
+            <contact affiliation="Dataverse.org" email="asone@email.unc.edu">Admin, Dataverse</contact>
+        </stdyInfo>
+        <method>
+            <dataColl/>
+            <anlyInfo/>
+        </method>
+        <useStmt>CC0 Waiver</useStmt>
+    </stdyDscr>
+    <otherMat ID="f18" URI="https://impacttest.irss.unc.edu/api/access/datafile/18" level="datafile">
+        <labl>13 enforcer_menu_2012-10-08.png</labl>
+        <txt/>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">image/png</notes>
+    </otherMat>
+    <otherMat ID="f17" URI="https://impacttest.irss.unc.edu/api/access/datafile/17" level="datafile">
+        <labl>14 400-405_8162010.pdf</labl>
+        <txt/>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">application/pdf</notes>
+    </otherMat>
+    <otherMat ID="f20" URI="https://impacttest.irss.unc.edu/api/access/datafile/20" level="datafile">
+        <labl>14 New Text Document.txt</labl>
+        <txt/>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">text/plain</notes>
+    </otherMat>
+    <otherMat ID="f19" URI="https://impacttest.irss.unc.edu/api/access/datafile/19" level="datafile">
+        <labl>14 ReportData.java</labl>
+        <txt/>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">text/x-java-source</notes>
+    </otherMat>
+    <otherMat ID="f16" URI="https://impacttest.irss.unc.edu/api/access/datafile/16" level="datafile">
+        <labl>readme.md</labl>
+        <txt/>
+        <notes level="file" type="DATAVERSE:CONTENTTYPE" subject="Content/MIME Type">application/octet-stream</notes>
+    </otherMat>
+</codeBook>

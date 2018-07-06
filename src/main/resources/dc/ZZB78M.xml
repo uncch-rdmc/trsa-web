@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://dublincore.org/documents/dcmi-terms/">
+    <dcterms:title>minimum dataset without datafiles</dcterms:title>
+    <dcterms:identifier>http://dx.doi.org/10.5072/FK2/ZZB78M</dcterms:identifier>
+    <dcterms:creator>Admin, Dataverse</dcterms:creator>
+    <dcterms:publisher>UNC Dataverse</dcterms:publisher>
+    <dcterms:issued>2017-12-14</dcterms:issued>
+    <dcterms:modified>2017-12-14T19:12:24Z</dcterms:modified>
+    <dcterms:description>this dataset does not have a datafile</dcterms:description>
+    <dcterms:subject>Other</dcterms:subject>
+    <dcterms:contributor>Admin, Dataverse</dcterms:contributor>
+    <dcterms:dateSubmitted>2017-12-14</dcterms:dateSubmitted>
+    <dcterms:license>CC0</dcterms:license>
+    <dcterms:rights>CC0 Waiver</dcterms:rights>
+</metadata>
