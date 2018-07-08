@@ -5,6 +5,8 @@
  */
 package us.cyberimpact.trsa.web.gui;
 
+import edu.harvard.iq.dataverse.entities.DatasetVersion;
+import edu.harvard.iq.dataverse.entities.DatasetVersionFacade;
 import edu.harvard.iq.dataverse.export.ExportException;
 import edu.harvard.iq.dataverse.ingest.IngestService;
 import java.io.BufferedOutputStream;
@@ -14,14 +16,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FilenameUtils;
 
@@ -37,10 +43,19 @@ public class FileUploadView implements Serializable{
     @EJB
     IngestService ingestService;
     
+    @EJB
+    DatasetVersionFacade datasetVersionFcd;
+    
     private UploadedFile file;
-    private String destination = "C:\\tmp\\";
+    private String destination = "/tmp/";
     private String fileName;
 
+    
+    @PostConstruct
+    public void init(){
+        
+    }
+    
     public UploadedFile getFile() {
         return file;
     }
@@ -57,6 +72,22 @@ public class FileUploadView implements Serializable{
         this.fileName = fileName;
     }
 
+    
+    private String datasetIdentifier;
+
+    public String getDatasetIdentifier() {
+        return datasetIdentifier;
+    }
+
+    public void setDatasetIdentifier(String datasetIdentifier) {
+        this.datasetIdentifier = datasetIdentifier;
+    }
+
+    public FileUploadView() {
+            ingestButtonEnabled=false;
+            publishButtonEnabled=false;
+    }
+    
     
     
     
@@ -92,18 +123,29 @@ public class FileUploadView implements Serializable{
         FacesContext.getCurrentInstance().addMessage("messages",new FacesMessage(FacesMessage.SEVERITY_INFO,"Your file (File Name "+ file.getFileName()+ " with size "+ file.getSize()+ ")  Uploaded Successfully", ""));
         }
         
+        setIngestButtonEnabled(true);
 //        return "/index.xhtml";
     }
     
-    public String execIngest(){
+    public void execIngest(){
         logger.log(Level.INFO, "fileName={0}", fileName);
-        String datasetIdentifier = IngestService.generateTempDatasetIdentifier(6);
+        datasetIdentifier = IngestService.generateTempDatasetIdentifier(6);
         logger.log(Level.INFO, "datasetIdentifier={0}", datasetIdentifier);
-//        IngestService ingestService = new IngestService();
+
+        
         String contentType="application/zip";
         logger.log(Level.INFO, "contentType={0}", contentType);
         try {
+            
             ingestService.run(fileName, contentType, datasetIdentifier);
+            
+            logger.log(Level.INFO, "dumping metadata files");
+            List<DatasetVersion> versions =datasetVersionFcd.findAll();
+            if (versions != null && !versions.isEmpty()){
+                ingestService.exportDataset(versions.get(0));
+            } else {
+                logger.log(Level.INFO, "DatasetVersion is null/empty");
+            }
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "IOException", ex);
         } catch (XMLStreamException ex) {
@@ -111,16 +153,22 @@ public class FileUploadView implements Serializable{
         } catch (ExportException ex) {
             logger.log(Level.SEVERE, "ExportException", ex);
         }
-        
-        
-        return "/ingest.xhtml";
+        String Message = fileName+" has been successfully ingested and new dataset (Id="+datasetIdentifier+") was created";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", Message));
+        publishButtonEnabled=true;
+        ingestButtonEnabled=false;
+        //return "/ingest.xhtml";
     }
     
     public String goHome(){
         logger.log(Level.INFO, "back to the home");
         return "/index.xhtml";
     }
-
+    
+    public String goPublish(){
+        logger.log(Level.INFO, "go to publish page");
+        return "/ingest.xhtml";
+    }
     public void copyFile(String fileName, InputStream in) {
         try {
 
@@ -144,4 +192,29 @@ public class FileUploadView implements Serializable{
         }
     }
 
+//    List<DatasetVersion> getIngestedDatasetVersion(){
+//        return em.createNamedQuery("findAll", DatasetVersion.class).getResultList();
+//    }
+    
+    boolean ingestButtonEnabled=false;
+    
+    public boolean isIngestButtonEnabled(){
+        return ingestButtonEnabled;
+    }
+    
+    public void setIngestButtonEnabled(boolean value){
+        ingestButtonEnabled=value;
+    }
+    
+    boolean publishButtonEnabled=false;
+
+    public boolean isPublishButtonEnabled() {
+        return publishButtonEnabled;
+    }
+
+    public void setPublishButtonEnabled(boolean value) {
+        this.publishButtonEnabled = value;
+    }
+    
+    
 }

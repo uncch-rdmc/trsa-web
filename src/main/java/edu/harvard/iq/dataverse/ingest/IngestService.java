@@ -615,7 +615,7 @@ public class IngestService {
         // requried: exporters (export formats): ddi, oai_ddi, dcterms, oai_dc, and dataverse_json.
         //DatasetVersion releasedVersion = dataset.getReleasedVersion();
         
-        exportDataset(version);
+        //exportDataset(version);
 
     }
     
