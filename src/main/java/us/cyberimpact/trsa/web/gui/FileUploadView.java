@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package us.cyberimpact.trsa.web.gui;
 
 import edu.harvard.iq.dataverse.entities.DatasetVersion;
@@ -34,28 +29,27 @@ import org.apache.commons.io.FilenameUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-@ManagedBean(name="fileUploadView")
+@ManagedBean(name = "fileUploadView")
 @SessionScoped
-public class FileUploadView implements Serializable{
+public class FileUploadView implements Serializable {
 
     private static final Logger logger = Logger.getLogger(FileUploadView.class.getName());
 
     @EJB
     IngestService ingestService;
-    
+
     @EJB
     DatasetVersionFacade datasetVersionFcd;
-    
+
     private UploadedFile file;
     private String destination = "/tmp/";
     private String fileName;
 
-    
     @PostConstruct
-    public void init(){
-        
+    public void init() {
+
     }
-    
+
     public UploadedFile getFile() {
         return file;
     }
@@ -72,7 +66,6 @@ public class FileUploadView implements Serializable{
         this.fileName = fileName;
     }
 
-    
     private String datasetIdentifier;
 
     public String getDatasetIdentifier() {
@@ -84,33 +77,27 @@ public class FileUploadView implements Serializable{
     }
 
     public FileUploadView() {
-            ingestButtonEnabled=false;
-            publishButtonEnabled=false;
+        ingestButtonEnabled = false;
+        publishButtonEnabled = false;
     }
-    
-    
-    
-    
+
     public void upload(FileUploadEvent event) {
-        file=event.getFile();
+        file = event.getFile();
         if (file != null) {
-            FacesMessage message = new FacesMessage("Succesful", 
+            FacesMessage message = new FacesMessage("Succesful",
                     file.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);
-            byte[] bytes=null;
+            byte[] bytes = null;
             try {
 //                copyFile(event.getFile().getFileName(), event.getFile().getInputstream());
                 bytes = file.getContents();
                 String filename = FilenameUtils.getName(file.getFileName());
-                fileName=destination+filename;
+                fileName = destination + filename;
                 logger.log(Level.INFO, "filename is set to={0}", filename);
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(fileName)));
                 stream.write(bytes);
                 stream.close();
 
-                
-                
-                
             } catch (IOException e) {
                 logger.log(Level.INFO, "IOException was thrown", e);
             }
@@ -120,28 +107,27 @@ public class FileUploadView implements Serializable{
 //      fileContent = new String(contents);
 //      fileName = file.getFileName();
 //            
-        FacesContext.getCurrentInstance().addMessage("messages",new FacesMessage(FacesMessage.SEVERITY_INFO,"Your file (File Name "+ file.getFileName()+ " with size "+ file.getSize()+ ")  Uploaded Successfully", ""));
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Your file (File Name " + file.getFileName() + " with size " + file.getSize() + ")  Uploaded Successfully", ""));
         }
-        
+
         setIngestButtonEnabled(true);
 //        return "/index.xhtml";
     }
-    
-    public void execIngest(){
+
+    public void execIngest() {
         logger.log(Level.INFO, "fileName={0}", fileName);
         datasetIdentifier = IngestService.generateTempDatasetIdentifier(6);
         logger.log(Level.INFO, "datasetIdentifier={0}", datasetIdentifier);
 
-        
-        String contentType="application/zip";
+        String contentType = "application/zip";
         logger.log(Level.INFO, "contentType={0}", contentType);
         try {
-            
+
             ingestService.run(fileName, contentType, datasetIdentifier);
-            
+
             logger.log(Level.INFO, "dumping metadata files");
-            List<DatasetVersion> versions =datasetVersionFcd.findAll();
-            if (versions != null && !versions.isEmpty()){
+            List<DatasetVersion> versions = datasetVersionFcd.findAll();
+            if (versions != null && !versions.isEmpty()) {
                 ingestService.exportDataset(versions.get(0));
             } else {
                 logger.log(Level.INFO, "DatasetVersion is null/empty");
@@ -153,22 +139,23 @@ public class FileUploadView implements Serializable{
         } catch (ExportException ex) {
             logger.log(Level.SEVERE, "ExportException", ex);
         }
-        String Message = fileName+" has been successfully ingested and new dataset (Id="+datasetIdentifier+") was created";
+        String Message = fileName + " has been successfully ingested and new dataset (Id=" + datasetIdentifier + ") was created";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", Message));
-        publishButtonEnabled=true;
-        ingestButtonEnabled=false;
+        publishButtonEnabled = true;
+        ingestButtonEnabled = false;
         //return "/ingest.xhtml";
     }
-    
-    public String goHome(){
+
+    public String goHome() {
         logger.log(Level.INFO, "back to the home");
         return "/index.xhtml";
     }
-    
-    public String goPublish(){
+
+    public String goPublish() {
         logger.log(Level.INFO, "go to publish page");
         return "/ingest.xhtml";
     }
+
     public void copyFile(String fileName, InputStream in) {
         try {
 
@@ -195,18 +182,17 @@ public class FileUploadView implements Serializable{
 //    List<DatasetVersion> getIngestedDatasetVersion(){
 //        return em.createNamedQuery("findAll", DatasetVersion.class).getResultList();
 //    }
-    
-    boolean ingestButtonEnabled=false;
-    
-    public boolean isIngestButtonEnabled(){
+    boolean ingestButtonEnabled = false;
+
+    public boolean isIngestButtonEnabled() {
         return ingestButtonEnabled;
     }
-    
-    public void setIngestButtonEnabled(boolean value){
-        ingestButtonEnabled=value;
+
+    public void setIngestButtonEnabled(boolean value) {
+        ingestButtonEnabled = value;
     }
-    
-    boolean publishButtonEnabled=false;
+
+    boolean publishButtonEnabled = false;
 
     public boolean isPublishButtonEnabled() {
         return publishButtonEnabled;
@@ -215,6 +201,5 @@ public class FileUploadView implements Serializable{
     public void setPublishButtonEnabled(boolean value) {
         this.publishButtonEnabled = value;
     }
-    
-    
+
 }
