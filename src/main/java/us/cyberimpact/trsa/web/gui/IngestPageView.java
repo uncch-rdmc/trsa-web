@@ -44,6 +44,19 @@ public class IngestPageView implements Serializable {
         this.datasetIdentifier = datasetIdentifier;
     }
     
+    
+    String targetDataverseId;
+
+    public String getTargetDataverseId() {
+        return targetDataverseId;
+    }
+
+    public void setTargetDataverseId(String targetDataverseId) {
+        this.targetDataverseId = targetDataverseId;
+    }
+    
+    
+    
     String progressTest ;
 
     public String getProgressTest() {
@@ -65,7 +78,34 @@ public class IngestPageView implements Serializable {
     public void init(){
         datasetIdentifier = fileUploadView.getDatasetIdentifier();
         logger.log(Level.INFO, "datasetIdentifier passed={0}", datasetIdentifier);
+        targetDataverseId="6";
+        apiKey="1b9da6d3-6870-4ea2-a5ab-331d43d92c53";
+        dataverseServer="https://impacttest.irss.unc.edu";
     }
+    
+    String apiKey;
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+    
+    String dataverseServer;
+
+    public String getDataverseServer() {
+        return dataverseServer;
+    }
+
+    public void setDataverseServer(String dataverseServer) {
+        this.dataverseServer = dataverseServer;
+    }
+    
+    
+    
+    
     public String ingestedFile;
 
     public String getIngestedFile() {
@@ -84,11 +124,11 @@ public class IngestPageView implements Serializable {
     
     public void getInfo(ActionEvent actionEvent){
         try {
-            progressTest="starting request";
-            logger.log(Level.INFO, "testing API case");
+            progressTest="starting getInfo request";
+            logger.log(Level.INFO, "testing the version of the target Dataverse");
             HttpResponse<JsonNode> jsonResponse = 
                     Unirest.get("https://impacttest.irss.unc.edu/api/info/version").header("X-Dataverse-key",
-                            "1b9da6d3-6870-4ea2-a5ab-331d43d92c53").asJson();
+                            apiKey).asJson();
             
             
             logger.log(Level.INFO, "status code={0}", jsonResponse.getStatus());
@@ -114,13 +154,14 @@ public class IngestPageView implements Serializable {
                 throw new FileNotFoundException("payload file does not exist or empty");
             }
             logger.log(Level.INFO, "publish API case");
+            String apiEndpoint = dataverseServer+"/api/batch/importwoi";
             HttpResponse<JsonNode> jsonResponse = 
-                    Unirest.post("https://impacttest.irss.unc.edu/api/batch/importwoi")
+                    Unirest.post(apiEndpoint)
                             .header("X-Dataverse-key",
-                            "1b9da6d3-6870-4ea2-a5ab-331d43d92c53")
-                            .queryString("dv", "6")
+                            apiKey)
+                            .queryString("dv", targetDataverseId)
                             .queryString("filename", filenameValue)
-                            .queryString("key", "1b9da6d3-6870-4ea2-a5ab-331d43d92c53")
+                            .queryString("key", apiKey)
                             .field("file", payload)
                             .asJson();
             
