@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title></title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/template/layout.xhtml">
+
+            <ui:define name="content">
+
+
+                <h:form enctype="multipart/form-data" id="form1">
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+                    <h3 style="margin:5px 5px 30px 5px">Upload and Ingest a Zip File</h3>
+
+                    <p:panelGrid class="ui-panelgrid-blank">
+                        <p:row>
+                            <p:column colspan="3">
+                                <p:fileUpload id="fileupload"  
+                                              fileUploadListener="#{fileUploadView.upload}" 
+                                              mode="advanced" 
+                                              dragDropSupport="false"
+                                              multiple="false" 
+                                              update="messages ingestButton filename" 
+                                              sizeLimit="10000000" 
+                                              fileLimit="1" 
+                                              allowTypes="/(\.|\/)(sav|por|dta|zip)$/" 
+                                              />
+
+                                <p:message for="fileupload"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel for="filename" value="uploaded file:"/></p:column>
+                            <p:column><h:outputText id="filename" value="#{fileUploadView.fileName}"/></p:column>
+                            <p:column></p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="ingestButton"
+                                                 value="Ingest the uploaded file"  
+                                                 disabled="#{! fileUploadView.ingestButtonEnabled}" 
+                                                 update="publishButton ingestButton"
+                                                 action="#{fileUploadView.execIngest()}"
+                                                 />
+                            </p:column>
+                            <p:column>
+                                <p:commandButton id="publishButton"  
+                                                 value="go to publishing page"  
+                                                 disabled="#{! fileUploadView.publishButtonEnabled}" 
+                                                 action="#{fileUploadView.goPublish()}" />
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Return to the Demo Home"  action="/index.xhtml?face-redirect=true;" />              </p:column>
+                        </p:row>
+                    </p:panelGrid>
+
+                </h:form>
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
