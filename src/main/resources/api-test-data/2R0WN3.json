@@ -1,0 +1,230 @@
+{
+    "id": 15,
+    "identifier": "FK2/2R0WN3",
+    "persistentUrl": "https://doi.org/10.5072/FK2/2R0WN3",
+    "protocol": "doi",
+    "authority": "10.5072",
+    "publisher": "Root",
+    "publicationDate": "2018-07-25",
+    "storageIdentifier": "file://10.5072/FK2/2R0WN3",
+    "datasetVersion": {
+        "id": 3,
+        "storageIdentifier": "file://10.5072/FK2/2R0WN3",
+        "versionNumber": 1,
+        "versionMinorNumber": 0,
+        "versionState": "RELEASED",
+        "productionDate": "Production Date",
+        "UNF": "UNF:6:3HbF8/CEW1+Xz7COXSnsDQ==",
+        "lastUpdateTime": "2018-07-25T13:46:21Z",
+        "releaseTime": "2018-07-25T13:46:21Z",
+        "createTime": "2018-07-25T13:45:21Z",
+        "license": "CC0",
+        "termsOfUse": "CC0 Waiver",
+        "metadataBlocks": {
+            "citation": {
+                "displayName": "Citation Metadata",
+                "fields": [{
+                        "typeName": "title",
+                        "multiple": false,
+                        "typeClass": "primitive",
+                        "value": "test dataset #1"
+                    }, {
+                        "typeName": "author",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "authorName": {
+                                    "typeName": "authorName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Admin, Dataverse"
+                                },
+                                "authorAffiliation": {
+                                    "typeName": "authorAffiliation",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Dataverse.org"
+                                }
+                            }]
+                    }, {
+                        "typeName": "datasetContact",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "datasetContactName": {
+                                    "typeName": "datasetContactName",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Admin, Dataverse"
+                                },
+                                "datasetContactAffiliation": {
+                                    "typeName": "datasetContactAffiliation",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "Dataverse.org"
+                                },
+                                "datasetContactEmail": {
+                                    "typeName": "datasetContactEmail",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "asone@email.unc.edu"
+                                }
+                            }]
+                    }, {
+                        "typeName": "dsDescription",
+                        "multiple": true,
+                        "typeClass": "compound",
+                        "value": [{
+                                "dsDescriptionValue": {
+                                    "typeName": "dsDescriptionValue",
+                                    "multiple": false,
+                                    "typeClass": "primitive",
+                                    "value": "a test to get a json object from a test dataset (post-4.9.1 version) "
+                                }
+                            }]
+                    }, {
+                        "typeName": "subject",
+                        "multiple": true,
+                        "typeClass": "controlledVocabulary",
+                        "value": ["Other"]
+                    }]
+            }
+        },
+        "files": [{
+                "label": "13 enforcer_menu_2012-10-08.png",
+                "restricted": false,
+                "directoryLabel": "test-data-files 14/images",
+                "version": 1,
+                "datasetVersionId": 3,
+                "dataFile": {
+                    "id": 18,
+                    "persistentId": "doi:10.5072/FK2/2R0WN3/F4YNNK",
+                    "pidURL": "https://doi.org/10.5072/FK2/2R0WN3/F4YNNK",
+                    "filename": "13 enforcer_menu_2012-10-08.png",
+                    "contentType": "image/png",
+                    "filesize": 6173,
+                    "storageIdentifier": "164d1afb8a5-eaf4cd51c7d5",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "1ca862c29aa84178c165e52485e26799",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "1ca862c29aa84178c165e52485e26799"
+                    }
+                }
+            }, {
+                "label": "14 400-405_8162010.pdf",
+                "restricted": false,
+                "directoryLabel": "test-data-files 14/pdf",
+                "version": 1,
+                "datasetVersionId": 3,
+                "dataFile": {
+                    "id": 17,
+                    "persistentId": "doi:10.5072/FK2/2R0WN3/RW6BOL",
+                    "pidURL": "https://doi.org/10.5072/FK2/2R0WN3/RW6BOL",
+                    "filename": "14 400-405_8162010.pdf",
+                    "contentType": "application/pdf",
+                    "filesize": 528587,
+                    "storageIdentifier": "164d1afb8b2-da9dcde2133b",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "504e5c3a4431ab2518bbdd6f3993a346",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "504e5c3a4431ab2518bbdd6f3993a346"
+                    }
+                }
+            }, {
+                "label": "14 New Text Document.txt",
+                "restricted": false,
+                "directoryLabel": "test-data-files 14",
+                "version": 1,
+                "datasetVersionId": 3,
+                "dataFile": {
+                    "id": 20,
+                    "persistentId": "doi:10.5072/FK2/2R0WN3/URWWW7",
+                    "pidURL": "https://doi.org/10.5072/FK2/2R0WN3/URWWW7",
+                    "filename": "14 New Text Document.txt",
+                    "contentType": "text/plain",
+                    "filesize": 0,
+                    "storageIdentifier": "164d1afb899-dbc1c7979c16",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "d41d8cd98f00b204e9800998ecf8427e",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "d41d8cd98f00b204e9800998ecf8427e"
+                    }
+                }
+            }, {
+                "label": "14 ReportData.java",
+                "restricted": false,
+                "directoryLabel": "test-data-files 14",
+                "version": 1,
+                "datasetVersionId": 3,
+                "dataFile": {
+                    "id": 21,
+                    "persistentId": "doi:10.5072/FK2/2R0WN3/5WX9G6",
+                    "pidURL": "https://doi.org/10.5072/FK2/2R0WN3/5WX9G6",
+                    "filename": "14 ReportData.java",
+                    "contentType": "text/x-java-source",
+                    "filesize": 14091,
+                    "storageIdentifier": "164d1afb89c-7a3ee7e72795",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "951615f3d5bacf4562a8b55af33f96e7",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "951615f3d5bacf4562a8b55af33f96e7"
+                    }
+                }
+            }, {
+                "label": "readme.md",
+                "restricted": false,
+                "directoryLabel": "test-data-files 14",
+                "version": 1,
+                "datasetVersionId": 3,
+                "dataFile": {
+                    "id": 16,
+                    "persistentId": "doi:10.5072/FK2/2R0WN3/NQNHXX",
+                    "pidURL": "https://doi.org/10.5072/FK2/2R0WN3/NQNHXX",
+                    "filename": "readme.md",
+                    "contentType": "application/octet-stream",
+                    "filesize": 42,
+                    "storageIdentifier": "164d1afb8b9-e5f3b5e59bc8",
+                    "originalFormatLabel": "UNKNOWN",
+                    "rootDataFileId": -1,
+                    "md5": "19eb8c9d9828490d05a0a28520fc7bd3",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "19eb8c9d9828490d05a0a28520fc7bd3"
+                    }
+                }
+            }, {
+                "label": "wrld96z8 sav 14.tab",
+                "restricted": false,
+                "directoryLabel": "test-data-files 14/binary data files",
+                "version": 2,
+                "datasetVersionId": 3,
+                "dataFile": {
+                    "id": 19,
+                    "persistentId": "doi:10.5072/FK2/2R0WN3/WB7T25",
+                    "pidURL": "https://doi.org/10.5072/FK2/2R0WN3/WB7T25",
+                    "filename": "wrld96z8 sav 14.tab",
+                    "contentType": "text/tab-separated-values",
+                    "filesize": 328,
+                    "storageIdentifier": "164d1afb8a4-e36855dc8647",
+                    "originalFileFormat": "application/x-spss-sav",
+                    "originalFormatLabel": "SPSS SAV",
+                    "UNF": "UNF:6:3HbF8/CEW1+Xz7COXSnsDQ==",
+                    "rootDataFileId": -1,
+                    "md5": "5f301b7af55bc4cf169609987e159f94",
+                    "checksum": {
+                        "type": "MD5",
+                        "value": "5f301b7af55bc4cf169609987e159f94"
+                    }
+                }
+            }],
+        "citation": "Admin, Dataverse, 2018, \"test dataset #1\", https://doi.org/10.5072/FK2/2R0WN3, Root, V1, UNF:6:3HbF8/CEW1+Xz7COXSnsDQ=="
+    }
+}

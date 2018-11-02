@@ -1,0 +1,12 @@
+{
+    "name": "TRSA API Test",
+    "alias": "trsatest0",
+    "dataverseContacts": [
+        {
+            "contactEmail": "asone@email.unc.edu"
+        }
+    ],
+    "affiliation": "UNC Odum Inst",
+    "description": "docker-based trsa api test",
+    "dataverseType": "UNCATEGORIZED"
+}
