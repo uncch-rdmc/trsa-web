@@ -4,6 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import edu.unc.odum.dataverse.util.json.JsonFilter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -29,6 +30,9 @@ import javax.faces.event.ActionEvent;
 @SessionScoped
 public class IngestPageView implements Serializable {
 
+    
+    
+    
     private static final Logger logger = Logger.getLogger(IngestPageView.class.getName());
     @ManagedProperty("#{fileUploadView}")
     private FileUploadView fileUploadView;
@@ -68,14 +72,19 @@ public class IngestPageView implements Serializable {
      */
     public IngestPageView() {
     }
+    
+    
+    private String apiKeyValue ="171fa7f1-e460-4138-bf19-27c5a751a615";
+    private String dataverseServerValue="http://localhost:8083";
+    private String dataverseIdValue="14";
 
     @PostConstruct
     public void init() {
         datasetIdentifier = fileUploadView.getDatasetIdentifier();
         logger.log(Level.INFO, "datasetIdentifier passed={0}", datasetIdentifier);
-        targetDataverseId = "6";
-        apiKey = "1b9da6d3-6870-4ea2-a5ab-331d43d92c53";
-        dataverseServer = "https://impacttest.irss.unc.edu";
+        targetDataverseId = dataverseIdValue; //"6";
+        apiKey = apiKeyValue ;//"1b9da6d3-6870-4ea2-a5ab-331d43d92c53";
+        dataverseServer = dataverseServerValue;//"https://impacttest.irss.unc.edu";
     }
 
     String apiKey;
@@ -116,8 +125,10 @@ public class IngestPageView implements Serializable {
         try {
             progressTest = "starting getInfo request";
             logger.log(Level.INFO, "testing the version of the target Dataverse");
+            
+            String serverInfo=dataverseServerValue+ "/api/info/version";
             HttpResponse<JsonNode> jsonResponse
-                    = Unirest.get("https://impacttest.irss.unc.edu/api/info/version").header("X-Dataverse-key",
+                    = Unirest.get(serverInfo).header("X-Dataverse-key",
                             apiKey).asJson();
 
             logger.log(Level.INFO, "status code={0}", jsonResponse.getStatus());
@@ -137,7 +148,12 @@ public class IngestPageView implements Serializable {
             progressTest = "starting request";
             String filenameValue = datasetIdentifier;
             String filelocation = "/tmp/files/10.5072/FK2/" + datasetIdentifier + "/export_dataverse_json.cached";
-            File payload = new File(filelocation);
+            String payloadFileName = "/tmp/files/10.5072/FK2/" + datasetIdentifier +"/filtered-result.json";
+            JsonFilter filter = new JsonFilter();
+            filter.filterApiPayload(filelocation, payloadFileName);
+            
+//            File payload = new File(filelocation);
+            File payload = new File(payloadFileName);
             if (!payload.exists() || payload.length() == 0L) {
                 throw new FileNotFoundException("payload file does not exist or empty");
             }
