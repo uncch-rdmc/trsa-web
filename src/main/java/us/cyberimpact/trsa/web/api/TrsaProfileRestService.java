@@ -29,7 +29,7 @@ public class TrsaProfileRestService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public TrsaProfileDTO createProfile(TrsaProfileDTO newProfile) {
-        return dataService.createProfile(newProfile);
+        return dataService.createNewProfile(newProfile);
     }
     
     

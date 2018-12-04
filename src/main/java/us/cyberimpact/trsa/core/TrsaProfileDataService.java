@@ -38,7 +38,7 @@ public class TrsaProfileDataService {
         return instance;
     }
     
-    public TrsaProfileDTO createProfile(TrsaProfileDTO newProfile){
+    public TrsaProfileDTO createNewProfile(TrsaProfileDTO newProfile){
         
         // serialize this profile
         Jsonb jsonb = JsonbBuilder.create();

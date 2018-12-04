@@ -24,18 +24,18 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author asone
  */
 @Entity
-@Table(name = "TRSA_PROFILE", catalog = "IMPACT-TEST", schema = "PUBLIC")
+@Table(name = "TRSAPROFILE", catalog = "TRSA", schema = "PUBLIC")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TrsaProfile_1.findAll", query = "SELECT t FROM TrsaProfile_1 t"),
-    @NamedQuery(name = "TrsaProfile_1.findById", query = "SELECT t FROM TrsaProfile_1 t WHERE t.id = :id"),
-    @NamedQuery(name = "TrsaProfile_1.findByInstallation", query = "SELECT t FROM TrsaProfile_1 t WHERE t.installation = :installation"),
-    @NamedQuery(name = "TrsaProfile_1.findByEmail", query = "SELECT t FROM TrsaProfile_1 t WHERE t.email = :email"),
-    @NamedQuery(name = "TrsaProfile_1.findByApitoken", query = "SELECT t FROM TrsaProfile_1 t WHERE t.apitoken = :apitoken"),
-    @NamedQuery(name = "TrsaProfile_1.findByDatastoragelocation", query = "SELECT t FROM TrsaProfile_1 t WHERE t.datastoragelocation = :datastoragelocation"),
-    @NamedQuery(name = "TrsaProfile_1.findByDataaccessinfo", query = "SELECT t FROM TrsaProfile_1 t WHERE t.dataaccessinfo = :dataaccessinfo"),
-    @NamedQuery(name = "TrsaProfile_1.findByNotaryserviceurl", query = "SELECT t FROM TrsaProfile_1 t WHERE t.notaryserviceurl = :notaryserviceurl"),
-    @NamedQuery(name = "TrsaProfile_1.findBySafeserviceurl", query = "SELECT t FROM TrsaProfile_1 t WHERE t.safeserviceurl = :safeserviceurl")})
+    @NamedQuery(name = "TrsaProfile.findAll", query = "SELECT t FROM TrsaProfile t"),
+    @NamedQuery(name = "TrsaProfile.findById", query = "SELECT t FROM TrsaProfile t WHERE t.id = :id"),
+    @NamedQuery(name = "TrsaProfile.findByInstallation", query = "SELECT t FROM TrsaProfile t WHERE t.installation = :installation"),
+    @NamedQuery(name = "TrsaProfile.findByEmail", query = "SELECT t FROM TrsaProfile t WHERE t.email = :email"),
+    @NamedQuery(name = "TrsaProfile.findByApitoken", query = "SELECT t FROM TrsaProfile t WHERE t.apitoken = :apitoken"),
+    @NamedQuery(name = "TrsaProfile.findByDatastoragelocation", query = "SELECT t FROM TrsaProfile t WHERE t.datastoragelocation = :datastoragelocation"),
+    @NamedQuery(name = "TrsaProfile.findByDataaccessinfo", query = "SELECT t FROM TrsaProfile t WHERE t.dataaccessinfo = :dataaccessinfo"),
+    @NamedQuery(name = "TrsaProfile.findByNotaryserviceurl", query = "SELECT t FROM TrsaProfile t WHERE t.notaryserviceurl = :notaryserviceurl"),
+    @NamedQuery(name = "TrsaProfile.findBySafeserviceurl", query = "SELECT t FROM TrsaProfile t WHERE t.safeserviceurl = :safeserviceurl")})
 public class TrsaProfile implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -185,7 +185,7 @@ public class TrsaProfile implements Serializable {
 
     @Override
     public String toString() {
-        return "us.cyberimpact.trsa.core.TrsaProfile_1[ id=" + id + " ]";
+        return "us.cyberimpact.trsa.core.TrsaProfile[ id=" + id + " ]";
     }
     
 }
