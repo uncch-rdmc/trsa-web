@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrsaProfileCreateDlg" 
+                  widgetVar="TrsaProfileCreateDialog" 
+                  modal="true" 
+                  resizable="false" 
+                  appendTo="@(body)" 
+                  header="#{bundle.CreateTrsaProfileTitle}">
+            <h:form id="TrsaProfileCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trsaProfileController.selected != null}">
+                        <p:outputLabel 
+                            value="#{bundle.CreateTrsaProfileLabel_installation}" 
+                            for="installation" />
+                        <p:inputText 
+                            id="installation" 
+                            value="#{trsaProfileController.selected.installation}" 
+                            title="#{bundle.CreateTrsaProfileTitle_installation}" 
+                            required="true" 
+                            requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_installation}"/>
+                        <p:outputLabel 
+                            value="#{bundle.CreateTrsaProfileLabel_email}" 
+                            for="email" />
+                        <p:inputText 
+                            id="email" 
+                            value="#{trsaProfileController.selected.email}" title="#{bundle.CreateTrsaProfileTitle_email}" required="true" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_email}"/>
+                        <p:outputLabel 
+                            value="#{bundle.CreateTrsaProfileLabel_apitoken}" for="apitoken" />
+                        <p:inputText 
+                            id="apitoken" value="#{trsaProfileController.selected.apitoken}" title="#{bundle.CreateTrsaProfileTitle_apitoken}" required="true" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_apitoken}"/>
+                        <p:outputLabel value="#{bundle.CreateTrsaProfileLabel_datastoragelocation}" for="datastoragelocation" />
+                        <p:inputText 
+                            id="datastoragelocation" value="#{trsaProfileController.selected.datastoragelocation}" title="#{bundle.CreateTrsaProfileTitle_datastoragelocation}" required="true" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_datastoragelocation}"/>
+                        <p:outputLabel 
+                            value="#{bundle.CreateTrsaProfileLabel_dataaccessinfo}" for="dataaccessinfo" />
+                        <p:inputText 
+                            id="dataaccessinfo" value="#{trsaProfileController.selected.dataaccessinfo}" title="#{bundle.CreateTrsaProfileTitle_dataaccessinfo}" required="true" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_dataaccessinfo}"/>
+                        <p:outputLabel 
+                            value="#{bundle.CreateTrsaProfileLabel_notaryserviceurl}" for="notaryserviceurl" />
+                        <p:inputText 
+                            id="notaryserviceurl" value="#{trsaProfileController.selected.notaryserviceurl}" title="#{bundle.CreateTrsaProfileTitle_notaryserviceurl}" required="true" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_notaryserviceurl}"/>
+                        <p:outputLabel 
+                            value="#{bundle.CreateTrsaProfileLabel_safeserviceurl}" for="safeserviceurl" />
+                        <p:inputText 
+                            id="safeserviceurl" value="#{trsaProfileController.selected.safeserviceurl}" title="#{bundle.CreateTrsaProfileTitle_safeserviceurl}" required="true" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_safeserviceurl}"/>
+                    </p:panelGrid>
+                    <p:commandButton 
+                        actionListener="#{trsaProfileController.create}" 
+                        value="#{bundle.Save}" 
+                        update="display,:TrsaProfileListForm:datalist,:growl" 
+                        oncomplete="handleSubmit(args,'TrsaProfileCreateDialog');"/>
+                    <p:commandButton 
+                        value="#{bundle.Cancel}" 
+                        onclick="TrsaProfileCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package us.cyberimpact.trsa.web.api;
+package us.cyberimpact.trsa.api;
 
 import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
@@ -23,15 +23,15 @@ public class TrsaProfileRestService {
     
     private static final Logger logger = Logger.getLogger(TrsaProfileRestService.class.getName());
     
-    private TrsaProfileDataService dataService = TrsaProfileDataService.getInstance();
-    
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public TrsaProfileDTO createProfile(TrsaProfileDTO newProfile) {
-        return dataService.createNewProfile(newProfile);
-    }
-    
+//    private TrsaProfileDataService dataService = TrsaProfileDataService.getInstance();
+//    
+//    @POST
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public TrsaProfileDTO createProfile(TrsaProfileDTO newProfile) {
+//        return dataService.createProfile(newProfile);
+//    }
+//    
     
     
 }

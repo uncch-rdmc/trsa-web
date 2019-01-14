@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package us.cyberimpact.trsa.web.api;
+package us.cyberimpact.trsa.api;
 
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -51,7 +51,6 @@ public class TRSAprofilesResource {
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response postJson(String content) {
         //TODO
         return Response.created(context.getAbsolutePath()).build();
@@ -60,8 +59,8 @@ public class TRSAprofilesResource {
     /**
      * Sub-resource locator method for {id}
      */
-    @Path("{id}")
-    public TRSAprofileResource getTRSAprofileResource(@PathParam("id") String id) {
-        return TRSAprofileResource.getInstance(id);
-    }
+//    @Path("{id}")
+//    public TRSAprofileResource getTRSAprofileResource(@PathParam("id") String id) {
+//        return TRSAprofileResource.getInstance(id);
+//    }
 }

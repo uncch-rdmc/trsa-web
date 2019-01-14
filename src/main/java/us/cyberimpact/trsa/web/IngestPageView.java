@@ -1,4 +1,4 @@
-package us.cyberimpact.trsa.web.gui;
+package us.cyberimpact.trsa.web;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -74,7 +74,7 @@ public class IngestPageView implements Serializable {
     }
     
     
-    private String apiKeyValue ="171fa7f1-e460-4138-bf19-27c5a751a615";
+    private String apiKeyValue ="6bf35b95-4746-4bec-9547-3f19fe582727";
     private String dataverseServerValue="http://localhost:8083";
     private String dataverseIdValue="14";
 

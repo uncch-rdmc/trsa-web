@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrsaProfileViewDlg" widgetVar="TrsaProfileViewDialog" 
+                  modal="true" 
+                  resizable="false" 
+                  appendTo="@(body)" 
+                  header="#{bundle.ViewTrsaProfileTitle}">
+            <h:form id="TrsaProfileViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trsaProfileController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTrsaProfileLabel_id}"/>
+                        <h:outputText value="#{trsaProfileController.selected.id}" title="#{bundle.ViewTrsaProfileTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewTrsaProfileLabel_installation}"/>
+                        <h:outputText value="#{trsaProfileController.selected.installation}" title="#{bundle.ViewTrsaProfileTitle_installation}"/>
+                        <h:outputText value="#{bundle.ViewTrsaProfileLabel_email}"/>
+                        <h:outputText value="#{trsaProfileController.selected.email}" title="#{bundle.ViewTrsaProfileTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewTrsaProfileLabel_apitoken}"/>
+                        <h:outputText value="#{trsaProfileController.selected.apitoken}" title="#{bundle.ViewTrsaProfileTitle_apitoken}"/>
+                        <h:outputText value="#{bundle.ViewTrsaProfileLabel_datastoragelocation}"/>
+                        <h:outputText value="#{trsaProfileController.selected.datastoragelocation}" title="#{bundle.ViewTrsaProfileTitle_datastoragelocation}"/>
+                        <h:outputText value="#{bundle.ViewTrsaProfileLabel_dataaccessinfo}"/>
+                        <h:outputText value="#{trsaProfileController.selected.dataaccessinfo}" title="#{bundle.ViewTrsaProfileTitle_dataaccessinfo}"/>
+                        <h:outputText value="#{bundle.ViewTrsaProfileLabel_notaryserviceurl}"/>
+                        <h:outputText value="#{trsaProfileController.selected.notaryserviceurl}" title="#{bundle.ViewTrsaProfileTitle_notaryserviceurl}"/>
+                        <h:outputText value="#{bundle.ViewTrsaProfileLabel_safeserviceurl}"/>
+                        <h:outputText value="#{trsaProfileController.selected.safeserviceurl}" title="#{bundle.ViewTrsaProfileTitle_safeserviceurl}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TrsaProfileViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

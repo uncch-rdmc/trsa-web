@@ -57,8 +57,8 @@ public class TrsaProfile implements Serializable {
     private String email;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 12)
-    @Column(name = "APITOKEN", nullable = false, length = 12)
+    @Size(min = 1, max = 255)
+    @Column(name = "APITOKEN", nullable = false, length = 255)
     private String apitoken;
     @Basic(optional = false)
     @NotNull

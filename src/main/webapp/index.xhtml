@@ -11,6 +11,7 @@
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>Trusted Remote Storage Agent Web GUI</title>
+                <h:outputStylesheet name="css/jsfcrud.css"/>
             </f:facet>
         </h:head>
 
@@ -43,9 +44,9 @@
                             <p:submenu label="Resources">
                                 <p:menuitem value="Project Home" url="http://cyberimpact.us/" />
                                 <p:menuitem value="Resources" url="http://cyberimpact.us/services/publications-powerpoints/" />
-                                <p:menuitem value="Demo Home" url="/index.xhtml" />
-                                <p:menuitem value="Demo New Home" url="/new_index.xhtml" />
-
+                                <p:menuitem value="Old Demo Home" url="/index.xhtml" />
+                                <p:menuitem value="New Demo Home" url="/new_index.xhtml" />
+                                <p:menuitem value="TRSA Profile" url="/trsaProfile/List.xhtml"/>
                             </p:submenu>
 
                         </p:menu>
@@ -68,13 +69,29 @@
                                 </p:panelGrid>
                             </p:panelGrid>
                         </p:panel>
+                        <p:panel>
+                                            
+<!--                            <h:link outcome="/welcomePrimefaces" value="Primefaces welcome page" />-->
+            <br />
+            <h:link outcome="/trsaProfile/List" value="Show All TrsaProfile Items"/>
+            <br />
+<!--            <h:commandLink action="#{trsaProfile.listSetup}" value="Show All TrsaProfile Items"/>-->
+            <br />
+                        </p:panel>
                     </p:layoutUnit>
 
                 </p:layout>
 
                 <br />
+
+
+                
+                
             </h:form>
+
         </h:body>
+
+
 
     </f:view>
 </html>

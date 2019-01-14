@@ -1,4 +1,4 @@
-package us.cyberimpact.trsa.web.gui;
+package us.cyberimpact.trsa.web;
 
 import edu.harvard.iq.dataverse.entities.DatasetVersion;
 import edu.harvard.iq.dataverse.entities.DatasetVersionFacade;
@@ -148,12 +148,12 @@ public class FileUploadView implements Serializable {
 
     public String goHome() {
         logger.log(Level.INFO, "back to the home");
-        return "/index.xhtml";
+        return "/new_index.xhtml";
     }
 
     public String goPublish() {
         logger.log(Level.INFO, "go to publish page");
-        return "/ingest.xhtml";
+        return "/new_ingest.xhtml";
     }
 
     public void copyFile(String fileName, InputStream in) {
