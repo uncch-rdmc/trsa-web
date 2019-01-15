@@ -31,11 +31,31 @@
                             for="email" />
                         <p:inputText 
                             id="email" 
-                            value="#{trsaProfileController.selected.email}" title="#{bundle.CreateTrsaProfileTitle_email}" required="true" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_email}"/>
+                            value="#{trsaProfileController.selected.email}" 
+                            title="#{bundle.CreateTrsaProfileTitle_email}" 
+                            required="true" 
+                            requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_email}"/>
+<p:outputLabel 
+    value="#{bundle.CreateTrsaProfileLabel_dataverseurl}" for="dataverseurl" />
+<p:inputText 
+    id="dataverseurl" 
+    value="#{trsaProfileController.selected.dataverseurl}" 
+    title="#{bundle.CreateTrsaProfileTitle_dataverseurl}" 
+    required="true" 
+    requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_dataverseurl}"/>
                         <p:outputLabel 
                             value="#{bundle.CreateTrsaProfileLabel_apitoken}" for="apitoken" />
                         <p:inputText 
-                            id="apitoken" value="#{trsaProfileController.selected.apitoken}" title="#{bundle.CreateTrsaProfileTitle_apitoken}" required="true" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_apitoken}"/>
+                            id="apitoken" 
+                            value="#{trsaProfileController.selected.apitoken}" 
+                            title="#{bundle.CreateTrsaProfileTitle_apitoken}" 
+                            required="true" 
+                            requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_apitoken}"/>
+                        
+                        
+                        
+                        
+                        
                         <p:outputLabel value="#{bundle.CreateTrsaProfileLabel_datastoragelocation}" for="datastoragelocation" />
                         <p:inputText 
                             id="datastoragelocation" value="#{trsaProfileController.selected.datastoragelocation}" title="#{bundle.CreateTrsaProfileTitle_datastoragelocation}" required="true" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_datastoragelocation}"/>

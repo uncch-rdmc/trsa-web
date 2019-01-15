@@ -72,6 +72,21 @@ public class TrsaProfileDTO {
 
     
     
+    private String dataverseurl;
+
+    public String getDataverseurl() {
+        return dataverseurl;
+    }
+
+    public void setDataverseurl(String dataverseurl) {
+        this.dataverseurl = dataverseurl;
+    }
+    
+    
+    
+    
+    
+    
         private String apiKey;
 
     /**

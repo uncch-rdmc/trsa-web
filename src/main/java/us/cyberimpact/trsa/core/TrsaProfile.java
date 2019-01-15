@@ -38,6 +38,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TrsaProfile.findBySafeserviceurl", query = "SELECT t FROM TrsaProfile t WHERE t.safeserviceurl = :safeserviceurl")})
 public class TrsaProfile implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "DATAVERSEURL", nullable = false, length = 255)
+    private String dataverseurl;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -186,6 +192,14 @@ public class TrsaProfile implements Serializable {
     @Override
     public String toString() {
         return "us.cyberimpact.trsa.core.TrsaProfile[ id=" + id + " ]";
+    }
+
+    public String getDataverseurl() {
+        return dataverseurl;
+    }
+
+    public void setDataverseurl(String dataverseurl) {
+        this.dataverseurl = dataverseurl;
     }
     
 }

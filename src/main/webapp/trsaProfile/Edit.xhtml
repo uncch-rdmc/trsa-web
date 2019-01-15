@@ -19,10 +19,33 @@
                     <p:panelGrid columns="2" rendered="#{trsaProfileController.selected != null}">
                         <p:outputLabel value="#{bundle.EditTrsaProfileLabel_installation}" for="installation" />
                         <p:inputText id="installation" value="#{trsaProfileController.selected.installation}" title="#{bundle.EditTrsaProfileTitle_installation}" required="true" requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_installation}"/>
-                        <p:outputLabel value="#{bundle.EditTrsaProfileLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{trsaProfileController.selected.email}" title="#{bundle.EditTrsaProfileTitle_email}" required="true" requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_email}"/>
-                        <p:outputLabel value="#{bundle.EditTrsaProfileLabel_apitoken}" for="apitoken" />
-                        <p:inputText id="apitoken" value="#{trsaProfileController.selected.apitoken}" title="#{bundle.EditTrsaProfileTitle_apitoken}" required="true" requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_apitoken}"/>
+                        <p:outputLabel 
+                            value="#{bundle.EditTrsaProfileLabel_email}" 
+                            for="email" />
+                        <p:inputText 
+                            id="email" 
+                            value="#{trsaProfileController.selected.email}" 
+                            title="#{bundle.EditTrsaProfileTitle_email}" 
+                            required="true" 
+                            requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_email}"/>
+                        <p:outputLabel 
+                            value="#{bundle.EditTrsaProfileLabel_dataverseurl}" 
+                            for="dataverseurl" />
+                        <p:inputText 
+                            id="dataverseurl" 
+                            value="#{trsaProfileController.selected.dataverseurl}" 
+                            title="#{bundle.EditTrsaProfileTitle_dataverseurl}" 
+                            required="true" 
+                            requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_dataverseurl}"/>
+                        <p:outputLabel 
+                            value="#{bundle.EditTrsaProfileLabel_apitoken}" 
+                            for="apitoken" />
+                        <p:inputText 
+                            id="apitoken" 
+                            value="#{trsaProfileController.selected.apitoken}" 
+                            title="#{bundle.EditTrsaProfileTitle_apitoken}" 
+                            required="true" 
+                            requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_apitoken}"/>
                         <p:outputLabel value="#{bundle.EditTrsaProfileLabel_datastoragelocation}" for="datastoragelocation" />
                         <p:inputText id="datastoragelocation" value="#{trsaProfileController.selected.datastoragelocation}" title="#{bundle.EditTrsaProfileTitle_datastoragelocation}" required="true" requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_datastoragelocation}"/>
                         <p:outputLabel value="#{bundle.EditTrsaProfileLabel_dataaccessinfo}" for="dataaccessinfo" />

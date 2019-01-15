@@ -10,7 +10,7 @@
         <ui:composition template="/template/layout.xhtml">
 
         <ui:define name="title">
-            <h:outputText value="{bundle.ListTrsaProfileTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ListTrsaProfileTitle}"></h:outputText>
         </ui:define>
             
             <ui:define name="top">
@@ -51,6 +51,12 @@
                                 <h:outputText value="#{bundle.ListTrsaProfileTitle_email}"/>
                             </f:facet>
                             <h:outputText value="#{item.email}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrsaProfileTitle_dataverseurl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataverseurl}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
