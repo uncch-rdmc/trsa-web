@@ -24,7 +24,7 @@ import javax.faces.convert.FacesConverter;
 public class TrsaProfileController implements Serializable {
 
     @EJB
-    private us.cyberimpact.trsa.web.TrsaProfileFacade ejbFacade;
+    private TrsaProfileFacade trsaProfileFacade;
     private List<TrsaProfile> items = null;
     private TrsaProfile selected;
 
@@ -46,7 +46,7 @@ public class TrsaProfileController implements Serializable {
     }
 
     private TrsaProfileFacade getFacade() {
-        return ejbFacade;
+        return trsaProfileFacade;
     }
 
     public TrsaProfile prepareCreate() {
@@ -56,18 +56,21 @@ public class TrsaProfileController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TrsaProfileCreated"));
+        persist(PersistAction.CREATE, 
+            ResourceBundle.getBundle("/Bundle").getString("TrsaProfileCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TrsaProfileUpdated"));
+        persist(PersistAction.UPDATE, 
+            ResourceBundle.getBundle("/Bundle").getString("TrsaProfileUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("TrsaProfileDeleted"));
+        persist(PersistAction.DELETE, 
+            ResourceBundle.getBundle("/Bundle").getString("TrsaProfileDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.

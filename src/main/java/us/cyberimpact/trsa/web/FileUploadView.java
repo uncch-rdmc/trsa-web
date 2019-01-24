@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +29,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import us.cyberimpact.trsa.core.TrsaProfile;
 
 @ManagedBean(name = "fileUploadView")
 @SessionScoped
@@ -40,6 +42,11 @@ public class FileUploadView implements Serializable {
 
     @EJB
     DatasetVersionFacade datasetVersionFcd;
+    
+    @EJB
+    TrsaProfileFacade trsaProfileFacade;
+    
+    List<TrsaProfile> trsaProfileTable = new ArrayList<>();
 
     private UploadedFile file;
     private String destination = "/tmp/";
@@ -47,6 +54,20 @@ public class FileUploadView implements Serializable {
 
     @PostConstruct
     public void init() {
+        
+        
+        trsaProfileTable= trsaProfileFacade.findAll();
+        logger.log(Level.INFO, "TrsaProfileTable={0}", trsaProfileTable);
+        if (trsaProfileTable.isEmpty()){
+            logger.log(Level.INFO, "trsa profile is empty");
+            // turn off the publish button 
+           isTrsaProfileReady=false;
+        } else {
+            // turn on the publish button
+            publishButtonEnabled=true;
+            logger.log(Level.INFO, "trsa profile exists");
+        }
+        
 
     }
 
@@ -78,7 +99,7 @@ public class FileUploadView implements Serializable {
 
     public FileUploadView() {
         ingestButtonEnabled = false;
-        publishButtonEnabled = false;
+        publishButtonEnabled = true;
     }
 
     public void upload(FileUploadEvent event) {
@@ -139,9 +160,20 @@ public class FileUploadView implements Serializable {
         } catch (ExportException ex) {
             logger.log(Level.SEVERE, "ExportException", ex);
         }
-        String Message = fileName + " has been successfully ingested and new dataset (Id=" + datasetIdentifier + ") was created";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", Message));
-        publishButtonEnabled = true;
+        FacesContext context = FacesContext.getCurrentInstance();
+        String message = fileName + " has been successfully ingested and new dataset (Id=" + datasetIdentifier + ") was created";
+        context.addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "info", message));
+        
+        if (isTrsaProfileReady){
+            logger.log(Level.INFO, "TRSA Profile is available");
+        } else {
+            logger.log(Level.INFO, "TRSA Profile is not available");
+            publishButtonEnabled = true;
+            String messageWarning = "TRSA Profile is not set.";
+            context.addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_WARN, "warn", messageWarning));
+            
+            publishButtonEnabled = false;
+        }
         ingestButtonEnabled = false;
         //return "/ingest.xhtml";
     }
@@ -152,6 +184,9 @@ public class FileUploadView implements Serializable {
     }
 
     public String goPublish() {
+        
+        
+        
         logger.log(Level.INFO, "go to publish page");
         return "/new_ingest.xhtml";
     }
@@ -201,5 +236,8 @@ public class FileUploadView implements Serializable {
     public void setPublishButtonEnabled(boolean value) {
         this.publishButtonEnabled = value;
     }
+    
+    boolean isTrsaProfileReady = false;
+    
 
 }

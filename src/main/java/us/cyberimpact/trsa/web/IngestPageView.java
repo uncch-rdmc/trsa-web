@@ -11,9 +11,12 @@ import java.io.IOException;
 import javax.inject.Named;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -21,6 +24,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import us.cyberimpact.trsa.core.TrsaProfile;
 
 /**
  *
@@ -29,11 +33,14 @@ import javax.faces.event.ActionEvent;
 @ManagedBean(name = "ingestPageView")
 @SessionScoped
 public class IngestPageView implements Serializable {
-
-    
-    
     
     private static final Logger logger = Logger.getLogger(IngestPageView.class.getName());
+    
+    @EJB
+    private TrsaProfileFacade trsaProfileFacade;
+    
+    List<TrsaProfile> trsaProfileTable = new ArrayList<>();
+    
     @ManagedProperty("#{fileUploadView}")
     private FileUploadView fileUploadView;
 
@@ -85,6 +92,18 @@ public class IngestPageView implements Serializable {
         targetDataverseId = dataverseIdValue; //"6";
         apiKey = apiKeyValue ;//"1b9da6d3-6870-4ea2-a5ab-331d43d92c53";
         dataverseServer = dataverseServerValue;//"https://impacttest.irss.unc.edu";
+        trsaProfileTable= trsaProfileFacade.findAll();
+        logger.log(Level.INFO, "TrsaProfileTable={0}", trsaProfileTable);
+        if (trsaProfileTable.isEmpty()){
+            logger.log(Level.INFO, "trsa profile is empty");
+            // jump to edit page
+            goToTrsaProfilePage();
+        } else {
+            // update fields
+            logger.log(Level.INFO, "trsa profile exists");
+        }
+        
+        logger.log(Level.INFO, "The above conditional block was ignored");
     }
 
     String apiKey;
@@ -227,6 +246,18 @@ public class IngestPageView implements Serializable {
 
     public void setPublishButtonEnabled(boolean publishButtonEnabled) {
         this.publishButtonEnabled = publishButtonEnabled;
+    }
+    
+    
+    public String goHome() {
+        logger.log(Level.INFO, "back to the home");
+        return "/new_index.xhtml";
+    }
+    
+    
+    public String goToTrsaProfilePage() {
+        logger.log(Level.INFO, "go to the Trsa profile page");
+        return "/trsaProfile/List.xhtml";
     }
     
 }
