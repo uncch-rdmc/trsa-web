@@ -41,6 +41,8 @@ public class IngestPageView implements Serializable {
     
     List<TrsaProfile> trsaProfileTable = new ArrayList<>();
     
+    boolean isTrsaProfileReady = false;
+    
     @ManagedProperty("#{fileUploadView}")
     private FileUploadView fileUploadView;
 
@@ -93,17 +95,18 @@ public class IngestPageView implements Serializable {
         apiKey = apiKeyValue ;//"1b9da6d3-6870-4ea2-a5ab-331d43d92c53";
         dataverseServer = dataverseServerValue;//"https://impacttest.irss.unc.edu";
         trsaProfileTable= trsaProfileFacade.findAll();
-        logger.log(Level.INFO, "TrsaProfileTable={0}", trsaProfileTable);
+        logger.log(Level.INFO, "IngestPageView:trsaProfileFacade:TrsaProfileTable={0}", trsaProfileTable);
         if (trsaProfileTable.isEmpty()){
-            logger.log(Level.INFO, "trsa profile is empty");
-            // jump to edit page
-            goToTrsaProfilePage();
+            logger.log(Level.INFO, "IngestPageView:trsa profile is empty");
         } else {
             // update fields
-            logger.log(Level.INFO, "trsa profile exists");
+            isTrsaProfileReady=true;
+            logger.log(Level.INFO, "IngestPageView:trsa profile exists");
+            logger.log(Level.INFO, "IngestPageView:isTrsaProfileReady={0}", isTrsaProfileReady);
+            logger.log(Level.INFO, "IngestPageView:url={0}",trsaProfileTable.get(0).getDataverseurl());            
+            logger.log(Level.INFO, "IngestPageView:api-token={0}",trsaProfileTable.get(0).getApitoken());
         }
         
-        logger.log(Level.INFO, "The above conditional block was ignored");
     }
 
     String apiKey;

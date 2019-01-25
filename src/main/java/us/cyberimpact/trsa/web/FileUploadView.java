@@ -57,15 +57,20 @@ public class FileUploadView implements Serializable {
         
         
         trsaProfileTable= trsaProfileFacade.findAll();
-        logger.log(Level.INFO, "TrsaProfileTable={0}", trsaProfileTable);
+        logger.log(Level.INFO, "FileUploadView:TrsaProfileTable={0}", trsaProfileTable);
         if (trsaProfileTable.isEmpty()){
             logger.log(Level.INFO, "trsa profile is empty");
             // turn off the publish button 
            isTrsaProfileReady=false;
         } else {
             // turn on the publish button
-            publishButtonEnabled=true;
-            logger.log(Level.INFO, "trsa profile exists");
+            isTrsaProfileReady=true;
+            logger.log(Level.INFO, "FileUploadView:trsa profile exists");
+            
+            logger.log(Level.INFO, "url={0}",trsaProfileTable.get(0).getDataverseurl());            
+            logger.log(Level.INFO, "api-token={0}",trsaProfileTable.get(0).getApitoken());
+            
+            
         }
         
 
@@ -130,7 +135,11 @@ public class FileUploadView implements Serializable {
 //            
             FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Your file (File Name " + file.getFileName() + " with size " + file.getSize() + ")  Uploaded Successfully", ""));
         }
-
+        
+        logger.log(Level.INFO, "FileUploadView:upload():TrsaProfileTable={0}", trsaProfileTable);
+        logger.log(Level.INFO, "upload():url={0}",trsaProfileTable.get(0).getDataverseurl());            
+        logger.log(Level.INFO, "upload():api-token={0}",trsaProfileTable.get(0).getApitoken());
+        logger.log(Level.INFO, "upload():isTrsaProfileReady={0}", isTrsaProfileReady);
         setIngestButtonEnabled(true);
 //        return "/index.xhtml";
     }
@@ -163,7 +172,10 @@ public class FileUploadView implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         String message = fileName + " has been successfully ingested and new dataset (Id=" + datasetIdentifier + ") was created";
         context.addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "info", message));
-        
+        logger.log(Level.INFO, "execIngest():isTrsaProfileReady={0}", isTrsaProfileReady);
+        logger.log(Level.INFO, "FileUploadView:execIngest():TrsaProfileTable={0}", trsaProfileTable);
+        logger.log(Level.INFO, "execIngest():url={0}",trsaProfileTable.get(0).getDataverseurl());            
+        logger.log(Level.INFO, "execIngest():api-token={0}", trsaProfileTable.get(0).getApitoken());
         if (isTrsaProfileReady){
             logger.log(Level.INFO, "TRSA Profile is available");
         } else {
