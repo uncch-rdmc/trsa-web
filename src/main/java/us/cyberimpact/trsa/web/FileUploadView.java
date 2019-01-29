@@ -158,7 +158,10 @@ public class FileUploadView implements Serializable {
             logger.log(Level.INFO, "dumping metadata files");
             List<DatasetVersion> versions = datasetVersionFcd.findAll();
             if (versions != null && !versions.isEmpty()) {
-                ingestService.exportDataset(versions.get(0));
+                
+                logger.log(Level.INFO, "versions.get(0)={0}", versions.get(0));
+                logger.log(Level.INFO, "versions.get(n)={0}", versions.get(versions.size()-1));
+                ingestService.exportDataset(versions.get(versions.size()-1));
             } else {
                 logger.log(Level.INFO, "DatasetVersion is null/empty");
             }

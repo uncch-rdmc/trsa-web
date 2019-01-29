@@ -535,7 +535,7 @@ public class JsonPrinter {
     
     public static List<DatasetField> getSampleFieldsData() {
 
-        System.out.println("DatasetFieldTest2: generate a java tree-like object");
+        System.out.println("DatasetFieldTest2: getSampleFieldsData():generate a java tree-like object");
         List<DatasetField> fields = new ArrayList<>();
 
         // title
@@ -657,7 +657,7 @@ public class JsonPrinter {
     
     public static List<DatasetField> getFields() {
 
-        System.out.println("DatasetFieldTest2: generate a java tree-like object");
+        System.out.println("DatasetFieldTest2: getFields(): generate a java tree-like object");
         List<DatasetField> fields = new ArrayList<>();
 
         // title

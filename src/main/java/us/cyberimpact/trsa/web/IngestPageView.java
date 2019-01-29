@@ -13,6 +13,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -83,29 +84,53 @@ public class IngestPageView implements Serializable {
     }
     
     
-    private String apiKeyValue ="6bf35b95-4746-4bec-9547-3f19fe582727";
-    private String dataverseServerValue="http://localhost:8083";
-    private String dataverseIdValue="14";
+    private String apiKeyHCValue ="6bf35b95-4746-4bec-9547-3f19fe582727";
+    private String dataverseServerHCValue="http://localhost:8083";
+    private String dataverseIdHCValue="17";
 
     @PostConstruct
     public void init() {
-        datasetIdentifier = fileUploadView.getDatasetIdentifier();
-        logger.log(Level.INFO, "datasetIdentifier passed={0}", datasetIdentifier);
-        targetDataverseId = dataverseIdValue; //"6";
-        apiKey = apiKeyValue ;//"1b9da6d3-6870-4ea2-a5ab-331d43d92c53";
-        dataverseServer = dataverseServerValue;//"https://impacttest.irss.unc.edu";
+        
         trsaProfileTable= trsaProfileFacade.findAll();
-        logger.log(Level.INFO, "IngestPageView:trsaProfileFacade:TrsaProfileTable={0}", trsaProfileTable);
+        
+        logger.log(Level.INFO, "IngestPageView:init():TrsaProfileTable={0}", trsaProfileTable);
         if (trsaProfileTable.isEmpty()){
-            logger.log(Level.INFO, "IngestPageView:trsa profile is empty");
+            logger.log(Level.INFO, "IngestPageView:trsaProfileTableis empty");
         } else {
+            logger.log(Level.INFO, "trsaProfileTable is available: ={0}", trsaProfileTable);
             // update fields
+
+            logger.log(Level.INFO, "IngestPageView:init():trsa profile exists");
+
+            logger.log(Level.INFO, "IngestPageView:init():url={0}",trsaProfileTable.get(0).getDataverseurl());
+            dataverseServerHCValue = trsaProfileTable.get(0).getDataverseurl();
+            
+            logger.log(Level.INFO, "IngestPageView:init():api-token={0}",trsaProfileTable.get(0).getApitoken());
+            apiKeyHCValue=trsaProfileTable.get(0).getApitoken();
+            
+            // turn on the switch
+            logger.log(Level.INFO, "IngestPageView:init():before turned on: state of isTrsaProfileReady={0}", isTrsaProfileReady);
             isTrsaProfileReady=true;
-            logger.log(Level.INFO, "IngestPageView:trsa profile exists");
-            logger.log(Level.INFO, "IngestPageView:isTrsaProfileReady={0}", isTrsaProfileReady);
-            logger.log(Level.INFO, "IngestPageView:url={0}",trsaProfileTable.get(0).getDataverseurl());            
-            logger.log(Level.INFO, "IngestPageView:api-token={0}",trsaProfileTable.get(0).getApitoken());
+            logger.log(Level.INFO, "IngestPageView:init():after update: isTrsaProfileReady={0}", isTrsaProfileReady);
         }
+        
+        // datasetID
+        datasetIdentifier = fileUploadView.getDatasetIdentifier();
+        logger.log(Level.INFO, "IngestPageView:init():datasetIdentifier passed={0}", datasetIdentifier);
+        
+        // target dataverse (currently hard-coded)
+        targetDataverseId = dataverseIdHCValue; //"6";
+        logger.log(Level.INFO, "IngestPageView:init():targetDataverseId={0}", targetDataverseId);
+        
+        // api-key from TRSA-Profile table
+        apiKey = apiKeyHCValue ;
+        logger.log(Level.INFO, "IngestPageView:init():apiKey={0}", apiKey);
+        
+        // target dataverse server
+        dataverseServer = dataverseServerHCValue;
+        logger.log(Level.INFO, "dataverseServer={0}", dataverseServer);
+        
+
         
     }
 
@@ -148,7 +173,7 @@ public class IngestPageView implements Serializable {
             progressTest = "starting getInfo request";
             logger.log(Level.INFO, "testing the version of the target Dataverse");
             
-            String serverInfo=dataverseServerValue+ "/api/info/version";
+            String serverInfo=dataverseServerHCValue+ "/api/info/version";
             HttpResponse<JsonNode> jsonResponse
                     = Unirest.get(serverInfo).header("X-Dataverse-key",
                             apiKey).asJson();
@@ -179,16 +204,29 @@ public class IngestPageView implements Serializable {
             if (!payload.exists() || payload.length() == 0L) {
                 throw new FileNotFoundException("payload file does not exist or empty");
             }
+            
+            Scanner scanner = new Scanner(new File(payloadFileName));
+            String jsonbody="";
+            while (scanner.hasNextLine()) {
+                    jsonbody +=scanner.nextLine();
+            }
+            scanner.close();
+            logger.log(Level.INFO, "jsonbody={0}", jsonbody);
+            
             logger.log(Level.INFO, "publish API case");
-            String apiEndpoint = dataverseServer + "/api/batch/importwoi";
+            String apiEndpoint = dataverseServer + "/api/dataverses/"+ targetDataverseId
+                    +"/datasets";// "/api/batch/importwoi";
+            logger.log(Level.INFO, "apiEndpoint={0}", apiEndpoint);
             HttpResponse<JsonNode> jsonResponse
                     = Unirest.post(apiEndpoint)
                             .header("X-Dataverse-key",
                                     apiKey)
-                            .queryString("dv", targetDataverseId)
-                            .queryString("filename", filenameValue)
-                            .queryString("key", apiKey)
-                            .field("file", payload)
+//                            .queryString("dv", targetDataverseId)
+//                            .queryString("filename", filenameValue)
+//                            .queryString("key", apiKey)
+                            .queryString("identifier", targetDataverseId)
+//                            .field("file", new File(payloadFileName))
+                            .body(jsonbody)
                             .asJson();
 
             logger.log(Level.INFO, "status code={0}", jsonResponse.getStatus());
