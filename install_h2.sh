@@ -9,5 +9,5 @@ cd /opt/h2/bin
 # populate sample properties
 echo "0=Generic H2 (Server)|org.h2.Driver|jdbc\:h2\:tcp\://localhost/~/trsa|impactUser" > ~/.h2.server.properties
 
-# launch h2
-java -cp "/opt/h2/bin/h2-1.4.197.jar:$H2DRIVERS:$CLASSPATH" org.h2.tools.Server "$@" &
+# launch h2 in scripts/init.d/ instead
+#java -cp "/opt/h2/bin/h2-1.4.197.jar:$H2DRIVERS:$CLASSPATH" org.h2.tools.Server "$@" &

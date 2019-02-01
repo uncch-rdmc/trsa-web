@@ -75,6 +75,9 @@ RUN wget --no-verbose -O payara.zip ${PAYARA_PKG} && \
     ${PAYARA_DIR}/bin/asadmin --user ${ADMIN_USER} --passwordfile=/tmp/tmpfile change-admin-password --domain_name=${DOMAIN_NAME} && \
     ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} start-domain ${DOMAIN_NAME} && \
     ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} enable-secure-admin && \
+    # odum: configure h2 jdbc resource/connection pool
+    ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jdbc-connection-pool --datasourceclassname org.h2.jdbcx.JdbcDataSource --restype javax.sql.DataSource --property user=impactUser:password=1mq\@xt6z31:url="jdbc\:h2\:tcp\://localhost/~/trsa" H2impactPool && \
+    ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jdbc-resource --connectionpoolid H2impactPool jdbc/trsa && \
     for MEMORY_JVM_OPTION in $(${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} list-jvm-options | grep "Xm[sx]"); do\
         ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} delete-jvm-options $MEMORY_JVM_OPTION;\
     done && \
@@ -94,6 +97,9 @@ RUN wget --no-verbose -O payara.zip ${PAYARA_PKG} && \
 COPY --chown=payara:payara bin/*.sh ${SCRIPT_DIR}/
 RUN mkdir -p ${SCRIPT_DIR}/init.d && \
     chmod +x ${SCRIPT_DIR}/*
+
+# copy h2 launch script
+COPY launch_h2.sh ${SCRIPT_DIR}/init.d/
 
 ENTRYPOINT ["/tini", "--"]
 CMD ["scripts/entrypoint.sh"]
