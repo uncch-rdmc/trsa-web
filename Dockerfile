@@ -16,10 +16,6 @@ ARG TINI_VERSION=v0.18.0
 # odum: avoid gpg errors
 RUN apt install -y dirmngr gnupg gpgv
 
-# odum: echo java version
-# don't bother. it's 1.8.
-#RUN java -version
-
 # odum: trsa prototype uses h2
 COPY install_h2.sh /install_h2.sh
 RUN /install_h2.sh
