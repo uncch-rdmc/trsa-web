@@ -1,80 +1,94 @@
 FROM openjdk:8-jdk
 
-RUN \
- apt-get update && \ 
- apt-get install -y unzip 
-
-ENV ADMIN_USER admin
-
-ENV PAYARA_PATH /opt/payara41
-
-RUN \ 
- mkdir -p ${PAYARA_PATH}/deployments && \
- useradd -b /opt -m -s /bin/bash -d ${PAYARA_PATH} payara && echo payara:payara | chpasswd
-
-# specify Payara version to download. currently trsa-web wants 4.1
-ENV PAYARA_PKG https://search.maven.org/remotecontent?filepath=fish/payara/blue/distributions/payara/4.1.2.181/payara-4.1.2.181.zip
-ENV PAYARA_VERSION 4.1.2.181
-
-ENV PKG_FILE_NAME payara-full-${PAYARA_VERSION}.zip
-
-# Download Payara Server and install
-RUN \
- wget --quiet -O /opt/${PKG_FILE_NAME} ${PAYARA_PKG} && \
- unzip -qq /opt/${PKG_FILE_NAME} -d /opt && \
- chown -R payara:payara /opt && \
- # cleanup
- rm /opt/${PKG_FILE_NAME}
-
-USER payara
-WORKDIR ${PAYARA_PATH}
-
-# set credentials to admin/admin 
-
-ENV ADMIN_PASSWORD admin
-
-RUN echo 'AS_ADMIN_PASSWORD=\n\
-AS_ADMIN_NEWPASSWORD='${ADMIN_PASSWORD}'\n\
-EOF\n'\
->> /opt/tmpfile
-
-RUN echo 'AS_ADMIN_PASSWORD='${ADMIN_PASSWORD}'\n\
-EOF\n'\
->> /opt/pwdfile
-
- # domain1
-RUN ${PAYARA_PATH}/bin/asadmin --user ${ADMIN_USER} --passwordfile=/opt/tmpfile change-admin-password && \
- ${PAYARA_PATH}/bin/asadmin start-domain domain1 && \
- ${PAYARA_PATH}/bin/asadmin --user ${ADMIN_USER} --passwordfile=/opt/pwdfile enable-secure-admin && \
- ${PAYARA_PATH}/bin/asadmin stop-domain domain1 && \
- rm -rf ${PAYARA_PATH}/glassfish/domains/domain1/osgi-cache
-
- # payaradomain
-RUN \
- ${PAYARA_PATH}/bin/asadmin --user ${ADMIN_USER} --passwordfile=/opt/tmpfile change-admin-password --domain_name=payaradomain && \
- ${PAYARA_PATH}/bin/asadmin start-domain payaradomain && \
- ${PAYARA_PATH}/bin/asadmin --user ${ADMIN_USER} --passwordfile=/opt/pwdfile enable-secure-admin && \
- ${PAYARA_PATH}/bin/asadmin stop-domain payaradomain && \
- rm -rf ${PAYARA_PATH}/glassfish/domains/payaradomain/osgi-cache
-
-# cleanup
-RUN rm /opt/tmpfile
-
-ENV PAYARA_DOMAIN domain1
-ENV DEPLOY_DIR ${PAYARA_PATH}/deployments
-ENV AUTODEPLOY_DIR ${PAYARA_PATH}/glassfish/domains/${PAYARA_DOMAIN}/autodeploy
-
 # Default payara ports to expose
-EXPOSE 4848 8009 8080 8181
+# 4848: admin console
+# 9009: debug port (JPDA)
+# 8080: http
+# 8181: https
+EXPOSE 4848 9009 8080 8181
 
-ENV DEPLOY_COMMANDS=${PAYARA_PATH}/post-boot-commands.asadmin
-COPY generate_deploy_commands.sh ${PAYARA_PATH}/generate_deploy_commands.sh
-USER root
-RUN \
- chown -R payara:payara ${PAYARA_PATH}/generate_deploy_commands.sh && \
- chmod a+x ${PAYARA_PATH}/generate_deploy_commands.sh
+# odum: TRSA wants Payara 4.1
+ARG PAYARA_VERSION=4.1.2.181
+ARG PAYARA_PKG=https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/${PAYARA_VERSION}/payara-${PAYARA_VERSION}.zip
+ARG PAYARA_SHA1=5743de9baae98e3569e7caa28cfcd78d330bb2fa
+ARG TINI_VERSION=v0.18.0
+
+# odum: avoid gpg errors
+RUN apt install -y dirmngr gnupg gpgv
+
+# odum: just use domain1 for prototype
+# Initialize the configurable environment variables
+ENV HOME_DIR=/opt/payara\
+    PAYARA_DIR=/opt/payara/appserver\
+    SCRIPT_DIR=/opt/payara/scripts\
+    CONFIG_DIR=/opt/payara/config\
+    DEPLOY_DIR=/opt/payara/deployments\
+    PASSWORD_FILE=/opt/payara/passwordFile\
+    # Payara Server Domain options
+    DOMAIN_NAME=domain1\
+    ADMIN_USER=admin\
+    ADMIN_PASSWORD=admin \
+    # Utility environment variables
+    JVM_ARGS=\
+    DEPLOY_PROPS=\
+    POSTBOOT_COMMANDS=/opt/payara/config/post-boot-commands.asadmin\
+    PREBOOT_COMMANDS=/opt/payara/config/pre-boot-commands.asadmin
+ENV PATH="${PATH}:${PAYARA_DIR}/bin"
+
+# Create and set the Payara user and working directory owned by the new user
+RUN groupadd -g 1000 payara && \
+    useradd -u 1000 -M -s /bin/bash -d ${HOME_DIR} payara -g payara && \
+    echo payara:payara | chpasswd && \
+    mkdir -p ${DEPLOY_DIR} && \
+    mkdir -p ${CONFIG_DIR} && \
+    mkdir -p ${SCRIPT_DIR} && \
+    chown -R payara: ${HOME_DIR}
+
+# odum: hard-code warfile for now
+COPY trsa-web-1.0.war $DEPLOY_DIR/
+
+# Install tini as minimized init system
+RUN wget --no-verbose -O /tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini && \
+    wget --no-verbose -O /tini.asc https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini.asc && \
+    gpg --batch --keyserver "hkp://p80.pool.sks-keyservers.net:80" --recv-keys 595E85A6B1B4779EA4DAAEC70B588DFF0527A9B7 && \
+    gpg --batch --verify /tini.asc /tini && \
+    chmod +x /tini
+
 USER payara
+WORKDIR ${HOME_DIR}
 
-ENTRYPOINT ${PAYARA_PATH}/generate_deploy_commands.sh && ${PAYARA_PATH}/bin/asadmin start-domain -v --postbootcommandfile ${DEPLOY_COMMANDS} ${PAYARA_DOMAIN}
+# Download and unzip the Payara distribution
+RUN wget --no-verbose -O payara.zip ${PAYARA_PKG} && \
+    echo "${PAYARA_SHA1} *payara.zip" | sha1sum -c - && \
+    unzip -qq payara.zip -d ./ && \
+    mv payara*/ appserver && \
+    # Configure the password file for configuring Payara
+    echo "AS_ADMIN_PASSWORD=\nAS_ADMIN_NEWPASSWORD=${ADMIN_PASSWORD}" > /tmp/tmpfile && \
+    echo "AS_ADMIN_PASSWORD=${ADMIN_PASSWORD}" >> ${PASSWORD_FILE} && \
+    # Configure the payara domain
+    ${PAYARA_DIR}/bin/asadmin --user ${ADMIN_USER} --passwordfile=/tmp/tmpfile change-admin-password --domain_name=${DOMAIN_NAME} && \
+    ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} start-domain ${DOMAIN_NAME} && \
+    ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} enable-secure-admin && \
+    for MEMORY_JVM_OPTION in $(${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} list-jvm-options | grep "Xm[sx]"); do\
+        ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} delete-jvm-options $MEMORY_JVM_OPTION;\
+    done && \
+    # FIXME: when upgrading this container to Java 10+, this needs to be changed to '-XX:+UseContainerSupport' and '-XX:MaxRAMPercentage'
+    ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jvm-options '-XX\:+UnlockExperimentalVMOptions:-XX\:+UseCGroupMemoryLimitForHeap:-XX\:MaxRAMFraction=1' && \
+    # FIXME: waiting on fix to https://github.com/payara/Payara/issues/3506
+    #${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} set-log-attributes com.sun.enterprise.server.logging.GFFileHandler.logtoFile=false && \
+    ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} stop-domain ${DOMAIN_NAME} && \
+    # Cleanup unused files
+    rm -rf \
+        /tmp/tmpFile \
+        payara.zip \
+        ${PAYARA_DIR}/glassfish/domains/${DOMAIN_NAME}/osgi-cache \
+        ${PAYARA_DIR}/glassfish/domains/${DOMAIN_NAME}/logs \
+        ${PAYARA_DIR}/glassfish/domains/domain1
 
+# Copy across docker scripts
+COPY --chown=payara:payara bin/*.sh ${SCRIPT_DIR}/
+RUN mkdir -p ${SCRIPT_DIR}/init.d && \
+    chmod +x ${SCRIPT_DIR}/*
 
+ENTRYPOINT ["/tini", "--"]
+CMD ["scripts/entrypoint.sh"]
