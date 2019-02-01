@@ -16,6 +16,14 @@ ARG TINI_VERSION=v0.18.0
 # odum: avoid gpg errors
 RUN apt install -y dirmngr gnupg gpgv
 
+# odum: echo java version
+# don't bother. it's 1.8.
+#RUN java -version
+
+# odum: trsa prototype uses h2
+COPY install_h2.sh /install_h2.sh
+RUN /install_h2.sh
+
 # odum: just use domain1 for prototype
 # Initialize the configurable environment variables
 ENV HOME_DIR=/opt/payara\
@@ -62,6 +70,8 @@ RUN wget --no-verbose -O payara.zip ${PAYARA_PKG} && \
     echo "${PAYARA_SHA1} *payara.zip" | sha1sum -c - && \
     unzip -qq payara.zip -d ./ && \
     mv payara*/ appserver && \
+    # odum: need the h2 jar in glassfish
+    cp /opt/h2/bin/*.jar ${PAYARA_DIR}/glassfish/modules/ && \
     # Configure the password file for configuring Payara
     echo "AS_ADMIN_PASSWORD=\nAS_ADMIN_NEWPASSWORD=${ADMIN_PASSWORD}" > /tmp/tmpfile && \
     echo "AS_ADMIN_PASSWORD=${ADMIN_PASSWORD}" >> ${PASSWORD_FILE} && \
@@ -82,8 +92,7 @@ RUN wget --no-verbose -O payara.zip ${PAYARA_PKG} && \
         /tmp/tmpFile \
         payara.zip \
         ${PAYARA_DIR}/glassfish/domains/${DOMAIN_NAME}/osgi-cache \
-        ${PAYARA_DIR}/glassfish/domains/${DOMAIN_NAME}/logs \
-        ${PAYARA_DIR}/glassfish/domains/domain1
+        ${PAYARA_DIR}/glassfish/domains/${DOMAIN_NAME}/logs
 
 # Copy across docker scripts
 COPY --chown=payara:payara bin/*.sh ${SCRIPT_DIR}/
