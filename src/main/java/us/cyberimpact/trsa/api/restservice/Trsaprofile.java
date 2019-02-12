@@ -45,6 +45,7 @@ public class Trsaprofile implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Long id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
