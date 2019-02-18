@@ -5,7 +5,6 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.unc.odum.dataverse.util.json.JsonFilter;
-import edu.unc.odum.dataverse.util.json.JsonResponseParser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
