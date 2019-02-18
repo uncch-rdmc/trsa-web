@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HostInfoEditDlg" widgetVar="HostInfoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle_host.EditHostInfoTitle}">
+            <h:form id="HostInfoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{hostInfoController.selected != null}">
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_id}" for="id" />
+                        <p:inputText id="id" 
+                                     value="#{hostInfoController.selected.id}" 
+                                     title="#{bundle_host.EditHostInfoTitle_id}" 
+                                     required="true" 
+                                     disabled="true"
+                                     requiredMessage="#{bundle_host.EditHostInfoRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_hosturl}" for="hosturl" />
+                        <p:inputText id="hosturl" value="#{hostInfoController.selected.hosturl}" title="#{bundle_host.EditHostInfoTitle_hosturl}" required="true" requiredMessage="#{bundle_host.EditHostInfoRequiredMessage_hosturl}"/>
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_apitoken}" for="apitoken" />
+                        <p:inputText id="apitoken" value="#{hostInfoController.selected.apitoken}" title="#{bundle_host.EditHostInfoTitle_apitoken}" required="true" requiredMessage="#{bundle_host.EditHostInfoRequiredMessage_apitoken}"/>
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_dataverseid}" for="dataverseid" />
+                        <p:inputText id="dataverseid" value="#{hostInfoController.selected.dataverseid}" title="#{bundle_host.EditHostInfoTitle_dataverseid}" required="true" requiredMessage="#{bundle_host.EditHostInfoRequiredMessage_dataverseid}"/>
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_dataversealias}" for="dataversealias" />
+                        <p:inputText id="dataversealias" value="#{hostInfoController.selected.dataversealias}" title="#{bundle_host.EditHostInfoTitle_dataversealias}" />
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_dataversetitle}" for="dataversetitle" />
+                        <p:inputText id="dataversetitle" value="#{hostInfoController.selected.dataversetitle}" title="#{bundle_host.EditHostInfoTitle_dataversetitle}" />
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_datasetid}" for="datasetid" />
+                        <p:inputText id="datasetid" value="#{hostInfoController.selected.datasetid}" title="#{bundle_host.EditHostInfoTitle_datasetid}" required="true" requiredMessage="#{bundle_host.EditHostInfoRequiredMessage_datasetid}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{hostInfoController.update}" value="#{bundle_host.Save}" update="display,:HostInfoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'HostInfoEditDialog');"/>
+                    <p:commandButton value="#{bundle_host.Cancel}" onclick="HostInfoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

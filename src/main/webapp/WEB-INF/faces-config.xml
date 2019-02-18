@@ -8,5 +8,9 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle_host</base-name>
+            <var>bundle_host</var>
+        </resource-bundle>
     </application>
 </faces-config>

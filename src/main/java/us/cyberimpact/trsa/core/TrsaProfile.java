@@ -38,13 +38,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TrsaProfile.findBySafeserviceurl", query = "SELECT t FROM TrsaProfile t WHERE t.safeserviceurl = :safeserviceurl")})
 public class TrsaProfile implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "DATAVERSEURL", nullable = false, length = 255)
-    private String dataverseurl;
 
     private static final long serialVersionUID = 1L;
+    
+    
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -61,6 +59,18 @@ public class TrsaProfile implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "EMAIL", nullable = false, length = 255)
     private String email;
+    
+    
+    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "DATAVERSEURL", nullable = false, length = 255)
+    private String dataverseurl;
+
+    
+    
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -94,10 +104,11 @@ public class TrsaProfile implements Serializable {
         this.id = id;
     }
 
-    public TrsaProfile(Long id, String installation, String email, String apitoken, String datastoragelocation, String dataaccessinfo, String notaryserviceurl, String safeserviceurl) {
+    public TrsaProfile(Long id, String installation, String email, String dataverseurl, String apitoken, String datastoragelocation, String dataaccessinfo, String notaryserviceurl, String safeserviceurl) {
         this.id = id;
         this.installation = installation;
         this.email = email;
+        this.dataverseurl = dataverseurl;
         this.apitoken = apitoken;
         this.datastoragelocation = datastoragelocation;
         this.dataaccessinfo = dataaccessinfo;
@@ -105,6 +116,9 @@ public class TrsaProfile implements Serializable {
         this.safeserviceurl = safeserviceurl;
     }
 
+    
+    
+    
     public Long getId() {
         return id;
     }
@@ -191,7 +205,12 @@ public class TrsaProfile implements Serializable {
 
     @Override
     public String toString() {
-        return "us.cyberimpact.trsa.core.TrsaProfile[ id=" + id + " ]";
+        return "TrsaProfile{" + "id=" + id + ", installation=" + installation 
+                + ", email=" + email + ", dataverseurl=" + dataverseurl 
+                + ", apitoken=" + apitoken + ", datastoragelocation=" 
+                + datastoragelocation + ", dataaccessinfo=" + dataaccessinfo 
+                + ", notaryserviceurl=" + notaryserviceurl + ", safeserviceurl=" 
+                + safeserviceurl + '}';
     }
 
     public String getDataverseurl() {

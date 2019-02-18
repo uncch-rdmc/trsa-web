@@ -22,14 +22,14 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FilenameUtils;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import us.cyberimpact.trsa.core.TrsaProfile;
+import us.cyberimpact.trsa.core.hostinfo.HostInfo;
+import us.cyberimpact.trsa.core.hostinfo.HostInfoFacade;
 
 @ManagedBean(name = "fileUploadView")
 @SessionScoped
@@ -48,6 +48,11 @@ public class FileUploadView implements Serializable {
     
     List<TrsaProfile> trsaProfileTable = new ArrayList<>();
 
+    @EJB
+    HostInfoFacade hostInfoFacade;
+    
+    List<HostInfo> hostInfoTable = new ArrayList<>();
+    
     private UploadedFile file;
     private String destination = "/tmp/";
     private String fileName;
@@ -72,7 +77,13 @@ public class FileUploadView implements Serializable {
             
             
         }
-        
+        hostInfoTable = hostInfoFacade.findAll();
+        logger.log(Level.INFO, "FileUploadView:hostInfoTable={0}", hostInfoTable);
+        if (hostInfoTable.isEmpty()){
+            logger.log(Level.INFO, "hostInfoTable is empty");
+        } else {
+            logger.log(Level.INFO, "FileUploadView:hostInfoTable exists and not empty");
+        }
 
     }
 
@@ -195,15 +206,17 @@ public class FileUploadView implements Serializable {
 
     public String goHome() {
         logger.log(Level.INFO, "back to the home");
-        return "/new_index.xhtml";
+        return "/index.xhtml";
     }
 
     public String goPublish() {
-        
-        
-        
         logger.log(Level.INFO, "go to publish page");
-        return "/new_ingest.xhtml";
+        return "/ingest.xhtml";
+    }
+    
+    public String goDataverseSetting(){
+        logger.log(Level.INFO, "go to Dataverse Setting page");
+        return "/hostinfo/List.xhtml";
     }
 
     public void copyFile(String fileName, InputStream in) {

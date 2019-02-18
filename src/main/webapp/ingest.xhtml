@@ -4,24 +4,21 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      >
 
-    <f:view contentType="text/html">
-        <h:head>
-            <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Ingest Page</title>
-            </f:facet>
-        </h:head>
+    <body>
 
-        <h:body>
+        <ui:composition template="/template/layout.xhtml">
 
-            <h:form>
-                <p:panel id="panel1" header="Publish Dataset">
+            <ui:define name="content">
+                <h:form>
+
                     <p:messages id="messages" showDetail="true" closable="true">
                         <p:autoUpdate />
                     </p:messages>
 
+                    <h3 style="margin:5px 5px 30px 5px">Publish Dataset</h3>
                     <p:panelGrid columns="3"  class="ui-panelgrid-blank">            
                         <f:facet name="header">
                             Publish parameters
@@ -48,7 +45,7 @@
 
 
                         <h:outputLabel for="datasetId" value="Payload Dataset Id" />
-                        <h:outputText id="datasetId" value="#{ingestPageView.datasetIdentifier}" /> 
+                        <h:outputText id="datasetId" value="#{ingestPageView.localDatasetIdentifier}" /> 
                         <h:outputText value="note: locally generated" /> 
 
 
@@ -64,7 +61,7 @@
                                              update="messages status dataverseButton publishButton" 
                                              value="publish this dataset" 
                                              disabled="#{!ingestPageView.publishButtonEnabled}"
-                                             actionListener="#{ingestPageView.publish}" />
+                                             actionListener="#{ingestPageView.publishFacade()}" />
 
                             <p:commandButton id="dataverseButton"
                                              ajax="true" update="messages status" 
@@ -78,12 +75,11 @@
                     </p:panelGrid>
 
 
-                </p:panel>
-            </h:form>
+                </h:form>
 
+            </ui:define>
 
-        </h:body>
+        </ui:composition>
 
-    </f:view>
+    </body>
 </html>
-

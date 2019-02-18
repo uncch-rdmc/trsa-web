@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HostInfoCreateDlg" widgetVar="HostInfoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle_host.CreateHostInfoTitle}">
+            <h:form id="HostInfoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{hostInfoController.selected != null}">
+                        <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_hosturl}" for="hosturl" />
+                        <p:inputText id="hosturl" value="#{hostInfoController.selected.hosturl}" 
+                                     title="#{bundle_host.CreateHostInfoTitle_hosturl}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_hosturl}"/>
+                        <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_apitoken}" for="apitoken" />
+                        <p:inputText id="apitoken" value="#{hostInfoController.selected.apitoken}" 
+                                     title="#{bundle_host.CreateHostInfoTitle_apitoken}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_apitoken}"/>
+                        <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_dataverseid}" for="dataverseid" />
+                        <p:inputText id="dataverseid" value="#{hostInfoController.selected.dataverseid}" 
+                                     title="#{bundle_host.CreateHostInfoTitle_dataverseid}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_dataverseid}"/>
+                        <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_dataversealias}" for="dataversealias" />
+                        <p:inputText id="dataversealias" value="#{hostInfoController.selected.dataversealias}" 
+                                     title="#{bundle_host.CreateHostInfoTitle_dataversealias}" />
+                        <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_dataversetitle}" for="dataversetitle" />
+                        <p:inputText id="dataversetitle" value="#{hostInfoController.selected.dataversetitle}" 
+                                     title="#{bundle_host.CreateHostInfoTitle_dataversetitle}" />
+                        <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_datasetid}" for="datasetid" />
+                        <p:inputText id="datasetid" value="#{hostInfoController.selected.datasetid}" 
+                                     title="#{bundle_host.CreateHostInfoTitle_datasetid}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_datasetid}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{hostInfoController.create}" 
+                                     value="#{bundle_host.Save}" 
+                                     update="display,:HostInfoListForm:datalist,:growl" 
+                                     oncomplete="handleSubmit(args,'HostInfoCreateDialog');"/>
+                    <p:commandButton value="#{bundle_host.Cancel}" 
+                                     onclick="HostInfoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
