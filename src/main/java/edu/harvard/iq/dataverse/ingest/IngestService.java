@@ -8,6 +8,7 @@ import edu.harvard.iq.dataverse.datavariable.SummaryStatistic;
 import edu.harvard.iq.dataverse.entities.DataFile;
 import edu.harvard.iq.dataverse.entities.DataTable;
 import edu.harvard.iq.dataverse.entities.Dataset;
+import edu.harvard.iq.dataverse.entities.DatasetFacade;
 import edu.harvard.iq.dataverse.entities.DatasetVersion;
 import edu.harvard.iq.dataverse.entities.FileMetadata;
 import edu.harvard.iq.dataverse.export.ExportException;
@@ -47,9 +48,12 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.json.JsonObject;
@@ -58,6 +62,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.lang3.StringUtils;
 import static org.apache.commons.text.CharacterPredicates.ARABIC_NUMERALS;
@@ -65,6 +74,7 @@ import static org.apache.commons.text.CharacterPredicates.ASCII_UPPERCASE_LETTER
 import org.apache.commons.text.RandomStringGenerator;
 import org.dataverse.unf.UNFUtil;
 import org.dataverse.unf.UnfException;
+import us.cyberimpact.trsa.web.jsf.util.JsfUtil;
 
 /**
  *
@@ -80,6 +90,8 @@ public class IngestService {
     private EntityManager em;
     
     
+    @EJB
+    DatasetFacade datasetFacade;
     
     static XStream xstream = new XStream(new JsonHierarchicalStreamDriver());
     private static String FilesRootDirectory = "/tmp/files";
@@ -616,8 +628,8 @@ public class IngestService {
                     
                     logger.log(Level.INFO, "dataset={0}", xstream.toXML(dataset.getVersions().get(0)));
                     
-                    em.persist(dataset);
-                    
+                    datasetFacade.create(dataset);
+
                 }
                 logger.log(Level.INFO, "end of each parsing iteration");
             }
@@ -636,6 +648,9 @@ public class IngestService {
         
         
         
+
+        
+        
         
         
         // =============================================================================
@@ -651,6 +666,44 @@ public class IngestService {
         
         //exportDataset(version);
 
+    }
+    
+//  private boolean constraintValidationsDetected(T entity) {
+//    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+//    Validator validator = factory.getValidator();
+//    Set<ConstraintViolation<T>> constraintViolations = validator.validate(entity);
+//    if (constraintViolations.size() > 0) {
+//      Iterator<ConstraintViolation<T>> iterator = constraintViolations.iterator();
+//      while (iterator.hasNext()) {
+//        ConstraintViolation<T> cv = iterator.next();
+//        System.err.println(cv.getRootBeanClass().getName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
+//
+//        JsfUtil.addErrorMessage(cv.getRootBeanClass().getSimpleName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
+//      }
+//      return true;
+//    }
+//    else {
+//      return false;
+//    }
+//  }
+    
+    
+    
+
+private void handleConstraintViolation(ConstraintViolationException cve) {
+    Set<ConstraintViolation<?>> cvs = cve.getConstraintViolations();
+    for (ConstraintViolation<?> cv : cvs) {
+        System.out.println("------------------------------------------------");
+        System.out.println("Violation: " + cv.getMessage());
+        System.out.println("Entity: " + cv.getRootBeanClass().getSimpleName());
+        // The violation occurred on a leaf bean (embeddable)
+        if (cv.getLeafBean() != null && cv.getRootBean() != cv.getLeafBean()) {
+            System.out.println("Embeddable: "
+                    + cv.getLeafBean().getClass().getSimpleName());
+        }
+        System.out.println("Attribute: " + cv.getPropertyPath());
+        System.out.println("Invalid value: " + cv.getInvalidValue());
+    }
     }
     
     public void exportDataset(DatasetVersion version){
@@ -896,7 +949,7 @@ public class IngestService {
                 String[] variableVector = TabularSubsetGenerator.subsetStringVector(new FileInputStream(generatedTabularFile), i, dataFile.getDataTable().getCaseQuantity().intValue());
                 //calculateCharacterSummaryStatistics(dataFile, i, variableVector);
                 // calculate the UNF while we are at it:
-                logger.log(Level.INFO, "variableVector={0}", xstream.toXML(variableVector));
+                logger.log(Level.FINE, "variableVector={0}", xstream.toXML(variableVector));
                 logger.fine("Calculating UNF on a String vector");
                 calculateUNF(dataFile, i, variableVector);
                 logger.fine("Done! (character)");

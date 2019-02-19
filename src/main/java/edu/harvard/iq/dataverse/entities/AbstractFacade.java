@@ -5,15 +5,24 @@
  */
 package edu.harvard.iq.dataverse.entities;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import us.cyberimpact.trsa.web.jsf.util.JsfUtil;
 
 /**
  *
  * @author akios
  */
 public abstract class AbstractFacade<T> {
-
+    private static final Logger logger = Logger.getLogger(AbstractFacade.class.getName());
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
@@ -22,8 +31,33 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
+    
+    
+//  private boolean constraintValidationsDetected(T entity) {
+//    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+//    Validator validator = factory.getValidator();
+//    Set<ConstraintViolation<T>> constraintViolations = validator.validate(entity);
+//    if (constraintViolations.size() > 0) {
+//      Iterator<ConstraintViolation<T>> iterator = constraintViolations.iterator();
+//      while (iterator.hasNext()) {
+//        ConstraintViolation<T> cv = iterator.next();
+//        System.err.println(cv.getRootBeanClass().getName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
+//          logger.log(Level.SEVERE, cv.getRootBeanClass().getName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
+//
+//        JsfUtil.addErrorMessage(cv.getRootBeanClass().getSimpleName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
+//      }
+//      return true;
+//    }
+//    else {
+//      return false;
+//    }
+//  }
+    
+    
     public void create(T entity) {
-        getEntityManager().persist(entity);
+//    if (!constraintValidationsDetected(entity)) {
+      getEntityManager().persist(entity);
+//    }
     }
 
     public void edit(T entity) {

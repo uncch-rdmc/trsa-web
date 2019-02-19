@@ -22,8 +22,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -56,6 +59,19 @@ public class FileUploadView implements Serializable {
     private UploadedFile file;
     private String destination = "/tmp/";
     private String fileName;
+    
+    private String mimeType="application/octet-stream";
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
+    
+    
+    
 
     @PostConstruct
     public void init() {
@@ -103,6 +119,20 @@ public class FileUploadView implements Serializable {
         this.fileName = fileName;
     }
 
+    
+    private String fileNameOnly;
+
+    public String getFileNameOnly() {
+        return fileNameOnly;
+    }
+
+    public void setFileNameOnly(String fileNameOnly) {
+        this.fileNameOnly = fileNameOnly;
+    }
+    
+    
+    
+    
     private String datasetIdentifier;
 
     public String getDatasetIdentifier() {
@@ -120,6 +150,7 @@ public class FileUploadView implements Serializable {
 
     public void upload(FileUploadEvent event) {
         file = event.getFile();
+        String filePath="";
         if (file != null) {
             FacesMessage message = new FacesMessage("Succesful",
                     file.getFileName() + " is uploaded.");
@@ -128,10 +159,12 @@ public class FileUploadView implements Serializable {
             try {
 //                copyFile(event.getFile().getFileName(), event.getFile().getInputstream());
                 bytes = file.getContents();
-                String filename = FilenameUtils.getName(file.getFileName());
-                fileName = destination + filename;
-                logger.log(Level.INFO, "filename is set to={0}", filename);
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(fileName)));
+                fileNameOnly = FilenameUtils.getName(file.getFileName());
+                mimeType = FilenameUtils.getExtension(file.getFileName());
+                fileName = destination + fileNameOnly;
+                logger.log(Level.INFO, "fileName is set to={0}", fileName);
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(new File(fileName)));
                 stream.write(bytes);
                 stream.close();
 
@@ -160,11 +193,12 @@ public class FileUploadView implements Serializable {
         datasetIdentifier = IngestService.generateTempDatasetIdentifier(6);
         logger.log(Level.INFO, "datasetIdentifier={0}", datasetIdentifier);
 
-        String contentType = "application/zip";
-        logger.log(Level.INFO, "contentType={0}", contentType);
+        // Warning: contentType expects a / included mime type
+        // without "/" a validation error is returned
+        logger.log(Level.INFO, "contentType={0}", mimeType);
         try {
 
-            ingestService.run(fileName, contentType, datasetIdentifier);
+            ingestService.run(fileName, mimeType, datasetIdentifier);
 
             logger.log(Level.INFO, "dumping metadata files");
             List<DatasetVersion> versions = datasetVersionFcd.findAll();
@@ -176,6 +210,15 @@ public class FileUploadView implements Serializable {
             } else {
                 logger.log(Level.INFO, "DatasetVersion is null/empty");
             }
+        } catch (ConstraintViolationException ex){
+            logger.log(Level.SEVERE, "ConstraintViolationException", ex);
+            if (ex instanceof ConstraintViolationException) {
+                ConstraintViolationException cve = (ConstraintViolationException) ex;
+                for (ConstraintViolation cv : cve.getConstraintViolations()) {
+                    System.out.println("CONSTRAINT VIOLOATION : " + cv.toString());
+                }
+            }
+            
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "IOException", ex);
         } catch (XMLStreamException ex) {

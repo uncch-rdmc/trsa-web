@@ -30,7 +30,7 @@
                                               mode="advanced" 
                                               dragDropSupport="false"
                                               multiple="false" 
-                                              update="messages ingestButton filename" 
+                                              update="messages ingestButton filename mimeTypeBox" 
                                               sizeLimit="10000000" 
                                               fileLimit="1" 
                                              
@@ -45,11 +45,16 @@
                             <p:column></p:column>
                         </p:row>
                         <p:row>
+                            <p:column><p:outputLabel for="mimeTypeBox" value="MIME type of the file:"/></p:column>
+                            <p:column><p:inputText id="mimeTypeBox" value="#{fileUploadView.mimeType}" title="must include / such as application/pdf, image/jpeg, text/xml"/></p:column>
+                            <p:column></p:column>
+                        </p:row>
+                        <p:row>
                             <p:column>
                                 <p:commandButton id="ingestButton"
                                                  value="Ingest the uploaded file"  
                                                  disabled="#{! fileUploadView.ingestButtonEnabled}" 
-                                                 update="publishButton ingestButton"
+                                                 update="publishButton ingestButton mimeTypeBox"
                                                  action="#{fileUploadView.execIngest()}"
                                                  />
                             </p:column>
