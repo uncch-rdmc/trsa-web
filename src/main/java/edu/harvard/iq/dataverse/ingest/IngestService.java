@@ -126,7 +126,8 @@ public class IngestService {
                 .generate(digits);
     }
 
-    public void run(String filename, String contentType, String datasetIdentifier) throws FileNotFoundException, IOException, XMLStreamException, ExportException {
+    public void run(String filename, String contentType, String datasetIdentifier) 
+            throws FileNotFoundException, IOException, XMLStreamException, ExportException {
 
         // setup an InputStream instance from the 1st argument as a local file name
         BufferedInputStream fileInputStream = null;
@@ -246,23 +247,26 @@ public class IngestService {
             //Dataset targetDataset = version.getDataset();
 
             for (DataFile targetDF : initialFileList) {
+                logger.log(Level.INFO, "1st stage: working on each targetDF");
                 // DataFile dataFile = initialFileList.get(0);//new DataFile();
                 now = new Timestamp(new Date().getTime());
                 if (targetDF.getCreateDate() == null) {
+                    logger.log(Level.INFO, "targetDF.getCreateDate() is null case");
                     targetDF.setCreateDate(now);
+                    logger.log(Level.INFO, "targetDF.getCreateDate() is set to {0}", targetDF.getCreateDate());
                 }
                 targetDF.setModificationTime(now);
-
+                logger.log(Level.INFO, "targetDF: modificationTime:{0}", targetDF.getModificationTime());
                 logger.log(Level.FINE, "initialFileList[0]:contents={0}", xstream.toXML(targetDF));
                 
                 
                 // TRSA-specific setting: may be changed
-                targetDF.setRestricted(true);
+//                targetDF.setRestricted(true);
 
                 FileMetadata fileMetadata = targetDF.getFileMetadatas().get(0);
                 
                 // TRASA-specific setting: may be changed
-                fileMetadata.setRestricted(true);
+//                fileMetadata.setRestricted(true);
                 String fileName = fileMetadata.getLabel();
 
                 // Attach the file to the dataset and to the version: 
@@ -287,7 +291,9 @@ public class IngestService {
         if (initialFileList != null && !initialFileList.isEmpty()) {
             // emulating line 195 of addFiles
             for (DataFile dataFile : initialFileList) {
-                String tempFileLocation = FileUtil.getFilesTempDirectory() + "/" + dataFile.getStorageIdentifier();
+                logger.log(Level.INFO, "2nd stage: working on each dataFile");
+                String tempFileLocation = FileUtil.getFilesTempDirectory() 
+                        + "/" + dataFile.getStorageIdentifier();
                 logger.log(Level.INFO, "dataFile.getStorageIdentifier={0}", 
                         dataFile.getStorageIdentifier());
                 // for the default case, e.g., 
@@ -309,7 +315,7 @@ public class IngestService {
                 boolean metadataExtracted = false;
 
                 if (FileUtil.ingestableAsTabular(dataFile)) {
-
+                    logger.log(Level.INFO, "ingestableAsTabular: yes case");
                     dataFile.setIngestScheduled();
 
                 } else if (fileMetadataExtractable(dataFile)) {
@@ -328,6 +334,8 @@ public class IngestService {
 //                        } else {
 //                            logger.fine("Failed to extract indexable metadata from file " + fileName);
 //                        }
+                } else {
+                    logger.log(Level.INFO, "ingestableAsTabular: no; FITS case: no");
                 }
                 // line 246 of ISB
                 // Try to save the file in its permanent location: 
@@ -336,13 +344,16 @@ public class IngestService {
                 
                 // line 251: below path is the same as the above tempFileLocation
                 // some editing issue?
-                Path tempLocationPath = Paths.get(FileUtil.getFilesTempDirectory() + "/" + storageId);
-                logger.log(Level.INFO, "tempLocationPath={0}", tempLocationPath.toString());
+                Path tempLocationPath = Paths.get(FileUtil.getFilesTempDirectory() 
+                        + "/" + storageId);
+                logger.log(Level.INFO, "tempLocationPath={0}", 
+                        tempLocationPath.toString());
                 // emulating lines 259-306 of ISB: 
                 // line 262: DataAccess.createNewStorageIO(dataFile, storageId);
                 // line 262 ensures that the target dataset directory exists
                 // dataset's directory
-                datasetDir = Paths.get(FilesRootDirectory, dataset.getAuthority(), dataset.getIdentifier());
+                datasetDir = Paths.get(FilesRootDirectory, dataset.getAuthority(), 
+                        dataset.getIdentifier());
                 
                 if ((datasetDir != null) && (!Files.exists(datasetDir))){
                     Files.createDirectories(datasetDir);
@@ -359,7 +370,8 @@ public class IngestService {
                 // 
                 // FileUtil#filesRootDirectory is by default "/tmp/files"
                 
-                Path outputPath = Paths.get(datasetDir.toString(), dataFile.getStorageIdentifier());
+                Path outputPath = Paths.get(datasetDir.toString(), 
+                        dataFile.getStorageIdentifier());
                 logger.log(Level.INFO, "outputPath={0}", outputPath);
                 Files.copy(tempLocationPath, outputPath, StandardCopyOption.REPLACE_EXISTING);
                 long newFileSize = outputPath.toFile().length();
@@ -387,13 +399,15 @@ public class IngestService {
         if (initialFileList != null && !initialFileList.isEmpty()) {
             logger.log(Level.INFO, "+++++++++++++++++ parsing block starts here +++++++++++++++++");
             for (DataFile dataFile : initialFileList) {
+                logger.log(Level.INFO, "each parsing iteration starts here");
                 String fileName = dataFile.getFileMetadata().getLabel();
                 logger.log(Level.INFO, "parsing the file={0}", fileName);
                 if (dataFile.isIngestScheduled()) {
-
+                    logger.log(Level.INFO, "scheduled case");
                     // boolean ingestSuccessful = false;
                     // the line below is the same as ISB line 660
-                    TabularDataFileReader ingestPlugin = getTabDataReaderByMimeType(dataFile.getContentType());
+                    TabularDataFileReader ingestPlugin = 
+                            getTabDataReaderByMimeType(dataFile.getContentType());
 
                     if (ingestPlugin == null) {
                         // ISB stores this state-info on dataFile: lines 662-668
@@ -427,12 +441,15 @@ public class IngestService {
                     // the line below corresponds to ISB line 712
                     TabularDataIngest tabDataIngest = null;
 
-                    String newFileName = datasetDir.toString() + "/" + dataFile.getStorageIdentifier();
+                    String newFileName = datasetDir.toString() 
+                            + "/" + dataFile.getStorageIdentifier();
 
                     logger.log(Level.INFO, "newFileName={0}", newFileName);
 
                    
-                    try ( BufferedInputStream newflis = new BufferedInputStream(new FileInputStream(new File(newFileName)))) {
+                    try ( BufferedInputStream newflis = 
+                            new BufferedInputStream(new FileInputStream(
+                                    new File(newFileName)))) {
                         // the line below corresponds to ISB line 717 additionalData is null
                         tabDataIngest = ingestPlugin.read(newflis, null);
                     } catch (IOException ingestEx) {
@@ -456,6 +473,7 @@ public class IngestService {
                     try {
                         // the blow line corresponds to ISB line 746
                         if (tabDataIngest != null) {
+                            logger.log(Level.INFO, "tabular-data ingest case");
                             logger.log(Level.FINE, "tabDataIngest:contents={0}", xstream.toXML(tabDataIngest));
 
                             // the below line corresponds to ISB line 747 and is the last common one 
@@ -568,6 +586,7 @@ public class IngestService {
                                 dataset.setModificationTime(now);
 
                                 // persisting all tables via Dataset
+                                logger.log(Level.INFO, "persisting dataset");
                                 em.persist(dataset);
                             } else {
                                 logger.log(Level.SEVERE, "tabDataIngest.getDataTable() is null");
@@ -584,11 +603,26 @@ public class IngestService {
                         System.err.println("Caught an exception trying to save ingested data for file " + filename + ".");
                         System.exit(1);
                     }
+                    
+                    logger.log(Level.INFO, "end of each scheduled case");
+                } else {
+                    logger.log(Level.INFO, "not scheduled case");
 
+                    now = new Timestamp(new Date().getTime());
+                    dataset.getVersions().get(0).setLastUpdateTime(now);
+                                dataset.setModificationTime(now);
+                    logger.log(Level.INFO, "dataset={0}", xstream.toXML(dataset.getFiles()));
+                    logger.log(Level.INFO, "dataset={0}", xstream.toXML(dataset.getFiles().get(0).getFileMetadata()));
+                    
+                    logger.log(Level.INFO, "dataset={0}", xstream.toXML(dataset.getVersions().get(0)));
+                    
+                    em.persist(dataset);
+                    
                 }
-
+                logger.log(Level.INFO, "end of each parsing iteration");
             }
-
+             logger.log(Level.INFO, "after parsing iterations ended");
+            logger.log(Level.INFO, "+++++++++++++++++ parsing block ends here +++++++++++++++++");
         }
 
         // persistence-required segment: end
@@ -598,7 +632,7 @@ public class IngestService {
         logger.log(Level.INFO, "closing entity manager factory and exiting the application");
 //        emf.close();
 
-        logger.log(Level.INFO, "\n\nafter em: dataset={0}", xstream.toXML(dataset));
+        logger.log(Level.FINE, "\n\nafter em: dataset={0}", xstream.toXML(dataset));
         
         
         

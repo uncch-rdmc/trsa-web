@@ -43,7 +43,7 @@
         <p:column headerText="dataset Name">
             <h:outputText value="#{hostInfo.dataversetitle}" />
         </p:column>
-        <p:column headerText="dataset Id">
+        <p:column headerText="dataset Id" visible="#{destinationSelectionView.metadataOnly}">
             <h:outputText value="#{hostInfo.datasetid}" />
         </p:column>
 

@@ -507,10 +507,12 @@ public class IngestPageView implements Serializable {
 //            hostInfoFacade.edit(hostInfo);
 //            logger.log(Level.INFO, "after update:hostInfo={0}", hostInfoFacade.find(rowId));
             addMessage(responseString);
-            progressTest = "finishing publishing request";
+            progressTest = "finishing publishing request"+": assigned Dataset Id="+newDatasetId;
             
             gotoDataverseButtonEnabled=true;
             publishButtonEnabled=false;
+            
+            fileUploadView.setFileName("");
         } catch (FileNotFoundException ex) {
             logger.log(Level.SEVERE, "payload file was not available", ex);
 

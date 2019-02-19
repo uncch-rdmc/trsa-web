@@ -214,9 +214,9 @@ public class FileUploadView implements Serializable {
         return "/ingest.xhtml";
     }
     
-    public String goDataverseSetting(){
-        logger.log(Level.INFO, "go to Dataverse Setting page");
-        return "/hostinfo/List.xhtml";
+    public String goDestinationPage(){
+        logger.log(Level.INFO, "go to destination page");
+        return "/destination.xhtml";
     }
 
     public void copyFile(String fileName, InputStream in) {

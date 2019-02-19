@@ -33,7 +33,7 @@
                                               update="messages ingestButton filename" 
                                               sizeLimit="10000000" 
                                               fileLimit="1" 
-                                              allowTypes="/(\.|\/)(sav|por|dta|zip)$/" 
+                                             
                                               />
 
                                 <p:message for="fileupload"/>
@@ -55,8 +55,8 @@
                             </p:column>
                             
                             <p:column>
-                            <p:commandButton value="Select the destination Dataset"  
-                                                 action="/destination.xhtml" />
+                            <p:commandButton value="Select the destination"  
+                                             action="#{fileUploadView.goDestinationPage()}" />
                             </p:column>
                             <p:column>
                                 <p:commandButton id="publishButton"  

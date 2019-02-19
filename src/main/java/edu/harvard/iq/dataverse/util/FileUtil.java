@@ -533,7 +533,9 @@ public class FileUtil {
         return "";
     }
 
-    public static List<DataFile> createDataFiles(DatasetVersion version, InputStream inputStream, String fileName, String suppliedContentType, SystemConfig systemConfig) throws IOException {
+    public static List<DataFile> createDataFiles(DatasetVersion version, 
+            InputStream inputStream, String fileName, String suppliedContentType, 
+            SystemConfig systemConfig) throws IOException {
         List<DataFile> datafiles = new ArrayList<>();
 
         String warningMessage = null;
@@ -566,7 +568,7 @@ public class FileUtil {
         } else {
             throw new IOException ("Temp directory is not configured.");
         }
-        logger.fine("mime type supplied: "+suppliedContentType);
+        logger.info("mime type supplied: "+suppliedContentType);
         // Let's try our own utilities (Jhove, etc.) to determine the file type
         // of the uploaded file. (We may already have a mime type supplied for this
         // file - maybe the type that the browser recognized on upload; or, if
@@ -577,6 +579,7 @@ public class FileUtil {
         String recognizedType = null;
         String finalType = null;
         try {
+            logger.log(Level.INFO, "before calling determineFileType()");
             recognizedType = determineFileType(tempFile.toFile(), fileName);
             logger.info("File utility recognized the file as " + recognizedType);
             if (recognizedType != null && !recognizedType.equals("")) {
@@ -625,6 +628,7 @@ public class FileUtil {
                 ? MIME_TYPE_UNDETERMINED_DEFAULT
                 : suppliedContentType;
         }
+        logger.log(Level.INFO, "finalType={0}", finalType);
 
         // A few special cases:
 
@@ -632,7 +636,7 @@ public class FileUtil {
         // a regular FITS file:
 
         if (finalType.equals("application/fits-gzipped")) {
-
+            logger.log(Level.INFO, "application/fits-gzipped");
             InputStream uncompressedIn = null;
             String finalFileName = fileName;
             // if the file name had the ".gz" extension, remove it,
@@ -674,7 +678,7 @@ public class FileUtil {
         // If it's a ZIP file, we are going to unpack it and create multiple
         // DataFile objects from its contents:
           } else if (finalType.equals("application/zip")) {
-              logger.log(Level.INFO, "application/zip case");
+            logger.log(Level.INFO, "application/zip case");
             ZipInputStream unZippedIn = null;
             ZipEntry zipEntry = null;
 
@@ -755,7 +759,14 @@ public class FileUtil {
                                 // to read it and create a DataFile with it:
 
                                 File unZippedTempFile = saveInputStreamInTempFile(unZippedIn, fileSizeLimit);
-                                DataFile datafile = createSingleDataFile(version, unZippedTempFile, shortName, MIME_TYPE_UNDETERMINED_DEFAULT, systemConfig.getFileFixityChecksumAlgorithm(), false);
+                                
+// here                                
+                                DataFile datafile = createSingleDataFile(version, 
+                                        unZippedTempFile, 
+                                        shortName, 
+                                        MIME_TYPE_UNDETERMINED_DEFAULT, 
+                                        systemConfig.getFileFixityChecksumAlgorithm(), 
+                                        false);
 
                                 if (!fileEntryName.equals(shortName)) {
                                     // If the filename looks like a hierarchical folder name (i.e., contains slashes and backslashes),
@@ -907,7 +918,21 @@ public class FileUtil {
         // if we were unable to unpack an uploaded file, etc.), we'll just
         // create and return a single DataFile:
         logger.log(Level.INFO, "+++++ sing file case +++++");
-        DataFile datafile = createSingleDataFile(version, tempFile.toFile(), fileName, finalType, systemConfig.getFileFixityChecksumAlgorithm());
+        
+        if (tempFile.toFile() == null){
+            logger.log(Level.WARNING, "tempFile is null");
+        } else {
+            logger.log(Level.INFO, "tempFile is NOT null");
+        }
+        logger.log(Level.INFO, "fileName={0}", fileName);
+        
+        String fileNameWoPrefix= fileName.replaceFirst("/tmp/", "");
+       logger.log(Level.INFO, "fileNameNoPrefix={0}", fileNameWoPrefix);
+        DataFile datafile = createSingleDataFile(version, 
+                tempFile.toFile(), 
+                fileNameWoPrefix, 
+                finalType, 
+                systemConfig.getFileFixityChecksumAlgorithm());
 
         if (datafile != null && tempFile.toFile() != null) {
 
@@ -915,8 +940,8 @@ public class FileUtil {
 //                createIngestFailureReport(datafile, warningMessage);
 //                datafile.SetIngestProblem();
             }
-            datafiles.add(datafile);
-
+            datafiles.add(datafile);    
+            logger.log(Level.INFO, "datafiles.size={0}", datafiles.size());
             return datafiles;
         }
 
@@ -952,12 +977,17 @@ public class FileUtil {
      * been figured out.
     */
 
-    private static DataFile createSingleDataFile(DatasetVersion version, File tempFile, String fileName, String contentType, DataFile.ChecksumType checksumType) {
-        return createSingleDataFile(version, tempFile, fileName, contentType, checksumType, false);
+    private static DataFile createSingleDataFile(DatasetVersion version, 
+            File tempFile, String fileName, String contentType, 
+            DataFile.ChecksumType checksumType) {
+        return createSingleDataFile(version, tempFile, fileName, contentType, 
+                checksumType, false);
     }
 
-    private static DataFile createSingleDataFile(DatasetVersion version, File tempFile, String fileName, String contentType, DataFile.ChecksumType checksumType, boolean addToDataset) {
-        logger.log(Level.FINE, "+++++++++++++++++ createSingleDataFile \"+++++++++++++++++");
+    private static DataFile createSingleDataFile(DatasetVersion version, 
+            File tempFile, String fileName, String contentType, 
+            DataFile.ChecksumType checksumType, boolean addToDataset) {
+        logger.log(Level.INFO, "+++++++++++++++++ createSingleDataFile \"+++++++++++++++++");
         boolean isEmptyFile = false;
         if (tempFile == null) {
             logger.log(Level.WARNING, "tempFile is null");
