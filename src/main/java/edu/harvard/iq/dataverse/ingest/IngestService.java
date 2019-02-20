@@ -69,6 +69,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import static org.apache.commons.text.CharacterPredicates.ARABIC_NUMERALS;
 import static org.apache.commons.text.CharacterPredicates.ASCII_UPPERCASE_LETTERS;
 import org.apache.commons.text.RandomStringGenerator;
@@ -622,18 +623,18 @@ public class IngestService {
 
                     now = new Timestamp(new Date().getTime());
                     dataset.getVersions().get(0).setLastUpdateTime(now);
-                                dataset.setModificationTime(now);
-                    logger.log(Level.INFO, "dataset={0}", xstream.toXML(dataset.getFiles()));
-                    logger.log(Level.INFO, "dataset={0}", xstream.toXML(dataset.getFiles().get(0).getFileMetadata()));
-                    
-                    logger.log(Level.INFO, "dataset={0}", xstream.toXML(dataset.getVersions().get(0)));
-                    
+                    dataset.setModificationTime(now);
+                    logger.log(Level.FINE, "dataset={0}", xstream.toXML(dataset.getFiles()));
+                    logger.log(Level.FINE, "dataset={0}", xstream.toXML(dataset.getFiles().get(0).getFileMetadata()));
+
+                    logger.log(Level.FINE, "dataset={0}", xstream.toXML(dataset.getVersions().get(0)));
+
                     datasetFacade.create(dataset);
 
                 }
                 logger.log(Level.INFO, "end of each parsing iteration");
             }
-             logger.log(Level.INFO, "after parsing iterations ended");
+            logger.log(Level.INFO, "after parsing iterations ended");
             logger.log(Level.INFO, "+++++++++++++++++ parsing block ends here +++++++++++++++++");
         }
 
@@ -690,20 +691,20 @@ public class IngestService {
     
     
 
-private void handleConstraintViolation(ConstraintViolationException cve) {
-    Set<ConstraintViolation<?>> cvs = cve.getConstraintViolations();
-    for (ConstraintViolation<?> cv : cvs) {
-        System.out.println("------------------------------------------------");
-        System.out.println("Violation: " + cv.getMessage());
-        System.out.println("Entity: " + cv.getRootBeanClass().getSimpleName());
-        // The violation occurred on a leaf bean (embeddable)
-        if (cv.getLeafBean() != null && cv.getRootBean() != cv.getLeafBean()) {
-            System.out.println("Embeddable: "
-                    + cv.getLeafBean().getClass().getSimpleName());
+    private void handleConstraintViolation(ConstraintViolationException cve) {
+        Set<ConstraintViolation<?>> cvs = cve.getConstraintViolations();
+        for (ConstraintViolation<?> cv : cvs) {
+            System.out.println("------------------------------------------------");
+            System.out.println("Violation: " + cv.getMessage());
+            System.out.println("Entity: " + cv.getRootBeanClass().getSimpleName());
+            // The violation occurred on a leaf bean (embeddable)
+            if (cv.getLeafBean() != null && cv.getRootBean() != cv.getLeafBean()) {
+                System.out.println("Embeddable: "
+                        + cv.getLeafBean().getClass().getSimpleName());
+            }
+            System.out.println("Attribute: " + cv.getPropertyPath());
+            System.out.println("Invalid value: " + cv.getInvalidValue());
         }
-        System.out.println("Attribute: " + cv.getPropertyPath());
-        System.out.println("Invalid value: " + cv.getInvalidValue());
-    }
     }
     
     public void exportDataset(DatasetVersion version){
@@ -713,7 +714,7 @@ private void handleConstraintViolation(ConstraintViolationException cve) {
                 = JsonPrinter.jsonAsDatasetDto(version);
         
         JsonObject datasetAsJson = datasetAsJsonBuilder.build();
-        logger.log(Level.INFO, "datasetAsJson={0}", datasetAsJson);
+        logger.log(Level.FINE, "datasetAsJson={0}", datasetAsJson);
 
         String[] formatNames = {"oai_dc", "ddi", "dataverse_json"};
         

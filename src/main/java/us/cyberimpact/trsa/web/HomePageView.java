@@ -67,7 +67,8 @@ public class HomePageView implements Serializable {
         
         
         hostInfoTable = hostInfoFacade.findAll();
-        logger.log(Level.INFO, "homePageView:hostInfoTable={0}", hostInfoTable);
+        logger.log(Level.INFO, "homePageView:hostInfoTable:howManyRows={0}", hostInfoTable.size());
+        logger.log(Level.FINE, "homePageView:hostInfoTable={0}", hostInfoTable);
         if (hostInfoTable.isEmpty()){
             logger.log(Level.INFO, "homePageView:hostInfoTable is empty");
             addMessageEmptyHostInfo();

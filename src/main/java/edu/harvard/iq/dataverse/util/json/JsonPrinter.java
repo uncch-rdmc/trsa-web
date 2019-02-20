@@ -173,9 +173,9 @@ public class JsonPrinter {
 
         
         List<DatasetField> fs = getFields();
-        logger.log(Level.INFO, "fs={0}", xstream.toXML(fs));
+        logger.log(Level.FINE, "fs={0}", xstream.toXML(fs));
         JsonObject joFields = jsonByBlocks(fs).build();
-        logger.log(Level.INFO, "joFields={0}", xstream.toXML(joFields));
+        logger.log(Level.FINE, "joFields={0}", xstream.toXML(joFields));
         JsonObject joMetaBlcks = buildMetadataBlocks(joFields).build();
         
         

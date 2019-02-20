@@ -105,7 +105,7 @@ public class DdiExportUtil {
         Gson gson = new Gson();
         DatasetDTO datasetDto = gson.fromJson(datasetDtoAsJson.toString(), DatasetDTO.class);
         
-        logger.log(Level.INFO, "datasetDto:contents={0}", xstream.toXML(datasetDto));
+        logger.log(Level.FINE, "datasetDto:contents={0}", xstream.toXML(datasetDto));
         
         
         XMLStreamWriter xmlw = XMLOutputFactory.newInstance().createXMLStreamWriter(outputStream);
@@ -1286,7 +1286,7 @@ public class DdiExportUtil {
                 List<DataVariable> vars = dataFile.getDataTable().getDataVariables();
                 logger.log(Level.INFO, "how many vars={0}", vars.size());
                 for (DataVariable var : vars) {
-                    logger.log(Level.INFO, "var id={0}", xstream.toXML(var));
+                    logger.log(Level.FINE, "var id={0}", xstream.toXML(var));
                     createVarDDI(xmlw, var);
                 }
             }

@@ -57,13 +57,13 @@ public class DatasetFieldWalker {
         l.startField(df);
 
         if (df.isControlledVocabulary()) {
-            logger.log(Level.INFO, "isControlledVocabulary");
+            logger.log(Level.FINE, "isControlledVocabulary");
             l.controledVocabularyValue(df);
         } else if (df.isPrimitive()) {
-            logger.log(Level.INFO, "isPrimitive");
+            logger.log(Level.FINE, "isPrimitive");
             l.primitiveValue(df);
         } else if (df.isCompound()) {
-            logger.log(Level.INFO, "isCompound");
+            logger.log(Level.FINE, "isCompound");
 //            for (DatasetFieldCompoundValue dsfcv : df.getDatasetFieldCompoundValues()) {
 //                startCompoundValue(df);
 //                for (DatasetField dsf : dsfcv.getChildDatasetFields()) {
@@ -87,7 +87,7 @@ public class DatasetFieldWalker {
                 for (DatasetField dsf : df.getValues()) {
 //                for (DatasetFieldEntry dsf : dsfcv.getValues()) {
                     // here a recursive call
-                    logger.log(Level.INFO, "recursive call ....");
+                    logger.log(Level.FINE, "recursive call ....");
 //                    walk(df);
                     walk(dsf);
                 }

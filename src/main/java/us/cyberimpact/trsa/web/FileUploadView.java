@@ -88,13 +88,13 @@ public class FileUploadView implements Serializable {
             isTrsaProfileReady=true;
             logger.log(Level.INFO, "FileUploadView:trsa profile exists");
             
-            logger.log(Level.INFO, "url={0}",trsaProfileTable.get(0).getDataverseurl());            
+            logger.log(Level.INFO, "url={0}",trsaProfileTable.get(0).getDataverseurl()); 
             logger.log(Level.INFO, "api-token={0}",trsaProfileTable.get(0).getApitoken());
             
             
         }
         hostInfoTable = hostInfoFacade.findAll();
-        logger.log(Level.INFO, "FileUploadView:hostInfoTable={0}", hostInfoTable);
+        logger.log(Level.INFO, "FileUploadView:hostInfoTable:howMany={0}", hostInfoTable.size());
         if (hostInfoTable.isEmpty()){
             logger.log(Level.INFO, "hostInfoTable is empty");
         } else {
@@ -150,7 +150,7 @@ public class FileUploadView implements Serializable {
 
     public void upload(FileUploadEvent event) {
         file = event.getFile();
-        String filePath="";
+        String filePath = "";
         if (file != null) {
             FacesMessage message = new FacesMessage("Succesful",
                     file.getFileName() + " is uploaded.");
@@ -160,7 +160,7 @@ public class FileUploadView implements Serializable {
 //                copyFile(event.getFile().getFileName(), event.getFile().getInputstream());
                 bytes = file.getContents();
                 fileNameOnly = FilenameUtils.getName(file.getFileName());
-                mimeType = FilenameUtils.getExtension(file.getFileName());
+//                mimeType = FilenameUtils.getExtension(file.getFileName());
                 fileName = destination + fileNameOnly;
                 logger.log(Level.INFO, "fileName is set to={0}", fileName);
                 BufferedOutputStream stream = new BufferedOutputStream(
@@ -179,16 +179,17 @@ public class FileUploadView implements Serializable {
 //            
             FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Your file (File Name " + file.getFileName() + " with size " + file.getSize() + ")  Uploaded Successfully", ""));
         }
-        
+
         logger.log(Level.INFO, "FileUploadView:upload():TrsaProfileTable={0}", trsaProfileTable);
-        logger.log(Level.INFO, "upload():url={0}",trsaProfileTable.get(0).getDataverseurl());            
-        logger.log(Level.INFO, "upload():api-token={0}",trsaProfileTable.get(0).getApitoken());
+        logger.log(Level.INFO, "upload():url={0}", trsaProfileTable.get(0).getDataverseurl());
+        logger.log(Level.INFO, "upload():api-token={0}", trsaProfileTable.get(0).getApitoken());
         logger.log(Level.INFO, "upload():isTrsaProfileReady={0}", isTrsaProfileReady);
         setIngestButtonEnabled(true);
 //        return "/index.xhtml";
     }
 
     public void execIngest() {
+        FacesContext context = FacesContext.getCurrentInstance();
         logger.log(Level.INFO, "fileName={0}", fileName);
         datasetIdentifier = IngestService.generateTempDatasetIdentifier(6);
         logger.log(Level.INFO, "datasetIdentifier={0}", datasetIdentifier);
@@ -201,6 +202,8 @@ public class FileUploadView implements Serializable {
             ingestService.run(fileName, mimeType, datasetIdentifier);
 
             logger.log(Level.INFO, "dumping metadata files");
+            
+            
             List<DatasetVersion> versions = datasetVersionFcd.findAll();
             if (versions != null && !versions.isEmpty()) {
                 
@@ -210,15 +213,22 @@ public class FileUploadView implements Serializable {
             } else {
                 logger.log(Level.INFO, "DatasetVersion is null/empty");
             }
+            
+            
+            
+            
         } catch (ConstraintViolationException ex){
-            logger.log(Level.SEVERE, "ConstraintViolationException", ex);
+            logger.log(Level.SEVERE, "ConstraintViolationException occurred", ex);
             if (ex instanceof ConstraintViolationException) {
+                StringBuilder sb = new StringBuilder();
                 ConstraintViolationException cve = (ConstraintViolationException) ex;
                 for (ConstraintViolation cv : cve.getConstraintViolations()) {
-                    System.out.println("CONSTRAINT VIOLOATION : " + cv.toString());
+                    sb.append(cv.toString());
+                    logger.log(Level.SEVERE, "CONSTRAINT VIOLOATION : {0}", cv.toString());
                 }
+        context.addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validation Error", sb.toString()));
             }
-            
+
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "IOException", ex);
         } catch (XMLStreamException ex) {
@@ -226,9 +236,12 @@ public class FileUploadView implements Serializable {
         } catch (ExportException ex) {
             logger.log(Level.SEVERE, "ExportException", ex);
         }
-        FacesContext context = FacesContext.getCurrentInstance();
+        
+
         String message = fileName + " has been successfully ingested and new dataset (Id=" + datasetIdentifier + ") was created";
         context.addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "info", message));
+        
+        
         logger.log(Level.INFO, "execIngest():isTrsaProfileReady={0}", isTrsaProfileReady);
         logger.log(Level.INFO, "FileUploadView:execIngest():TrsaProfileTable={0}", trsaProfileTable);
         logger.log(Level.INFO, "execIngest():url={0}",trsaProfileTable.get(0).getDataverseurl());            
@@ -238,10 +251,16 @@ public class FileUploadView implements Serializable {
         } else {
             logger.log(Level.INFO, "TRSA Profile is not available");
             publishButtonEnabled = true;
-            String messageWarning = "TRSA Profile is not set.";
+            String messageWarning = "TRSA Profile is not set; please add a profile";
             context.addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_WARN, "warn", messageWarning));
             
             publishButtonEnabled = false;
+            try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/trsaProfile/List.xhtml/");
+            } catch (IOException ex){
+                logger.log(Level.INFO, "redirection error", ex);
+            }
+            
         }
         ingestButtonEnabled = false;
         //return "/ingest.xhtml";
@@ -261,7 +280,7 @@ public class FileUploadView implements Serializable {
         logger.log(Level.INFO, "go to destination page");
         return "/destination.xhtml";
     }
-
+    
     public void copyFile(String fileName, InputStream in) {
         try {
 

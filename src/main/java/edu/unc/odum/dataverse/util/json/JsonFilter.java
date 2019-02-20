@@ -76,12 +76,12 @@ public class JsonFilter {
         DocumentContext dc = JsonPath.using(configuration).parse(inputStream);
 
         Object dsObj = dc.read("$.datasetVersion['metadataBlocks', 'files']");
-        logger.log(Level.INFO, "dsObj={0}", dsObj);
+        logger.log(Level.FINE, "dsObj={0}", dsObj);
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         JsonObject filtered = new JsonObject();
         filtered.add("datasetVersion", gson.toJsonTree(dsObj));
-        logger.log(Level.INFO, "filtered={0}", filtered);
+        logger.log(Level.FINE, "filtered={0}", filtered);
 
         try (Writer writer = new FileWriter(destPath)) {
             gson.toJson(filtered, writer);
@@ -100,7 +100,7 @@ public class JsonFilter {
         DocumentContext dc = JsonPath.using(configuration).parse(inputStream);
 
         Object dsObj = dc.read("$.datasetVersion['metadataBlocks', 'files']");
-        logger.log(Level.INFO, "dsObj={0}", dsObj);
+        logger.log(Level.FINE, "dsObj={0}", dsObj);
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         return dsObj;
 //        try (Writer writer = new FileWriter(destPath)) {
@@ -146,7 +146,7 @@ public class JsonFilter {
         DocumentContext dc = JsonPath.using(configuration).parse(inputStream);
 
         Object dsObj = dc.read("$.datasetVersion['metadataBlocks', 'files']");
-        logger.log(Level.INFO, "dsObj={0}", dsObj);
+        logger.log(Level.FINE, "dsObj={0}", dsObj);
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         try (Writer writer = new FileWriter(destPath)) {

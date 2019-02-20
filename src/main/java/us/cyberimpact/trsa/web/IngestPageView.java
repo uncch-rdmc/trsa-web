@@ -165,14 +165,14 @@ public class IngestPageView implements Serializable {
         } else {
             logger.log(Level.INFO, "trsaProfileTable is available: ={0}", trsaProfileTable);
             // update fields
-
-            logger.log(Level.INFO, "IngestPageView:init():trsa profile exists");
-
-            logger.log(Level.INFO, "IngestPageView:init():url={0}",trsaProfileTable.get(0).getDataverseurl());
-            dataverseServerHCValue = trsaProfileTable.get(0).getDataverseurl();
-            
-            logger.log(Level.INFO, "IngestPageView:init():api-token={0}",trsaProfileTable.get(0).getApitoken());
-            apiKeyHCValue=trsaProfileTable.get(0).getApitoken();
+//
+//            logger.log(Level.INFO, "IngestPageView:init():trsa profile exists");
+//
+//            logger.log(Level.INFO, "IngestPageView:init():url={0}",trsaProfileTable.get(0).getDataverseurl());
+//            dataverseServerHCValue = trsaProfileTable.get(0).getDataverseurl();
+//            
+//            logger.log(Level.INFO, "IngestPageView:init():api-token={0}",trsaProfileTable.get(0).getApitoken());
+//            apiKeyHCValue=trsaProfileTable.get(0).getApitoken();
             
             // turn on the switch
             logger.log(Level.INFO, "IngestPageView:init():before turned on: state of isTrsaProfileReady={0}", isTrsaProfileReady);
@@ -182,17 +182,18 @@ public class IngestPageView implements Serializable {
         
         
         hostInfoTable = hostInfoFacade.findAll();
-        logger.log(Level.INFO, "FileUploadView:hostInfoTable={0}", hostInfoTable);
+        logger.log(Level.INFO, "FileUploadView:hostInfoTable:howManyRows={0}", hostInfoTable.size());
         if (hostInfoTable.isEmpty()){
-            logger.log(Level.INFO, "hostInfoTable is empty");
+            logger.log(Level.WARNING, "hostInfoTable is empty");
         } else {
+            publishButtonEnabled=true;
             logger.log(Level.INFO, "FileUploadView:hostInfoTable exists and not empty");
         }
         
         
         
         
-        
+/*
         
         // localDatasetID
         localDatasetIdentifier = fileUploadView.getDatasetIdentifier();
@@ -210,7 +211,7 @@ public class IngestPageView implements Serializable {
         dataverseServer = dataverseServerHCValue;
         logger.log(Level.INFO, "dataverseServer={0}", dataverseServer);
         
-        
+*/
         
         // new approach 
         logger.log(Level.INFO, "destSelectionView:SelectedHostInfo ={0}", destSelectionView.getSelectedHostInfo());
@@ -362,7 +363,7 @@ public class IngestPageView implements Serializable {
             
             
             
-            logger.log(Level.INFO, "jsonbody={0}", jsonbody);
+            logger.log(Level.FINE, "jsonbody={0}", jsonbody);
             
             logger.log(Level.INFO, "publish Metadata-only API case");
             String apiEndpoint = dataverseServer + "/api/datasets/"+ targetDatasetId
@@ -407,7 +408,7 @@ public class IngestPageView implements Serializable {
             String jsonbody = payloadObject.toString();
             
             
-            logger.log(Level.INFO, "jsonbody={0}", jsonbody);
+            logger.log(Level.FINE, "jsonbody={0}", jsonbody);
             
             logger.log(Level.INFO, "Add Metadata API case");
             String apiEndpoint = dataverseServer 
@@ -421,8 +422,10 @@ public class IngestPageView implements Serializable {
                             .body(jsonbody)
                             .asJson();
 
-            logger.log(Level.INFO, "status code={0}", jsonResponse.getStatus());
-            logger.log(Level.INFO, "response body={0}", jsonResponse.getBody().toString());
+            logger.log(Level.INFO, "status code={0}", 
+                    jsonResponse.getStatus());
+            logger.log(Level.INFO, "response body={0}", 
+                    jsonResponse.getBody().toString());
 
             addMessage(jsonResponse.getBody().toString());
             progressTest = "finishing publishing request";
@@ -465,7 +468,7 @@ public class IngestPageView implements Serializable {
                     jsonbody +=scanner.nextLine();
             }
             scanner.close();
-            logger.log(Level.INFO, "jsonbody={0}", jsonbody);
+            logger.log(Level.FINE, "jsonbody={0}", jsonbody);
             
             logger.log(Level.INFO, "publish API case");
             String apiEndpoint = dataverseServer 
@@ -512,15 +515,24 @@ public class IngestPageView implements Serializable {
             gotoDataverseButtonEnabled=true;
             publishButtonEnabled=false;
             
-            fileUploadView.setFileName("");
+            
+            
+            
         } catch (FileNotFoundException ex) {
             logger.log(Level.SEVERE, "payload file was not available", ex);
 
         } catch (UnirestException ex) {
             logger.log(Level.SEVERE, "UnirestException", ex);
+        } finally {
+
         }
 
-        //return "/ingest.xhtml";
+        clearSession();
+    }
+    
+    private void clearSession(){
+        logger.log(Level.INFO, "sessionscoped data are rest");
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
     
     private void saveHostInfo(HostInfo hi, long newDatasetId){
@@ -572,7 +584,7 @@ public class IngestPageView implements Serializable {
         this.gotoDataverseButtonEnabled = value;
     }
     
-    boolean publishButtonEnabled=true;
+    boolean publishButtonEnabled=false;
 
     public boolean isPublishButtonEnabled() {
         return publishButtonEnabled;

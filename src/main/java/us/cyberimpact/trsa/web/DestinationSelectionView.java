@@ -65,25 +65,8 @@ public class DestinationSelectionView implements Serializable {
     @PostConstruct
     public void init() {
         
-        
-//        trsaProfileTable= trsaProfileFacade.findAll();
-//        logger.log(Level.INFO, "FileUploadView:TrsaProfileTable={0}", trsaProfileTable);
-//        if (trsaProfileTable.isEmpty()){
-//            logger.log(Level.INFO, "trsa profile is empty");
-//            // turn off the publish button 
-//           isTrsaProfileReady=false;
-//        } else {
-//            // turn on the publish button
-//            isTrsaProfileReady=true;
-//            logger.log(Level.INFO, "FileUploadView:trsa profile exists");
-//            
-//            logger.log(Level.INFO, "url={0}",trsaProfileTable.get(0).getDataverseurl());            
-//            logger.log(Level.INFO, "api-token={0}",trsaProfileTable.get(0).getApitoken());
-//            
-//            
-//        }
         hostInfoTable = hostInfoFacade.findAll();
-        logger.log(Level.INFO, "FileUploadView:hostInfoTable={0}", hostInfoTable);
+        logger.log(Level.INFO, "FileUploadView:hostInfoTable:howMany={0}", hostInfoTable.size());
         if (hostInfoTable.isEmpty()){
             logger.log(Level.INFO, "hostInfoTable is empty");
         } else {
@@ -120,25 +103,6 @@ public class DestinationSelectionView implements Serializable {
         logger.log(Level.INFO, "go to publish page");
         return "/ingest.xhtml";
     }
-//    public String selectDestination(){
-//        logger.log(Level.INFO, "selectDestination");
-//        logger.log(Level.INFO, "selectedHostInfo={0}", hostInfo);
-//        this.selectedHostInfo= hostInfo;
-//        logger.log(Level.INFO, "datasetId={0}", selectedHostInfo.getDatasetid());
-//        logger.log(Level.INFO, "go to publish page");
-//        return "/ingest.xhtml";
-//    }
-    
-    
-    public String selectDest(){
-        logger.log(Level.INFO, "selectDestination: selectedHostInfo={0}", selectedHostInfo);
-
-
-        logger.log(Level.INFO, "datasetId={0}", selectedHostInfo.getDatasetid());
-        logger.log(Level.INFO, "go to publish page");
-        return "/ingest.xhtml";
-    }
-    
     
     public void onRowSelect(SelectEvent event) {
         FacesMessage msg = new FacesMessage("host Selected", ((HostInfo) event.getObject()).getDataversetitle());
