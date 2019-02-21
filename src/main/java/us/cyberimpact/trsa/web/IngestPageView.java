@@ -1,5 +1,6 @@
 package us.cyberimpact.trsa.web;
 
+import us.cyberimpact.trsa.entities.TrsaProfileFacade;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -31,9 +32,9 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonWriter;
-import us.cyberimpact.trsa.core.TrsaProfile;
-import us.cyberimpact.trsa.core.hostinfo.HostInfo;
-import us.cyberimpact.trsa.core.hostinfo.HostInfoFacade;
+import us.cyberimpact.trsa.entities.TrsaProfile;
+import us.cyberimpact.trsa.entities.HostInfo;
+import us.cyberimpact.trsa.entities.HostInfoFacade;
 
 /**
  *
@@ -531,7 +532,7 @@ public class IngestPageView implements Serializable {
     }
     
     private void clearSession(){
-        logger.log(Level.INFO, "sessionscoped data are rest");
+        logger.log(Level.INFO, "sessionscoped data are reset");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
     

@@ -21,8 +21,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
-import us.cyberimpact.trsa.core.hostinfo.HostInfo;
-import us.cyberimpact.trsa.core.hostinfo.HostInfoFacade;
+import us.cyberimpact.trsa.entities.HostInfo;
+import us.cyberimpact.trsa.entities.HostInfoFacade;
 
 /**
  *

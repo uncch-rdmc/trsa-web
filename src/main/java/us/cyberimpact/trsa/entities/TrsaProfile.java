@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package us.cyberimpact.trsa.core;
+package us.cyberimpact.trsa.entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;

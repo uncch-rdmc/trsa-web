@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package us.cyberimpact.trsa.web;
+package us.cyberimpact.trsa.entities;
 
 import java.util.Iterator;
 import java.util.List;

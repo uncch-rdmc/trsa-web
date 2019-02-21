@@ -17,8 +17,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import us.cyberimpact.trsa.core.hostinfo.HostInfo;
-import us.cyberimpact.trsa.core.hostinfo.HostInfoFacade;
+import us.cyberimpact.trsa.entities.HostInfo;
+import us.cyberimpact.trsa.entities.HostInfoFacade;
 
 /**
  *

@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package us.cyberimpact.trsa.web;
+package us.cyberimpact.trsa.entities;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import us.cyberimpact.trsa.core.TrsaProfile;
 
 /**
  *

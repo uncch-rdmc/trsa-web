@@ -1,5 +1,6 @@
 package us.cyberimpact.trsa.web;
 
+import us.cyberimpact.trsa.entities.TrsaProfileFacade;
 import edu.harvard.iq.dataverse.entities.DatasetVersion;
 import edu.harvard.iq.dataverse.entities.DatasetVersionFacade;
 import edu.harvard.iq.dataverse.export.ExportException;
@@ -30,9 +31,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-import us.cyberimpact.trsa.core.TrsaProfile;
-import us.cyberimpact.trsa.core.hostinfo.HostInfo;
-import us.cyberimpact.trsa.core.hostinfo.HostInfoFacade;
+import us.cyberimpact.trsa.entities.TrsaProfile;
+import us.cyberimpact.trsa.entities.HostInfo;
+import us.cyberimpact.trsa.entities.HostInfoFacade;
 
 @ManagedBean(name = "fileUploadView")
 @SessionScoped

@@ -1,9 +1,9 @@
-package us.cyberimpact.trsa.web.hostinfo;
+package us.cyberimpact.trsa.web;
 
-import us.cyberimpact.trsa.core.hostinfo.HostInfo;
-import us.cyberimpact.trsa.web.hostinfo.util.JsfUtil;
-import us.cyberimpact.trsa.web.hostinfo.util.JsfUtil.PersistAction;
-import us.cyberimpact.trsa.core.hostinfo.HostInfoFacade;
+import us.cyberimpact.trsa.entities.TrsaProfile;
+import us.cyberimpact.trsa.web.jsf.util.JsfUtil;
+import us.cyberimpact.trsa.web.jsf.util.JsfUtil.PersistAction;
+import us.cyberimpact.trsa.entities.TrsaProfileFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("hostInfoController")
+@Named("trsaProfileController")
 @SessionScoped
-public class HostInfoController implements Serializable {
+public class TrsaProfileController implements Serializable {
 
     @EJB
-    private HostInfoFacade hostInfoFacade;
-    private List<HostInfo> items = null;
-    private HostInfo selected;
+    private TrsaProfileFacade trsaProfileFacade;
+    private List<TrsaProfile> items = null;
+    private TrsaProfile selected;
 
-    public HostInfoController() {
+    public TrsaProfileController() {
     }
 
-    public HostInfo getSelected() {
+    public TrsaProfile getSelected() {
         return selected;
     }
 
-    public void setSelected(HostInfo selected) {
+    public void setSelected(TrsaProfile selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,39 @@ public class HostInfoController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private HostInfoFacade getFacade() {
-        return hostInfoFacade;
+    private TrsaProfileFacade getFacade() {
+        return trsaProfileFacade;
     }
 
-    public HostInfo prepareCreate() {
-        selected = new HostInfo();
+    public TrsaProfile prepareCreate() {
+        selected = new TrsaProfile();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle_host").getString("HostInfoCreated"));
+        persist(PersistAction.CREATE, 
+            ResourceBundle.getBundle("/Bundle").getString("TrsaProfileCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle_host").getString("HostInfoUpdated"));
+        persist(PersistAction.UPDATE, 
+            ResourceBundle.getBundle("/Bundle").getString("TrsaProfileUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle_host").getString("HostInfoDeleted"));
+        persist(PersistAction.DELETE, 
+            ResourceBundle.getBundle("/Bundle").getString("TrsaProfileDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<HostInfo> getItems() {
+    public List<TrsaProfile> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -100,38 +103,38 @@ public class HostInfoController implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle_host").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle_host").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
     }
 
-    public HostInfo getHostInfo(java.lang.Long id) {
+    public TrsaProfile getTrsaProfile(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<HostInfo> getItemsAvailableSelectMany() {
+    public List<TrsaProfile> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<HostInfo> getItemsAvailableSelectOne() {
+    public List<TrsaProfile> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = HostInfo.class)
-    public static class HostInfoControllerConverter implements Converter {
+    @FacesConverter(forClass = TrsaProfile.class)
+    public static class TrsaProfileControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            HostInfoController controller = (HostInfoController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "hostInfoController");
-            return controller.getHostInfo(getKey(value));
+            TrsaProfileController controller = (TrsaProfileController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "trsaProfileController");
+            return controller.getTrsaProfile(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -151,11 +154,11 @@ public class HostInfoController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof HostInfo) {
-                HostInfo o = (HostInfo) object;
+            if (object instanceof TrsaProfile) {
+                TrsaProfile o = (TrsaProfile) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), HostInfo.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), TrsaProfile.class.getName()});
                 return null;
             }
         }
