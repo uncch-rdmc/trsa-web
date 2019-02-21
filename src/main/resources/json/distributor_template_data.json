@@ -1,0 +1,233 @@
+{
+  "id": 236,
+  "identifier": "FK2/H9ROLT",
+  "persistentUrl": "https://doi.org/10.33563/FK2/H9ROLT",
+  "protocol": "doi",
+  "authority": "10.33563",
+  "publisher": "Root",
+  "publicationDate": "2019-01-31",
+  "storageIdentifier": "file://10.33517/FK2/H9ROLT",
+  "datasetVersion": {
+    "id": 48,
+    "storageIdentifier": "file://10.33517/FK2/H9ROLT",
+    "versionNumber": 1,
+    "versionMinorNumber": 0,
+    "versionState": "RELEASED",
+    "productionDate": "Production Date",
+    "lastUpdateTime": "2019-01-31T14:58:17Z",
+    "releaseTime": "2019-01-31T14:58:17Z",
+    "createTime": "2019-01-30T20:15:25Z",
+    "license": "NONE",
+    "termsOfUse": "Access to files referenced in this dataset is controlled by the Impact Notary Service and managed with SAFE and Presidio",
+    "termsOfAccess": "All access requests forwarded to Impact Notary Service",
+    "dataAccessPlace": "Data is only available on the TRSA storage server",
+    "contactForAccess": "http://impact/notaryservice",
+    "metadataBlocks": {
+      "citation": {
+        "displayName": "Citation Metadata",
+        "fields": [
+          {
+            "typeName": "title",
+            "multiple": false,
+            "typeClass": "primitive",
+            "value": "Crabtree ImPACT MVP Demo Dataset"
+          },
+          {
+            "typeName": "author",
+            "multiple": true,
+            "typeClass": "compound",
+            "value": [
+              {
+                "authorName": {
+                  "typeName": "authorName",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Crabtree, Jonathan"
+                },
+                "authorAffiliation": {
+                  "typeName": "authorAffiliation",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Odum"
+                }
+              }
+            ]
+          },
+          {
+            "typeName": "datasetContact",
+            "multiple": true,
+            "typeClass": "compound",
+            "value": [
+              {
+                "datasetContactName": {
+                  "typeName": "datasetContactName",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Crabtree, Jonathan"
+                },
+                "datasetContactAffiliation": {
+                  "typeName": "datasetContactAffiliation",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Odum institute"
+                },
+                "datasetContactEmail": {
+                  "typeName": "datasetContactEmail",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Jonathan_Crabtree@unc.edu"
+                }
+              }
+            ]
+          },
+          {
+            "typeName": "dsDescription",
+            "multiple": true,
+            "typeClass": "compound",
+            "value": [
+              {
+                "dsDescriptionValue": {
+                  "typeName": "dsDescriptionValue",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "The data set contains metadata and links to Impact NotaryService for MVP testing and the Odum TRSA server"
+                }
+              }
+            ]
+          },
+          {
+            "typeName": "subject",
+            "multiple": true,
+            "typeClass": "controlledVocabulary",
+            "value": [
+              "Social Sciences"
+            ]
+          },
+          {
+            "typeName": "keyword",
+            "multiple": true,
+            "typeClass": "compound",
+            "value": [
+              {
+                "keywordValue": {
+                  "typeName": "keywordValue",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "impact"
+                }
+              }
+            ]
+          },
+          {
+            "typeName": "language",
+            "multiple": true,
+            "typeClass": "controlledVocabulary",
+            "value": [
+              "English"
+            ]
+          },
+          {
+            "typeName": "contributor",
+            "multiple": true,
+            "typeClass": "compound",
+            "value": [
+              {
+                "contributorType": {
+                  "typeName": "contributorType",
+                  "multiple": false,
+                  "typeClass": "controlledVocabulary",
+                  "value": "Data Curator"
+                },
+                "contributorName": {
+                  "typeName": "contributorName",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Crabtree, Jonathan"
+                }
+              }
+            ]
+          },
+          {
+            "typeName": "distributor",
+            "multiple": true,
+            "typeClass": "compound",
+            "value": [
+              {
+                "distributorName": {
+                  "typeName": "distributorName",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Crabtree Trusted Remote Storage Agent Server"
+                },
+                "distributorAffiliation": {
+                  "typeName": "distributorAffiliation",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Odum Institute"
+                },
+                "distributorAbbreviation": {
+                  "typeName": "distributorAbbreviation",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "CTRSA"
+                },
+                "distributorURL": {
+                  "typeName": "distributorURL",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "http://trsatest.irss.unc.edu/presidio"
+                }
+              }
+            ]
+          },
+          {
+            "typeName": "depositor",
+            "multiple": false,
+            "typeClass": "primitive",
+            "value": "Jonathan Crabtree"
+          },
+          {
+            "typeName": "dateOfDeposit",
+            "multiple": false,
+            "typeClass": "primitive",
+            "value": "2019-01-30"
+          },
+          {
+            "typeName": "kindOfData",
+            "multiple": true,
+            "typeClass": "primitive",
+            "value": [
+              "Quantitative"
+            ]
+          }
+        ]
+      },
+      "socialscience": {
+        "displayName": "Social Science and Humanities Metadata",
+        "fields": [
+          {
+            "typeName": "socialScienceNotes",
+            "multiple": false,
+            "typeClass": "compound",
+            "value": {
+              "socialScienceNotesType": {
+                "typeName": "socialScienceNotesType",
+                "multiple": false,
+                "typeClass": "primitive",
+                "value": "Impact Registered"
+              },
+              "socialScienceNotesText": {
+                "typeName": "socialScienceNotesText",
+                "multiple": false,
+                "typeClass": "primitive",
+                "value": "Datasets in this collection are managed by an approved distributor using the Impact Trusted Remote Storage Agent to register metadata for sensitive digital objects"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "files": [],
+    "citation": "Crabtree, Jonathan, 2019, \"Crabtree ImPACT MVP Demo Dataset\", https://doi.org/10.33563/FK2/H9ROLT, Root, V1"
+  }
+}

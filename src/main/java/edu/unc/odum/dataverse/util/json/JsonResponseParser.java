@@ -27,14 +27,14 @@ public class JsonResponseParser {
     public JsonResponseParser() {
     }
     // the following method will be activated after Java ee 8 is used
-//    public String parseDatasetCreationResponse(String responseString){
-//        logger.log(Level.INFO, "responseString={0}", responseString);
-//        JsonReader jsonReader = Json.createReader(new StringReader(responseString));
-//        JsonObject jsonObject = jsonReader.readObject();
-//        JsonPointer pDatasetId = Json.createPointer(JsonPointerForDataset.POINTER_TO_DATASET_ID);
-//        JsonValue datasetIdValue = pDatasetId.getValue(jsonObject);
-//        logger.log(Level.INFO, "datasetIdValue={0}", datasetIdValue);
-//        return datasetIdValue.toString();
-//    }
+    public String parseDatasetCreationResponse(String responseString){
+        logger.log(Level.INFO, "responseString={0}", responseString);
+        JsonReader jsonReader = Json.createReader(new StringReader(responseString));
+        JsonObject jsonObject = jsonReader.readObject();
+        JsonPointer pDatasetId = Json.createPointer(JsonPointerForDataset.POINTER_TO_DATASET_ID);
+        JsonValue datasetIdValue = pDatasetId.getValue(jsonObject);
+        logger.log(Level.INFO, "datasetIdValue={0}", datasetIdValue);
+        return datasetIdValue.toString();
+    }
     
 }

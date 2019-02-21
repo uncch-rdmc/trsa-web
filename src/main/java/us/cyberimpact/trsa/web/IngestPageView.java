@@ -6,6 +6,7 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.unc.odum.dataverse.util.json.JsonFilter;
+import edu.unc.odum.dataverse.util.json.JsonPointerForDataset;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,6 +33,9 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonWriter;
+import javax.json.JsonPointer;
+import javax.json.JsonValue;
+import javax.json.JsonPatchBuilder;
 import us.cyberimpact.trsa.entities.TrsaProfile;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
@@ -335,10 +339,11 @@ public class IngestPageView implements Serializable {
 
                 // create a new Json object to store JsonPointers
                 JsonObject object = Json.createObjectBuilder().build();
-/*
-                The following block works with Java-ee-api-8 package
+
+                //The following block works with Java-ee-api-8 package
                 // create the two JsonPointer instances 
-                JsonPointer metadataBlock = Json.createPointer(JsonPointerForDataset.POINTER_METADATABLOCKS);
+                JsonPointer metadataBlock = 
+                        Json.createPointer(JsonPointerForDataset.POINTER_METADATABLOCKS);
                 JsonPointer files = Json.createPointer(JsonPointerForDataset.POINTER_FILES);
 
                 // get the value for each of the above JsonPointer instances
@@ -357,7 +362,7 @@ public class IngestPageView implements Serializable {
                 logger.log(Level.INFO, "actual={0}", payloadObject);
                 jsonWriter.writeObject(payloadObject);
                 jsonbody = payloadObject.toString();
-*/                
+                
             } catch (IOException ex) {
                 logger.log(Level.SEVERE, null, ex);
             }
@@ -433,9 +438,6 @@ public class IngestPageView implements Serializable {
             
             gotoDataverseButtonEnabled=true;
             publishButtonEnabled=false;
-//        } catch (FileNotFoundException ex) {
-//            logger.log(Level.SEVERE, "payload file was not available", ex);
-
         } catch (UnirestException ex) {
             logger.log(Level.SEVERE, "UnirestException", ex);
         }
