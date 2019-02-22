@@ -12,13 +12,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+
 
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import us.cyberimpact.trsa.entities.HostInfo;
@@ -28,7 +29,7 @@ import us.cyberimpact.trsa.entities.HostInfoFacade;
  *
  * @author asone
  */
-@ManagedBean(name = "destinationSelectionView")
+@Named("destinationSelectionView")
 @SessionScoped
 public class DestinationSelectionView implements Serializable {
 
@@ -38,14 +39,13 @@ public class DestinationSelectionView implements Serializable {
      */
     public DestinationSelectionView() {
     }
-    @EJB
+    @Inject
     HostInfoFacade hostInfoFacade;
     
     List<HostInfo> hostInfoTable = new ArrayList<>();
     
     
-    
-    @ManagedProperty("#{homePageView}")
+    @Inject
     private HomePageView homePageView;
     
     public boolean isMetadataOnly() {

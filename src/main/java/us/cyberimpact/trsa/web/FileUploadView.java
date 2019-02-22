@@ -17,12 +17,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.xml.stream.XMLStreamException;
@@ -35,24 +34,24 @@ import us.cyberimpact.trsa.entities.TrsaProfile;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
 
-@ManagedBean(name = "fileUploadView")
+@Named("fileUploadView")
 @SessionScoped
 public class FileUploadView implements Serializable {
 
     private static final Logger logger = Logger.getLogger(FileUploadView.class.getName());
 
-    @EJB
+    @Inject
     IngestService ingestService;
 
-    @EJB
+    @Inject
     DatasetVersionFacade datasetVersionFcd;
     
-    @EJB
+    @Inject
     TrsaProfileFacade trsaProfileFacade;
     
     List<TrsaProfile> trsaProfileTable = new ArrayList<>();
 
-    @EJB
+    @Inject
     HostInfoFacade hostInfoFacade;
     
     List<HostInfo> hostInfoTable = new ArrayList<>();

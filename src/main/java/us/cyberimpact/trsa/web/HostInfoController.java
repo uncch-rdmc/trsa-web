@@ -25,7 +25,9 @@ public class HostInfoController implements Serializable {
 
     @Inject
     private HostInfoFacade hostInfoFacade;
+    
     private List<HostInfo> items = null;
+    
     private HostInfo selected;
 
     public HostInfoController() {

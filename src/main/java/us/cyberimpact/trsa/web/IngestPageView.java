@@ -21,14 +21,14 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -44,13 +44,13 @@ import us.cyberimpact.trsa.entities.HostInfoFacade;
  *
  * @author akios
  */
-@ManagedBean(name = "ingestPageView")
+@Named("ingestPageView")
 @SessionScoped
 public class IngestPageView implements Serializable {
     
     private static final Logger logger = Logger.getLogger(IngestPageView.class.getName());
     
-    @EJB
+    @Inject
     private TrsaProfileFacade trsaProfileFacade;
     
     List<TrsaProfile> trsaProfileTable = new ArrayList<>();
@@ -58,17 +58,18 @@ public class IngestPageView implements Serializable {
     boolean isTrsaProfileReady = false;
     
     
-    @EJB
+    @Inject
     private HostInfoFacade hostInfoFacade;
     
     
      List<HostInfo> hostInfoTable = new ArrayList<>();
     
-    @ManagedProperty("#{fileUploadView}")
+    @Inject
+//    @ManagedProperty("#{fileUploadView}")
     private FileUploadView fileUploadView;
     
-    
-    @ManagedProperty("#{destinationSelectionView}")
+    @Inject
+ //   @ManagedProperty("#{destinationSelectionView}")
     private DestinationSelectionView destSelectionView;
 
     public void setDestSelectionView(DestinationSelectionView destSelectionView) {
@@ -86,7 +87,8 @@ public class IngestPageView implements Serializable {
         this.hostInfo = hostInfo;
     }
     
-    @ManagedProperty("#{homePageView}")
+    @Inject
+//    @ManagedProperty("#{homePageView}")
     private HomePageView homePageView;
     
     public boolean isMetadataOnly() {
@@ -269,15 +271,26 @@ public class IngestPageView implements Serializable {
         this.dataverseServer = dataverseServer;
     }
 
-    public String ingestedFile;
+    private String ingestedFile;
 
     public String getIngestedFile() {
         return fileUploadView.getFileName();
     }
-
+    
     public void setIngestedFile(String ingestedFile) {
         this.ingestedFile = ingestedFile;
     }
+    
+    
+    
+//    @Inject
+//    @ManagedProperty("#{fileUploadView.fileName}")
+//    private String ingestedFile;
+//    
+//    public String getIngestedFile() {
+//        return ingestedFile;
+//    }
+    
 
     public void setFileUploadView(FileUploadView fileUploadView) {
         this.fileUploadView = fileUploadView;

@@ -5,7 +5,6 @@
  */
 package edu.unc.odum.dataverse.util.json;
 
-import com.jayway.jsonpath.JsonPath;
 import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +19,7 @@ import javax.json.JsonValue;
  * @author asone
  */
 public class JsonResponseParser {
+    
     private static final Logger logger = Logger.getLogger(JsonResponseParser.class.getName());
     
 
