@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DsTemplateDataCreateDlg" widgetVar="DsTemplateDataCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDsTemplateDataTitle}">
+            <h:form id="DsTemplateDataCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{dsTemplateDataController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDsTemplateDataLabel_title}" for="title" />
+                        <p:inputText id="title" 
+                                     value="#{dsTemplateDataController.selected.title}" 
+                                     title="#{bundle.CreateDsTemplateDataTitle_title}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle.CreateDsTemplateDataRequiredMessage_title}"/>
+                        <p:outputLabel value="#{bundle.CreateDsTemplateDataLabel_affiliation}" for="affiliation" />
+                        <p:inputText id="affiliation" 
+                                     value="#{dsTemplateDataController.selected.affiliation}" 
+                                     title="#{bundle.CreateDsTemplateDataTitle_affiliation}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle.CreateDsTemplateDataRequiredMessage_affiliation}"/>
+                        <p:outputLabel value="#{bundle.CreateDsTemplateDataLabel_author}" for="author" />
+                        <p:inputText id="author" 
+                                     value="#{dsTemplateDataController.selected.author}" 
+                                     title="#{bundle.CreateDsTemplateDataTitle_author}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle.CreateDsTemplateDataRequiredMessage_author}"/>
+                        <p:outputLabel value="#{bundle.CreateDsTemplateDataLabel_description}" for="description" />
+                        <p:inputText id="description" 
+                                     value="#{dsTemplateDataController.selected.description}" 
+                                     title="#{bundle.CreateDsTemplateDataTitle_description}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle.CreateDsTemplateDataRequiredMessage_description}"/>
+                        <p:outputLabel value="#{bundle.CreateDsTemplateDataLabel_subject}" for="subject" />
+                        <p:inputText id="subject" 
+                                     value="#{dsTemplateDataController.selected.subject}" 
+                                     title="#{bundle.CreateDsTemplateDataTitle_subject}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle.CreateDsTemplateDataRequiredMessage_subject}"/>
+                        <p:outputLabel value="#{bundle.CreateDsTemplateDataLabel_ssnotetype}" for="ssnotetype" />
+                        <p:inputText id="ssnotetype" 
+                                     value="#{dsTemplateDataController.selected.ssnotetype}" 
+                                     title="#{bundle.CreateDsTemplateDataTitle_ssnotetype}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle.CreateDsTemplateDataRequiredMessage_ssnotetype}"/>
+                        <p:outputLabel value="#{bundle.CreateDsTemplateDataLabel_ssnotetext}" for="ssnotetext" />
+                        <p:inputText id="ssnotetext" 
+                                     value="#{dsTemplateDataController.selected.ssnotetext}" 
+                                     title="#{bundle.CreateDsTemplateDataTitle_ssnotetext}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle.CreateDsTemplateDataRequiredMessage_ssnotetext}"/>
+                        <p:outputLabel value="#{bundle.CreateDsTemplateDataLabel_user}" for="user" />
+                        <p:inputText id="user" 
+                                     value="#{dsTemplateDataController.selected.user}" 
+                                     title="#{bundle.CreateDsTemplateDataTitle_user}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle.CreateDsTemplateDataRequiredMessage_user}"/>
+                    </p:panelGrid>
+                    <p:commandButton 
+                        actionListener="#{dsTemplateDataController.create}" 
+                        value="#{bundle.Save}" 
+                        update="display,:DsTemplateDataListForm:datalist,:growl" 
+                        oncomplete="handleSubmit(args,'DsTemplateDataCreateDialog');"/>
+                    <p:commandButton 
+                        value="#{bundle.Cancel}" 
+                        onclick="DsTemplateDataCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

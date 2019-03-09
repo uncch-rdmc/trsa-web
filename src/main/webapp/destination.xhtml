@@ -26,10 +26,13 @@
                         
                         
                         
-    <p:dataTable id="destSelect" var="hostInfo"
+    <p:dataTable id="destSelect" 
+                 var="hostInfo"
                  value="#{destinationSelectionView.hostInfoTable}" 
                  selection="#{destinationSelectionView.selectedHostInfo}" 
                  rowKey="#{hostInfo.id}">
+        
+        
         <f:facet name="header">
             Select a destination
         </f:facet>

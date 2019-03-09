@@ -36,7 +36,7 @@ public class JsonPointerForDataset {
     public static String POINTER_TO_EMAIL="/datasetVersion/metadataBlocks/citation/fields/2/value/datasetContactEmail/value";
     
     // Description
-    public static String POINTER_TO_DATASET_DESCRIPTION="/datasetVersion/metadataBlocks/citation/fields/3/value/dsDescriptionValue/value     description";
+    public static String POINTER_TO_DATASET_DESCRIPTION="/datasetVersion/metadataBlocks/citation/fields/3/value/dsDescriptionValue/value";
     
     // subject (array)
     public static String POINTER_TO_SUBJECTS="/datasetVersion/metadataBlocks/citation/fields/4/value/";

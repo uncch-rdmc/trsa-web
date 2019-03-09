@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DsTemplateDataViewDlg" widgetVar="DsTemplateDataViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDsTemplateDataTitle}">
+            <h:form id="DsTemplateDataViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{dsTemplateDataController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDsTemplateDataLabel_id}"/>
+                        <h:outputText value="#{dsTemplateDataController.selected.id}" title="#{bundle.ViewDsTemplateDataTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewDsTemplateDataLabel_title}"/>
+                        <h:outputText value="#{dsTemplateDataController.selected.title}" title="#{bundle.ViewDsTemplateDataTitle_title}"/>
+                        <h:outputText value="#{bundle.ViewDsTemplateDataLabel_affiliation}"/>
+                        <h:outputText value="#{dsTemplateDataController.selected.affiliation}" title="#{bundle.ViewDsTemplateDataTitle_affiliation}"/>
+                        <h:outputText value="#{bundle.ViewDsTemplateDataLabel_author}"/>
+                        <h:outputText value="#{dsTemplateDataController.selected.author}" title="#{bundle.ViewDsTemplateDataTitle_author}"/>
+                        <h:outputText value="#{bundle.ViewDsTemplateDataLabel_description}"/>
+                        <h:outputText value="#{dsTemplateDataController.selected.description}" title="#{bundle.ViewDsTemplateDataTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewDsTemplateDataLabel_subject}"/>
+                        <h:outputText value="#{dsTemplateDataController.selected.subject}" title="#{bundle.ViewDsTemplateDataTitle_subject}"/>
+                        <h:outputText value="#{bundle.ViewDsTemplateDataLabel_ssnotetype}"/>
+                        <h:outputText value="#{dsTemplateDataController.selected.ssnotetype}" title="#{bundle.ViewDsTemplateDataTitle_ssnotetype}"/>
+                        <h:outputText value="#{bundle.ViewDsTemplateDataLabel_ssnotetext}"/>
+                        <h:outputText value="#{dsTemplateDataController.selected.ssnotetext}" title="#{bundle.ViewDsTemplateDataTitle_ssnotetext}"/>
+                        <h:outputText value="#{bundle.ViewDsTemplateDataLabel_user}"/>
+                        <h:outputText value="#{dsTemplateDataController.selected.user}" title="#{bundle.ViewDsTemplateDataTitle_user}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DsTemplateDataViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

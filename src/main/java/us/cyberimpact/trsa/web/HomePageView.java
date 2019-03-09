@@ -122,4 +122,15 @@ public class HomePageView implements Serializable {
         logger.log(Level.INFO, "got to host info page");
         return "/hostinfo/List.xhtml";
     }
+    
+    public String gotoDsTemplateDataPage(){
+        logger.log(Level.INFO, "got to Dataset Template page");
+        return "/dsTemplateData/List.xhtml";
+    }
+    
+    public String gotoEmptyDatasetCreationPage(){
+        logger.log(Level.INFO, "got to Empty Dataset Creation page");
+        return "/dsTemplateSelection.xhtml";
+    }
+    
 }
