@@ -1,17 +1,20 @@
-FROM openjdk:8-jdk
+FROM openjdk:8u171-jdk
+# downgrade to 8u171 to avoid ALPN SSL incompatibility
 
 # Default payara ports to expose
 # 4848: admin console
-# 9009: debug port (JPDA)
 # 8080: http
 # 8181: https
-EXPOSE 4848 9009 8080 8181
+# 9009: debug port (JPDA)
+EXPOSE 4848 8080 8181 9009
 
 # odum: TRSA wants Payara 4.1
-ARG PAYARA_VERSION=4.1.2.181
-ARG PAYARA_PKG=https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/${PAYARA_VERSION}/payara-${PAYARA_VERSION}.zip
-ARG PAYARA_SHA1=5743de9baae98e3569e7caa28cfcd78d330bb2fa
+ARG PAYARA_VERSION=5.191
+#ARG PAYARA_PKG=https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/${PAYARA_VERSION}/payara-${PAYARA_VERSION}.zip
+ARG PAYARA_PKG=https://s3-eu-west-1.amazonaws.com/payara.fish/Payara+Downloads/${PAYARA_VERSION}/payara-${PAYARA_VERSION}.zip
+ARG PAYARA_SHA1=55d2f40559a4e9a9baa93756213be1488f203f84
 ARG TINI_VERSION=v0.18.0
+ARG TRSA_VERSION=2.0
 
 # odum: avoid gpg errors
 RUN apt install -y dirmngr gnupg gpgv
@@ -49,7 +52,7 @@ RUN groupadd -g 1000 payara && \
     chown -R payara: ${HOME_DIR}
 
 # odum: hard-code warfile for now
-COPY trsa-web-1.0.war $DEPLOY_DIR/
+COPY trsa-web-${TRSA_VERSION}.war $DEPLOY_DIR/
 
 # Install tini as minimized init system
 RUN wget --no-verbose -O /tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini && \
