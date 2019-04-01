@@ -30,6 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import us.cyberimpact.trsa.entities.DsTemplateData;
 import us.cyberimpact.trsa.entities.TrsaProfile;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
@@ -56,6 +57,12 @@ public class FileUploadView implements Serializable {
     
     List<HostInfo> hostInfoTable = new ArrayList<>();
     
+    
+    
+    @Inject
+    DsTemplateSelectionView dsTemplateSelectionView;
+    
+    
     private UploadedFile file;
     private String destination = "/tmp/";
     private String fileName;
@@ -70,6 +77,7 @@ public class FileUploadView implements Serializable {
         this.mimeType = mimeType;
     }
     
+    private DsTemplateData selectedDsTemplateData; 
     
     
 
@@ -100,7 +108,8 @@ public class FileUploadView implements Serializable {
         } else {
             logger.log(Level.INFO, "FileUploadView:hostInfoTable exists and not empty");
         }
-
+        selectedDsTemplateData= dsTemplateSelectionView.getSelectedDsTemplateData();
+        logger.log(Level.INFO, "selectedDsTemplateData={0}", selectedDsTemplateData);
     }
 
     public UploadedFile getFile() {
@@ -274,6 +283,11 @@ public class FileUploadView implements Serializable {
     public String goPublish() {
         logger.log(Level.INFO, "go to publish page");
         return "/ingest.xhtml";
+    }
+    
+    public String goSubmissionPage() {
+        logger.log(Level.INFO, "go to submission page");
+        return "/submission.xhtml";
     }
     
     public String goDestinationPage(){

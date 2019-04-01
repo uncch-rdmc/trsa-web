@@ -92,6 +92,11 @@
                                     </f:facet>
                                     <h:outputText value="#{item.user}"/>
                                 </p:column>
+
+                                <p:column>
+                                    <p:commandButton value="Select" action="#{dsTemplateSelectionView.selectTemplate(item)}"/>
+                                </p:column>
+
                             </p:dataTable>
 
 

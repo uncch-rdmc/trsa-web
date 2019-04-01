@@ -21,36 +21,36 @@
                     <h3 style="margin:5px 5px 30px 5px">Publish Dataset</h3>
                     <p:panelGrid columns="3"  class="ui-panelgrid-blank">            
                         <f:facet name="header">
-                            Publish parameters
+                            Submission parameters
                         </f:facet>
 
-                        <h:outputLabel for="dataverseServer"  value="Target Dataverse server:" /> 
-                        <h:outputText id="dataverseServer" value="#{ingestPageView.dataverseServer}" />
+                        <h:outputLabel for="dataverseServer"  value="selected Dataverse server:" /> 
+                        <h:outputText id="dataverseServer" value="#{submissionPageView.dataverseServer}" />
                         <h:outputText value="note: demo site" /> 
 
                         <h:outputLabel for="apiKey" value="api key:" /> 
-                        <h:outputText id="apiKey" value="#{ingestPageView.apiKey}" /> 
+                        <h:outputText id="apiKey" value="#{submissionPageView.apiKey}" /> 
                         <h:outputText value="note: " /> 
 
 
-                        <h:outputLabel for="dataverseId" value="target Dataverse Id:" /> 
-                        <h:outputText id="dataverseId" value="#{ingestPageView.targetDataverseId}" /> 
+                        <h:outputLabel for="dataverseId" value="selected Dataverse Id:" /> 
+                        <h:outputText id="dataverseId" value="#{submissionPageView.selectedDataverseId}" /> 
                         <h:outputText value="note: integer" /> 
 
 
                         <h:outputLabel for="zipfileName" value="Ingested file:" /> 
-                        <h:outputText id="zipfileName" value="#{ingestPageView.ingestedFile}" /> 
+                        <h:outputText id="zipfileName" value="#{submissionPageView.ingestedFile}" /> 
                         <h:outputText value="note: zip file" /> 
 
 
 
                         <h:outputLabel for="datasetId" value="Payload Dataset Id" />
-                        <h:outputText id="datasetId" value="#{ingestPageView.localDatasetIdentifier}" /> 
+                        <h:outputText id="datasetId" value="#{submissionPageView.localDatasetIdentifier}" /> 
                         <h:outputText value="note: locally generated" /> 
 
 
                         <h:outputLabel for="status"  value="Status:" /> 
-                        <h:outputText id="status" value="#{ingestPageView.progressTest}"  />
+                        <h:outputText id="status" value="#{submissionPageView.progressTest}"  />
                         <h:outputText value="note: status indicator" /> 
 
                         <f:facet name="footer">
@@ -60,21 +60,21 @@
                                              ajax="true" 
                                              update="messages status dataverseButton publishButton" 
                                              value="create an empty dataset" 
-                                             disabled="#{!ingestPageView.emptyDatasetCreation}"
-                                             actionListener="#{ingestPageView.publishFacade()}" />
+                                             disabled="#{!submissionPageView.emptyDatasetCreation}"
+                                             actionListener="#{submissionPageView.publishFacade()}" />
                             
                             <p:commandButton id="publishButton" 
                                              ajax="true" 
                                              update="messages status dataverseButton publishButton" 
                                              value="publish this dataset" 
-                                             disabled="#{!ingestPageView.publishButtonEnabled}"
-                                             actionListener="#{ingestPageView.publishFacade()}" />
+                                             disabled="#{!submissionPageView.publishButtonEnabled}"
+                                             actionListener="#{submissionPageView.publishFacade()}" />
 
                             <p:commandButton id="dataverseButton"
                                              ajax="true" update="messages status" 
                                              value="Go to Dataverse site" 
-                                             disabled="#{!ingestPageView.gotoDataverseButtonEnabled}"
-                                             actionListener="#{ingestPageView.goToDataverseSite}" />
+                                             disabled="#{!submissionPageView.gotoDataverseButtonEnabled}"
+                                             actionListener="#{submissionPageView.goToDataverseSite}" />
 
 
 

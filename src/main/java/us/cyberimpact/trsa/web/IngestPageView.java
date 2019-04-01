@@ -103,7 +103,9 @@ public class IngestPageView implements Serializable {
         this.homePageView = homePageView;
     }
     
-    
+    public boolean isEmptyDatasetCreation(){
+        return homePageView.isEmptyDatasetCreation();
+    }    
     
     
     private String localDatasetIdentifier;
@@ -148,6 +150,10 @@ public class IngestPageView implements Serializable {
     public void setProgressTest(String progressTest) {
         this.progressTest = progressTest;
     }
+    
+    
+
+    
 
     /**
      * Creates a new instance of IngestPageView
@@ -156,9 +162,9 @@ public class IngestPageView implements Serializable {
     }
     
     
-    private String apiKeyHCValue ="6bf35b95-4746-4bec-9547-3f19fe582727";
-    private String dataverseServerHCValue="http://localhost:8083";
-    private String dataverseIdHCValue="17";
+    private String apiKeyHCValue ="";
+    private String dataverseServerHCValue="";
+    private String dataverseIdHCValue="";
 
     @PostConstruct
     public void init() {
@@ -171,16 +177,8 @@ public class IngestPageView implements Serializable {
             logger.log(Level.INFO, "IngestPageView:trsaProfileTableis empty");
         } else {
             logger.log(Level.INFO, "trsaProfileTable is available: ={0}", trsaProfileTable);
-            // update fields
-//
-//            logger.log(Level.INFO, "IngestPageView:init():trsa profile exists");
-//
-//            logger.log(Level.INFO, "IngestPageView:init():url={0}",trsaProfileTable.get(0).getDataverseurl());
-//            dataverseServerHCValue = trsaProfileTable.get(0).getDataverseurl();
-//            
-//            logger.log(Level.INFO, "IngestPageView:init():api-token={0}",trsaProfileTable.get(0).getApitoken());
-//            apiKeyHCValue=trsaProfileTable.get(0).getApitoken();
-            
+
+
             // turn on the switch
             logger.log(Level.INFO, "IngestPageView:init():before turned on: state of isTrsaProfileReady={0}", isTrsaProfileReady);
             isTrsaProfileReady=true;
@@ -200,25 +198,6 @@ public class IngestPageView implements Serializable {
         
         
         
-/*
-        
-        // localDatasetID
-        localDatasetIdentifier = fileUploadView.getDatasetIdentifier();
-        logger.log(Level.INFO, "IngestPageView:init():datasetIdentifier passed={0}", localDatasetIdentifier);
-        
-        // target dataverse (currently hard-coded)
-        targetDataverseId = dataverseIdHCValue; //"6";
-        logger.log(Level.INFO, "IngestPageView:init():targetDataverseId={0}", targetDataverseId);
-        
-        // api-key from TRSA-Profile table
-        apiKey = apiKeyHCValue ;
-        logger.log(Level.INFO, "IngestPageView:init():apiKey={0}", apiKey);
-        
-        // target dataverse server
-        dataverseServer = dataverseServerHCValue;
-        logger.log(Level.INFO, "dataverseServer={0}", dataverseServer);
-        
-*/
         
         // new approach 
         logger.log(Level.INFO, "destSelectionView:SelectedHostInfo ={0}", destSelectionView.getSelectedHostInfo());
@@ -322,14 +301,21 @@ public class IngestPageView implements Serializable {
     
     public void publishFacade(){
         if (isMetadataOnly()){
+            logger.log(Level.INFO, "case: loading metadata to the target Dataset");
             publishMetadata();
         } else {
-            publish();
+            if (isEmptyDatasetCreation()){
+                logger.log(Level.INFO, "case: creating an empty Dataset");
+                createEmptyDataset();
+            } else {
+                logger.log(Level.INFO, "case: create a new Dataset at once");
+                publish();
+            }
         }
     }
     
     
-    
+    // this method adds metadata to a given dataset
     public void publishMetadata4Javaee8(){
         logger.log(Level.INFO, "IngestPageView:publishMetadata");
         try {
@@ -573,6 +559,18 @@ public class IngestPageView implements Serializable {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+    
+    
+    
+        public void createEmptyDataset(){
+        logger.log(Level.INFO, "IngestPageView#createEmptyDataset starts here");
+        
+    }
+    
+    
+    
+    
+    
 
     public void goToDataverseSite() {
 

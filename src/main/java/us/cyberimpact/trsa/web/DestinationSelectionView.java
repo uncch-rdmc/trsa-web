@@ -100,8 +100,8 @@ public class DestinationSelectionView implements Serializable {
         logger.log(Level.INFO, "selectedHostInfo={0}", hostInfo);
 
         logger.log(Level.INFO, "datasetId={0}", selectedHostInfo.getDatasetid());
-        logger.log(Level.INFO, "go to publish page");
-        return "/ingest.xhtml";
+        logger.log(Level.INFO, "go to Submission page");
+        return "/submission.xhtml";
     }
     
     public void onRowSelect(SelectEvent event) {

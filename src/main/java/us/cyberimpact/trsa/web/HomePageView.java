@@ -48,7 +48,27 @@ public class HomePageView implements Serializable {
     }
 
 
+    private boolean emptyDatasetCreation = false;
     
+    public boolean isEmptyDatasetCreation(){
+        return emptyDatasetCreation;
+    }
+
+    public void setEmptyDatasetCreation(boolean emptyDatasetCreation) {
+        this.emptyDatasetCreation = emptyDatasetCreation;
+    }
+    
+    
+    
+    private RequestType selectedRequestType;
+
+    public RequestType getSelectedRequestType() {
+        return selectedRequestType;
+    }
+
+    public void setSelectedRequestType(RequestType selectedRequestType) {
+        this.selectedRequestType = selectedRequestType;
+    }
     
     
     
@@ -102,6 +122,7 @@ public class HomePageView implements Serializable {
 
     public String gotoUploadMetadataPage(){
         logger.log(Level.INFO, "got to UploadMetadataPage");
+        selectedRequestType=RequestType.METADATA_ONLY;
         return gotoFileUploadPage();
     }
     
@@ -109,6 +130,7 @@ public class HomePageView implements Serializable {
         logger.log(Level.INFO, "go to DatasetCreation page");
         // modify the boolean value
         metadataOnly=false;
+        selectedRequestType=RequestType.FULL_DATASET;
         return gotoFileUploadPage();
     }
     
@@ -130,6 +152,9 @@ public class HomePageView implements Serializable {
     
     public String gotoEmptyDatasetCreationPage(){
         logger.log(Level.INFO, "got to Empty Dataset Creation page");
+        selectedRequestType = RequestType.EMPTY_DATASET;
+        setEmptyDatasetCreation(true);
+        logger.log(Level.INFO, "isEmptyDatasetCreation set to ={0}", isEmptyDatasetCreation());
         return "/dsTemplateSelection.xhtml";
     }
     
