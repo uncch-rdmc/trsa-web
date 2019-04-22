@@ -16,6 +16,8 @@ public class Settings {
     
     public static String TRSA_TEMPLATE_DIRECTORY="trsa.template.directory";
     
+    public static String TRSA_TEMPLATE_FILE_NAME="trsa.template.filename";
+    
     public static String EXPORT_FILE_NAME_JSON= "export_dataverse_json.cached";
     
     public static String FILTERED_PAYLOAD_FILENAME= "filtered-result.json";

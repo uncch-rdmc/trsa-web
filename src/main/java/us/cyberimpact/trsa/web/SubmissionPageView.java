@@ -254,11 +254,28 @@ public class SubmissionPageView implements Serializable {
         // -Dtrsa.template.directory
         // = /home/asone/myopt/payara5/glassfish/domains/domain1/config/trsa/template
         // <jvm-options>-Dtrsa.template.directory=${com.sun.aas.instanceRoot}/config/trsa/template</jvm-options>
+        String templateFileName=System.getProperty(Settings.TRSA_TEMPLATE_FILE_NAME);
         String fileLocation = templateDirectory +"/"
-                + localDatasetIdentifier ;
+                + templateFileName ;
         String payloadFileName = Settings.STORAGE_LOCATION_PREFIX
                 + localDatasetIdentifier + "/" + Settings.FILTERED_PAYLOAD_FILENAME;
         
+        
+        // 1. read back the saved template
+        // 2. path customizable parts with saved DB data
+        
+        try (InputStream rawIs = new FileInputStream(new File(fileLocation));
+                JsonReader jsonReader = Json.createReader(rawIs);
+                PrintWriter printWriter = new PrintWriter(new File(payloadFileName), "UTF-8");
+                JsonWriter jsonWriter = Json.createWriter(printWriter)) {
+            
+            JsonObject rawJsonObject = jsonReader.readObject();
+            logger.log(Level.INFO, "rawJsonObject={0}", rawJsonObject);
+            // Dataset title 
+            // 
+        } catch (IOException ie){
+            
+        }
     }
     
     // FULL_DATASET
@@ -319,14 +336,14 @@ public class SubmissionPageView implements Serializable {
         
         logger.log(Level.FINE, "jsonbody={0}", jsonBody);
         logger.log(Level.INFO, "create a new Dataset case");
-            String apiEndpoint = dataverseServer 
+        String apiEndpoint = dataverseServer 
                     + Settings.PATH_DATAVERSE_API
                     //+ "/api/dataverses/"
                     + selectedDataverseId
                     +"/datasets";
-            logger.log(Level.INFO, "apiEndpoint={0}", apiEndpoint);
+        logger.log(Level.INFO, "apiEndpoint={0}", apiEndpoint);
             
-            HttpResponse<JsonNode> jsonResponse=null;
+        HttpResponse<JsonNode> jsonResponse=null;
         try {
             jsonResponse = Unirest.post(apiEndpoint)
                     .header("X-Dataverse-key", apiKey)
@@ -338,18 +355,18 @@ public class SubmissionPageView implements Serializable {
             throw new WebApplicationException(ex, jsonResponse.getStatus());
         }
 
-            logger.log(Level.INFO, "status code={0}", jsonResponse.getStatus());
-            
-            String responseString = jsonResponse.getBody().toString();
-            logger.log(Level.INFO, "response body={0}", responseString);
-            
-            
-            JsonFilter jsonFilter = new JsonFilter();
+        logger.log(Level.INFO, "status code={0}", jsonResponse.getStatus());
 
-            String datasetIdString = jsonFilter.parseDatasetCreationResponse(responseString);
-            logger.log(Level.INFO, "datasetIdString={0}", datasetIdString);
-            
-            clearSession();
+        String responseString = jsonResponse.getBody().toString();
+        logger.log(Level.INFO, "response body={0}", responseString);
+
+
+        JsonFilter jsonFilter = new JsonFilter();
+
+        String datasetIdString = jsonFilter.parseDatasetCreationResponse(responseString);
+        logger.log(Level.INFO, "datasetIdString={0}", datasetIdString);
+
+        clearSession();
     }
     
     // METADATA_ONLY
