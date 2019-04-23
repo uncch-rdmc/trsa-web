@@ -73,7 +73,11 @@
                                              disabled="#{!submissionPageView.gotoDataverseButtonEnabled}"
                                              actionListener="#{submissionPageView.goToDataverseSite}" />
 
-
+                            <p:commandButton id="returnToMainMenuButton"
+                                             ajax="true" update="messages" 
+                                             value="Return to the Main Menu" 
+                                             action="/index.xhtml?faces-redirect=true"
+                                              />
 
                         </f:facet>
                     </p:panelGrid>

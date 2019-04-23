@@ -378,7 +378,7 @@ public class SubmissionPageView implements Serializable {
         gotoDataverseButtonEnabled=true;
         publishButtonEnabled=false;
         
-        clearSession();
+        //clearSession();
     }
     
     // METADATA_ONLY
@@ -453,7 +453,7 @@ public class SubmissionPageView implements Serializable {
         gotoDataverseButtonEnabled=true;
         publishButtonEnabled=false;
 
-        clearSession();
+        //clearSession();
     }
     
     private void clearSession(){
@@ -491,6 +491,7 @@ public class SubmissionPageView implements Serializable {
         ExternalContext externalContext = context.getExternalContext();
 
         externalContext.redirect(url);
+        //clearSession();
     }
     
     
@@ -504,5 +505,9 @@ public class SubmissionPageView implements Serializable {
         this.gotoDataverseButtonEnabled = value;
     }
     
-    
+    public String goToMainMenu(){
+        //clearSession();
+        logger.log(Level.INFO, "return to the Main menu");
+        return "/index.xhtml?faces-redirect=true";
+    }
 }

@@ -85,7 +85,7 @@ public class HomePageView implements Serializable {
     
     @PostConstruct
     public void init() {
-        
+        clearSession();
         
         hostInfoTable = hostInfoFacade.findAll();
         logger.log(Level.INFO, "homePageView:hostInfoTable:howManyRows={0}", hostInfoTable.size());
@@ -94,7 +94,7 @@ public class HomePageView implements Serializable {
             logger.log(Level.INFO, "homePageView:hostInfoTable is empty");
             addMessageEmptyHostInfo();
         } else {
-            logger.log(Level.INFO, "homePageView:hostInfoTable exists and not empty:{0}", hostInfoTable);
+            logger.log(Level.FINE, "homePageView:hostInfoTable exists and not empty:{0}", hostInfoTable);
             //addMessageHostInfoAvailable();
         }
         
@@ -157,5 +157,11 @@ public class HomePageView implements Serializable {
         logger.log(Level.INFO, "isEmptyDatasetCreation set to ={0}", isEmptyDatasetCreation());
         return "/dsTemplateSelection.xhtml";
     }
+    
+    private void clearSession(){
+        logger.log(Level.INFO, "sessionscoped data are reset");
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    }
+    
     
 }
