@@ -95,9 +95,9 @@ public class FileUploadView implements Serializable {
             // turn on the publish button
             isTrsaProfileReady=true;
             logger.log(Level.INFO, "FileUploadView:trsa profile exists");
-            
-            logger.log(Level.INFO, "url={0}",trsaProfileTable.get(0).getDataverseurl()); 
-            logger.log(Level.INFO, "api-token={0}",trsaProfileTable.get(0).getApitoken());
+//            
+//            logger.log(Level.INFO, "url={0}",trsaProfileTable.get(0).getDataverseurl()); 
+//            logger.log(Level.INFO, "api-token={0}",trsaProfileTable.get(0).getApitoken());
             
             
         }
