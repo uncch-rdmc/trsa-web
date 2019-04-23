@@ -189,10 +189,10 @@ public class FileUploadView implements Serializable {
             FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Your file (File Name " + file.getFileName() + " with size " + file.getSize() + ")  Uploaded Successfully", ""));
         }
 
-        logger.log(Level.INFO, "FileUploadView:upload():TrsaProfileTable={0}", trsaProfileTable);
-        logger.log(Level.INFO, "upload():url={0}", trsaProfileTable.get(0).getDataverseurl());
-        logger.log(Level.INFO, "upload():api-token={0}", trsaProfileTable.get(0).getApitoken());
-        logger.log(Level.INFO, "upload():isTrsaProfileReady={0}", isTrsaProfileReady);
+//        logger.log(Level.INFO, "FileUploadView:upload():TrsaProfileTable={0}", trsaProfileTable);
+//        logger.log(Level.INFO, "upload():url={0}", trsaProfileTable.get(0).getDataverseurl());
+//        logger.log(Level.INFO, "upload():api-token={0}", trsaProfileTable.get(0).getApitoken());
+//        logger.log(Level.INFO, "upload():isTrsaProfileReady={0}", isTrsaProfileReady);
         setIngestButtonEnabled(true);
 //        return "/index.xhtml";
     }
@@ -250,7 +250,7 @@ public class FileUploadView implements Serializable {
         String message = fileName + " has been successfully ingested and new dataset (Id=" + datasetIdentifier + ") was created";
         context.addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "info", message));
         
-        
+/*
         logger.log(Level.INFO, "execIngest():isTrsaProfileReady={0}", isTrsaProfileReady);
         logger.log(Level.INFO, "FileUploadView:execIngest():TrsaProfileTable={0}", trsaProfileTable);
         logger.log(Level.INFO, "execIngest():url={0}",trsaProfileTable.get(0).getDataverseurl());            
@@ -271,6 +271,7 @@ public class FileUploadView implements Serializable {
             }
             
         }
+*/
         ingestButtonEnabled = false;
         //return "/ingest.xhtml";
     }

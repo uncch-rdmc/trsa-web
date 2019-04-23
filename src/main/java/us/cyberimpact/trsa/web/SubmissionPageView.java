@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -51,13 +52,13 @@ public class SubmissionPageView implements Serializable {
     @Inject
     private HomePageView homePageView;
     
-    private RequestType selectedRequestType=homePageView.getSelectedRequestType();
-    
+//    private RequestType selectedRequestType=homePageView.getSelectedRequestType();
+    private RequestType selectedRequestType;
     
     @Inject
     private DestinationSelectionView destSelectionView;
     
-    private HostInfo selectedHostInfo =  destSelectionView.getSelectedHostInfo();
+    private HostInfo selectedHostInfo;// =  destSelectionView.getSelectedHostInfo();
     
     @Inject
     private HostInfoFacade hostInfoFacade;
@@ -130,6 +131,9 @@ public class SubmissionPageView implements Serializable {
     
     @PostConstruct
     public void init() {
+        
+        selectedRequestType=homePageView.getSelectedRequestType();
+        selectedHostInfo =  destSelectionView.getSelectedHostInfo();
         logger.log(Level.INFO, "selectedRequestType={0}", selectedRequestType);
 
         
@@ -140,6 +144,10 @@ public class SubmissionPageView implements Serializable {
             // error message here and maybe to be forwarded to the host_info page
         } else {
             logger.log(Level.INFO, "SubmissionPageView:init(): selectedHostInfo={0}", selectedHostInfo);
+            
+            publishButtonEnabled=true;
+            logger.log(Level.INFO, "SubmissionPageView:publishButtonEnabled={0}", publishButtonEnabled);
+            
         }
         // here setup common data 
         // api-key from TRSA-Profile table
@@ -366,6 +374,10 @@ public class SubmissionPageView implements Serializable {
         String datasetIdString = jsonFilter.parseDatasetCreationResponse(responseString);
         logger.log(Level.INFO, "datasetIdString={0}", datasetIdString);
 
+        
+        gotoDataverseButtonEnabled=true;
+        publishButtonEnabled=false;
+        
         clearSession();
     }
     
@@ -438,7 +450,8 @@ public class SubmissionPageView implements Serializable {
 
         logger.log(Level.INFO, "status code={0}", jsonResponse.getStatus());
         logger.log(Level.INFO, "response body={0}", jsonResponse.getBody().toString());
-
+        gotoDataverseButtonEnabled=true;
+        publishButtonEnabled=false;
 
         clearSession();
     }
@@ -447,5 +460,49 @@ public class SubmissionPageView implements Serializable {
         logger.log(Level.INFO, "sessionscoped data are reset");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
+    
+    
+    public boolean isEmptyDatasetCreation(){
+        return selectedRequestType == RequestType.EMPTY_DATASET;
+    }    
+    
+    
+    boolean publishButtonEnabled=false;
+
+    public boolean isPublishButtonEnabled() {
+        return publishButtonEnabled;
+    }
+
+    public void setPublishButtonEnabled(boolean publishButtonEnabled) {
+        this.publishButtonEnabled = publishButtonEnabled;
+    }
+    
+    public void goToDataverseSite() {
+
+        try {
+            goToExternalSite(dataverseServer);
+        } catch (IOException ex) {
+            logger.log(Level.SEVERE, "IOException was thrown before tried to jump to the site", ex);
+        }
+    }
+
+    public void goToExternalSite(String url) throws IOException {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+
+        externalContext.redirect(url);
+    }
+    
+    
+    boolean gotoDataverseButtonEnabled=false;
+
+    public boolean isGotoDataverseButtonEnabled() {
+        return gotoDataverseButtonEnabled;
+    }
+
+    public void setGotoDataverseButtonEnabled(boolean value) {
+        this.gotoDataverseButtonEnabled = value;
+    }
+    
     
 }

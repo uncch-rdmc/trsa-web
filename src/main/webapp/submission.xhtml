@@ -40,7 +40,7 @@
 
                         <h:outputLabel for="zipfileName" value="Ingested file:" /> 
                         <h:outputText id="zipfileName" value="#{submissionPageView.ingestedFile}" /> 
-                        <h:outputText value="note: zip file" /> 
+                        <h:outputText value="note: ingested file" /> 
 
 
 
@@ -49,29 +49,26 @@
                         <h:outputText value="note: locally generated" /> 
 
 
-                        <h:outputLabel for="status"  value="Status:" /> 
-                        <h:outputText id="status" value="#{submissionPageView.progressTest}"  />
-                        <h:outputText value="note: status indicator" /> 
 
                         <f:facet name="footer">
 
 
                             <p:commandButton id="createDSButton" 
                                              ajax="true" 
-                                             update="messages status dataverseButton publishButton" 
+                                             update="messages dataverseButton publishButton" 
                                              value="create an empty dataset" 
                                              disabled="#{!submissionPageView.emptyDatasetCreation}"
-                                             actionListener="#{submissionPageView.publishFacade()}" />
+                                             actionListener="#{submissionPageView.submissionFacade()}" />
                             
                             <p:commandButton id="publishButton" 
                                              ajax="true" 
-                                             update="messages status dataverseButton publishButton" 
+                                             update="messages dataverseButton publishButton" 
                                              value="publish this dataset" 
                                              disabled="#{!submissionPageView.publishButtonEnabled}"
-                                             actionListener="#{submissionPageView.publishFacade()}" />
+                                             actionListener="#{submissionPageView.submissionFacade()}" />
 
                             <p:commandButton id="dataverseButton"
-                                             ajax="true" update="messages status" 
+                                             ajax="true" update="messages" 
                                              value="Go to Dataverse site" 
                                              disabled="#{!submissionPageView.gotoDataverseButtonEnabled}"
                                              actionListener="#{submissionPageView.goToDataverseSite}" />

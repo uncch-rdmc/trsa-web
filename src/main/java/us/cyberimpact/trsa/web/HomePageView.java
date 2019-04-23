@@ -94,7 +94,7 @@ public class HomePageView implements Serializable {
             logger.log(Level.INFO, "homePageView:hostInfoTable is empty");
             addMessageEmptyHostInfo();
         } else {
-            logger.log(Level.INFO, "homePageView:hostInfoTable exists and not empty");
+            logger.log(Level.INFO, "homePageView:hostInfoTable exists and not empty:{0}", hostInfoTable);
             //addMessageHostInfoAvailable();
         }
         
