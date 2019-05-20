@@ -12,4 +12,20 @@
 == How to use TRSA-Web
 === Configuration
 
-=== Ingest
+=== Key Tasks
+
+
+==== Manage TRSA profile data
+
+==== Manage Dataverse data
+
+Manage Dataset Templates
+
+Upload file metada to an existing Dataset
+
+Create a new Dataset with its file metadata
+
+Create a new empty Dataset
+
+
+=== upload

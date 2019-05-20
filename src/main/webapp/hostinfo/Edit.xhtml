@@ -31,6 +31,12 @@
                         <p:inputText id="dataversetitle" value="#{hostInfoController.selected.dataversetitle}" title="#{bundle_host.EditHostInfoTitle_dataversetitle}" />
                         <p:outputLabel value="#{bundle_host.EditHostInfoLabel_datasetid}" for="datasetid" />
                         <p:inputText id="datasetid" value="#{hostInfoController.selected.datasetid}" title="#{bundle_host.EditHostInfoTitle_datasetid}" required="true" requiredMessage="#{bundle_host.EditHostInfoRequiredMessage_datasetid}"/>
+                        
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_datasettitle}" for="datasettitle" />
+                        <p:inputText id="datasettitle" value="#{hostInfoController.selected.datasetTitle}" title="#{bundle_host.EditHostInfoTitle_datasettitle}" />
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_datasetdoi}" for="datasetdoi" />
+                        <p:inputText id="datasetdoi" value="#{hostInfoController.selected.datasetDoi}" title="#{bundle_host.EditHostInfoTitle_datasetdoi}"/>
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{hostInfoController.update}" value="#{bundle_host.Save}" update="display,:HostInfoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'HostInfoEditDialog');"/>
                     <p:commandButton value="#{bundle_host.Cancel}" onclick="HostInfoEditDialog.hide()"/>

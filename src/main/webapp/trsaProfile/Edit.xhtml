@@ -49,11 +49,11 @@
                         <p:outputLabel value="#{bundle.EditTrsaProfileLabel_datastoragelocation}" for="datastoragelocation" />
                         <p:inputText id="datastoragelocation" value="#{trsaProfileController.selected.datastoragelocation}" title="#{bundle.EditTrsaProfileTitle_datastoragelocation}" required="true" requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_datastoragelocation}"/>
                         <p:outputLabel value="#{bundle.EditTrsaProfileLabel_dataaccessinfo}" for="dataaccessinfo" />
-                        <p:inputText id="dataaccessinfo" value="#{trsaProfileController.selected.dataaccessinfo}" title="#{bundle.EditTrsaProfileTitle_dataaccessinfo}" required="true" requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_dataaccessinfo}"/>
+                        <p:inputText id="dataaccessinfo" value="#{trsaProfileController.selected.dataaccessinfo}" title="#{bundle.EditTrsaProfileTitle_dataaccessinfo}" required="false" requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_dataaccessinfo}"/>
                         <p:outputLabel value="#{bundle.EditTrsaProfileLabel_notaryserviceurl}" for="notaryserviceurl" />
                         <p:inputText id="notaryserviceurl" value="#{trsaProfileController.selected.notaryserviceurl}" title="#{bundle.EditTrsaProfileTitle_notaryserviceurl}" required="true" requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_notaryserviceurl}"/>
                         <p:outputLabel value="#{bundle.EditTrsaProfileLabel_safeserviceurl}" for="safeserviceurl" />
-                        <p:inputText id="safeserviceurl" value="#{trsaProfileController.selected.safeserviceurl}" title="#{bundle.EditTrsaProfileTitle_safeserviceurl}" required="true" requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_safeserviceurl}"/>
+                        <p:inputText id="safeserviceurl" value="#{trsaProfileController.selected.safeserviceurl}" title="#{bundle.EditTrsaProfileTitle_safeserviceurl}" required="false" requiredMessage="#{bundle.EditTrsaProfileRequiredMessage_safeserviceurl}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{trsaProfileController.update}" value="#{bundle.Save}" update="display,:TrsaProfileListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TrsaProfileEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TrsaProfileEditDialog.hide()"/>

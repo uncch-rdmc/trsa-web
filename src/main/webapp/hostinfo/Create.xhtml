@@ -38,6 +38,15 @@
                                      title="#{bundle_host.CreateHostInfoTitle_datasetid}" 
                                      required="true" 
                                      requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_datasetid}"/>
+                        
+
+                        <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_datasettitle}" for="datasettitle" />
+                        <p:inputText id="datasettitle" value="#{hostInfoController.selected.datasetTitle}" 
+                                     title="#{bundle_host.CreateHostInfoTitle_datasettitle}" />
+                        
+                        <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_datasetdoi}" for="datasetdoi" />
+                        <p:inputText id="datasetdoi" value="#{hostInfoController.selected.datasetDoi}" 
+                                     title="#{bundle_host.CreateHostInfoTitle_datasetdoi}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{hostInfoController.create}" 
                                      value="#{bundle_host.Save}" 

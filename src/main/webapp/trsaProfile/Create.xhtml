@@ -62,7 +62,7 @@
                         <p:outputLabel 
                             value="#{bundle.CreateTrsaProfileLabel_dataaccessinfo}" for="dataaccessinfo" />
                         <p:inputText 
-                            id="dataaccessinfo" value="#{trsaProfileController.selected.dataaccessinfo}" title="#{bundle.CreateTrsaProfileTitle_dataaccessinfo}" required="true" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_dataaccessinfo}"/>
+                            id="dataaccessinfo" value="#{trsaProfileController.selected.dataaccessinfo}" title="#{bundle.CreateTrsaProfileTitle_dataaccessinfo}" required="false" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_dataaccessinfo}"/>
                         <p:outputLabel 
                             value="#{bundle.CreateTrsaProfileLabel_notaryserviceurl}" for="notaryserviceurl" />
                         <p:inputText 
@@ -70,7 +70,7 @@
                         <p:outputLabel 
                             value="#{bundle.CreateTrsaProfileLabel_safeserviceurl}" for="safeserviceurl" />
                         <p:inputText 
-                            id="safeserviceurl" value="#{trsaProfileController.selected.safeserviceurl}" title="#{bundle.CreateTrsaProfileTitle_safeserviceurl}" required="true" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_safeserviceurl}"/>
+                            id="safeserviceurl" value="#{trsaProfileController.selected.safeserviceurl}" title="#{bundle.CreateTrsaProfileTitle_safeserviceurl}" required="false" requiredMessage="#{bundle.CreateTrsaProfileRequiredMessage_safeserviceurl}"/>
                     </p:panelGrid>
                     <p:commandButton 
                         actionListener="#{trsaProfileController.create}" 

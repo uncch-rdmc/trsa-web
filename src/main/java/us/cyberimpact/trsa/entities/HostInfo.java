@@ -36,7 +36,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HostInfo.findByDataverseid", query = "SELECT h FROM HostInfo h WHERE h.dataverseid = :dataverseid"),
     @NamedQuery(name = "HostInfo.findByDataversealias", query = "SELECT h FROM HostInfo h WHERE h.dataversealias = :dataversealias"),
     @NamedQuery(name = "HostInfo.findByDatasetid", query = "SELECT h FROM HostInfo h WHERE h.datasetid = :datasetid"),
-    @NamedQuery(name = "HostInfo.findByDataversetitle", query = "SELECT h FROM HostInfo h WHERE h.dataversetitle = :dataversetitle")})
+    @NamedQuery(name = "HostInfo.findByDataversetitle", query = "SELECT h FROM HostInfo h WHERE h.dataversetitle = :dataversetitle"),
+    @NamedQuery(name = "HostInfo.findByDatasetdoi", query = "SELECT h FROM HostInfo h WHERE h.datasetDoi = :datasetDoi"),
+    @NamedQuery(name = "HostInfo.findByDatasetTitle", query = "SELECT h FROM HostInfo h WHERE h.datasetTitle = :datasetTitle")
+
+})
 public class HostInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -78,6 +82,14 @@ public class HostInfo implements Serializable {
     @Column(length = 255)
     private String dataversetitle;
 
+    @Size(max = 255)
+    @Column(length = 255)
+    private String datasetTitle;
+    
+    @Size(max = 255)
+    @Column(length = 255)
+    private String datasetDoi;
+    
     public HostInfo() {
     }
 
@@ -149,6 +161,23 @@ public class HostInfo implements Serializable {
         this.dataversetitle = dataversetitle;
     }
 
+    public String getDatasetTitle() {
+        return datasetTitle;
+    }
+
+    public void setDatasetTitle(String datasetTitle) {
+        this.datasetTitle = datasetTitle;
+    }
+
+    public String getDatasetDoi() {
+        return datasetDoi;
+    }
+
+    public void setDatasetDoi(String datasetDoi) {
+        this.datasetDoi = datasetDoi;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -176,5 +205,5 @@ public class HostInfo implements Serializable {
                 + dataversealias + ", datasetid=" + datasetid + ", dataversetitle=" 
                 + dataversetitle + '}';
     }
-    
-}
+
+    }

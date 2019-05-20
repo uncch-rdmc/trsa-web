@@ -4,8 +4,10 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import edu.harvard.iq.dataverse.util.SystemConfig;
 import edu.unc.odum.dataverse.util.json.JsonFilter;
 import edu.unc.odum.dataverse.util.json.JsonPointerForDataset;
+import edu.unc.odum.dataverse.util.json.JsonResponseParser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -117,7 +119,17 @@ public class SubmissionPageView implements Serializable {
         this.selectedDatasetId = selectedDatasetId;
     }
     
+    String assignedDatasetId;
+
+    public String getAssignedDatasetId() {
+        return assignedDatasetId;
+    }
+
+    public void setAssignedDatasetId(String assignedDatasetId) {
+        this.assignedDatasetId = assignedDatasetId;
+    }
     
+    String doiServerPrefix; 
     
 //    String targetDataverseId;
 //
@@ -131,22 +143,22 @@ public class SubmissionPageView implements Serializable {
     
     @PostConstruct
     public void init() {
-        
+        logger.log(Level.INFO, "SubmissionPageView#init() starts here");
         selectedRequestType=homePageView.getSelectedRequestType();
         selectedHostInfo =  destSelectionView.getSelectedHostInfo();
-        logger.log(Level.INFO, "selectedRequestType={0}", selectedRequestType);
+        logger.log(Level.INFO, "#init: selectedRequestType={0}", selectedRequestType);
 
         
-        logger.log(Level.INFO, "selectedHostInfo={0}", selectedHostInfo);
+        logger.log(Level.INFO, "#init: selectedHostInfo={0}", selectedHostInfo);
         if (selectedHostInfo == null){
             logger.log(Level.INFO, "selectedHostInfo is null");
             // TODO
             // error message here and maybe to be forwarded to the host_info page
         } else {
-            logger.log(Level.INFO, "SubmissionPageView:init(): selectedHostInfo={0}", selectedHostInfo);
+            logger.log(Level.INFO, "SubmissionPageView#init(): selectedHostInfo={0}", selectedHostInfo);
             
             publishButtonEnabled=true;
-            logger.log(Level.INFO, "SubmissionPageView:publishButtonEnabled={0}", publishButtonEnabled);
+            logger.log(Level.INFO, "SubmissionPageView#publishButtonEnabled={0}", publishButtonEnabled);
             
         }
         // here setup common data 
@@ -164,16 +176,16 @@ public class SubmissionPageView implements Serializable {
                 logger.log(Level.INFO, "EMPTY_DATASET case");
                 // DataverseId is required 
                 selectedDataverseId = Long.toString(selectedHostInfo.getDataverseid());
-                logger.log(Level.INFO, "selectedDataverseId={0}", selectedDataverseId);
+                logger.log(Level.INFO, "SubmissionPageView#init(): selectedDataverseId={0}", selectedDataverseId);
                 break;
             case FULL_DATASET:
                 logger.log(Level.INFO, "FULL_DATASET case");
                 // localDatasetID must be saved
                 localDatasetIdentifier = fileUploadView.getDatasetIdentifier();
-                logger.log(Level.INFO, "IngestPageView:init():localDatasetIdentifier passed={0}", localDatasetIdentifier);
+                logger.log(Level.INFO, "SubmissionPageView#init():localDatasetIdentifier passed={0}", localDatasetIdentifier);
                 // DataverseId is required 
                 selectedDataverseId = Long.toString(selectedHostInfo.getDataverseid());
-                logger.log(Level.INFO, "selectedDataverseId={0}", selectedDataverseId);
+                logger.log(Level.INFO, "SubmissionPageView#init():selectedDataverseId={0}", selectedDataverseId);
                 break;
             case METADATA_ONLY:
                 logger.log(Level.INFO, "METADATA_ONLY case");
@@ -189,7 +201,10 @@ public class SubmissionPageView implements Serializable {
                 throw new IllegalArgumentException();
         }
         logger.log(Level.INFO, "end of the switch statement within init()");
-
+        
+        
+        doiServerPrefix = SystemConfig.DOI_SERVER_PREFIX;
+        logger.log(Level.INFO, "doiServerPrefix={0}", doiServerPrefix);
     }
     
     
@@ -368,13 +383,19 @@ public class SubmissionPageView implements Serializable {
         String responseString = jsonResponse.getBody().toString();
         logger.log(Level.INFO, "response body={0}", responseString);
 
-
-        JsonFilter jsonFilter = new JsonFilter();
-
-        String datasetIdString = jsonFilter.parseDatasetCreationResponse(responseString);
-        logger.log(Level.INFO, "datasetIdString={0}", datasetIdString);
-
+        JsonResponseParser jsonParser = new JsonResponseParser();
+//        JsonFilter jsonFilter = new JsonFilter();
+//
+//        String datasetIdString = jsonFilter.parseDatasetIdFromCreationResponse(responseString);
+        assignedDatasetId = jsonParser.parseDatasetIdFromCreationResponse(responseString);
         
+        logger.log(Level.INFO, "assignedDatasetId={0}", assignedDatasetId);
+
+        returnedDatasetDoi = jsonParser.parseDatasetDoiFromDsCreationResponse(responseString);
+        logger.log(Level.INFO, "returnedDatasetDoi={0}", returnedDatasetDoi);
+        
+        datasetDoiUrl= doiServerPrefix+ returnedDatasetDoi.split(":")[1];
+        logger.log(Level.INFO, "datasetDoiUrl={0}", datasetDoiUrl);
         gotoDataverseButtonEnabled=true;
         publishButtonEnabled=false;
         
@@ -510,4 +531,28 @@ public class SubmissionPageView implements Serializable {
         logger.log(Level.INFO, "return to the Main menu");
         return "/index.xhtml?faces-redirect=true";
     }
+    
+    String returnedDatasetDoi;
+
+    public String getReturnedDatasetDoi() {
+        return returnedDatasetDoi;
+    }
+
+    public void setReturnedDatasetDoi(String returnedDatasetDoi) {
+        this.returnedDatasetDoi = returnedDatasetDoi;
+    }
+    
+    String datasetDoiUrl;
+
+    public String getDatasetDoiUrl() {
+        return datasetDoiUrl;
+    }
+
+    public void setDatasetDoiUrl(String datasetDoiUrl) {
+        this.datasetDoiUrl = datasetDoiUrl;
+    }
+    
+    
+    
+    
 }

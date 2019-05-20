@@ -26,17 +26,20 @@
 
                         <h:outputLabel for="dataverseServer"  value="selected Dataverse server:" /> 
                         <h:outputText id="dataverseServer" value="#{submissionPageView.dataverseServer}" />
-                        <h:outputText value="note: demo site" /> 
+                        <h:outputText value="" /> 
 
                         <h:outputLabel for="apiKey" value="api key:" /> 
                         <h:outputText id="apiKey" value="#{submissionPageView.apiKey}" /> 
-                        <h:outputText value="note: " /> 
+                        <h:outputText value="" /> 
 
 
-                        <h:outputLabel for="dataverseId" value="selected Dataverse Id:" /> 
+                        <h:outputLabel for="dataverseId" value="Selected Dataverse Id:" /> 
                         <h:outputText id="dataverseId" value="#{submissionPageView.selectedDataverseId}" /> 
                         <h:outputText value="note: integer" /> 
 
+                        <h:outputLabel for="targetDatasetId" value="Selected Dataset Id:" /> 
+                        <h:outputText id="targetDatasetId" value="#{submissionPageView.selectedDatasetId}" /> 
+                        <h:outputText value="note: integer" />
 
                         <h:outputLabel for="zipfileName" value="Ingested file:" /> 
                         <h:outputText id="zipfileName" value="#{submissionPageView.ingestedFile}" /> 
@@ -44,11 +47,25 @@
 
 
 
-                        <h:outputLabel for="datasetId" value="Payload Dataset Id" />
-                        <h:outputText id="datasetId" value="#{submissionPageView.localDatasetIdentifier}" /> 
+                        <h:outputLabel for="localDatasetId" value="Payload Dataset Id" />
+                        <h:outputText id="localDatasetId" value="#{submissionPageView.localDatasetIdentifier}" /> 
                         <h:outputText value="note: locally generated" /> 
 
+                        
+                        <h:outputLabel for="remoteDatasetId" value="assigned Dataset Id:" /> 
+                        <h:outputText id="remoteDatasetId" value="#{submissionPageView.assignedDatasetId}" /> 
+                        <h:outputText value="note: integer" />
+                        
+                        <h:outputLabel for="DatasetDoi" value="Returned Dataset DOI" />
+                        <h:outputText id="DatasetDoi" value="#{submissionPageView.returnedDatasetDoi}" /> 
+                        <h:outputText value="note: assigned by Dataverse" /> 
+                        
+                        <h:outputLabel for="datasetDoiUrlLink" value="Returned Dataset DOI" />
 
+                        <p:link id="datasetDoiUrlLink" 
+                                href="#{submissionPageView.datasetDoiUrl}" 
+                                value="#{submissionPageView.returnedDatasetDoi}"/>
+                        <h:outputText value="note: DOI-link to the Dataset" /> 
 
                         <f:facet name="footer">
 
@@ -62,7 +79,7 @@
                             
                             <p:commandButton id="publishButton" 
                                              ajax="true" 
-                                             update="messages dataverseButton publishButton" 
+                                             update="messages dataverseButton publishButton DatasetDoi remoteDatasetId datasetDoiUrlLink" 
                                              value="publish this dataset" 
                                              disabled="#{!submissionPageView.publishButtonEnabled}"
                                              actionListener="#{submissionPageView.submissionFacade()}" />

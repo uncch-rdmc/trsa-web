@@ -84,7 +84,7 @@ public class TrsaProfile implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "DATAACCESSINFO", nullable = false, length = 255)
+    @Column(name = "DATAACCESSINFO", nullable = true, length = 255)
     private String dataaccessinfo;
     @Basic(optional = false)
     @NotNull
@@ -94,7 +94,7 @@ public class TrsaProfile implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "SAFESERVICEURL", nullable = false, length = 255)
+    @Column(name = "SAFESERVICEURL", nullable = true, length = 255)
     private String safeserviceurl;
 
     public TrsaProfile() {

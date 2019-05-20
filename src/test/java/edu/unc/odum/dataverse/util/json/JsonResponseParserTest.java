@@ -50,7 +50,7 @@ public class JsonResponseParserTest {
     
     
     /**
-     * Test of parseDatasetCreationResponse method, of class JsonResponseParser.
+     * Test of parseDatasetIdFromCreationResponse method, of class JsonResponseParser.
      */
     @Test
     public void testParseDatasetCreationResponse() {
@@ -58,7 +58,21 @@ public class JsonResponseParserTest {
         JsonResponseParser instance = new JsonResponseParser();
         String expResult = "29";
         logger.log(Level.INFO, "expResult={0}", expResult);
-        String actual = instance.parseDatasetCreationResponse(RESPONSE_NEW_DATASET_CREATION);
+        String actual = instance.parseDatasetIdFromCreationResponse(RESPONSE_NEW_DATASET_CREATION);
+        logger.log(Level.INFO, "actual={0}", actual);
+        assertEquals(expResult, actual);
+    }
+
+    /**
+     * Test of parseDatasetDoiFromDsCreationResponse method, of class JsonResponseParser.
+     */
+    @Test
+    public void testParseDatasetDoiFromDsCreationResponse() {
+        System.out.println("parseDatasetDoiFromDsCreationResponse");
+        JsonResponseParser instance = new JsonResponseParser();
+        String expResult = "doi:10.5072/FK2/UEEXAV";
+        logger.log(Level.INFO, "expected={0}", expResult);
+        String actual = instance.parseDatasetDoiFromDsCreationResponse(RESPONSE_NEW_DATASET_CREATION);
         logger.log(Level.INFO, "actual={0}", actual);
         assertEquals(expResult, actual);
     }

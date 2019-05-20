@@ -22,7 +22,7 @@ public class JsonPointerForDataset {
     
     public static String POINTER_TO_DATASET_ID="/data/id";
     
-
+    public static String POINTER_TO_DATASET_DOI="/data/persistentId";
     // for Dataset title
     public static String POINTER_TO_DATASET_TITLE="/datasetVersion/metadataBlocks/citation/fields/0/value";
     // FOR authorAffiliation

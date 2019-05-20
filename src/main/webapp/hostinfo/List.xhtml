@@ -69,6 +69,21 @@
                             </f:facet>
                             <h:outputText value="#{item.datasetid}"/>
                         </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle_host.ListHostInfoTitle_datasettitle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.datasetTitle}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle_host.ListHostInfoTitle_datasetdoi}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.datasetDoi}"/>
+                        </p:column>
+                        
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle_host.Create}" actionListener="#{hostInfoController.prepareCreate}" update=":HostInfoCreateForm" oncomplete="PF('HostInfoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle_host.View}" update=":HostInfoViewForm" oncomplete="PF('HostInfoViewDialog').show()" disabled="#{empty hostInfoController.selected}"/>

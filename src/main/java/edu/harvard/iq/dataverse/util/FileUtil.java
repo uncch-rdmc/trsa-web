@@ -245,6 +245,8 @@ public class FileUtil {
     }
 
     public static String determineFileType(File f, String fileName) throws IOException{
+        logger.log(Level.INFO, "FileUtil#determineFileType() starts here");
+        logger.log(Level.INFO, "determineFileType={0}", fileName);
         String fileType = null;
         String fileExtension = getFileExtension(fileName);
 
@@ -254,15 +256,18 @@ public class FileUtil {
         // Apply our custom methods to try and recognize data files that can be
         // converted to tabular data, or can be parsed for extra metadata
         // (such as FITS).
+        logger.log(Level.INFO, "step 1: tabluar file or not");
         logger.fine("Attempting to identify potential tabular data files;");
         IngestableDataChecker tabChk = new IngestableDataChecker(TABULAR_DATA_FORMAT_SET);
 
         fileType = tabChk.detectTabularDataFormat(f);
 
-        logger.fine("determineFileType: tabular data checker found "+fileType);
+        logger.log(Level.INFO, "determineFileType: tabular data checker found={0}", fileType);
 
         // step 2: If not found, check if graphml or FITS
+        logger.log(Level.INFO, "step 2: graphml/FITS or not");
         if (fileType==null) {
+            logger.log(Level.INFO, "Checking: FITS type or not");
             if (isGraphMLFile(f))  {
                 fileType = "text/xml-graphml";
             } else // Check for FITS:
@@ -277,35 +282,44 @@ public class FileUtil {
                 fileType = "application/fits";
             }
         }
-/*
+
         // step 3: check the mime type of this file with Jhove
+        logger.log(Level.INFO, "step 3: check by Jhove");
         if (fileType == null){
+            logger.log(Level.INFO, "check by Jhove");
             JhoveFileType jw = new JhoveFileType();
             String mimeType = jw.getFileMimeType(f);
             if (mimeType != null) {
                 fileType = mimeType;
             }
+            logger.log(Level.INFO, "mimeType by Jhove={0}", mimeType);
         }
-*/
+
         // step 4:
         // Additional processing; if we haven't gotten much useful information
         // back from Jhove, we'll try and make an educated guess based on
         // the file extension:
 
         if ( fileExtension != null) {
-            logger.fine("fileExtension="+fileExtension);
+            logger.log(Level.INFO, "step 4: guess by file extension");
+            logger.info("fileExtension="+fileExtension);
 
             if (fileType == null || fileType.startsWith("text/plain") || "application/octet-stream".equals(fileType)) {
+                logger.log(Level.INFO, "null or text/plain or application/octet case");
                 if (fileType != null && fileType.startsWith("text/plain") && STATISTICAL_FILE_EXTENSION.containsKey(fileExtension)) {
                     fileType = STATISTICAL_FILE_EXTENSION.get(fileExtension);
+                    logger.log(Level.INFO, "fileType is set to ={0}", fileType);
                 } else {
+                    logger.log(Level.INFO, "check the file extension by determineFileTypeByExtension method");
+                    logger.log(Level.INFO, "fileName to be tested={0}", fileName);
                     fileType = determineFileTypeByExtension(fileName);
+                    logger.log(Level.INFO, "determineFileTypeByExtension set fileType to {0}", fileType);
                 }
 
                 logger.fine("mime type recognized by extension: "+fileType);
             }
         } else {
-            logger.fine("fileExtension is null");
+            logger.info("fileExtension is null");
         }
 
         // step 5:
@@ -314,7 +328,7 @@ public class FileUtil {
         // recognized formats that we want to support compressed:
 
         if ("application/x-gzip".equals(fileType)) {
-            logger.fine("we'll run additional checks on this gzipped file.");
+            logger.info("we'll run additional checks on this gzipped file.");
             // We want to be able to support gzipped FITS files, same way as
             // if they were just regular FITS files:
             FileInputStream gzippedIn = new FileInputStream(f);
@@ -334,7 +348,7 @@ public class FileUtil {
             }
         }
         if ("application/zip".equals(fileType)) {
-
+            logger.log(Level.INFO, "checking a zipped Shapefile case");
             // Is this a zipped Shapefile?
             // Check for shapefile extensions as described here: http://en.wikipedia.org/wiki/Shapefile
             //logger.info("Checking for shapefile");
@@ -343,6 +357,7 @@ public class FileUtil {
              if (shp_handler.containsShapefile()){
               //  logger.info("------- shapefile FOUND ----------");
                  fileType = ShapefileHandler.SHAPEFILE_FILE_TYPE; //"application/zipped-shapefile";
+                 logger.log(Level.INFO, "fileType is a shape file={0}", shp_handler);
              }
         }
 
@@ -351,7 +366,7 @@ public class FileUtil {
     }
 
     public static String determineFileTypeByExtension(String fileName) {
-        logger.fine("Type by extension, for "+fileName+": "+MIME_TYPE_MAP.getContentType(fileName));
+        logger.info("MIME Type by extension, for "+fileName+", was set to: "+MIME_TYPE_MAP.getContentType(fileName));
         return MIME_TYPE_MAP.getContentType(fileName);
     }
 
@@ -536,6 +551,9 @@ public class FileUtil {
     public static List<DataFile> createDataFiles(DatasetVersion version, 
             InputStream inputStream, String fileName, String suppliedContentType, 
             SystemConfig systemConfig) throws IOException {
+        logger.log(Level.INFO, "FileUtil#createDataFiles starts here");
+        logger.log(Level.INFO, "fileName={0}", fileName);
+        logger.log(Level.INFO, "suppliedContentType={0}", suppliedContentType);
         List<DataFile> datafiles = new ArrayList<>();
 
         String warningMessage = null;
@@ -628,7 +646,7 @@ public class FileUtil {
                 ? MIME_TYPE_UNDETERMINED_DEFAULT
                 : suppliedContentType;
         }
-        logger.log(Level.INFO, "finalType={0}", finalType);
+        logger.log(Level.INFO, "FileUtil#createDataFilesfinalType={0}", finalType);
 
         // A few special cases:
 
