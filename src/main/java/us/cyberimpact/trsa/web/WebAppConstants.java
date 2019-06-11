@@ -9,10 +9,10 @@ package us.cyberimpact.trsa.web;
  *
  * @author asone
  */
-public class Settings {
+public class WebAppConstants {
     
     
-    public static String STORAGE_LOCATION_PREFIX= "/tmp/files/10.5072/FK2/" ;
+    //public static String STORAGE_LOCATION_PREFIX= "/tmp/files/10.5072/FK2/" ;
     
     public static String TRSA_TEMPLATE_DIRECTORY="trsa.template.directory";
     

@@ -32,6 +32,7 @@ import javax.json.JsonWriter;
 import javax.ws.rs.WebApplicationException;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
+import us.cyberimpact.trsa.settings.AppConfig;
 
 /**
  *
@@ -76,6 +77,11 @@ public class SubmissionPageView implements Serializable {
     
     @Inject
     private FileUploadView fileUploadView;
+    
+    @Inject
+    private AppConfig appConfig; 
+    
+    
 //    private HostInfo hostInfo; 
 //
 //    public HostInfo getHostInfo() {
@@ -130,7 +136,7 @@ public class SubmissionPageView implements Serializable {
     }
     
     String doiServerPrefix; 
-    
+    private String trsaFilesPath="";
 //    String targetDataverseId;
 //
 //    public String getTargetDataverseId() {
@@ -205,6 +211,11 @@ public class SubmissionPageView implements Serializable {
         
         doiServerPrefix = SystemConfig.DOI_SERVER_PREFIX;
         logger.log(Level.INFO, "doiServerPrefix={0}", doiServerPrefix);
+        
+        trsaFilesPath= appConfig.getTrsaFilesPath();
+        logger.log(Level.INFO, "appConfig.getTrsaFilesPath={0}", trsaFilesPath);
+        
+        
     }
     
     
@@ -273,15 +284,15 @@ public class SubmissionPageView implements Serializable {
         // pointing to the payload file
         
         
-        String templateDirectory = System.getProperty(Settings.TRSA_TEMPLATE_DIRECTORY);
+        String templateDirectory = System.getProperty(WebAppConstants.TRSA_TEMPLATE_DIRECTORY);
         // -Dtrsa.template.directory
         // = /home/asone/myopt/payara5/glassfish/domains/domain1/config/trsa/template
         // <jvm-options>-Dtrsa.template.directory=${com.sun.aas.instanceRoot}/config/trsa/template</jvm-options>
-        String templateFileName=System.getProperty(Settings.TRSA_TEMPLATE_FILE_NAME);
+        String templateFileName=System.getProperty(WebAppConstants.TRSA_TEMPLATE_FILE_NAME);
         String fileLocation = templateDirectory +"/"
                 + templateFileName ;
-        String payloadFileName = Settings.STORAGE_LOCATION_PREFIX
-                + localDatasetIdentifier + "/" + Settings.FILTERED_PAYLOAD_FILENAME;
+        String payloadFileName = trsaFilesPath
+                + localDatasetIdentifier + "/" + WebAppConstants.FILTERED_PAYLOAD_FILENAME;
         
         
         // 1. read back the saved template
@@ -305,10 +316,10 @@ public class SubmissionPageView implements Serializable {
     void createNewDataset(){
         logger.log(Level.INFO, "SubmissionPageView#createNewDataset");
         // pointing to the payload file
-        String fileLocation = Settings.STORAGE_LOCATION_PREFIX
-                + localDatasetIdentifier + "/" + Settings.EXPORT_FILE_NAME_JSON;
-        String payloadFileName = Settings.STORAGE_LOCATION_PREFIX
-                + localDatasetIdentifier + "/" + Settings.FILTERED_PAYLOAD_FILENAME;
+        String fileLocation = trsaFilesPath
+                + localDatasetIdentifier + "/" + WebAppConstants.EXPORT_FILE_NAME_JSON;
+        String payloadFileName = trsaFilesPath
+                + localDatasetIdentifier + "/" + WebAppConstants.FILTERED_PAYLOAD_FILENAME;
         
         String jsonBody="";
         try (InputStream rawIs = new FileInputStream(new File(fileLocation));
@@ -360,7 +371,7 @@ public class SubmissionPageView implements Serializable {
         logger.log(Level.FINE, "jsonbody={0}", jsonBody);
         logger.log(Level.INFO, "create a new Dataset case");
         String apiEndpoint = dataverseServer 
-                    + Settings.PATH_DATAVERSE_API
+                    + WebAppConstants.PATH_DATAVERSE_API
                     //+ "/api/dataverses/"
                     + selectedDataverseId
                     +"/datasets";
@@ -405,10 +416,12 @@ public class SubmissionPageView implements Serializable {
     // METADATA_ONLY
     void uploadMetadataOnly(){
         logger.log(Level.INFO, "uploadMetadataOnly case");
-        String fileLocation = Settings.STORAGE_LOCATION_PREFIX + localDatasetIdentifier
-                + "/" + Settings.EXPORT_FILE_NAME_JSON;
-        String payloadFileName = Settings.STORAGE_LOCATION_PREFIX + localDatasetIdentifier
-                + "/" + Settings.FILTERED_PAYLOAD_FILENAME;
+        String fileLocation = trsaFilesPath
+                + localDatasetIdentifier
+                + "/" + WebAppConstants.EXPORT_FILE_NAME_JSON;
+        String payloadFileName = trsaFilesPath
+                + localDatasetIdentifier
+                + "/" + WebAppConstants.FILTERED_PAYLOAD_FILENAME;
 
         String jsonBody = "";
         try (InputStream rawIs = new FileInputStream(new File(fileLocation));
@@ -455,7 +468,7 @@ public class SubmissionPageView implements Serializable {
 
         logger.log(Level.INFO, "publish Metadata-only API case");
         String apiEndpoint = dataverseServer + "/api/datasets/" + selectedDatasetId
-                + "/" + Settings.PATH_ADD_METADATA;
+                + "/" + WebAppConstants.PATH_ADD_METADATA;
         logger.log(Level.INFO, "apiEndpoint={0}", apiEndpoint);
 
 

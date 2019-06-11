@@ -1154,12 +1154,12 @@ public class FileUtil {
     }
 
     public static String getFilesTempDirectory() {
-        String filesRootDirectory = System.getProperty("dataverse.files.directory");
+        String filesRootDirectory = System.getProperty("trsa.files.directory");
         if (filesRootDirectory == null || filesRootDirectory.equals("")) {
             filesRootDirectory = "/tmp/files";
-            logger.log(Level.FINE, "filesRootDirectory: dataverse.files.directory is not specified: use /tmp/files");
+            logger.log(Level.INFO, "filesRootDirectory: trsa.files.directory is not specified: use /tmp/files");
         } else {
-            logger.log(Level.FINE, "filesRootDirectory={0}", filesRootDirectory);
+            logger.log(Level.INFO, "filesRootDirectory={0}", filesRootDirectory);
         }
 
         String filesTempDirectory = filesRootDirectory + "/temp";

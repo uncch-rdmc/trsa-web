@@ -39,6 +39,7 @@ import javax.json.JsonPatchBuilder;
 import us.cyberimpact.trsa.entities.TrsaProfile;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
+import us.cyberimpact.trsa.settings.AppConfig;
 
 /**
  *
@@ -71,6 +72,10 @@ public class IngestPageView implements Serializable {
     @Inject
  //   @ManagedProperty("#{destinationSelectionView}")
     private DestinationSelectionView destSelectionView;
+    
+    @Inject
+    private AppConfig appConfig; 
+    
 
     public void setDestSelectionView(DestinationSelectionView destSelectionView) {
         this.destSelectionView = destSelectionView;
@@ -165,6 +170,7 @@ public class IngestPageView implements Serializable {
     private String apiKeyHCValue ="";
     private String dataverseServerHCValue="";
     private String dataverseIdHCValue="";
+    private String trsaFilesPath="";
 
     @PostConstruct
     public void init() {
@@ -225,8 +231,8 @@ public class IngestPageView implements Serializable {
         dataverseServer = hostInfo.getHosturl();//dataverseServerHCValue;
         logger.log(Level.INFO, "dataverseServer={0}", dataverseServer);
         
-        
-        
+        trsaFilesPath= appConfig.getTrsaFilesPath();
+        logger.log(Level.INFO, "appConfig.getTrsaFilesPath={0}", trsaFilesPath);
         
     }
 
@@ -275,7 +281,7 @@ public class IngestPageView implements Serializable {
         this.fileUploadView = fileUploadView;
     }
     
-    public static String STORAGE_LOCATION_PREFIX= "/tmp/files/10.5072/FK2/" ;
+    //public static String STORAGE_LOCATION_PREFIX= "/tmp/files/10.5072/FK2/" ;
     public static String PATH_ADD_METADATA="addFileMetadata";
 
     public void getInfo(ActionEvent actionEvent) {
@@ -321,9 +327,12 @@ public class IngestPageView implements Serializable {
         try {
             progressTest = "starting request";
             String filenameValue = localDatasetIdentifier;
-            String filelocation = STORAGE_LOCATION_PREFIX+ localDatasetIdentifier 
+//            String filelocation = STORAGE_LOCATION_PREFIX+ localDatasetIdentifier 
+//                    + "/export_dataverse_json.cached";
+            String filelocation = trsaFilesPath+ localDatasetIdentifier 
                     + "/export_dataverse_json.cached";
-            String payloadFileName = STORAGE_LOCATION_PREFIX + localDatasetIdentifier 
+            
+            String payloadFileName = trsaFilesPath + localDatasetIdentifier 
                     +"/filtered-result.json";
             
             String jsonbody="";
@@ -401,9 +410,9 @@ public class IngestPageView implements Serializable {
         try {
             progressTest = "starting request";
             String filenameValue = localDatasetIdentifier;
-            String filelocation =  STORAGE_LOCATION_PREFIX 
+            String filelocation =  trsaFilesPath 
                     + localDatasetIdentifier + "/export_dataverse_json.cached";
-            String payloadFileName = STORAGE_LOCATION_PREFIX 
+            String payloadFileName = trsaFilesPath 
                     + localDatasetIdentifier +"/filtered-result.json";
             JsonFilter filter = new JsonFilter();
             filter.filterApiPayloadMetadataOnly(filelocation, payloadFileName);
@@ -451,9 +460,9 @@ public class IngestPageView implements Serializable {
         try {
             progressTest = "starting request";
             String filenameValue = localDatasetIdentifier;
-            String filelocation = STORAGE_LOCATION_PREFIX
+            String filelocation = trsaFilesPath
                     + localDatasetIdentifier + "/export_dataverse_json.cached";
-            String payloadFileName = STORAGE_LOCATION_PREFIX 
+            String payloadFileName = trsaFilesPath 
                     + localDatasetIdentifier +"/filtered-result.json";
             JsonFilter filter = new JsonFilter();
             filter.filterApiPayload(filelocation, payloadFileName);
