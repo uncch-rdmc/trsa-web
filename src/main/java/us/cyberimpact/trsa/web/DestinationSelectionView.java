@@ -20,6 +20,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.apache.commons.lang3.StringUtils;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import us.cyberimpact.trsa.entities.HostInfo;
@@ -74,11 +75,11 @@ public class DestinationSelectionView implements Serializable {
     public void init() {
         logger.log(Level.INFO, "=========== DestinationSelectionView#init: start ===========");
         hostInfoTable = hostInfoFacade.findAll();
-        logger.log(Level.INFO, "FileUploadView:hostInfoTable:howMany={0}", hostInfoTable.size());
+        logger.log(Level.INFO, "DestinationSelectionView:hostInfoTable:howMany={0}", hostInfoTable.size());
         if (hostInfoTable.isEmpty()){
-            logger.log(Level.INFO, "hostInfoTable is empty");
+            logger.log(Level.WARNING, "hostInfoTable is empty");
         } else {
-            logger.log(Level.INFO, "FileUploadView:hostInfoTable exists and not empty");
+            logger.log(Level.INFO, "DestinationSelectionView:hostInfoTable exists and not empty");
             selectedHostInfo=hostInfoTable.get(hostInfoTable.size()-1);
             logger.log(Level.INFO, "init:selectedHostInfo={0}", selectedHostInfo);
         }
@@ -109,15 +110,27 @@ public class DestinationSelectionView implements Serializable {
         logger.log(Level.INFO, "selectedHostInfo={0}", hostInfo);
 
         logger.log(Level.INFO, "selected datasetId={0}", selectedHostInfo.getDatasetid());
-//        logger.log(Level.INFO, "go to Submission page");
-//        return "/submission.xhtml";
-
-        selectedDatasetId= getDatasetId(selectedHostInfo.getDatasetDoi());
-        logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
-        logger.log(Level.INFO, "go to fileupload page");
+        // the dataset is extracted from a doi, it must not be empty
+        if (StringUtils.isEmpty(selectedHostInfo.getDatasetDoi())){
+            addMessageEmptyHostInfo();
+            logger.log(Level.INFO, "go to host_info editor page");
+            return "/hostinfo/List.xhtml";
+        } else {
+            selectedDatasetId= getDatasetId(selectedHostInfo.getDatasetDoi());
+            logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
+            logger.log(Level.INFO, "go to fileupload page");
+        }
         logger.log(Level.INFO, "=========== DestinationSelectionView#selectDestination: end ===========");
         return "/fileupload.xhtml";
     }
+    
+    
+    
+    public void addMessageEmptyHostInfo(){
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Dataset's DOI datum is missing", "Add the DOI datum before uploading Metadata.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
     
     public void onRowSelect(SelectEvent event) {
         FacesMessage msg = new FacesMessage("host Selected", ((HostInfo) event.getObject()).getDataversetitle());
