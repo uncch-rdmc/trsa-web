@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -55,12 +56,21 @@ public class FileUploadView implements Serializable {
     @Inject
     HostInfoFacade hostInfoFacade;
     
-    List<HostInfo> hostInfoTable = new ArrayList<>();
+    
+    @Inject
+    DestinationSelectionView destinationSelectionView; 
     
     
+//    List<HostInfo> hostInfoTable = new ArrayList<>();
+    
+
+    private String selectedDatasetId;
     
     @Inject
     DsTemplateSelectionView dsTemplateSelectionView;
+    
+    @Inject
+    HomePageView homePageView;
     
     
     private UploadedFile file;
@@ -78,12 +88,31 @@ public class FileUploadView implements Serializable {
     }
     
     private DsTemplateData selectedDsTemplateData; 
+
+    public String getSelectedDatasetId() {
+        return selectedDatasetId;
+    }
+
+    public void setSelectedDatasetId(String selectedDatasetId) {
+        this.selectedDatasetId = selectedDatasetId;
+    }
     
-    
+    private RequestType selectedRequestType;
 
     @PostConstruct
     public void init() {
+        logger.log(Level.INFO, "=========== FileUploadView#init: start ===========");
         
+        logger.log(Level.INFO, "requestType={0}", homePageView.getSelectedRequestType());
+        selectedRequestType=homePageView.getSelectedRequestType();
+        
+        logger.log(Level.INFO, "selectedRequestType={0}", selectedRequestType);
+
+        logger.log(Level.INFO, "destinationSelectionView.getSelectedDatasetId()={0}", destinationSelectionView.getSelectedDatasetId());
+        selectedDatasetId=destinationSelectionView.getSelectedDatasetId();
+        
+        logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
+        logger.log(Level.INFO, "isMetadataOnly={0}", homePageView.isMetadataOnly());
         
         trsaProfileTable= trsaProfileFacade.findAll();
         logger.log(Level.INFO, "FileUploadView:TrsaProfileTable={0}", trsaProfileTable);
@@ -101,15 +130,19 @@ public class FileUploadView implements Serializable {
             
             
         }
-        hostInfoTable = hostInfoFacade.findAll();
-        logger.log(Level.INFO, "FileUploadView:hostInfoTable:howMany={0}", hostInfoTable.size());
-        if (hostInfoTable.isEmpty()){
-            logger.log(Level.INFO, "hostInfoTable is empty");
-        } else {
-            logger.log(Level.INFO, "FileUploadView:hostInfoTable exists and not empty");
-        }
+        
+        
+//        hostInfoTable = hostInfoFacade.findAll();
+//        logger.log(Level.INFO, "FileUploadView:hostInfoTable:howMany={0}", hostInfoTable.size());
+//        if (hostInfoTable.isEmpty()){
+//            logger.log(Level.INFO, "hostInfoTable is empty");
+//        } else {
+//            logger.log(Level.INFO, "FileUploadView:hostInfoTable exists and not empty");
+//        }
+
         selectedDsTemplateData= dsTemplateSelectionView.getSelectedDsTemplateData();
         logger.log(Level.INFO, "selectedDsTemplateData={0}", selectedDsTemplateData);
+        logger.log(Level.INFO, "=========== FileUploadView#init: end ===========");
     }
 
     public UploadedFile getFile() {
@@ -158,6 +191,7 @@ public class FileUploadView implements Serializable {
     }
 
     public void upload(FileUploadEvent event) {
+        logger.log(Level.INFO, "=========== FileUploadView#upload: start ===========");
         file = event.getFile();
         String filePath = "";
         if (file != null) {
@@ -194,13 +228,26 @@ public class FileUploadView implements Serializable {
 //        logger.log(Level.INFO, "upload():api-token={0}", trsaProfileTable.get(0).getApitoken());
 //        logger.log(Level.INFO, "upload():isTrsaProfileReady={0}", isTrsaProfileReady);
         setIngestButtonEnabled(true);
+        logger.log(Level.INFO, "=========== FileUploadView#upload: end ===========");
 //        return "/index.xhtml";
     }
 
     public void execIngest() {
+        logger.log(Level.INFO, "=========== FileUploadView#execIngest: start ===========");
+        
         FacesContext context = FacesContext.getCurrentInstance();
         logger.log(Level.INFO, "fileName={0}", fileName);
-        datasetIdentifier = IngestService.generateTempDatasetIdentifier(6);
+        // 2019-06-12 update: for metadata-uploading cases, use the pre-selected dataset Id
+//        datasetIdentifier = IngestService.generateTempDatasetIdentifier(6);
+
+        logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
+        if (selectedRequestType==RequestType.METADATA_ONLY){
+            logger.log(Level.INFO, "this is a metadata-only case");
+            datasetIdentifier = selectedDatasetId;
+        } else {
+            datasetIdentifier = IngestService.generateTempDatasetIdentifier(6);
+            logger.log(Level.INFO, "this is a new-dataset-creation case");
+        }
         logger.log(Level.INFO, "datasetIdentifier={0}", datasetIdentifier);
 
         // Warning: contentType expects a / included mime type
@@ -274,6 +321,7 @@ public class FileUploadView implements Serializable {
 */
         ingestButtonEnabled = false;
         //return "/ingest.xhtml";
+        logger.log(Level.INFO, "=========== FileUploadView#execIngest: end ===========");
     }
 
     public String goHome() {

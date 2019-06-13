@@ -119,7 +119,7 @@ public class IngestService {
     
     @PostConstruct
     public void init() {
-        logger.log(Level.INFO, "========== IngestService#init() starts here ==========");
+        logger.log(Level.INFO, "========== IngestService#init() start ==========");
         // remove the attached forward slash 
         String shoulder = settingsSvc.getValueForKey(SettingsServiceBean.Key.Shoulder).replace("/", "");
         logger.log(Level.INFO, "shoulder={0}", shoulder);
@@ -145,7 +145,7 @@ public class IngestService {
         
         FilesTempDirectory=FilesRootDirectory+"/temp";
         logger.log(Level.INFO, "FilesTempDirectory={0}", FilesTempDirectory);
-        logger.log(Level.INFO, "========== IngestService#init() ends here ==========");
+        logger.log(Level.INFO, "========== IngestService#init() end ==========");
     }
     
     // moved from VariableServiceBean 

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
@@ -19,6 +20,7 @@ import javax.persistence.PersistenceContext;
  * @author asone
  */
 @Stateless
+@Named
 public class HostInfoFacade extends AbstractFacade<HostInfo> {
     
     private static final Logger logger = Logger.getLogger(HostInfoFacade.class.getName());

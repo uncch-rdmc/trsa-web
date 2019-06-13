@@ -116,18 +116,18 @@ public class HomePageView implements Serializable {
     
     // button actions 
     public String gotoTRSAprofilePage(){
-        logger.log(Level.INFO, "got to TRSA Profile page");
+        logger.log(Level.INFO, "HomePageView: got to TRSA Profile page");
         return "/trsaProfile/List.xhtml";
     }
 
     public String gotoUploadMetadataPage(){
-        logger.log(Level.INFO, "got to UploadMetadataPage");
+        logger.log(Level.INFO, "HomePageView: got to UploadMetadataPage");
         selectedRequestType=RequestType.METADATA_ONLY;
-        return gotoFileUploadPage();
+        return gotoDestinationSelectionPage();
     }
     
     public String gotoDatasetCreationPage(){
-        logger.log(Level.INFO, "go to DatasetCreation page");
+        logger.log(Level.INFO, "HomePageView: go to DatasetCreation page");
         // modify the boolean value
         metadataOnly=false;
         selectedRequestType=RequestType.FULL_DATASET;
@@ -136,22 +136,29 @@ public class HomePageView implements Serializable {
     
     
     private String gotoFileUploadPage(){
-        logger.log(Level.INFO, "metadataOnly={0}", metadataOnly);
+        logger.log(Level.INFO, "HomePageView:gotoFileUploadPage:metadataOnly={0}", metadataOnly);
         return "/fileupload.xhtml";
     }
     
+    private String gotoDestinationSelectionPage(){
+        logger.log(Level.INFO, "HomePageView:gotoDestinationSelectionPage: metadataOnly={0}", metadataOnly);
+        return "/destination.xhtml" ;
+    }
+    
+    
+    
     public String gotoHostinfoPage(){
-        logger.log(Level.INFO, "got to host info page");
+        logger.log(Level.INFO, "HomePageView: got to host info page");
         return "/hostinfo/List.xhtml";
     }
     
     public String gotoDsTemplateDataPage(){
-        logger.log(Level.INFO, "got to Dataset Template page");
+        logger.log(Level.INFO, "HomePageView: got to Dataset Template page");
         return "/dsTemplateData/List.xhtml";
     }
     
     public String gotoEmptyDatasetCreationPage(){
-        logger.log(Level.INFO, "got to Empty Dataset Creation page");
+        logger.log(Level.INFO, "HomePageView: got to Empty Dataset Creation page");
         selectedRequestType = RequestType.EMPTY_DATASET;
         setEmptyDatasetCreation(true);
         logger.log(Level.INFO, "isEmptyDatasetCreation set to ={0}", isEmptyDatasetCreation());
@@ -159,7 +166,7 @@ public class HomePageView implements Serializable {
     }
     
     private void clearSession(){
-        logger.log(Level.INFO, "sessionscoped data are reset");
+        logger.log(Level.INFO, "HomePageView#clearSession: sessionscoped data are reset");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
     

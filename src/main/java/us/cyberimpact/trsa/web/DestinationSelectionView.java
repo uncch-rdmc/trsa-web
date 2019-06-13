@@ -60,11 +60,19 @@ public class DestinationSelectionView implements Serializable {
         this.homePageView = homePageView;
     }
     
-    
+    private String selectedDatasetId;
+
+    public String getSelectedDatasetId() {
+        return selectedDatasetId;
+    }
+
+    public void setSelectedDatasetId(String selectedDatasetId) {
+        this.selectedDatasetId = selectedDatasetId;
+    }
     
     @PostConstruct
     public void init() {
-        
+        logger.log(Level.INFO, "=========== DestinationSelectionView#init: start ===========");
         hostInfoTable = hostInfoFacade.findAll();
         logger.log(Level.INFO, "FileUploadView:hostInfoTable:howMany={0}", hostInfoTable.size());
         if (hostInfoTable.isEmpty()){
@@ -74,7 +82,7 @@ public class DestinationSelectionView implements Serializable {
             selectedHostInfo=hostInfoTable.get(hostInfoTable.size()-1);
             logger.log(Level.INFO, "init:selectedHostInfo={0}", selectedHostInfo);
         }
-        
+        logger.log(Level.INFO, "=========== DestinationSelectionView#init: end ===========");
     }
 
     public List<HostInfo> getHostInfoTable() {
@@ -96,12 +104,19 @@ public class DestinationSelectionView implements Serializable {
     }
     
     public String selectDestination(HostInfo hostInfo){
+        logger.log(Level.INFO, "=========== DestinationSelectionView#selectDestination: start ===========");
         logger.log(Level.INFO, "selectDestination: selectedHostInfo={0}", selectedHostInfo);
         logger.log(Level.INFO, "selectedHostInfo={0}", hostInfo);
 
-        logger.log(Level.INFO, "datasetId={0}", selectedHostInfo.getDatasetid());
-        logger.log(Level.INFO, "go to Submission page");
-        return "/submission.xhtml";
+        logger.log(Level.INFO, "selected datasetId={0}", selectedHostInfo.getDatasetid());
+//        logger.log(Level.INFO, "go to Submission page");
+//        return "/submission.xhtml";
+
+        selectedDatasetId= getDatasetId(selectedHostInfo.getDatasetDoi());
+        logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
+        logger.log(Level.INFO, "go to fileupload page");
+        logger.log(Level.INFO, "=========== DestinationSelectionView#selectDestination: end ===========");
+        return "/fileupload.xhtml";
     }
     
     public void onRowSelect(SelectEvent event) {
@@ -114,7 +129,13 @@ public class DestinationSelectionView implements Serializable {
         FacesMessage msg = new FacesMessage("host Unselected", ((HostInfo) event.getObject()).getDataversetitle());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         logger.log(Level.INFO, "onRowUnselect:selectedHostInfo={0}", selectedHostInfo);
-    }  
+    }
+    
+    
+    private String getDatasetId(String doi){
+        // doi is given by such as doi:10.33563/FK2/NRIISK
+        return doi.split("/")[2];
+    }
     
     
 }

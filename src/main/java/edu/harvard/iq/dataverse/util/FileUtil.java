@@ -551,7 +551,7 @@ public class FileUtil {
     public static List<DataFile> createDataFiles(DatasetVersion version, 
             InputStream inputStream, String fileName, String suppliedContentType, 
             SystemConfig systemConfig) throws IOException {
-        logger.log(Level.INFO, "FileUtil#createDataFiles starts here");
+        logger.log(Level.INFO, "========== FileUtil#createDataFiles: start ==========");
         logger.log(Level.INFO, "fileName={0}", fileName);
         logger.log(Level.INFO, "suppliedContentType={0}", suppliedContentType);
         List<DataFile> datafiles = new ArrayList<>();
@@ -996,8 +996,9 @@ public class FileUtil {
     */
 
     private static DataFile createSingleDataFile(DatasetVersion version, 
-            File tempFile, String fileName, String contentType, 
+        File tempFile, String fileName, String contentType, 
             DataFile.ChecksumType checksumType) {
+        logger.log(Level.INFO, "========== createSingleDataFile#createSingleDataFile : entry-point ==========");
         return createSingleDataFile(version, tempFile, fileName, contentType, 
                 checksumType, false);
     }
@@ -1005,7 +1006,7 @@ public class FileUtil {
     private static DataFile createSingleDataFile(DatasetVersion version, 
             File tempFile, String fileName, String contentType, 
             DataFile.ChecksumType checksumType, boolean addToDataset) {
-        logger.log(Level.INFO, "+++++++++++++++++ createSingleDataFile \"+++++++++++++++++");
+        logger.log(Level.INFO, "========== createSingleDataFile#FileUtil: start ==========");
         boolean isEmptyFile = false;
         if (tempFile == null) {
             logger.log(Level.WARNING, "tempFile is null");
@@ -1079,6 +1080,7 @@ public class FileUtil {
             logger.warning("Could not calculate " + checksumType + " signature for the new file " + fileName);
         }
         logger.log(Level.INFO, "createSingleDataFile: setup of datafile finished");
+        logger.log(Level.INFO, "========== createSingleDataFile#FileUtil: end ==========");
         return datafile;
     }
 
