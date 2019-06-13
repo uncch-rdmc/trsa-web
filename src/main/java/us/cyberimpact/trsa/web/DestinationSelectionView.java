@@ -113,8 +113,9 @@ public class DestinationSelectionView implements Serializable {
         // the dataset is extracted from a doi, it must not be empty
         if (StringUtils.isEmpty(selectedHostInfo.getDatasetDoi())){
             addMessageEmptyHostInfo();
+            logger.log(Level.INFO, "doi is empty: dataset Id cannot be extracted");
             logger.log(Level.INFO, "go to host_info editor page");
-            return "/hostinfo/List.xhtml";
+            return "";
         } else {
             selectedDatasetId= getDatasetId(selectedHostInfo.getDatasetDoi());
             logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
@@ -127,8 +128,8 @@ public class DestinationSelectionView implements Serializable {
     
     
     public void addMessageEmptyHostInfo(){
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Dataset's DOI datum is missing", "Add the DOI datum before uploading Metadata.");
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Dataset's DOI is missing", "Add the DOI to the host info before uploading Metadata.");
+        FacesContext.getCurrentInstance().addMessage("topMessage", message);
     }
     
     
