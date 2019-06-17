@@ -1,0 +1,81 @@
+= Notary-Service-enabling Changes to the factory-default Dataverse
+last updated: {docdatetime}
+
+=== Behavioral descriptions: TRSA-vs-Non-TRSA (default), Notary-Service-vs-Non-Notary-Service comparison
+.Note:
+For a TRSA-related Dataset, the Dataset itself is created on their hosting Dataverse before any file-metadata are uploaded by TRSA; therefore, there is no difference in URL between TRSA-related Dataset page and non-TRSA (factory-default) one, i.e.,
+----
+  https://${hosting_dataverse}/dataset.xhtml?persistentId=${doi_value}
+----
+
+
+==== File-Download Button: Its Behavior and URL
+. *Factory-default case*
++
+Clicking a download button *internally* generates Dataverse's data-access-api URL *on the fly* such as:
++
+----
+  fileDownloadUrl= /api/access/datafile/16?format=tab&gbrecs=true
+----
+and makes a redirect request with this URL; because a requested Datafile is locally saved, its contents are read and written back to a requested user's browser with downloading prompt;
++
+NOTE: This URL is not hard-coded/attached to the download button.
+
+. *TRSA case*
++
+--
+.Notes:
+- TRSA does not upload a physical file to its paired Dataverse (Dataset); only metadata are uploaded to the paired Dataset;
+- By specification, if a Dataset hosted by Dataverse is gatekept by its pre-set Notary Service, a download request of its belonging Datafile is firstly transferred to its landing Dataset page hosted by its Notary Service before its ultimate file-download action starts.
+--
+... *Notary-Service gatekeeping case*
++
+Clicking a download button redirects the focus of a user's browser to a pre-set Notary Service's Dataset landing page whose URL would be such as:
++
+----
+  # current
+  https://${Notary-Service-Server}/
+
+  # In the future,
+  https://${Notary-Service-Server}/datasets/${dataset_doi}
+
+  or
+
+  https://${Notary-Service-Server}/datasets/${datafile_doi}
+----
+depending the RESTful API settings of a pre-set Notary Service.
+... *Non-Notary Service case*
++
+Clicking a download button prompts file-download action with the following URL; here a key assumption is that data files ingested by TRSA are stored on a server and their file-directory structure is exposed by a file-server application over https:
++
+----
+  # direct URL case
+  https://${local-file-server}/${resource_path}/${dataset_id}/${datafile_id}
+
+  # In the future, different protocols would be possible such as irods://
+----
+
+==== DB-tables and other settings that generate the above URLs
+Background::
+* DB-tables:
+- `dvobject.storageIdentifier` for Dataset: `file://+DOI-fragment` for both harvested Datasets and non-harvested ones
+- `dvobject.storageIdentifier` for Datafile: 24-character-long string for locally ingested data files; URL for harvested Datafiles based on Dataverse's data-access API
+- `Dataset.havestidentifier`: `NULL` for non-harvested Datasets; DOI-fragment for harvested ones [this column is a indicator that tells harvested ones or not]
+* A JVM option or equivalent table Settings key-value pair can provide a system-wide behavioral switch
+Requirements::
+. When the URL behind a file-download button is generated at the backend, firstly a logical bifurcation (conventional-vs-TRSA) point is necessary to deal with TRSA cases;
+. After the above step, there must be another logical bifurcation point that separates NS-gatekept cases from those not to generate a different URL.
+. The granularity of NS-vs-Non-NS separation would be Datafile-level.
+Solution::
+- Dataverse-side settings:
++
+`Table datafile` (or `table dvobject`) has a new column that stores data that can be used to internally build an ultimate, full URL for TRSA-implicated Datafiles.
+- TRSA-side settings:
++
+When metadata are uploaded to a paired Dataset by TRSA, its payload must include the aforementioned data that can be used to internally build an ultimate, full URL for TRSA-implicated Datafiles.
+
+NOTE: Notary-Service-related data to be uploaded could be minimized if Dataverse-side has a registry (table) of known Notary Service sites.
+
+
+premises::
+. From the view point of TRSA, a TRSA can have only one NS whereas a NS may be paired with multiple TRSAs
