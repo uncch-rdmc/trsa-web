@@ -69,8 +69,8 @@ public class SettingsServiceBean {
         for example: :TabularIngestSizeLimit:RData */
         TabularIngestSizeLimit,
         /* This corresponds to LOCAL_FILES of Dataverse        */
-        TrsaLocalFiles
-        
+        TrsaLocalFiles,
+        NotaryServiceEnabled
         ;
 
         @Override

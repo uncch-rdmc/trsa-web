@@ -4,6 +4,8 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import edu.harvard.iq.dataverse.entities.DataFile;
+import edu.harvard.iq.dataverse.entities.DataFileFacade;
 import edu.harvard.iq.dataverse.util.SystemConfig;
 import edu.unc.odum.dataverse.util.json.JsonFilter;
 import edu.unc.odum.dataverse.util.json.JsonPointerForDataset;
@@ -16,9 +18,12 @@ import java.io.PrintWriter;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -30,6 +35,8 @@ import javax.json.JsonReader;
 import javax.json.JsonValue;
 import javax.json.JsonWriter;
 import javax.ws.rs.WebApplicationException;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
 import us.cyberimpact.trsa.settings.AppConfig;
@@ -80,6 +87,9 @@ public class SubmissionPageView implements Serializable {
     
     @Inject
     private AppConfig appConfig; 
+    
+    @Inject
+    private DataFileFacade dataFileFacade;
     
     
 //    private HostInfo hostInfo; 
@@ -147,9 +157,26 @@ public class SubmissionPageView implements Serializable {
 //        this.targetDataverseId = targetDataverseId;
 //    }
     
+    
+    private boolean notaryServiceBound;
+    
+    public boolean isNotaryServiceBound() {
+        return notaryServiceBound;
+    }
+ 
+    public void setNotaryServiceBound(boolean nsBound) {
+        this.notaryServiceBound = nsBound;
+    }
+    
+    private boolean notaryServiceEnabled=false;
+    
+    
+    
+    
+    
     @PostConstruct
     public void init() {
-        logger.log(Level.INFO, "SubmissionPageView#init() starts here");
+        logger.log(Level.INFO, "========== SubmissionPageView#init() start ==========");
         selectedRequestType=homePageView.getSelectedRequestType();
         selectedHostInfo =  destSelectionView.getSelectedHostInfo();
         logger.log(Level.INFO, "#init: selectedRequestType={0}", selectedRequestType);
@@ -163,7 +190,7 @@ public class SubmissionPageView implements Serializable {
         } else {
             logger.log(Level.INFO, "SubmissionPageView#init(): selectedHostInfo={0}", selectedHostInfo);
             
-            publishButtonEnabled=true;
+            //publishButtonEnabled=true;
             logger.log(Level.INFO, "SubmissionPageView#publishButtonEnabled={0}", publishButtonEnabled);
             
         }
@@ -197,7 +224,7 @@ public class SubmissionPageView implements Serializable {
                 logger.log(Level.INFO, "METADATA_ONLY case");
                 // localDatasetID must be saved
                 localDatasetIdentifier = fileUploadView.getDatasetIdentifier();
-                logger.log(Level.INFO, "IngestPageView:init():localDatasetIdentifier passed={0}", localDatasetIdentifier);
+                logger.log(Level.INFO, "SubmissionPageView:init():localDatasetIdentifier passed={0}", localDatasetIdentifier);
                 // DatasetId is required
                 selectedDatasetId =  Long.toString(selectedHostInfo.getDatasetid());
                 logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
@@ -215,7 +242,30 @@ public class SubmissionPageView implements Serializable {
         trsaFilesPath= appConfig.getTrsaFilesPath();
         logger.log(Level.INFO, "appConfig.getTrsaFilesPath={0}", trsaFilesPath);
         
+        if (appConfig.isNotaryServiceEnabled()){
+            notaryServiceEnabled=true;
+        }
+        notaryServiceBound=notaryServiceEnabled;
+        logger.log(Level.INFO, "notaryServiceBound={0}", notaryServiceBound);
         
+        
+//        fileIdList= fileUploadView.getFileIdList();
+//        logger.log(Level.INFO, "fileIdList={0}", fileIdList);
+//        if (fileIdList.isEmpty()){
+//            logger.log(Level.WARNING, "datafile id is missing");
+//        } else {
+//            logger.log(Level.INFO, "the number of datafiles to be uploaded is {0}", fileIdList.size());
+//        }
+        
+        ingestedDataFileList = fileUploadView.getIngestedDataFileList();
+        if (ingestedDataFileList.isEmpty()){
+            logger.log(Level.WARNING, "datafile is empty");
+        } else {
+            logger.log(Level.INFO, "the number of datafiles to be uploaded is {0}", ingestedDataFileList.size());
+        }
+        
+        
+        logger.log(Level.INFO, "========== SubmissionPageView#init() end ==========");
     }
     
     
@@ -415,6 +465,7 @@ public class SubmissionPageView implements Serializable {
     
     // METADATA_ONLY
     void uploadMetadataOnly(){
+        logger.log(Level.INFO, "========== SubmissionPageView#uploadMetadataOnly: start ==========");
         logger.log(Level.INFO, "uploadMetadataOnly case");
         String fileLocation = trsaFilesPath
                 + localDatasetIdentifier
@@ -470,8 +521,8 @@ public class SubmissionPageView implements Serializable {
         String apiEndpoint = dataverseServer + "/api/datasets/" + selectedDatasetId
                 + "/" + WebAppConstants.PATH_ADD_METADATA;
         logger.log(Level.INFO, "apiEndpoint={0}", apiEndpoint);
-
-
+        
+        
         HttpResponse<JsonNode> jsonResponse=null;
         try {
             jsonResponse = Unirest.post(apiEndpoint)
@@ -488,6 +539,7 @@ public class SubmissionPageView implements Serializable {
         publishButtonEnabled=false;
 
         //clearSession();
+        logger.log(Level.INFO, "========== SubmissionPageView#uploadMetadataOnly: end ==========");
     }
     
     private void clearSession(){
@@ -565,7 +617,63 @@ public class SubmissionPageView implements Serializable {
         this.datasetDoiUrl = datasetDoiUrl;
     }
     
+    public void addMessage() {
+        String summary = notaryServiceBound ? "Checked" : "Unchecked";
+        FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(summary));
+    }
     
+    
+    private List<Long> fileIdList= new ArrayList<>();
+
+    public List<Long> getFileIdList() {
+        return fileIdList;
+    }
+
+    public void setFileIdList(List<Long> fileIdList) {
+        this.fileIdList = fileIdList;
+    }
+    
+    private List<DataFile> ingestedDataFileList = new ArrayList<>();
+
+    public List<DataFile> getIngestedDataFileList() {
+        return ingestedDataFileList;
+    }
+
+    public void setIngestedDataFileList(List<DataFile> ingestedDataFileList) {
+        this.ingestedDataFileList = ingestedDataFileList;
+    }
+    
+    public void saveNSchanges(){
+        for (DataFile dataFile: ingestedDataFileList){
+            logger.log(Level.INFO, "id:{0}:isNotaryServiceBound={1}", 
+                    new Object[]{dataFile.getId(), dataFile.isNotaryServiceBound()});
+            dataFileFacade.edit(dataFile);
+        }
+        publishButtonEnabled=true;
+    }
+    
+    
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+        
+        if(newValue != null && !newValue.equals(oldValue)) {
+            
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
+                    "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage("messages", msg);
+        }
+    }
+    
+    public void onRowEdit(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("DataFile Edited", ((DataFile) event.getObject()).getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((DataFile) event.getObject()).getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
     
     
 }

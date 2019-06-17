@@ -47,6 +47,7 @@ import java.nio.file.StandardCopyOption;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -152,6 +153,18 @@ public class IngestService {
     public static final String[] summaryStatisticTypes = {"mean", "medn", "mode", "vald", "invd", "min", "max", "stdev"};
 
     List<DataFile> initialFileList;
+    
+    private List<Long> fileIdList= new ArrayList<>();
+
+    public List<Long> getFileIdList() {
+        return fileIdList;
+    }
+
+    public void setFileIdList(List<Long> fileIdList) {
+        this.fileIdList = fileIdList;
+    }
+    
+    
 
     static SystemConfig systemConfig = new SystemConfig();
 /*
@@ -187,7 +200,7 @@ public class IngestService {
                 .generate(digits);
     }
 
-    public void run(String filename, String contentType, String datasetIdentifier) 
+    public  List<DataFile> run(String filename, String contentType, String datasetIdentifier) 
             throws FileNotFoundException, IOException, XMLStreamException, ExportException {
 
         // setup an InputStream instance from the 1st argument as a local file name
@@ -461,6 +474,9 @@ public class IngestService {
             logger.log(Level.INFO, "+++++++++++++++++ parsing block starts here +++++++++++++++++");
             for (DataFile dataFile : initialFileList) {
                 logger.log(Level.INFO, "each parsing iteration starts here");
+                logger.log(Level.INFO, "working on file whose id ={0}", dataFile.getId());
+                fileIdList.add(dataFile.getId());
+                
                 String fileName = dataFile.getFileMetadata().getLabel();
                 logger.log(Level.INFO, "parsing the file={0}", fileName);
                 if (dataFile.isIngestScheduled()) {
@@ -693,11 +709,11 @@ public class IngestService {
         logger.log(Level.INFO, "closing entity manager factory and exiting the application");
 //        emf.close();
 
-        logger.log(Level.FINE, "\n\nafter em: dataset={0}", xstream.toXML(dataset));
+//        logger.log(Level.FINE, "\n\nafter em: dataset={0}", xstream.toXML(dataset));
         
         
         
-
+        logger.log(Level.INFO, "fileIdList:final={0}", fileIdList);
         
         
         
@@ -714,7 +730,7 @@ public class IngestService {
         //DatasetVersion releasedVersion = dataset.getReleasedVersion();
         
         //exportDataset(version);
-
+        return initialFileList;
     }
     
 //  private boolean constraintValidationsDetected(T entity) {

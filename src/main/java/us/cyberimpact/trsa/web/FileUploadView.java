@@ -1,5 +1,6 @@
 package us.cyberimpact.trsa.web;
 
+import edu.harvard.iq.dataverse.entities.DataFile;
 import us.cyberimpact.trsa.entities.TrsaProfileFacade;
 import edu.harvard.iq.dataverse.entities.DatasetVersion;
 import edu.harvard.iq.dataverse.entities.DatasetVersionFacade;
@@ -255,8 +256,12 @@ public class FileUploadView implements Serializable {
         logger.log(Level.INFO, "contentType={0}", mimeType);
         try {
 
-            ingestService.run(fileName, mimeType, datasetIdentifier);
-
+            ingestedDataFileList = ingestService.run(fileName, mimeType, datasetIdentifier);
+            logger.log(Level.INFO, "datafileId={0}", ingestedDataFileList.get(0).getId());
+            for (DataFile datafile: ingestedDataFileList){
+                fileIdList.add(datafile.getId());
+            }
+            logger.log(Level.INFO, "fileIdList={0}", fileIdList);
             logger.log(Level.INFO, "dumping metadata files");
             
             
@@ -393,4 +398,26 @@ public class FileUploadView implements Serializable {
     boolean isTrsaProfileReady = false;
     
 
+    private List<Long> fileIdList= new ArrayList<>();
+
+    public List<Long> getFileIdList() {
+        return fileIdList;
+    }
+
+    public void setFileIdList(List<Long> fileIdList) {
+        this.fileIdList = fileIdList;
+    }
+    
+    private List<DataFile> ingestedDataFileList = new ArrayList<>();
+
+    public List<DataFile> getIngestedDataFileList() {
+        return ingestedDataFileList;
+    }
+
+    public void setIngestedDataFileList(List<DataFile> ingestedDataFileList) {
+        this.ingestedDataFileList = ingestedDataFileList;
+    }
+    
+    
+    
 }

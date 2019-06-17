@@ -172,6 +172,13 @@ public class AppConfig {
         return trsaFilesPath;
     }
     
-    
+    public boolean isNotaryServiceEnabled() {
+        String notaryServiceEnabled = settingsSvc.getValueForKey(
+                SettingsServiceBean.Key.NotaryServiceEnabled, null);
+        if("true".equalsIgnoreCase(notaryServiceEnabled)){         
+            return true;
+        }
+        return false;
+    }
     
 }
