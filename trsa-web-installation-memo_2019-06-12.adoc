@@ -1,0 +1,26 @@
+Don,
+I have submitted the latest code set of TRSA-WEB 2.0; To make this version work under our test environment, we need the following extra setup steps because this version assumes the location of locally ingested files is set by a config file whose name is trsa.config (tab-delimited key-value pairs) and the key for the location value is given by a new JVM option as follows: 
+
+step 0: decide the root directory of locally ingested files by TRSA-WEB: because these files/directories are owned by user glassfish, my suggestion is as follows:
+
+    /home/glassfish/trsa/files
+
+Any directory where glassfish can read/write is OK, though.
+
+step 1: add the following two new jvm options[second one's value must be the same as the directory chosen in step 0]: 
+
+    -Dtrsa.configfile.directory=${com.sun.aas.installRoot}/domains/domain1/config
+    -Dtrsa.files.directory=/home/glassfish/trsa/files 
+
+step 2: copy trsa.config from the root directory of the source-tree of trsa-web-2.0 to the following directory and readable for glassfish:
+
+    /usr/local/payara5/glassfish/domains/domain1/config
+
+step 3: edit this trsa.config file with your text editor and modify the value of the following factory-default line, 
+    :TrsaLocalFiles	/home/trsa/files
+
+to the one chosen in the above step 0, for example, 
+
+    :TrsaLocalFiles	/home/glassfish/trsa/files
+
+
