@@ -267,10 +267,9 @@ public class FileUploadView implements Serializable {
             
             List<DatasetVersion> versions = datasetVersionFcd.findAll();
             if (versions != null && !versions.isEmpty()) {
-                
-                logger.log(Level.INFO, "versions.get(0)={0}", versions.get(0));
-                logger.log(Level.INFO, "versions.get(n)={0}", versions.get(versions.size()-1));
-                ingestService.exportDataset(versions.get(versions.size()-1));
+                logger.log(Level.INFO, "how many dataset versions={0}", versions.size());
+                exportedDatasetVerion= versions.get(versions.size()-1);
+                ingestService.exportDataset(exportedDatasetVerion);
             } else {
                 logger.log(Level.INFO, "DatasetVersion is null/empty");
             }
@@ -418,6 +417,16 @@ public class FileUploadView implements Serializable {
         this.ingestedDataFileList = ingestedDataFileList;
     }
     
+    
+    private DatasetVersion exportedDatasetVerion;
+
+    public DatasetVersion getExportedDatasetVerion() {
+        return exportedDatasetVerion;
+    }
+
+    public void setExportedDatasetVerion(DatasetVersion exportedDatasetVerion) {
+        this.exportedDatasetVerion = exportedDatasetVerion;
+    }
     
     
 }

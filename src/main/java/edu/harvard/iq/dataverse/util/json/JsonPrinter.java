@@ -275,6 +275,7 @@ public class JsonPrinter {
                 .add("description",         df.getDescription())                // not json
                 //.add("released", df.isReleased())
                 .add("restricted", df.isRestricted())
+                .add("notaryServiceBound", df.isNotaryServiceBound())           // 2019-06
                 .add("storageIdentifier",   df.getStorageIdentifier())          // json only
                 .add("originalFileFormat",  df.getOriginalFileFormat())         // json only
                 .add("originalFormatLabel", df.getOriginalFormatLabel())        // json only

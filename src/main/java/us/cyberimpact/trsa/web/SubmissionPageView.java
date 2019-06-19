@@ -6,6 +6,9 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.harvard.iq.dataverse.entities.DataFile;
 import edu.harvard.iq.dataverse.entities.DataFileFacade;
+import edu.harvard.iq.dataverse.entities.DatasetVersion;
+import edu.harvard.iq.dataverse.entities.DatasetVersionFacade;
+import edu.harvard.iq.dataverse.ingest.IngestService;
 import edu.harvard.iq.dataverse.util.SystemConfig;
 import edu.unc.odum.dataverse.util.json.JsonFilter;
 import edu.unc.odum.dataverse.util.json.JsonPointerForDataset;
@@ -92,6 +95,11 @@ public class SubmissionPageView implements Serializable {
     private DataFileFacade dataFileFacade;
     
     
+    @Inject
+    DatasetVersionFacade datasetVersionFcd;
+    
+    @Inject
+    IngestService ingestService;
 //    private HostInfo hostInfo; 
 //
 //    public HostInfo getHostInfo() {
@@ -644,12 +652,40 @@ public class SubmissionPageView implements Serializable {
     }
     
     public void saveNSchanges(){
+        int modifiedCounter = 0;
         for (DataFile dataFile: ingestedDataFileList){
+            if (dataFile.isNotaryServiceBound()){
+                modifiedCounter++;
+            }
             logger.log(Level.INFO, "id:{0}:isNotaryServiceBound={1}", 
                     new Object[]{dataFile.getId(), dataFile.isNotaryServiceBound()});
             dataFileFacade.edit(dataFile);
         }
+        logger.log(Level.INFO, "how many DataFiles were updated={0}", modifiedCounter);
+        if (modifiedCounter >0){
+            logger.log(Level.INFO, "re-exporting metadata files are necessary");
+            reExportMetadataFiles();
+        } else {
+            logger.log(Level.INFO, "re-exporting metadata files are NOT necessary");
+        }
+        
         publishButtonEnabled=true;
+    }
+    
+    
+    public void reExportMetadataFiles (){
+        logger.log(Level.INFO, "========== SubmissionPageView#reExportMetadataFiles: start ==========");
+            List<DatasetVersion> versions = datasetVersionFcd.findAll();
+            if (versions != null && !versions.isEmpty()) {
+                logger.log(Level.INFO, "how many dataset versions={0}", versions.size());
+                DatasetVersion latestDatasetVerion= versions.get(versions.size()-1);
+                ingestService.exportDataset(latestDatasetVerion);
+            } else {
+                logger.log(Level.WARNING, "DatasetVersion is null/empty");
+            }
+            
+        
+        logger.log(Level.INFO, "========== SubmissionPageView#reExportMetadataFiles: end ==========");
     }
     
     
