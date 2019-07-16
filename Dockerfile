@@ -15,6 +15,7 @@ ARG PAYARA_PKG=https://s3-eu-west-1.amazonaws.com/payara.fish/Payara+Downloads/$
 ARG PAYARA_SHA1=55d2f40559a4e9a9baa93756213be1488f203f84
 ARG TINI_VERSION=v0.18.0
 ARG TRSA_VERSION=2.0
+ARG FILES_DIR=/home/trsa/files
 
 # odum: avoid gpg errors
 RUN apt install -y dirmngr gnupg gpgv
@@ -22,6 +23,9 @@ RUN apt install -y dirmngr gnupg gpgv
 # odum: trsa prototype uses h2
 COPY install_h2.sh /install_h2.sh
 RUN /install_h2.sh
+
+# odum: stage jhove additions
+COPY jhove* /tmp/
 
 # odum: just use domain1 for prototype
 # Initialize the configurable environment variables
@@ -78,9 +82,16 @@ RUN wget --no-verbose -O payara.zip ${PAYARA_PKG} && \
     ${PAYARA_DIR}/bin/asadmin --user ${ADMIN_USER} --passwordfile=/tmp/tmpfile change-admin-password --domain_name=${DOMAIN_NAME} && \
     ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} start-domain ${DOMAIN_NAME} && \
     ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} enable-secure-admin && \
+
+    # odum: add jhove confs
+    cp /tmp/jhove* ${PAYARA_DIR}/glassfish/domains/domain1/config/ && \
+    # odum: config settings
+    ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jvm-options '-Dtrsa.configfile.directory=${com.sun.aas.installRoot}/domains/domain1/config' && \
+    ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jvm-options '-Dtrsa.files.directory=${FILES_DIR}' && \
     # odum: configure h2 jdbc resource/connection pool
     ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jdbc-connection-pool --datasourceclassname org.h2.jdbcx.JdbcDataSource --restype javax.sql.DataSource --property user=impactUser:password=1mq\@xt6z31:url="jdbc\:h2\:tcp\://localhost/~/trsa" H2impactPool && \
     ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jdbc-resource --connectionpoolid H2impactPool jdbc/trsa && \
+
     for MEMORY_JVM_OPTION in $(${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} list-jvm-options | grep "Xm[sx]"); do\
         ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} delete-jvm-options $MEMORY_JVM_OPTION;\
     done && \
