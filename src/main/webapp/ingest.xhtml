@@ -56,6 +56,13 @@
                         <f:facet name="footer">
 
 
+                            <p:commandButton id="createDSButton" 
+                                             ajax="true" 
+                                             update="messages status dataverseButton publishButton" 
+                                             value="create an empty dataset" 
+                                             disabled="#{!ingestPageView.emptyDatasetCreation}"
+                                             actionListener="#{ingestPageView.publishFacade()}" />
+                            
                             <p:commandButton id="publishButton" 
                                              ajax="true" 
                                              update="messages status dataverseButton publishButton" 

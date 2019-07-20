@@ -47,12 +47,14 @@ import java.nio.file.StandardCopyOption;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Named;
@@ -75,6 +77,8 @@ import static org.apache.commons.text.CharacterPredicates.ASCII_UPPERCASE_LETTER
 import org.apache.commons.text.RandomStringGenerator;
 import org.dataverse.unf.UNFUtil;
 import org.dataverse.unf.UnfException;
+import us.cyberimpact.trsa.settings.AppConfig;
+import us.cyberimpact.trsa.settings.SettingsServiceBean;
 import us.cyberimpact.trsa.web.jsf.util.JsfUtil;
 
 /**
@@ -89,26 +93,81 @@ public class IngestService {
 
     @PersistenceContext(unitName = "trsa-WebPU")
     private EntityManager em;
-    
+    @EJB
+    protected SettingsServiceBean settingsSvc;
     
     @EJB
     DatasetFacade datasetFacade;
     
     static XStream xstream = new XStream(new JsonHierarchicalStreamDriver());
+    
+    // The following contants are to be replaced with those from Settings Table
     private static String FilesRootDirectory = "/tmp/files";
-    private static String FilesTempDirectory=FilesRootDirectory+"/temp";
+    // private static String FilesRootDirectory = "/tmp/files";
+    
+    
+    private static String FilesTempDirectory= "";//FilesRootDirectory+"/temp";
     private static String defaultAuthority ="10.5072/FK2";
     private static String defaultProtocol ="doi";
+    
+    //
     private static String defaultDoiSeparator="/";
+    
+    
+    
     private static String dateTimeFormat_ymdhmsS = "yyyy-MM-dd HH:mm:ss.SSS";
     private static String dateFormat_ymd = "yyyy-MM-dd";
+    
+    @PostConstruct
+    public void init() {
+        logger.log(Level.INFO, "========== IngestService#init() start ==========");
+        // remove the attached forward slash 
+        String shoulder = settingsSvc.getValueForKey(SettingsServiceBean.Key.Shoulder).replace("/", "");
+        logger.log(Level.INFO, "shoulder={0}", shoulder);
+        String authority = settingsSvc.getValueForKey(SettingsServiceBean.Key.Authority);
+        logger.log(Level.INFO, "authority={0}", authority);
+        String protocol = settingsSvc.getValueForKey(SettingsServiceBean.Key.Protocol);
+        logger.log(Level.INFO, "protocol={0}", protocol);
+        String doiBase = authority + "/"+shoulder;
+        logger.log(Level.INFO, "doiBase={0}", doiBase);
+        String filesRootDir = settingsSvc.getValueForKey(SettingsServiceBean.Key.TrsaLocalFiles);
+        
+        // update the defaults
+        
+        defaultProtocol = protocol;
+        logger.log(Level.INFO, "defaultProtocol={0}", defaultProtocol);
+        
+        defaultAuthority = authority +"/"+shoulder;
+        
+        logger.log(Level.INFO, "defaultAuthority={0}", defaultAuthority);
+        
+        FilesRootDirectory=filesRootDir;
+        logger.log(Level.INFO, "filesRootDir={0}", filesRootDir);
+        
+        FilesTempDirectory=FilesRootDirectory+"/temp";
+        logger.log(Level.INFO, "FilesTempDirectory={0}", FilesTempDirectory);
+        logger.log(Level.INFO, "========== IngestService#init() end ==========");
+    }
+    
     // moved from VariableServiceBean 
     public static final String[] summaryStatisticTypes = {"mean", "medn", "mode", "vald", "invd", "min", "max", "stdev"};
 
     List<DataFile> initialFileList;
+    
+    private List<Long> fileIdList= new ArrayList<>();
+
+    public List<Long> getFileIdList() {
+        return fileIdList;
+    }
+
+    public void setFileIdList(List<Long> fileIdList) {
+        this.fileIdList = fileIdList;
+    }
+    
+    
 
     static SystemConfig systemConfig = new SystemConfig();
-
+/*
     public static void main(String[] args) throws FileNotFoundException, IOException, XMLStreamException, ExportException {
         String datasetIdentifier = null;
         String filename = args[0];
@@ -128,6 +187,8 @@ public class IngestService {
         IngestService ingestService = new IngestService();
         ingestService.run(filename, contentType, datasetIdentifier);
     }
+*/
+    
     
     public static String generateTempDatasetIdentifier(int digits) {
         // taken from CreateDatasetCommand#execute()
@@ -139,7 +200,7 @@ public class IngestService {
                 .generate(digits);
     }
 
-    public void run(String filename, String contentType, String datasetIdentifier) 
+    public  List<DataFile> run(String filename, String contentType, String datasetIdentifier) 
             throws FileNotFoundException, IOException, XMLStreamException, ExportException {
 
         // setup an InputStream instance from the 1st argument as a local file name
@@ -413,6 +474,9 @@ public class IngestService {
             logger.log(Level.INFO, "+++++++++++++++++ parsing block starts here +++++++++++++++++");
             for (DataFile dataFile : initialFileList) {
                 logger.log(Level.INFO, "each parsing iteration starts here");
+                logger.log(Level.INFO, "working on file whose id ={0}", dataFile.getId());
+                fileIdList.add(dataFile.getId());
+                
                 String fileName = dataFile.getFileMetadata().getLabel();
                 logger.log(Level.INFO, "parsing the file={0}", fileName);
                 if (dataFile.isIngestScheduled()) {
@@ -645,11 +709,11 @@ public class IngestService {
         logger.log(Level.INFO, "closing entity manager factory and exiting the application");
 //        emf.close();
 
-        logger.log(Level.FINE, "\n\nafter em: dataset={0}", xstream.toXML(dataset));
+//        logger.log(Level.FINE, "\n\nafter em: dataset={0}", xstream.toXML(dataset));
         
         
         
-
+        logger.log(Level.INFO, "fileIdList:final={0}", fileIdList);
         
         
         
@@ -666,7 +730,7 @@ public class IngestService {
         //DatasetVersion releasedVersion = dataset.getReleasedVersion();
         
         //exportDataset(version);
-
+        return initialFileList;
     }
     
 //  private boolean constraintValidationsDetected(T entity) {

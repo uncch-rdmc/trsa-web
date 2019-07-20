@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <body>
+
+        <ui:composition template="/template/layout.xhtml">
+
+            <ui:define name="content">
+
+
+                <style type="text/css">
+                    .ui-row-editor .ui-row-editor-pencil {
+                        margin-left:8px;
+                    }
+                </style>
+
+                <h:form id="form">
+
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+
+                    <h3 style="margin:5px 5px 30px 5px">Submission</h3>
+
+
+                    <p:panelGrid id="nsPanel" columns="1"  >
+                        <f:facet name="header">
+                            Notary Service Designation
+                        </f:facet>                    
+
+
+
+                        <p:dataTable id="nsSelect" 
+                                     editable="true" 
+                                     editMode="row"
+                                     var="dataFile"
+                                     value="#{submissionPageView.ingestedDataFileList}" 
+                                     cellEditMode="eager" 
+                                     style="margin-bottom:20px">
+                            <f:facet name="header">
+                                Set Notary Service Bound or not for Each Ingested File
+                            </f:facet>
+
+                            <p:ajax event="rowEdit" 
+                                    listener="#{submissionPageView.onRowEdit}" 
+                                    update=":form:messages" />
+                            <p:ajax event="rowEditCancel" 
+                                    listener="#{submissionPageView.onRowCancel}" 
+                                    update=":form:messages" />
+
+                            <p:column headerText="DataFile Id">
+                                <h:outputText value="#{dataFile.id}" />
+                            </p:column>
+                            
+                            <p:column headerText="DataFile Label">
+                                <h:outputText value="#{dataFile.fileMetadata.label}" />
+                            </p:column>
+
+                            <p:column headerText="Notary Service">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <p:selectBooleanButton 
+                                            onLabel="Yes" 
+                                            offLabel="No" 
+                                            value="#{dataFile.notaryServiceBound}" 
+                                            onIcon="ui-icon-check" 
+                                            offIcon="ui-icon-close"/>
+                                    </f:facet>
+                                    <f:facet name="input" id="nsvalue">
+                                        <p:selectBooleanButton 
+                                            onLabel="Yes" 
+                                            offLabel="No" 
+                                            value="#{dataFile.notaryServiceBound}" 
+                                            onIcon="ui-icon-check" 
+                                            offIcon="ui-icon-close" />
+                                    </f:facet>
+                                </p:cellEditor>
+
+                            </p:column>
+                            <p:column style="width:35px">
+                                <p:rowEditor 
+                                    editTitle="Modify default designation" 
+                                    saveTitle="Save change" 
+                                    cancelTitle='Cancel'/>
+                            </p:column>
+
+                        </p:dataTable>
+
+
+                        <f:facet name="footer">
+                            <p:commandButton id="saveNSBoundupdate" 
+                                             ajax="true" 
+                                             update="messages publishButton" 
+                                             value="save Notary Service designation" 
+                                             action="#{submissionPageView.saveNSchanges}" />
+                        </f:facet>
+                    </p:panelGrid>
+
+<br/>
+
+
+                    <p:panelGrid columns="3"  
+                                 >            
+                        <f:facet name="header">
+                            Submission: Summary
+                        </f:facet>
+
+                        <h:outputLabel for="dataverseServer"  value="selected Dataverse server:" /> 
+                        <h:outputText id="dataverseServer" value="#{submissionPageView.dataverseServer}" />
+                        <h:outputText value="" /> 
+
+                        <h:outputLabel for="apiKey" value="api key:" /> 
+                        <h:outputText id="apiKey" value="#{submissionPageView.apiKey}" /> 
+                        <h:outputText value="" /> 
+
+
+                        <h:outputLabel for="dataverseId" value="Selected Dataverse Id:" /> 
+                        <h:outputText id="dataverseId" value="#{submissionPageView.selectedDataverseId}" /> 
+                        <h:outputText value="note: integer" /> 
+
+                        <h:outputLabel for="targetDatasetId" value="Selected Dataset Id:" /> 
+                        <h:outputText id="targetDatasetId" value="#{submissionPageView.selectedDatasetId}" /> 
+                        <h:outputText value="note: integer" />
+
+                        <h:outputLabel for="zipfileName" value="Ingested file:" /> 
+                        <h:outputText id="zipfileName" value="#{submissionPageView.ingestedFile}" /> 
+                        <h:outputText value="note: ingested file" /> 
+
+
+
+                        <h:outputLabel for="localDatasetId" value="Payload Dataset Id" />
+                        <h:outputText id="localDatasetId" value="#{submissionPageView.localDatasetIdentifier}" /> 
+                        <h:outputText value="note: locally generated" /> 
+
+
+                        <h:outputLabel for="remoteDatasetId" value="assigned Dataset Id:" /> 
+                        <h:outputText id="remoteDatasetId" value="#{submissionPageView.assignedDatasetId}" /> 
+                        <h:outputText value="note: integer" />
+
+                        <h:outputLabel for="DatasetDoi" value="Returned Dataset DOI" />
+                        <h:outputText id="DatasetDoi" value="#{submissionPageView.returnedDatasetDoi}" /> 
+                        <h:outputText value="note: assigned by Dataverse" /> 
+
+                        <h:outputLabel for="datasetDoiUrlLink" value="Returned Dataset DOI" />
+
+                        <p:link id="datasetDoiUrlLink" 
+                                href="#{submissionPageView.datasetDoiUrl}" 
+                                value="#{submissionPageView.returnedDatasetDoi}"/>
+                        <h:outputText value="note: DOI-link to the Dataset" /> 
+
+
+
+                        <f:facet name="footer">
+                            <p:commandButton id="createDSButton" 
+                                             ajax="true" 
+                                             update="messages dataverseButton publishButton" 
+                                             value="create an empty dataset" 
+                                             disabled="#{!submissionPageView.emptyDatasetCreation}"
+                                             actionListener="#{submissionPageView.submissionFacade()}" />
+
+                            <p:commandButton id="publishButton" 
+                                             ajax="true" 
+                                             update="messages dataverseButton publishButton DatasetDoi remoteDatasetId datasetDoiUrlLink" 
+                                             value="publish this dataset" 
+                                             disabled="#{!submissionPageView.publishButtonEnabled}"
+                                             actionListener="#{submissionPageView.submissionFacade()}" />
+
+                            <p:commandButton id="dataverseButton"
+                                             ajax="true" update="messages" 
+                                             value="Go to Dataverse site" 
+                                             disabled="#{!submissionPageView.gotoDataverseButtonEnabled}"
+                                             actionListener="#{submissionPageView.goToDataverseSite}" />
+
+                            <p:commandButton id="returnToMainMenuButton"
+                                             ajax="true" update="messages" 
+                                             value="Return to the Main Menu" 
+                                             action="/index.xhtml?faces-redirect=true"
+                                             />
+
+                        </f:facet>
+                    </p:panelGrid>
+
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

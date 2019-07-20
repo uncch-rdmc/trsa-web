@@ -12,13 +12,15 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+
 
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+import org.apache.commons.lang3.StringUtils;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import us.cyberimpact.trsa.entities.HostInfo;
@@ -28,7 +30,7 @@ import us.cyberimpact.trsa.entities.HostInfoFacade;
  *
  * @author asone
  */
-@ManagedBean(name = "destinationSelectionView")
+@Named("destinationSelectionView")
 @SessionScoped
 public class DestinationSelectionView implements Serializable {
 
@@ -38,14 +40,13 @@ public class DestinationSelectionView implements Serializable {
      */
     public DestinationSelectionView() {
     }
-    @EJB
+    @Inject
     HostInfoFacade hostInfoFacade;
     
     List<HostInfo> hostInfoTable = new ArrayList<>();
     
     
-    
-    @ManagedProperty("#{homePageView}")
+    @Inject
     private HomePageView homePageView;
     
     public boolean isMetadataOnly() {
@@ -60,21 +61,29 @@ public class DestinationSelectionView implements Serializable {
         this.homePageView = homePageView;
     }
     
-    
+    private String selectedDatasetId;
+
+    public String getSelectedDatasetId() {
+        return selectedDatasetId;
+    }
+
+    public void setSelectedDatasetId(String selectedDatasetId) {
+        this.selectedDatasetId = selectedDatasetId;
+    }
     
     @PostConstruct
     public void init() {
-        
+        logger.log(Level.INFO, "=========== DestinationSelectionView#init: start ===========");
         hostInfoTable = hostInfoFacade.findAll();
-        logger.log(Level.INFO, "FileUploadView:hostInfoTable:howMany={0}", hostInfoTable.size());
+        logger.log(Level.INFO, "DestinationSelectionView:hostInfoTable:howMany={0}", hostInfoTable.size());
         if (hostInfoTable.isEmpty()){
-            logger.log(Level.INFO, "hostInfoTable is empty");
+            logger.log(Level.WARNING, "hostInfoTable is empty");
         } else {
-            logger.log(Level.INFO, "FileUploadView:hostInfoTable exists and not empty");
+            logger.log(Level.INFO, "DestinationSelectionView:hostInfoTable exists and not empty");
             selectedHostInfo=hostInfoTable.get(hostInfoTable.size()-1);
             logger.log(Level.INFO, "init:selectedHostInfo={0}", selectedHostInfo);
         }
-        
+        logger.log(Level.INFO, "=========== DestinationSelectionView#init: end ===========");
     }
 
     public List<HostInfo> getHostInfoTable() {
@@ -96,13 +105,33 @@ public class DestinationSelectionView implements Serializable {
     }
     
     public String selectDestination(HostInfo hostInfo){
+        logger.log(Level.INFO, "=========== DestinationSelectionView#selectDestination: start ===========");
         logger.log(Level.INFO, "selectDestination: selectedHostInfo={0}", selectedHostInfo);
         logger.log(Level.INFO, "selectedHostInfo={0}", hostInfo);
 
-        logger.log(Level.INFO, "datasetId={0}", selectedHostInfo.getDatasetid());
-        logger.log(Level.INFO, "go to publish page");
-        return "/ingest.xhtml";
+        logger.log(Level.INFO, "selected datasetId={0}", selectedHostInfo.getDatasetid());
+        // the dataset is extracted from a doi, it must not be empty
+        if (StringUtils.isEmpty(selectedHostInfo.getDatasetDoi())){
+            addMessageEmptyHostInfo();
+            logger.log(Level.INFO, "doi is empty: dataset Id cannot be extracted");
+            logger.log(Level.INFO, "go to host_info editor page");
+            return "";
+        } else {
+            selectedDatasetId= getDatasetId(selectedHostInfo.getDatasetDoi());
+            logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
+            logger.log(Level.INFO, "go to fileupload page");
+        }
+        logger.log(Level.INFO, "=========== DestinationSelectionView#selectDestination: end ===========");
+        return "/fileupload.xhtml";
     }
+    
+    
+    
+    public void addMessageEmptyHostInfo(){
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Dataset's DOI is missing", "Add the DOI to the host info before uploading Metadata.");
+        FacesContext.getCurrentInstance().addMessage("topMessage", message);
+    }
+    
     
     public void onRowSelect(SelectEvent event) {
         FacesMessage msg = new FacesMessage("host Selected", ((HostInfo) event.getObject()).getDataversetitle());
@@ -114,7 +143,13 @@ public class DestinationSelectionView implements Serializable {
         FacesMessage msg = new FacesMessage("host Unselected", ((HostInfo) event.getObject()).getDataversetitle());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         logger.log(Level.INFO, "onRowUnselect:selectedHostInfo={0}", selectedHostInfo);
-    }  
+    }
+    
+    
+    private String getDatasetId(String doi){
+        // doi is given by such as doi:10.33563/FK2/NRIISK
+        return doi.split("/")[2];
+    }
     
     
 }

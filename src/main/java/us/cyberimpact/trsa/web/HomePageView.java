@@ -13,10 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
 
@@ -24,13 +25,13 @@ import us.cyberimpact.trsa.entities.HostInfoFacade;
  *
  * @author asone
  */
-@ManagedBean(name = "homePageView")
+@Named("homePageView")
 @SessionScoped
 public class HomePageView implements Serializable {
 
     private static final Logger logger = Logger.getLogger(HomePageView.class.getName());
 
-    @EJB
+    @Inject
     private HostInfoFacade hostInfoFacade;
 
     List<HostInfo> hostInfoTable = new ArrayList<>();
@@ -47,7 +48,27 @@ public class HomePageView implements Serializable {
     }
 
 
+    private boolean emptyDatasetCreation = false;
     
+    public boolean isEmptyDatasetCreation(){
+        return emptyDatasetCreation;
+    }
+
+    public void setEmptyDatasetCreation(boolean emptyDatasetCreation) {
+        this.emptyDatasetCreation = emptyDatasetCreation;
+    }
+    
+    
+    
+    private RequestType selectedRequestType;
+
+    public RequestType getSelectedRequestType() {
+        return selectedRequestType;
+    }
+
+    public void setSelectedRequestType(RequestType selectedRequestType) {
+        this.selectedRequestType = selectedRequestType;
+    }
     
     
     
@@ -64,7 +85,7 @@ public class HomePageView implements Serializable {
     
     @PostConstruct
     public void init() {
-        
+        clearSession();
         
         hostInfoTable = hostInfoFacade.findAll();
         logger.log(Level.INFO, "homePageView:hostInfoTable:howManyRows={0}", hostInfoTable.size());
@@ -73,7 +94,7 @@ public class HomePageView implements Serializable {
             logger.log(Level.INFO, "homePageView:hostInfoTable is empty");
             addMessageEmptyHostInfo();
         } else {
-            logger.log(Level.INFO, "homePageView:hostInfoTable exists and not empty");
+            logger.log(Level.FINE, "homePageView:hostInfoTable exists and not empty:{0}", hostInfoTable);
             //addMessageHostInfoAvailable();
         }
         
@@ -95,30 +116,59 @@ public class HomePageView implements Serializable {
     
     // button actions 
     public String gotoTRSAprofilePage(){
-        logger.log(Level.INFO, "got to TRSA Profile page");
+        logger.log(Level.INFO, "HomePageView: got to TRSA Profile page");
         return "/trsaProfile/List.xhtml";
     }
 
     public String gotoUploadMetadataPage(){
-        logger.log(Level.INFO, "got to UploadMetadataPage");
-        return gotoFileUploadPage();
+        logger.log(Level.INFO, "HomePageView: got to UploadMetadataPage");
+        selectedRequestType=RequestType.METADATA_ONLY;
+        return gotoDestinationSelectionPage();
     }
     
     public String gotoDatasetCreationPage(){
-        logger.log(Level.INFO, "go to DatasetCreation page");
+        logger.log(Level.INFO, "HomePageView: go to DatasetCreation page");
         // modify the boolean value
         metadataOnly=false;
+        selectedRequestType=RequestType.FULL_DATASET;
         return gotoFileUploadPage();
     }
     
     
     private String gotoFileUploadPage(){
-        logger.log(Level.INFO, "metadataOnly={0}", metadataOnly);
+        logger.log(Level.INFO, "HomePageView:gotoFileUploadPage:metadataOnly={0}", metadataOnly);
         return "/fileupload.xhtml";
     }
     
+    private String gotoDestinationSelectionPage(){
+        logger.log(Level.INFO, "HomePageView:gotoDestinationSelectionPage: metadataOnly={0}", metadataOnly);
+        return "/destination.xhtml" ;
+    }
+    
+    
+    
     public String gotoHostinfoPage(){
-        logger.log(Level.INFO, "got to host info page");
+        logger.log(Level.INFO, "HomePageView: got to host info page");
         return "/hostinfo/List.xhtml";
     }
+    
+    public String gotoDsTemplateDataPage(){
+        logger.log(Level.INFO, "HomePageView: got to Dataset Template page");
+        return "/dsTemplateData/List.xhtml";
+    }
+    
+    public String gotoEmptyDatasetCreationPage(){
+        logger.log(Level.INFO, "HomePageView: got to Empty Dataset Creation page");
+        selectedRequestType = RequestType.EMPTY_DATASET;
+        setEmptyDatasetCreation(true);
+        logger.log(Level.INFO, "isEmptyDatasetCreation set to ={0}", isEmptyDatasetCreation());
+        return "/dsTemplateSelection.xhtml";
+    }
+    
+    private void clearSession(){
+        logger.log(Level.INFO, "HomePageView#clearSession: sessionscoped data are reset");
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    }
+    
+    
 }

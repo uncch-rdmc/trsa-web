@@ -1,5 +1,6 @@
 package us.cyberimpact.trsa.web;
 
+import edu.harvard.iq.dataverse.entities.DataFile;
 import us.cyberimpact.trsa.entities.TrsaProfileFacade;
 import edu.harvard.iq.dataverse.entities.DatasetVersion;
 import edu.harvard.iq.dataverse.entities.DatasetVersionFacade;
@@ -17,12 +18,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-
+import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.xml.stream.XMLStreamException;
@@ -31,31 +32,47 @@ import org.apache.commons.lang3.StringUtils;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import us.cyberimpact.trsa.entities.DsTemplateData;
 import us.cyberimpact.trsa.entities.TrsaProfile;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
 
-@ManagedBean(name = "fileUploadView")
+@Named("fileUploadView")
 @SessionScoped
 public class FileUploadView implements Serializable {
 
     private static final Logger logger = Logger.getLogger(FileUploadView.class.getName());
 
-    @EJB
+    @Inject
     IngestService ingestService;
 
-    @EJB
+    @Inject
     DatasetVersionFacade datasetVersionFcd;
     
-    @EJB
+    @Inject
     TrsaProfileFacade trsaProfileFacade;
     
     List<TrsaProfile> trsaProfileTable = new ArrayList<>();
 
-    @EJB
+    @Inject
     HostInfoFacade hostInfoFacade;
     
-    List<HostInfo> hostInfoTable = new ArrayList<>();
+    
+    @Inject
+    DestinationSelectionView destinationSelectionView; 
+    
+    
+//    List<HostInfo> hostInfoTable = new ArrayList<>();
+    
+
+    private String selectedDatasetId;
+    
+    @Inject
+    DsTemplateSelectionView dsTemplateSelectionView;
+    
+    @Inject
+    HomePageView homePageView;
+    
     
     private UploadedFile file;
     private String destination = "/tmp/";
@@ -71,12 +88,32 @@ public class FileUploadView implements Serializable {
         this.mimeType = mimeType;
     }
     
+    private DsTemplateData selectedDsTemplateData; 
+
+    public String getSelectedDatasetId() {
+        return selectedDatasetId;
+    }
+
+    public void setSelectedDatasetId(String selectedDatasetId) {
+        this.selectedDatasetId = selectedDatasetId;
+    }
     
-    
+    private RequestType selectedRequestType;
 
     @PostConstruct
     public void init() {
+        logger.log(Level.INFO, "=========== FileUploadView#init: start ===========");
         
+        logger.log(Level.INFO, "requestType={0}", homePageView.getSelectedRequestType());
+        selectedRequestType=homePageView.getSelectedRequestType();
+        
+        logger.log(Level.INFO, "selectedRequestType={0}", selectedRequestType);
+
+        logger.log(Level.INFO, "destinationSelectionView.getSelectedDatasetId()={0}", destinationSelectionView.getSelectedDatasetId());
+        selectedDatasetId=destinationSelectionView.getSelectedDatasetId();
+        
+        logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
+        logger.log(Level.INFO, "isMetadataOnly={0}", homePageView.isMetadataOnly());
         
         trsaProfileTable= trsaProfileFacade.findAll();
         logger.log(Level.INFO, "FileUploadView:TrsaProfileTable={0}", trsaProfileTable);
@@ -88,20 +125,25 @@ public class FileUploadView implements Serializable {
             // turn on the publish button
             isTrsaProfileReady=true;
             logger.log(Level.INFO, "FileUploadView:trsa profile exists");
-            
-            logger.log(Level.INFO, "url={0}",trsaProfileTable.get(0).getDataverseurl()); 
-            logger.log(Level.INFO, "api-token={0}",trsaProfileTable.get(0).getApitoken());
+//            
+//            logger.log(Level.INFO, "url={0}",trsaProfileTable.get(0).getDataverseurl()); 
+//            logger.log(Level.INFO, "api-token={0}",trsaProfileTable.get(0).getApitoken());
             
             
         }
-        hostInfoTable = hostInfoFacade.findAll();
-        logger.log(Level.INFO, "FileUploadView:hostInfoTable:howMany={0}", hostInfoTable.size());
-        if (hostInfoTable.isEmpty()){
-            logger.log(Level.INFO, "hostInfoTable is empty");
-        } else {
-            logger.log(Level.INFO, "FileUploadView:hostInfoTable exists and not empty");
-        }
+        
+        
+//        hostInfoTable = hostInfoFacade.findAll();
+//        logger.log(Level.INFO, "FileUploadView:hostInfoTable:howMany={0}", hostInfoTable.size());
+//        if (hostInfoTable.isEmpty()){
+//            logger.log(Level.INFO, "hostInfoTable is empty");
+//        } else {
+//            logger.log(Level.INFO, "FileUploadView:hostInfoTable exists and not empty");
+//        }
 
+        selectedDsTemplateData= dsTemplateSelectionView.getSelectedDsTemplateData();
+        logger.log(Level.INFO, "selectedDsTemplateData={0}", selectedDsTemplateData);
+        logger.log(Level.INFO, "=========== FileUploadView#init: end ===========");
     }
 
     public UploadedFile getFile() {
@@ -150,6 +192,7 @@ public class FileUploadView implements Serializable {
     }
 
     public void upload(FileUploadEvent event) {
+        logger.log(Level.INFO, "=========== FileUploadView#upload: start ===========");
         file = event.getFile();
         String filePath = "";
         if (file != null) {
@@ -181,18 +224,31 @@ public class FileUploadView implements Serializable {
             FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Your file (File Name " + file.getFileName() + " with size " + file.getSize() + ")  Uploaded Successfully", ""));
         }
 
-        logger.log(Level.INFO, "FileUploadView:upload():TrsaProfileTable={0}", trsaProfileTable);
-        logger.log(Level.INFO, "upload():url={0}", trsaProfileTable.get(0).getDataverseurl());
-        logger.log(Level.INFO, "upload():api-token={0}", trsaProfileTable.get(0).getApitoken());
-        logger.log(Level.INFO, "upload():isTrsaProfileReady={0}", isTrsaProfileReady);
+//        logger.log(Level.INFO, "FileUploadView:upload():TrsaProfileTable={0}", trsaProfileTable);
+//        logger.log(Level.INFO, "upload():url={0}", trsaProfileTable.get(0).getDataverseurl());
+//        logger.log(Level.INFO, "upload():api-token={0}", trsaProfileTable.get(0).getApitoken());
+//        logger.log(Level.INFO, "upload():isTrsaProfileReady={0}", isTrsaProfileReady);
         setIngestButtonEnabled(true);
+        logger.log(Level.INFO, "=========== FileUploadView#upload: end ===========");
 //        return "/index.xhtml";
     }
 
     public void execIngest() {
+        logger.log(Level.INFO, "=========== FileUploadView#execIngest: start ===========");
+        
         FacesContext context = FacesContext.getCurrentInstance();
         logger.log(Level.INFO, "fileName={0}", fileName);
-        datasetIdentifier = IngestService.generateTempDatasetIdentifier(6);
+        // 2019-06-12 update: for metadata-uploading cases, use the pre-selected dataset Id
+//        datasetIdentifier = IngestService.generateTempDatasetIdentifier(6);
+
+        logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
+        if (selectedRequestType==RequestType.METADATA_ONLY){
+            logger.log(Level.INFO, "this is a metadata-only case");
+            datasetIdentifier = selectedDatasetId;
+        } else {
+            datasetIdentifier = IngestService.generateTempDatasetIdentifier(6);
+            logger.log(Level.INFO, "this is a new-dataset-creation case");
+        }
         logger.log(Level.INFO, "datasetIdentifier={0}", datasetIdentifier);
 
         // Warning: contentType expects a / included mime type
@@ -200,17 +256,20 @@ public class FileUploadView implements Serializable {
         logger.log(Level.INFO, "contentType={0}", mimeType);
         try {
 
-            ingestService.run(fileName, mimeType, datasetIdentifier);
-
+            ingestedDataFileList = ingestService.run(fileName, mimeType, datasetIdentifier);
+            logger.log(Level.INFO, "datafileId={0}", ingestedDataFileList.get(0).getId());
+            for (DataFile datafile: ingestedDataFileList){
+                fileIdList.add(datafile.getId());
+            }
+            logger.log(Level.INFO, "fileIdList={0}", fileIdList);
             logger.log(Level.INFO, "dumping metadata files");
             
             
             List<DatasetVersion> versions = datasetVersionFcd.findAll();
             if (versions != null && !versions.isEmpty()) {
-                
-                logger.log(Level.INFO, "versions.get(0)={0}", versions.get(0));
-                logger.log(Level.INFO, "versions.get(n)={0}", versions.get(versions.size()-1));
-                ingestService.exportDataset(versions.get(versions.size()-1));
+                logger.log(Level.INFO, "how many dataset versions={0}", versions.size());
+                exportedDatasetVerion= versions.get(versions.size()-1);
+                ingestService.exportDataset(exportedDatasetVerion);
             } else {
                 logger.log(Level.INFO, "DatasetVersion is null/empty");
             }
@@ -242,7 +301,7 @@ public class FileUploadView implements Serializable {
         String message = fileName + " has been successfully ingested and new dataset (Id=" + datasetIdentifier + ") was created";
         context.addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "info", message));
         
-        
+/*
         logger.log(Level.INFO, "execIngest():isTrsaProfileReady={0}", isTrsaProfileReady);
         logger.log(Level.INFO, "FileUploadView:execIngest():TrsaProfileTable={0}", trsaProfileTable);
         logger.log(Level.INFO, "execIngest():url={0}",trsaProfileTable.get(0).getDataverseurl());            
@@ -263,8 +322,10 @@ public class FileUploadView implements Serializable {
             }
             
         }
+*/
         ingestButtonEnabled = false;
         //return "/ingest.xhtml";
+        logger.log(Level.INFO, "=========== FileUploadView#execIngest: end ===========");
     }
 
     public String goHome() {
@@ -275,6 +336,11 @@ public class FileUploadView implements Serializable {
     public String goPublish() {
         logger.log(Level.INFO, "go to publish page");
         return "/ingest.xhtml";
+    }
+    
+    public String goSubmissionPage() {
+        logger.log(Level.INFO, "go to submission page");
+        return "/submission.xhtml";
     }
     
     public String goDestinationPage(){
@@ -331,4 +397,36 @@ public class FileUploadView implements Serializable {
     boolean isTrsaProfileReady = false;
     
 
+    private List<Long> fileIdList= new ArrayList<>();
+
+    public List<Long> getFileIdList() {
+        return fileIdList;
+    }
+
+    public void setFileIdList(List<Long> fileIdList) {
+        this.fileIdList = fileIdList;
+    }
+    
+    private List<DataFile> ingestedDataFileList = new ArrayList<>();
+
+    public List<DataFile> getIngestedDataFileList() {
+        return ingestedDataFileList;
+    }
+
+    public void setIngestedDataFileList(List<DataFile> ingestedDataFileList) {
+        this.ingestedDataFileList = ingestedDataFileList;
+    }
+    
+    
+    private DatasetVersion exportedDatasetVerion;
+
+    public DatasetVersion getExportedDatasetVerion() {
+        return exportedDatasetVerion;
+    }
+
+    public void setExportedDatasetVerion(DatasetVersion exportedDatasetVerion) {
+        this.exportedDatasetVerion = exportedDatasetVerion;
+    }
+    
+    
 }

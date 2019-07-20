@@ -27,6 +27,9 @@ public class SystemConfig {
     public static final String SITE_URL = "dataverse.siteUrl";
     
     
+    public static final String DOI_SERVER_PREFIX ="https://doi.org/";
+    
+    
     public Long getMaxFileUploadSize(){
         return null;
          //return settingsService.getValueForKeyAsLong(SettingsServiceBean.Key.MaxFileUploadSizeInBytes);

@@ -269,6 +269,30 @@ public class DataFile implements Serializable {
     public boolean isTabularData() {
         return getDataTables() != null && getDataTables().size() > 0;
     }
+    
+    @Column(nullable = false)
+    private boolean notaryServiceBound=false;
+
+    /**
+     * Get the value of notaryServiceBound
+     *
+     * @return the value of notaryServiceBound
+     */
+    public boolean isNotaryServiceBound() {
+        return notaryServiceBound;
+    }
+
+    /**
+     * Set the value of notaryServiceBound
+     *
+     * @param notaryServiceBound new value of notaryServiceBound
+     */
+    public void setNotaryServiceBound(boolean notaryServiceBound) {
+        this.notaryServiceBound = notaryServiceBound;
+    }
+
+    
+    
 
 //    @Column(nullable = true)
 //    private String fileSystemName;

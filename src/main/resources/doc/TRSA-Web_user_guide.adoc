@@ -1,0 +1,31 @@
+= TRSA(Trusted Remote Storage Agent)-Web User Guide
+* last updated: {docdatetime}
+== How to build TRSA-Web
+=== Requirements
+* Java Standard Edition Development Kit (JDK) version 8.0 or later
+* git
+* Maven 3.0 or later
+* Java-EE(Enterprise Edition: full profile)-8-compliant application server
+* NetBeans or equivalent other IDE tool for Java such as IntelliJ
+== How to run TRSA-Web
+
+== How to use TRSA-Web
+=== Configuration
+
+=== Key Tasks
+
+
+==== Manage TRSA profile data
+
+==== Manage Dataverse data
+
+Manage Dataset Templates
+
+Upload file metada to an existing Dataset
+
+Create a new Dataset with its file metadata
+
+Create a new empty Dataset
+
+
+=== upload

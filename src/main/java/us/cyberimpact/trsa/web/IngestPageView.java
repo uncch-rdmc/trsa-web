@@ -6,6 +6,7 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.unc.odum.dataverse.util.json.JsonFilter;
+import edu.unc.odum.dataverse.util.json.JsonPointerForDataset;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,33 +21,37 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonWriter;
+import javax.json.JsonPointer;
+import javax.json.JsonValue;
+import javax.json.JsonPatchBuilder;
 import us.cyberimpact.trsa.entities.TrsaProfile;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
+import us.cyberimpact.trsa.settings.AppConfig;
 
 /**
  *
  * @author akios
  */
-@ManagedBean(name = "ingestPageView")
+@Named("ingestPageView")
 @SessionScoped
 public class IngestPageView implements Serializable {
     
     private static final Logger logger = Logger.getLogger(IngestPageView.class.getName());
     
-    @EJB
+    @Inject
     private TrsaProfileFacade trsaProfileFacade;
     
     List<TrsaProfile> trsaProfileTable = new ArrayList<>();
@@ -54,18 +59,23 @@ public class IngestPageView implements Serializable {
     boolean isTrsaProfileReady = false;
     
     
-    @EJB
+    @Inject
     private HostInfoFacade hostInfoFacade;
     
     
      List<HostInfo> hostInfoTable = new ArrayList<>();
     
-    @ManagedProperty("#{fileUploadView}")
+    @Inject
+//    @ManagedProperty("#{fileUploadView}")
     private FileUploadView fileUploadView;
     
-    
-    @ManagedProperty("#{destinationSelectionView}")
+    @Inject
+ //   @ManagedProperty("#{destinationSelectionView}")
     private DestinationSelectionView destSelectionView;
+    
+    @Inject
+    private AppConfig appConfig; 
+    
 
     public void setDestSelectionView(DestinationSelectionView destSelectionView) {
         this.destSelectionView = destSelectionView;
@@ -82,7 +92,8 @@ public class IngestPageView implements Serializable {
         this.hostInfo = hostInfo;
     }
     
-    @ManagedProperty("#{homePageView}")
+    @Inject
+//    @ManagedProperty("#{homePageView}")
     private HomePageView homePageView;
     
     public boolean isMetadataOnly() {
@@ -97,7 +108,9 @@ public class IngestPageView implements Serializable {
         this.homePageView = homePageView;
     }
     
-    
+    public boolean isEmptyDatasetCreation(){
+        return homePageView.isEmptyDatasetCreation();
+    }    
     
     
     private String localDatasetIdentifier;
@@ -142,6 +155,10 @@ public class IngestPageView implements Serializable {
     public void setProgressTest(String progressTest) {
         this.progressTest = progressTest;
     }
+    
+    
+
+    
 
     /**
      * Creates a new instance of IngestPageView
@@ -150,9 +167,10 @@ public class IngestPageView implements Serializable {
     }
     
     
-    private String apiKeyHCValue ="6bf35b95-4746-4bec-9547-3f19fe582727";
-    private String dataverseServerHCValue="http://localhost:8083";
-    private String dataverseIdHCValue="17";
+    private String apiKeyHCValue ="";
+    private String dataverseServerHCValue="";
+    private String dataverseIdHCValue="";
+    private String trsaFilesPath="";
 
     @PostConstruct
     public void init() {
@@ -165,16 +183,8 @@ public class IngestPageView implements Serializable {
             logger.log(Level.INFO, "IngestPageView:trsaProfileTableis empty");
         } else {
             logger.log(Level.INFO, "trsaProfileTable is available: ={0}", trsaProfileTable);
-            // update fields
-//
-//            logger.log(Level.INFO, "IngestPageView:init():trsa profile exists");
-//
-//            logger.log(Level.INFO, "IngestPageView:init():url={0}",trsaProfileTable.get(0).getDataverseurl());
-//            dataverseServerHCValue = trsaProfileTable.get(0).getDataverseurl();
-//            
-//            logger.log(Level.INFO, "IngestPageView:init():api-token={0}",trsaProfileTable.get(0).getApitoken());
-//            apiKeyHCValue=trsaProfileTable.get(0).getApitoken();
-            
+
+
             // turn on the switch
             logger.log(Level.INFO, "IngestPageView:init():before turned on: state of isTrsaProfileReady={0}", isTrsaProfileReady);
             isTrsaProfileReady=true;
@@ -194,25 +204,6 @@ public class IngestPageView implements Serializable {
         
         
         
-/*
-        
-        // localDatasetID
-        localDatasetIdentifier = fileUploadView.getDatasetIdentifier();
-        logger.log(Level.INFO, "IngestPageView:init():datasetIdentifier passed={0}", localDatasetIdentifier);
-        
-        // target dataverse (currently hard-coded)
-        targetDataverseId = dataverseIdHCValue; //"6";
-        logger.log(Level.INFO, "IngestPageView:init():targetDataverseId={0}", targetDataverseId);
-        
-        // api-key from TRSA-Profile table
-        apiKey = apiKeyHCValue ;
-        logger.log(Level.INFO, "IngestPageView:init():apiKey={0}", apiKey);
-        
-        // target dataverse server
-        dataverseServer = dataverseServerHCValue;
-        logger.log(Level.INFO, "dataverseServer={0}", dataverseServer);
-        
-*/
         
         // new approach 
         logger.log(Level.INFO, "destSelectionView:SelectedHostInfo ={0}", destSelectionView.getSelectedHostInfo());
@@ -240,8 +231,8 @@ public class IngestPageView implements Serializable {
         dataverseServer = hostInfo.getHosturl();//dataverseServerHCValue;
         logger.log(Level.INFO, "dataverseServer={0}", dataverseServer);
         
-        
-        
+        trsaFilesPath= appConfig.getTrsaFilesPath();
+        logger.log(Level.INFO, "appConfig.getTrsaFilesPath={0}", trsaFilesPath);
         
     }
 
@@ -265,21 +256,32 @@ public class IngestPageView implements Serializable {
         this.dataverseServer = dataverseServer;
     }
 
-    public String ingestedFile;
+    private String ingestedFile;
 
     public String getIngestedFile() {
         return fileUploadView.getFileName();
     }
-
+    
     public void setIngestedFile(String ingestedFile) {
         this.ingestedFile = ingestedFile;
     }
+    
+    
+    
+//    @Inject
+//    @ManagedProperty("#{fileUploadView.fileName}")
+//    private String ingestedFile;
+//    
+//    public String getIngestedFile() {
+//        return ingestedFile;
+//    }
+    
 
     public void setFileUploadView(FileUploadView fileUploadView) {
         this.fileUploadView = fileUploadView;
     }
     
-    public static String STORAGE_LOCATION_PREFIX= "/tmp/files/10.5072/FK2/" ;
+    //public static String STORAGE_LOCATION_PREFIX= "/tmp/files/10.5072/FK2/" ;
     public static String PATH_ADD_METADATA="addFileMetadata";
 
     public void getInfo(ActionEvent actionEvent) {
@@ -305,22 +307,32 @@ public class IngestPageView implements Serializable {
     
     public void publishFacade(){
         if (isMetadataOnly()){
+            logger.log(Level.INFO, "case: loading metadata to the target Dataset");
             publishMetadata();
         } else {
-            publish();
+            if (isEmptyDatasetCreation()){
+                logger.log(Level.INFO, "case: creating an empty Dataset");
+                createEmptyDataset();
+            } else {
+                logger.log(Level.INFO, "case: create a new Dataset at once");
+                publish();
+            }
         }
     }
     
     
-    
+    // this method adds metadata to a given dataset
     public void publishMetadata4Javaee8(){
         logger.log(Level.INFO, "IngestPageView:publishMetadata");
         try {
             progressTest = "starting request";
             String filenameValue = localDatasetIdentifier;
-            String filelocation = STORAGE_LOCATION_PREFIX+ localDatasetIdentifier 
+//            String filelocation = STORAGE_LOCATION_PREFIX+ localDatasetIdentifier 
+//                    + "/export_dataverse_json.cached";
+            String filelocation = trsaFilesPath+ localDatasetIdentifier 
                     + "/export_dataverse_json.cached";
-            String payloadFileName = STORAGE_LOCATION_PREFIX + localDatasetIdentifier 
+            
+            String payloadFileName = trsaFilesPath + localDatasetIdentifier 
                     +"/filtered-result.json";
             
             String jsonbody="";
@@ -335,10 +347,11 @@ public class IngestPageView implements Serializable {
 
                 // create a new Json object to store JsonPointers
                 JsonObject object = Json.createObjectBuilder().build();
-/*
-                The following block works with Java-ee-api-8 package
+
+                //The following block works with Java-ee-api-8 package
                 // create the two JsonPointer instances 
-                JsonPointer metadataBlock = Json.createPointer(JsonPointerForDataset.POINTER_METADATABLOCKS);
+                JsonPointer metadataBlock = 
+                        Json.createPointer(JsonPointerForDataset.POINTER_METADATABLOCKS);
                 JsonPointer files = Json.createPointer(JsonPointerForDataset.POINTER_FILES);
 
                 // get the value for each of the above JsonPointer instances
@@ -357,7 +370,7 @@ public class IngestPageView implements Serializable {
                 logger.log(Level.INFO, "actual={0}", payloadObject);
                 jsonWriter.writeObject(payloadObject);
                 jsonbody = payloadObject.toString();
-*/                
+                
             } catch (IOException ex) {
                 logger.log(Level.SEVERE, null, ex);
             }
@@ -397,9 +410,9 @@ public class IngestPageView implements Serializable {
         try {
             progressTest = "starting request";
             String filenameValue = localDatasetIdentifier;
-            String filelocation =  STORAGE_LOCATION_PREFIX 
+            String filelocation =  trsaFilesPath 
                     + localDatasetIdentifier + "/export_dataverse_json.cached";
-            String payloadFileName = STORAGE_LOCATION_PREFIX 
+            String payloadFileName = trsaFilesPath 
                     + localDatasetIdentifier +"/filtered-result.json";
             JsonFilter filter = new JsonFilter();
             filter.filterApiPayloadMetadataOnly(filelocation, payloadFileName);
@@ -433,9 +446,6 @@ public class IngestPageView implements Serializable {
             
             gotoDataverseButtonEnabled=true;
             publishButtonEnabled=false;
-//        } catch (FileNotFoundException ex) {
-//            logger.log(Level.SEVERE, "payload file was not available", ex);
-
         } catch (UnirestException ex) {
             logger.log(Level.SEVERE, "UnirestException", ex);
         }
@@ -450,9 +460,9 @@ public class IngestPageView implements Serializable {
         try {
             progressTest = "starting request";
             String filenameValue = localDatasetIdentifier;
-            String filelocation = STORAGE_LOCATION_PREFIX
+            String filelocation = trsaFilesPath
                     + localDatasetIdentifier + "/export_dataverse_json.cached";
-            String payloadFileName = STORAGE_LOCATION_PREFIX 
+            String payloadFileName = trsaFilesPath 
                     + localDatasetIdentifier +"/filtered-result.json";
             JsonFilter filter = new JsonFilter();
             filter.filterApiPayload(filelocation, payloadFileName);
@@ -558,6 +568,18 @@ public class IngestPageView implements Serializable {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+    
+    
+    
+        public void createEmptyDataset(){
+        logger.log(Level.INFO, "IngestPageView#createEmptyDataset starts here");
+        
+    }
+    
+    
+    
+    
+    
 
     public void goToDataverseSite() {
 

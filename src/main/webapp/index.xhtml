@@ -22,37 +22,46 @@
                 </f:metadata>
                 <h:form id="form1">
                     <!--                <p:panel header="TRSA Web GUI Demo">-->
-                    <h3>Welcome to Trusted Remote Storage Agent (TRSA) Web GUI</h3>
-                    <p:messages severity="info,warn" showDetail="true" closable="true" autoUpdate="true" />
+                        <h3>Welcome to Trusted Remote Storage Agent (TRSA) Web GUI</h3>
+                        <p:messages severity="info,warn" showDetail="true" closable="true" autoUpdate="true" />
 
-                    <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
-                        <p:commandButton icon="fa fa-fw fa-gear"
-                            value="Manage TRSA profile data"  
-                            action="#{homePageView.gotoTRSAprofilePage()}"  
-                            style="font-size: 1.2em!important" />
-                        <p:commandButton icon="fa fa-fw fa-gear"
-                            value="Manage Dataverse data"  
-                            action="#{homePageView.gotoHostinfoPage()}" 
-                            style="font-size: 1.2em!important"/>
-                        <p:commandButton icon="fa fa-fw fa-upload"
-                            value="Upload file metada to an existing Dataset"  
-                            action="#{homePageView.gotoUploadMetadataPage()}"
-                            style="font-size: 1.2em!important"/>
-                        <p:commandButton icon="fa fa-fw fa-upload"
-                            value="Create a new Dataset with its file metadata"  
-                            action="#{homePageView.gotoDatasetCreationPage()}" 
-                            style="font-size: 1.2em!important"/>
-                        <p:commandButton icon="fa fa-fw fa-upload"
-                            value="Create a new empty Dataset"  
-                            disabled="true"
-                            style="font-size: 1.2em!important"/>
-                        
-                    </p:panelGrid>
+                        <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
+                            <p:commandButton icon="fa fa-fw fa-gear"
+                                             value="Manage TRSA profile data"  
+                                             action="#{homePageView.gotoTRSAprofilePage()}"  
+                                             style="font-size: 1.2em!important" />
+                            <p:commandButton icon="fa fa-fw fa-gear"
+                                             value="Manage Dataverse data"  
+                                             action="#{homePageView.gotoHostinfoPage()}" 
+                                             style="font-size: 1.2em!important"/>
+                            <p:commandButton icon="fa fa-fw fa-gear"
+                                             value="Manage Dataset Templates"  
+                                             action="#{homePageView.gotoDsTemplateDataPage()}"
+                                             style="font-size: 1.2em!important"
+                                             disabled="true"/>
+                            <p:commandButton icon="fa fa-fw fa-upload"
+                                             value="Upload file metadata to an existing Dataset"  
+                                             action="#{homePageView.gotoUploadMetadataPage()}"
+                                             style="font-size: 1.2em!important"/>
+                            <p:commandButton icon="fa fa-fw fa-upload"
+                                             value="Create a new Dataset with its file metadata"  
+                                             action="#{homePageView.gotoDatasetCreationPage()}" 
+                                             style="font-size: 1.2em!important"
+                                             disabled="true"/>
+                            <p:commandButton icon="fa fa-fw fa-upload"
+                                             value="Create a new empty Dataset"  
+                                             action="#{homePageView.gotoEmptyDatasetCreationPage()}"
+                                             style="font-size: 1.2em!important"
+                                             disabled="true"/>
+                        </p:panelGrid>
                 </h:form>
             </ui:define>
 
 
         </ui:composition>
+        <br />
+        <h:link outcome="/dsTemplateData/List" value="Show All DsTemplateData Items"/>
     </h:body>
+
 
 </html>

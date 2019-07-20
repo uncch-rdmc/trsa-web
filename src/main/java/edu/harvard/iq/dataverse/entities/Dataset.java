@@ -295,7 +295,7 @@ public class Dataset implements Serializable {
     public Path getFileSystemDirectory() {
         Path studyDir = null;
 
-        String filesRootDirectory = System.getProperty("dataverse.files.directory");
+        String filesRootDirectory = System.getProperty("trsa.files.directory");
         if (filesRootDirectory == null || filesRootDirectory.equals("")) {
             filesRootDirectory = "/tmp/files";
         }

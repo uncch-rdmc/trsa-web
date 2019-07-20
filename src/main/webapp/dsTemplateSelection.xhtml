@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title></title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/template/layout.xhtml">
+
+            <ui:define name="content">
+
+                    
+
+                <h:form id="form1">
+                    <p:messages id="messages" showDetail="true" closable="true" for="topMessage" severity="info,warn">
+                        <p:autoUpdate />
+                    </p:messages>
+                    <h3 style="margin:5px 5px 30px 5px">Select a Dataset Template</h3>
+
+
+
+                    <p:dataTable 
+                        value="#{dsTemplateSelectionView.dsTemplatesTable}" 
+                        var="item" 
+                        selection="#{dsTemplateSelectionView.selectedDsTemplateData}"
+                        rowKey="#{item.id}"
+                        >
+        <f:facet name="header">
+            Select a template
+        </f:facet>
+        <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                        
+                        
+                        
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Id"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Title"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.title}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Affiliation"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.affiliation}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Author"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.author}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Description"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.description}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Subject"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.subject}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Ssnotetype"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.ssnotetype}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Ssnotetext"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.ssnotetext}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="User"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.user}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <p:commandButton value="Select" action="#{dsTemplateSelectionView.selectTemplate(item)}"/>
+                                </p:column>
+
+                            </p:dataTable>
+
+
+
+                </h:form>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

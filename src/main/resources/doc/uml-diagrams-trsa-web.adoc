@@ -1,0 +1,225 @@
+= UML diagrams for TRSA
+* last updated: {docdatetime}
+
+.Dataverse: Downloading a remote DataFile: with/without Notary-service
+[uml]
+--
+@startuml
+title Downloading a remote Datafile with/without-Notary-service-restriction
+actor Researcher as rs
+'actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as sa
+participant "File Storage" as fs
+participant  Dataverse as dv
+participant "Notary Service" as ns
+rs -> wb: type the landing URL\n of a Dataset
+wb -> dv: request: landing page of the Dataset
+dv -> wb: response: Landing page with a list of DataFiles
+rs -> wb: click the "Download" button\n of a DataFile
+wb -> dv: request: Downloading the DataFile
+dv -> dv: check the file location\n in terms of\n notary service
+alt with Notary Service
+dv -> ns: forward the pre-specified \nNotary-Service \nproject page
+note right
+Notary Service is
+expected to handle
+the ultimate
+file-downloading
+action
+end note
+else withoug Notary Service
+dv -> wb: redirect action
+wb -> fs: downloading request
+fs -> wb: response: prompt downloading
+rs -> wb: click "Save"
+end
+@enduml
+--
+
+
+
+
+.TRSA Functionality: Uploading Metadata to an Existing Dataset
+[uml]
+--
+@startuml
+title Uploading Metadata to an Existing Dataset
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+participant TRSA as sa
+participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+dp -> wb: type the url of the TRSA
+wb -> sa: request: Top (TRSA) page
+sa -> wb: response: Top page
+dp -> wb: click \n"upload the file metadata to ..."\n button\n from the menu \nin the main pane
+wb -> sa: request: ingest page
+sa -> wb: response: ingest page
+'ingest
+'destination-selection
+'submission
+@enduml
+--
+
+
+.TRSA Functionality: Creating a new Dataset with its file metadata
+[uml]
+--
+@startuml
+title Creating a new Dataset with its file metadata
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+participant TRSA as sa
+participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+dp -> wb: type the url of the TRSA
+wb -> sa: request: Top (TRSA) page
+sa -> wb: response: Top page
+dp -> wb: click \n"Create a new Dataset ..." \nbutton\n from the menu \nin the main pane
+wb -> sa: request: ingest page
+sa -> wb: reponse: ingest page
+'ingest
+'destination-selection
+'submission
+@enduml
+
+
+
+.TRSA: Initial Setup
+[uml]
+--
+@startuml
+title TRSA: Initial Setup
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+participant TRSA as sa
+participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+dp -> wb: type the url of the TRSA
+wb -> sa: request: Top (TRSA) page
+sa -> wb: response: Top page
+dp -> wb: click the "Dataverse Settings" link
+wb -> sa: request: Landing page of Dataverse settings
+sa -> wb: response: list of registered Datasets
+'Create
+'Browse
+'Edit
+'Delete
+@enduml
+--
+
+.TRSA: Dataverse-side Initial Setup: Part 4
+[uml]
+--
+@startuml
+title Dataverse-side Initial Setup: Registration of a TRSA
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as trsa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+
+dp -> wb: type the URL of Root Dataverse
+wb -> dv: request:Top (root Dataverse) page
+dv -> wb: response:Top page
+dp -> wb: click username/Dashboard link
+wb -> dv: request: Dashboard page
+dv -> wb: response: Dashboard page
+dp -> wb: click "Manage TRSAs" button
+wb -> dv: request: TRSA registry landing page
+dv -> wb: response: landing page with a List of registered TRSAs
+dp -> wb: click "+ Create" button
+wb -> wb: request: TRSA-registry UI
+wb -> wb: response: pop up the UI
+dp -> wb: enter required data and click "Save" button
+wb -> dv: request: persist a new set of TRSA-related data in the DB
+dv -> wb: response: OK (saved) and list of registered TRSAs is updaded
+@enduml
+--
+
+.TRSA: Dataverse-side Initial Setup: Part 3
+[uml]
+--
+@startuml
+title Dataverse-side Initial Setup: Create a New Dataset
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as trsa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+
+dp -> wb: type the URL of Root Dataverse
+wb -> dv: request:Top (root Dataverse) page
+dv -> wb: response:Top page
+dp -> wb: click the host Dataverse from the list
+wb -> dv: request: the host dataverse
+dv -> wb: response: landing page of the dataverse
+dp -> wb: click "Add Data/New Dataset" option
+wb -> dv: request: New Dataset Creation page
+dv -> wb: response: Dataset creation UI
+dp -> dp: prepare a Dataset Title
+dp -> wb: enter required data in the UI form
+wb -> dv: request: Dataset creation
+dv -> wb: response: OK (render success message)
+footer Note: log-in step is excluded
+@enduml
+--
+
+.TRSA: Dataverse-side Initial Setup: Part 2
+[uml]
+--
+@startuml
+title Dataverse-side Initial Setup: Create a New Dataverse
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as trsa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+
+dp -> wb: type the URL of Root Dataverse
+wb -> dv: request:Top (root Dataverse) page
+dv -> wb: response:Top page
+dp -> wb: click "Add Data/New Dataverse" option
+wb -> dv: request: New Dataverse Creation page
+dv -> wb: response: Datavese creation UI
+dp -> dp: prepare a Dataverse Alias
+dp -> wb: enter required data in the UI form
+wb -> dv: request: Dataverse creation
+dv -> wb: response: OK (render success page)
+footer Note: log-in step is excluded
+@enduml
+--
+
+.TRSA: Dataverse-side Initial Setup: Part 1
+[uml]
+--
+@startuml
+title Dataverse-side setup: Get a API Token
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as sa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+
+dp -> wb: type the URL of Dataverse
+wb -> dv: request:home page
+dv -> wb: response:home page
+dp -> wb: click the sign-in link
+wb -> dv: request: sign-in page
+dv -> wb: response: sign-in page
+dp -> wb: enter required data
+wb -> dv: request: register the user
+dv -> wb: response: OK (registered)
+dp -> wb: click username/API Token link
+wb -> dv: request: API-token page
+dv -> wb: response: API-token page
+@enduml
+--
