@@ -171,11 +171,13 @@ public class JsonPrinter {
             //.add("studyCompletion", dsv.getTermsOfUseAndAccess().getStudyCompletion() != null ? dsv.getTermsOfUseAndAccess().getStudyCompletion() : null)                                  // not minimum
                             ;
 
-        
-        List<DatasetField> fs = getFields();
+        // see the note before getFields() method 
+        // 2019-06-21 masked
+        //List<DatasetField> fs = getFields();
+        List<DatasetField> fs = new ArrayList<>();
         logger.log(Level.FINE, "fs={0}", xstream.toXML(fs));
         JsonObject joFields = jsonByBlocks(fs).build();
-        logger.log(Level.FINE, "joFields={0}", xstream.toXML(joFields));
+        logger.log(Level.INFO, "joFields={0}", xstream.toXML(joFields));
         JsonObject joMetaBlcks = buildMetadataBlocks(joFields).build();
         
         
@@ -654,7 +656,13 @@ public class JsonPrinter {
     
     
 ////////////////////////////////////////////////////////////////////////////////
-    
+    // this method was coded to create a minimum set of Metadata for a new,
+    // empty Dataset
+    // for the context of file-metadata-uploading, 
+    // this method should not be called
+    // if metadata for a new Dataset have to be provided, 
+    // they should come through a Web form or a locally saved json file, and
+    // attached to a given Dataset at or before the ingest stage
     
     public static List<DatasetField> getFields() {
 

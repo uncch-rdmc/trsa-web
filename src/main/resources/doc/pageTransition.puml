@@ -1,0 +1,15 @@
+@startuml
+:Top Menu Page;
+split
+ :setup the paired Dataverse;
+split again
+ :empty dataset creation;
+split again 
+ :add metadata;
+split again 
+ :update the paired Dtaverse;
+end split
+:end;
+
+
+@enduml

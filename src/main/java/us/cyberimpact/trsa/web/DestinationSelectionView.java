@@ -126,6 +126,19 @@ public class DestinationSelectionView implements Serializable {
     }
     
     
+    public String selectDataverse(HostInfo hostInfo){
+        logger.log(Level.INFO, "=========== DestinationSelectionView#selectDataverse: start ===========");
+        logger.log(Level.INFO, "selectDataverse: selectedHostInfo={0}", selectedHostInfo);
+        logger.log(Level.INFO, "selectedHostInfo={0}", hostInfo);
+        selectedHostInfo=hostInfo;
+        
+        logger.log(Level.INFO, "=========== DestinationSelectionView#selectDataverse: end ===========");
+        return "/setupWizard.xhtml";
+    }
+    
+    
+    
+    
     
     public void addMessageEmptyHostInfo(){
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Dataset's DOI is missing", "Add the DOI to the host info before uploading Metadata.");
@@ -148,7 +161,8 @@ public class DestinationSelectionView implements Serializable {
     
     private String getDatasetId(String doi){
         // doi is given by such as doi:10.33563/FK2/NRIISK
-        return doi.split("/")[2];
+        String [] parts = doi.split("/");
+        return parts[parts.length-1];
     }
     
     

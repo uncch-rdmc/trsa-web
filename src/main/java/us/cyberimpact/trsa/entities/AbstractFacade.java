@@ -8,6 +8,8 @@ package us.cyberimpact.trsa.entities;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.json.Json;
 
 import javax.persistence.EntityManager;
@@ -23,7 +25,10 @@ import us.cyberimpact.trsa.web.jsf.util.JsfUtil;
  * @author asone
  */
 public abstract class AbstractFacade<T> {
-
+    
+    private static final Logger logger = Logger.getLogger(AbstractFacade.class.getName());
+    
+    
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
@@ -34,6 +39,46 @@ public abstract class AbstractFacade<T> {
 
 //    public void create(T entity) {
       public Response create(T entity) {
+          
+logger.log(Level.INFO, "========== AbstractFacade#create : start ==========");
+
+          
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<T>> constraintViolations = validator.validate(entity);
+        StringBuilder sb = new StringBuilder();
+        if (constraintViolations.size() > 0) {
+            Iterator<ConstraintViolation<T>> iterator = constraintViolations.iterator();
+            while (iterator.hasNext()) {
+                ConstraintViolation<T> cv = iterator.next();
+//                System.err.println(
+//                        cv.getRootBeanClass().getName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
+
+                JsfUtil.addErrorMessage(
+                        cv.getRootBeanClass().getSimpleName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
+                sb.append(cv.getRootBeanClass().getSimpleName()).append(".").append(cv.getPropertyPath()).append(" ").append(cv.getMessage());
+            }
+            logger.log(Level.INFO, "========== AbstractFacade#create : api-call: end ==========");
+            return Response.status(400)
+                .entity( Json.createObjectBuilder()
+                .add("code", 400)
+                .add("message", "Validation error during create request: "+ sb.toString())
+                .build())
+                .type("application/json").build();
+        } else {
+            getEntityManager().persist(entity);
+            logger.log(Level.INFO, "========== AbstractFacade#create : web-gui call: end ==========");
+            return Response.status(Response.Status.OK).entity(entity).build();
+        }
+    }
+
+      
+      
+      
+    public void save(T entity) {
+        
+        logger.log(Level.INFO, "========== AbstractFacade#create : start ==========");
+        
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<T>> constraintViolations = validator.validate(entity);
@@ -50,24 +95,24 @@ public abstract class AbstractFacade<T> {
                 sb.append(cv.getRootBeanClass().getSimpleName()).append(".").append(cv.getPropertyPath()).append(" ").append(cv.getMessage());
             }
             
-            return Response.status(400)
-                .entity( Json.createObjectBuilder()
-                .add("code", 400)
-                .add("message", "Validation error during create request: "+ sb.toString())
-                .build())
-                .type("application/json").build();
         } else {
             getEntityManager().persist(entity);
-            return Response.status(Response.Status.OK).entity(entity).build();
         }
+            logger.log(Level.INFO, "========== AbstractFacade#save : end ==========");
     }
-
+      
+      
+      
     public void edit(T entity) {
+        logger.log(Level.INFO, "========== AbstractFacade#edit : start ==========");
         getEntityManager().merge(entity);
+            logger.log(Level.INFO, "========== AbstractFacade#edit : end ==========");
     }
 
     public void remove(T entity) {
+        logger.log(Level.INFO, "========== AbstractFacade#remove : start ==========");
         getEntityManager().remove(getEntityManager().merge(entity));
+        logger.log(Level.INFO, "========== AbstractFacade#remove : end ==========");
     }
 
     public T find(Object id) {
@@ -75,8 +120,10 @@ public abstract class AbstractFacade<T> {
     }
 
     public List<T> findAll() {
+        logger.log(Level.INFO, "========== AbstractFacade#findAll : start ==========");
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
+        logger.log(Level.INFO, "========== AbstractFacade#findAll : end ==========");
         return getEntityManager().createQuery(cq).getResultList();
     }
 

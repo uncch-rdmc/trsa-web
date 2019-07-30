@@ -38,8 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HostInfo.findByDatasetid", query = "SELECT h FROM HostInfo h WHERE h.datasetid = :datasetid"),
     @NamedQuery(name = "HostInfo.findByDataversetitle", query = "SELECT h FROM HostInfo h WHERE h.dataversetitle = :dataversetitle"),
     @NamedQuery(name = "HostInfo.findByDatasetdoi", query = "SELECT h FROM HostInfo h WHERE h.datasetDoi = :datasetDoi"),
-    @NamedQuery(name = "HostInfo.findByDatasetTitle", query = "SELECT h FROM HostInfo h WHERE h.datasetTitle = :datasetTitle")
-
+    @NamedQuery(name = "HostInfo.findByDatasetTitle", query = "SELECT h FROM HostInfo h WHERE h.datasetTitle = :datasetTitle"),
+    @NamedQuery(name = "HostInfo.findByTrsaRegNmbr", query = "SELECT h FROM HostInfo h WHERE h.trsaRegNmbr = :trsaRegNmbr")
 })
 public class HostInfo implements Serializable {
 
@@ -66,7 +66,7 @@ public class HostInfo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(nullable = false)
-    private long dataverseid;
+    private Long dataverseid=0L;
     
     
     @Size(max = 255)
@@ -76,7 +76,7 @@ public class HostInfo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(nullable = false)
-    private long datasetid;
+    private Long datasetid=0L;
     
     @Size(max = 255)
     @Column(length = 255)
@@ -90,6 +90,13 @@ public class HostInfo implements Serializable {
     @Column(length = 255)
     private String datasetDoi;
     
+    
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false)
+    private Long trsaRegNmbr=0L;
+    
+    
     public HostInfo() {
     }
 
@@ -97,14 +104,23 @@ public class HostInfo implements Serializable {
         this.id = id;
     }
 
-    public HostInfo(Long id, String hosturl, String apitoken, long dataverseid, long datasetid) {
-        this.id = id;
+//    public HostInfo(Long id, String hosturl, String apitoken, long dataverseid, long datasetid) {
+//        this.id = id;
+//        this.hosturl = hosturl;
+//        this.apitoken = apitoken;
+//        this.dataverseid = dataverseid;
+//        this.datasetid = datasetid;
+//    }
+
+    public HostInfo(String hosturl, String apitoken, String dataversealias,
+            Long trsaRegNmbr) {
         this.hosturl = hosturl;
         this.apitoken = apitoken;
-        this.dataverseid = dataverseid;
-        this.datasetid = datasetid;
+        this.dataversealias = dataversealias;
+        this.trsaRegNmbr = trsaRegNmbr;
     }
 
+    
     public Long getId() {
         return id;
     }
@@ -129,11 +145,11 @@ public class HostInfo implements Serializable {
         this.apitoken = apitoken;
     }
 
-    public long getDataverseid() {
+    public Long getDataverseid() {
         return dataverseid;
     }
 
-    public void setDataverseid(long dataverseid) {
+    public void setDataverseid(Long dataverseid) {
         this.dataverseid = dataverseid;
     }
 
@@ -145,11 +161,11 @@ public class HostInfo implements Serializable {
         this.dataversealias = dataversealias;
     }
 
-    public long getDatasetid() {
+    public Long getDatasetid() {
         return datasetid;
     }
 
-    public void setDatasetid(long datasetid) {
+    public void setDatasetid(Long datasetid) {
         this.datasetid = datasetid;
     }
 
@@ -176,7 +192,14 @@ public class HostInfo implements Serializable {
     public void setDatasetDoi(String datasetDoi) {
         this.datasetDoi = datasetDoi;
     }
-    
+
+    public Long getTrsaRegNmbr() {
+        return trsaRegNmbr;
+    }
+
+    public void setTrsaRegNmbr(Long trsaRegNmbr) {
+        this.trsaRegNmbr = trsaRegNmbr;
+    }
     
     @Override
     public int hashCode() {
@@ -201,9 +224,10 @@ public class HostInfo implements Serializable {
     @Override
     public String toString() {
         return "HostInfo{" + "id=" + id + ", hosturl=" + hosturl + ", apitoken=" 
-                + apitoken + ", dataverseid=" + dataverseid + ", dataversealias=" 
-                + dataversealias + ", datasetid=" + datasetid + ", dataversetitle=" 
-                + dataversetitle + '}';
+        + apitoken + ", dataverseid=" + dataverseid + ", dataversealias="
+        + dataversealias + ", datasetid=" + datasetid + ", dataversetitle=" 
+        + dataversetitle + ", datasetTitle=" + datasetTitle + ", datasetDoi=" 
+        + datasetDoi + ", trsaRegNmbr=" + trsaRegNmbr + '}';
     }
 
-    }
+}

@@ -53,7 +53,7 @@ public class AppConfig {
     
     @PostConstruct
     public void init() {
-        logger.log(Level.INFO, "============ TRSA-WEB: AppConfig#init() starts here \"============");
+        logger.log(Level.INFO, "============ TRSA-WEB: AppConfig#init() starts here ============");
         
         String filesRootDirectory = System.getProperty(JVM_OPTION_TRSA_FILES);
         if (filesRootDirectory == null || filesRootDirectory.equals("")) {
@@ -101,7 +101,7 @@ public class AppConfig {
                 +"/"+ settingsSvc.getValueForKey(SettingsServiceBean.Key.Shoulder);
         
         logger.log(Level.INFO, "trsaFilesPath={0}", trsaFilesPath);
-        logger.log(Level.INFO, "============ TRSA-WEB: AppConfig#init() ends here \"============");
+        logger.log(Level.INFO, "============ TRSA-WEB: AppConfig#init() ends here ============");
     }
     
     

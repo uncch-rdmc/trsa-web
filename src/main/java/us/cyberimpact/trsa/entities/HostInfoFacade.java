@@ -53,4 +53,24 @@ public class HostInfoFacade extends AbstractFacade<HostInfo> {
         }
 
     }
+    
+    public List<HostInfo> findByDataverseId(long id) {
+        List<HostInfo> result = null;
+        try {
+            result
+                = em.createNamedQuery("HostInfo.findByDataverseid",
+                    HostInfo.class).setParameter("dataverseid", id).getResultList();
+            if (result.size() == 1) {
+                logger.log(Level.INFO, "id={0} returns a single result", id);
+            } else {
+                logger.log(Level.INFO, "id={0} hits multiple entries", id);
+            }
+        } catch (NoResultException ex) {
+            logger.log(Level.WARNING, "no result was found", ex);
+        }
+        return result;
+    }
+    
+    
+    
 }

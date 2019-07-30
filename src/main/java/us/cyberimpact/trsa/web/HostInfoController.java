@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -23,6 +24,7 @@ import javax.inject.Inject;
 @SessionScoped
 public class HostInfoController implements Serializable {
 
+    private static final Logger logger = Logger.getLogger(HostInfoController.class.getName());
     @Inject
     private HostInfoFacade hostInfoFacade;
     
@@ -32,6 +34,19 @@ public class HostInfoController implements Serializable {
 
     public HostInfoController() {
     }
+    
+    
+    @PostConstruct
+    public void init() {
+        logger.log(Level.INFO, "========== HostInfoController#init : start ==========");
+        if (items !=null){
+            logger.log(Level.INFO, "how many hostInfo={0}", items.size());
+        }
+        
+        
+        logger.log(Level.INFO, "========== HostInfoController#init : end ==========");
+    }
+    
 
     public HostInfo getSelected() {
         return selected;
@@ -58,22 +73,29 @@ public class HostInfoController implements Serializable {
     }
 
     public void create() {
+        logger.log(Level.INFO, "========== HostInfoController#create : start ==========");
+
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle_host").getString("HostInfoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        logger.log(Level.INFO, "========== HostInfoController#create : end ==========");
     }
 
     public void update() {
+        logger.log(Level.INFO, "========== HostInfoController#update : start ==========");
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle_host").getString("HostInfoUpdated"));
+        logger.log(Level.INFO, "========== HostInfoController#update : end ==========");
     }
 
     public void destroy() {
+        logger.log(Level.INFO, "========== HostInfoController#destroy : start ==========");
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle_host").getString("HostInfoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        logger.log(Level.INFO, "========== HostInfoController#destroy : end ==========");
     }
 
     public List<HostInfo> getItems() {
@@ -157,7 +179,10 @@ public class HostInfoController implements Serializable {
                 HostInfo o = (HostInfo) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), HostInfo.class.getName()});
+                logger.log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}",
+                        new Object[]{object, 
+                            object.getClass().getName(), 
+                            HostInfo.class.getName()});
                 return null;
             }
         }
