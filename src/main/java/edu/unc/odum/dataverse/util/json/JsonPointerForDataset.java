@@ -23,23 +23,24 @@ public class JsonPointerForDataset {
     public static String POINTER_TO_DATASET_ID="/data/id";
     
     public static String POINTER_TO_DATASET_DOI="/data/persistentId";
+    // required fields for a minimum Dataset
     // for Dataset title
     public static String POINTER_TO_DATASET_TITLE="/datasetVersion/metadataBlocks/citation/fields/0/value";
-    // FOR authorAffiliation
     
-    public static String POINTER_TO_DATASET_AUTHOR_AFFILIATION="/datasetVersion/metadataBlocks/citation/fields/1/value/authorAffiliation/value";
+    // FOR authorAffiliation
+    public static String POINTER_TO_DATASET_AUTHOR_AFFILIATION="/datasetVersion/metadataBlocks/citation/fields/1/value/0/authorAffiliation/value";
     
     // auther name
-    public static String POINTER_TO_AUTHOR_NAME="/datasetVersion/metadataBlocks/citation/fields/1/value/authorName/value";
+    public static String POINTER_TO_AUTHOR_NAME="/datasetVersion/metadataBlocks/citation/fields/1/value/0/authorName/value";
     
-    // email address
-    public static String POINTER_TO_EMAIL="/datasetVersion/metadataBlocks/citation/fields/2/value/datasetContactEmail/value";
+    // contact email address
+    public static String POINTER_TO_EMAIL="/datasetVersion/metadataBlocks/citation/fields/2/value/0/datasetContactEmail/value";
     
     // Description
-    public static String POINTER_TO_DATASET_DESCRIPTION="/datasetVersion/metadataBlocks/citation/fields/3/value/dsDescriptionValue/value";
+    public static String POINTER_TO_DATASET_DESCRIPTION="/datasetVersion/metadataBlocks/citation/fields/3/value/0/dsDescriptionValue/value";
     
     // subject (array)
-    public static String POINTER_TO_SUBJECTS="/datasetVersion/metadataBlocks/citation/fields/4/value/";
+    public static String POINTER_TO_SUBJECTS="/datasetVersion/metadataBlocks/citation/fields/4/value";
 
     // social science metadata note type
     public static String POINTER_TO_SSN_TYPE="/datasetVersion/metadataBlocks/socialscience/fields/0/value/socialScienceNotesType/value";
@@ -51,4 +52,10 @@ public class JsonPointerForDataset {
     public static String POINTER_TO_FILE_DATATAG="datasetVersion/files/5/categories/";
     
     
+    
+    public static String POINTER_TO_DATAVERSE_ID ="/data/id";
+    
+    public static String POINTER_TO_DATAVERSE_ALIAS="/data/alias";
+    
+    public static String POINTER_TO_DATAVERSE_TITLE="/data/name";
 }

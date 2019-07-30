@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title></title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/template/layout.xhtml">
+
+            <ui:define name="content">
+
+
+                <h:form id="form1">
+                    <p:messages id="messages" showDetail="true" closable="true" for="topMessage" severity="info,warn">
+                        <p:autoUpdate />
+                    </p:messages>
+                    <h3 style="margin:5px 5px 30px 5px">Select a destination Dataset</h3>
+
+
+                        
+                        
+                        
+    <p:dataTable id="destSelect" 
+                 var="hostInfo"
+                 value="#{destinationSelectionView.hostInfoTable}" 
+                 selection="#{destinationSelectionView.selectedHostInfo}" 
+                 rowKey="#{hostInfo.id}">
+        
+        
+        <f:facet name="header">
+            Select a destination
+        </f:facet>
+        <p:column selectionMode="single" style="width:16px;text-align:center"/>
+        <p:column headerText="Id">
+            <h:outputText value="#{hostInfo.id}" />
+        </p:column>
+        <p:column headerText="Dataverse URL">
+            <h:outputText value="#{hostInfo.hosturl}" />
+        </p:column>
+        <p:column headerText="Dataverse Title">
+            <h:outputText value="#{hostInfo.dataversetitle}" />
+        </p:column>
+        <p:column headerText="Dataverse Alias">
+            <h:outputText value="#{hostInfo.dataversealias}" />
+        </p:column>
+        <p:column>
+            <p:commandButton value="Select" 
+            action="#{destinationSelectionView.selectDataverse(hostInfo)}"/>
+        </p:column>
+    </p:dataTable>
+                        
+
+
+                </h:form>
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

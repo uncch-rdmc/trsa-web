@@ -22,11 +22,11 @@
                                      title="#{bundle_host.CreateHostInfoTitle_apitoken}" 
                                      required="true" 
                                      requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_apitoken}"/>
-                        <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_dataverseid}" for="dataverseid" />
-                        <p:inputText id="dataverseid" value="#{hostInfoController.selected.dataverseid}" 
-                                     title="#{bundle_host.CreateHostInfoTitle_dataverseid}" 
+                        <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_trsaRegNmbr}" for="trsaRegNmbr" />
+                        <p:inputText id="trsaRegNmbr" value="#{hostInfoController.selected.trsaRegNmbr}" 
+                                     title="#{bundle_host.CreateHostInfoTitle_trsaRegNmbr}" 
                                      required="true" 
-                                     requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_dataverseid}"/>
+                                     requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_trsaRegNmbr}"/>
                         <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_dataversealias}" for="dataversealias" />
                         <p:inputText id="dataversealias" value="#{hostInfoController.selected.dataversealias}" 
                                      title="#{bundle_host.CreateHostInfoTitle_dataversealias}" />
@@ -36,7 +36,7 @@
                         <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_datasetid}" for="datasetid" />
                         <p:inputText id="datasetid" value="#{hostInfoController.selected.datasetid}" 
                                      title="#{bundle_host.CreateHostInfoTitle_datasetid}" 
-                                     required="true" 
+                                     required="false" 
                                      requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_datasetid}"/>
                         
 

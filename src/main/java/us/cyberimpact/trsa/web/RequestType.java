@@ -10,6 +10,6 @@ package us.cyberimpact.trsa.web;
  * @author asone
  */
 public enum RequestType {
-    EMPTY_DATASET, FULL_DATASET, METADATA_ONLY;
+    EMPTY_DATASET, FULL_DATASET, METADATA_ONLY, PAIRING_CONFIRMATION;
     
 }

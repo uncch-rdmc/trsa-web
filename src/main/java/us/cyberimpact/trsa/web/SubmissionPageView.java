@@ -22,7 +22,9 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -529,12 +531,14 @@ public class SubmissionPageView implements Serializable {
         String apiEndpoint = dataverseServer + "/api/datasets/" + selectedDatasetId
                 + "/" + WebAppConstants.PATH_ADD_METADATA;
         logger.log(Level.INFO, "apiEndpoint={0}", apiEndpoint);
-        
-        
+        Map<String, String> headers = new HashMap<>();
+        headers.put("X-Dataverse-key", apiKey);
+        headers.put("X-TRSA-registrationId", getRegisteredTrsaId());
+
         HttpResponse<JsonNode> jsonResponse=null;
         try {
             jsonResponse = Unirest.post(apiEndpoint)
-                    .header("X-Dataverse-key", apiKey)
+                    .headers(headers)
                     .body(jsonBody)
                     .asJson();
         } catch (UnirestException ex) {
@@ -548,6 +552,11 @@ public class SubmissionPageView implements Serializable {
 
         //clearSession();
         logger.log(Level.INFO, "========== SubmissionPageView#uploadMetadataOnly: end ==========");
+    }
+    
+    private String getRegisteredTrsaId(){
+        // this is a temporary solution
+        return "1";
     }
     
     private void clearSession(){

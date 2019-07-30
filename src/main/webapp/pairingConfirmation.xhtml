@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Pairing Confirmation Page</title>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="/template/layout.xhtml">
+
+            <ui:define name="content">
+                <h:form id="form1">
+                    <p:messages id="messages" showDetail="true" closable="true" for="topMessage" severity="info,warn">
+                        <p:autoUpdate />
+                    </p:messages>
+            <p:panel header="Paired Dataverse: Key Data Confirmation">
+                <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                <h:panelGrid columns="2" columnClasses="label, value">
+                    <h:outputText value="Dataverse URL: *" />
+                    <p:inputText value="#{setupWizardView.hostInfo.hosturl}" 
+                                 required="true" 
+                                 title="Dataverse URL to be paired"/>
+ 
+                    <h:outputText value="Dataverse Alias: *" />
+                    <p:inputText value="#{setupWizardView.hostInfo.dataversealias}" 
+                                 required="true" 
+                                 title="Shown under General Information"/>
+ 
+                    <h:outputText value="API Token: *" />
+                    <p:inputText value="#{setupWizardView.hostInfo.apitoken}" 
+                                 required="true" 
+                                 title="Shown on the Account Page" />
+
+                    <h:outputText value="TRSA Registry Number: *" />
+                    <p:inputText value="#{setupWizardView.hostInfo.trsaRegNmbr}" 
+                                 required="true" 
+                                 title="From TRSA Registry Table" />
+                    
+                </h:panelGrid>
+                </h:panelGrid>
+ 
+                <p:commandButton value="Confirm" 
+                                 action="#{setupWizardView.confirmDataverseData()}" 
+                                 update="messages" />
+            </p:panel>
+                    
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

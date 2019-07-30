@@ -30,7 +30,7 @@ public class JsonResponseParser {
     }
     // the following method will be activated after Java ee 8 is used
     public String parseDatasetIdFromCreationResponse(String responseString){
-        logger.log(Level.INFO, "#parseDatasetIdFromCreationResponse");
+        logger.log(Level.INFO, "JsonResponseParser#parseDatasetIdFromCreationResponse");
         logger.log(Level.INFO, "responseString={0}", responseString);
         JsonReader jsonReader = Json.createReader(new StringReader(responseString));
         JsonObject jsonObject = jsonReader.readObject();
@@ -42,7 +42,7 @@ public class JsonResponseParser {
     }
     
     public String parseDatasetDoiFromDsCreationResponse(String responseString){
-        logger.log(Level.INFO, "#parseDatasetDoiFromDsCreationResponse");
+        logger.log(Level.INFO, "JsonResponseParser#parseDatasetDoiFromDsCreationResponse");
         logger.log(Level.INFO, "responseString={0}", responseString);
         JsonReader jsonReader = Json.createReader(new StringReader(responseString));
         JsonObject jsonObject = jsonReader.readObject();
@@ -56,4 +56,36 @@ public class JsonResponseParser {
     }
     
     
+    public JsonValue ParseTargetField(String responseString, String jsonPointerExpr){
+        logger.log(Level.INFO, "========== JsonResponseParser#ParseTargetField : start ==========");
+        
+        logger.log(Level.INFO, "responseString={0}", responseString);
+        logger.log(Level.INFO, "jsonPointerExpr={0}", jsonPointerExpr);
+        JsonReader jsonReader = Json.createReader(new StringReader(responseString));
+        JsonObject jsonObject = jsonReader.readObject();
+        JsonPointer jsnPointer = Json.createPointer(jsonPointerExpr);
+        logger.log(Level.INFO, "jsnPointer={0}", jsnPointer);
+        JsonValue parsedResult = jsnPointer.getValue(jsonObject);
+        logger.log(Level.INFO, "parsedResult={0}", parsedResult);
+        logger.log(Level.INFO, "========== JsonResponseParser#ParseTargetField : end ==========");        
+        return parsedResult;
+    }
+    
+    public String ParseTargetStringField(String responseString, String jsonPointerExpr){
+        logger.log(Level.INFO, "========== JsonResponseParser#ParseTargetStringField : start ==========");
+        JsonValue parsedResult = ParseTargetField(responseString, jsonPointerExpr);
+        
+        logger.log(Level.INFO, "parsedResult={0}", parsedResult);
+        logger.log(Level.INFO, "========== JsonResponseParser#ParseTargetStringField : end ==========");        
+        return ((JsonString) parsedResult).getString();
+    }
+    
+    public JsonNumber ParseTargetNumericField(String responseString, String jsonPointerExpr){
+        logger.log(Level.INFO, "========== JsonResponseParser#ParseTargetNumericField : start ==========");
+        JsonValue parsedResult = ParseTargetField(responseString, jsonPointerExpr);
+        
+        logger.log(Level.INFO, "parsedResult={0}", parsedResult);
+        logger.log(Level.INFO, "========== JsonResponseParser#ParseTargetNumericField : end ==========");        
+        return (JsonNumber) parsedResult;
+    }
 }

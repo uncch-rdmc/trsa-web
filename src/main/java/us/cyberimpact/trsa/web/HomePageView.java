@@ -71,8 +71,17 @@ public class HomePageView implements Serializable {
     }
     
     
-    
-    
+    private boolean hostInfoSaved=false;
+
+    public boolean isHostInfoSaved() {
+        return hostInfoSaved;
+    }
+
+    public void setHostInfoSaved(boolean hostInfoSaved) {
+        this.hostInfoSaved = hostInfoSaved;
+    }
+
+
     /**
      * Creates a new instance of HomePageView
      */
@@ -85,6 +94,8 @@ public class HomePageView implements Serializable {
     
     @PostConstruct
     public void init() {
+        logger.log(Level.INFO, "========== HomePageView#init : start ==========");
+        
         clearSession();
         
         hostInfoTable = hostInfoFacade.findAll();
@@ -93,11 +104,13 @@ public class HomePageView implements Serializable {
         if (hostInfoTable.isEmpty()){
             logger.log(Level.INFO, "homePageView:hostInfoTable is empty");
             addMessageEmptyHostInfo();
+            
         } else {
-            logger.log(Level.FINE, "homePageView:hostInfoTable exists and not empty:{0}", hostInfoTable);
+            logger.log(Level.INFO, "homePageView:hostInfoTable exists and not empty:{0}", hostInfoTable);
+            hostInfoSaved=true;
             //addMessageHostInfoAvailable();
         }
-        
+        logger.log(Level.INFO, "========== HomePageView#init : end ==========");
     }
     
     
@@ -158,11 +171,26 @@ public class HomePageView implements Serializable {
     }
     
     public String gotoEmptyDatasetCreationPage(){
-        logger.log(Level.INFO, "HomePageView: got to Empty Dataset Creation page");
+        logger.log(Level.INFO, "HomePageView: got to Empty-Dataset-Creation page");
         selectedRequestType = RequestType.EMPTY_DATASET;
         setEmptyDatasetCreation(true);
         logger.log(Level.INFO, "isEmptyDatasetCreation set to ={0}", isEmptyDatasetCreation());
-        return "/dsTemplateSelection.xhtml";
+        // return "/dsTemplateSelection.xhtml";
+        
+        hostInfoTable = hostInfoFacade.findAll();
+        logger.log(Level.INFO, "homePageView:hostInfoTable:howManyRows={0}", hostInfoTable.size());
+        
+        return "/selectDataverse.xhtml";
+    }
+    
+    
+    public String gotoPairingConfirmationPage(){
+        logger.log(Level.INFO, "HomePageView: got to the pairing confirmation page");
+        selectedRequestType = RequestType.PAIRING_CONFIRMATION;
+        // setEmptyDatasetCreation(true);
+        //logger.log(Level.INFO, "isEmptyDatasetCreation set to ={0}", isEmptyDatasetCreation());
+        // return "/dsTemplateSelection.xhtml";
+        return "/pairingConfirmation.xhtml";
     }
     
     private void clearSession(){
