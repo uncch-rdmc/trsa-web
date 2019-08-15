@@ -4,7 +4,7 @@
 
 	$ docker pull odumunc/trsa-web:2.0
 	
-	$ docker run --name trsa-web -p 8080:8080 --restart unless-stopped trsa-web:2.0
+	$ docker run --name trsa-web -p 8080:8080 --restart unless-stopped odumunc/trsa-web:2.0
 	
 Then use a web browser to visit the container's IP:
 
