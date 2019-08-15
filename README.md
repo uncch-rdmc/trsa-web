@@ -4,9 +4,9 @@
 
 	$ docker pull odumunc/trsa-web:2.0
 	
-	$ docker run --name trsa-web -p 8080:8080 trsa-web:2.0
+	$ docker run --name trsa-web -p 8080:8080 --restart unless-stopped trsa-web:2.0
 	
-Then use a web browser to visit the assigned IP:
+Then use a web browser to visit the container's IP:
 
 	$ links http://172.17.0.2:8080/trsa-web-2.0
 	
