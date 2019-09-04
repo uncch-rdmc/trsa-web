@@ -103,7 +103,7 @@ public class FileUploadView implements Serializable {
     @PostConstruct
     public void init() {
         logger.log(Level.INFO, "=========== FileUploadView#init: start ===========");
-        
+        setFileNameOnly(null);
         logger.log(Level.INFO, "requestType={0}", homePageView.getSelectedRequestType());
         selectedRequestType=homePageView.getSelectedRequestType();
         
@@ -330,22 +330,23 @@ public class FileUploadView implements Serializable {
 
     public String goHome() {
         logger.log(Level.INFO, "back to the home");
-        return "/index.xhtml";
+        return "/index.xhtml?faces-redirect=true";
     }
 
     public String goPublish() {
         logger.log(Level.INFO, "go to publish page");
-        return "/ingest.xhtml";
+        return "/ingest.xhtml?faces-redirect=true";
     }
     
     public String goSubmissionPage() {
         logger.log(Level.INFO, "go to submission page");
-        return "/submission.xhtml";
+        setFileNameOnly(null);
+        return "/submission.xhtml?faces-redirect=true";
     }
     
     public String goDestinationPage(){
         logger.log(Level.INFO, "go to destination page");
-        return "/destination.xhtml";
+        return "/destination.xhtml?faces-redirect=true";
     }
     
     public void copyFile(String fileName, InputStream in) {
