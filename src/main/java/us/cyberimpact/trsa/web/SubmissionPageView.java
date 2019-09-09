@@ -31,6 +31,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -51,7 +52,7 @@ import us.cyberimpact.trsa.settings.AppConfig;
  * @author asone
  */
 @Named(value = "submissionPageView")
-@SessionScoped
+@ViewScoped
 public class SubmissionPageView implements Serializable {
 
     private static final Logger logger = Logger.getLogger(SubmissionPageView.class.getName());
@@ -192,7 +193,7 @@ public class SubmissionPageView implements Serializable {
         logger.log(Level.INFO, "#init: selectedRequestType={0}", selectedRequestType);
 
         
-        logger.log(Level.INFO, "#init: selectedHostInfo={0}", selectedHostInfo);
+        logger.log(Level.INFO, "SubmissionPageView#init: selectedHostInfo={0}", selectedHostInfo);
         if (selectedHostInfo == null){
             logger.log(Level.INFO, "selectedHostInfo is null");
             // TODO
@@ -272,6 +273,7 @@ public class SubmissionPageView implements Serializable {
             logger.log(Level.WARNING, "datafile is empty");
         } else {
             logger.log(Level.INFO, "the number of datafiles to be uploaded is {0}", ingestedDataFileList.size());
+            logger.log(Level.INFO, "ingestedDataFileList={0}", ingestedDataFileList.get(0));
         }
         
         
@@ -581,15 +583,17 @@ public class SubmissionPageView implements Serializable {
     }
     
     public void goToDataverseSite() {
-
+        // atach "/dataverse/${dataverse-aias}"
+        String dataversePath="/dataverse/"+ selectedHostInfo.getDataversealias();
         try {
-            goToExternalSite(dataverseServer);
+            goToExternalSite(dataverseServer+dataversePath);
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "IOException was thrown before tried to jump to the site", ex);
         }
     }
 
     public void goToExternalSite(String url) throws IOException {
+        logger.log(Level.INFO, "external url={0}", url);
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
 

@@ -10,10 +10,11 @@ actor Researcher as rs
 'actor "Data Provider" as dp
 participant "Web Browser" as wb
 'participant TRSA as sa
-participant "File Storage" as fs
+participant "presido: file storage" as fs
 participant  Dataverse as dv
 participant "Notary Service" as ns
 participant "Authenticator" as ia
+
 alt Configuration 1 TRSA-to-NS-first
 rs -> wb: type the NS URL
 wb -> ns: request: Home (NS) Page
