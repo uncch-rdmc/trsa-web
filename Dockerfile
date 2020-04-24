@@ -1,4 +1,5 @@
-FROM openjdk:8u171-jdk
+FROM openjdk:8
+#FROM openjdk:8u251-jdk
 # downgrade to 8u171 to avoid ALPN SSL incompatibility
 
 # Default payara ports to expose
@@ -8,12 +9,10 @@ FROM openjdk:8u171-jdk
 # 9009: debug port (JPDA)
 EXPOSE 4848 8080 8181 9009
 
-# odum: TRSA wants Payara 4.1
-ARG PAYARA_VERSION=5.191
-#ARG PAYARA_PKG=https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/${PAYARA_VERSION}/payara-${PAYARA_VERSION}.zip
-ARG PAYARA_PKG=https://s3-eu-west-1.amazonaws.com/payara.fish/Payara+Downloads/${PAYARA_VERSION}/payara-${PAYARA_VERSION}.zip
-ARG PAYARA_SHA1=55d2f40559a4e9a9baa93756213be1488f203f84
-ARG TINI_VERSION=v0.18.0
+ARG PAYARA_VERSION=5.201
+ARG PAYARA_PKG=https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/${PAYARA_VERSION}/payara-${PAYARA_VERSION}.zip
+ARG PAYARA_SHA1=ea86d69233826b4d35612260ea4e8f81a9b992f2
+ARG TINI_VERSION=v0.19.0
 ARG TRSA_VERSION=2.0
 ARG GF_UID=1000
 ARG GF_GID=1000
@@ -66,11 +65,9 @@ RUN mkdir -p ${FILES_DIR} && \
 COPY trsa-web-${TRSA_VERSION}.war $DEPLOY_DIR/
 
 # Install tini as minimized init system
-RUN wget --no-verbose -O /tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini && \
-    wget --no-verbose -O /tini.asc https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini.asc && \
-    gpg --batch --keyserver "hkp://p80.pool.sks-keyservers.net:80" --recv-keys 595E85A6B1B4779EA4DAAEC70B588DFF0527A9B7 && \
-    gpg --batch --verify /tini.asc /tini && \
-    chmod +x /tini
+RUN wget --no-verbose -O tini-amd64 https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-amd64 && \
+    echo '93dcc18adc78c65a028a84799ecf8ad40c936fdfc5f2a57b1acda5a8117fa82c tini-amd64' | sha256sum -c - && \
+    mv tini-amd64 /tini && chmod +x /tini
 
 USER payara
 WORKDIR ${HOME_DIR}
