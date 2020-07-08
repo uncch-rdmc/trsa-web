@@ -629,12 +629,10 @@ public class RDATAFileReader extends TabularDataFileReader {
                 dv.setSummaryStatistics(new ArrayList<>());
                 dv.setUnf("UNF:6:XYZXYZXYZ");
                 dv.setCategories(new ArrayList<>());
-                variableList.add(dv);
-
+                
                 dv.setFileOrder(varQnty);
-
                 dv.setDataTable(dataTable);
-
+                variableList.add(dv);
                 // variableLabels.put(varName, varName);
                 // variableNameList.add(varName);
                 varQnty++;
@@ -776,6 +774,8 @@ public class RDATAFileReader extends TabularDataFileReader {
                     if (variableLevels != null && variableLevels.length > 0) {
                         // yes, this is a factor, with levels defined.
                         LOG.fine("this is a factor.");
+                        // TODO: the following line requires changes to DataVariable
+                        //dataTable.getDataVariables().get(k).setFactor(true);
                         boolean ordered = false; 
                         
                         if (variableFormat != null && variableFormat.equals("ordered")) {

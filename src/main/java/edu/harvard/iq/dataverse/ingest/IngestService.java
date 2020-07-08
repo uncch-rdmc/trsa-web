@@ -891,7 +891,9 @@ public class IngestService {
         } else if (mimeType.equals(FileUtil.MIME_TYPE_RDATA)) {
             ingestPlugin = new RDATAFileReader(new RDATAFileReaderSpi());
         } else if (mimeType.equals(FileUtil.MIME_TYPE_CSV) || mimeType.equals(FileUtil.MIME_TYPE_CSV_ALT)) {
-            ingestPlugin = new CSVFileReader(new CSVFileReaderSpi());
+            ingestPlugin = new CSVFileReader(new CSVFileReaderSpi(), ',');
+        } else if (mimeType.equals(FileUtil.MIME_TYPE_TSV) /*|| mimeType.equals(FileUtil.MIME_TYPE_TSV_ALT)*/) {
+            ingestPlugin = new CSVFileReader(new CSVFileReaderSpi(), '\t');
         } else if (mimeType.equals(FileUtil.MIME_TYPE_XLSX)) {
             ingestPlugin = new XLSXFileReader(new XLSXFileReaderSpi());
         } else if (mimeType.equals(FileUtil.MIME_TYPE_SPSS_SAV)) {
