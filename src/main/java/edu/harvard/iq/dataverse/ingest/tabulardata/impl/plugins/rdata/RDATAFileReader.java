@@ -775,7 +775,7 @@ public class RDATAFileReader extends TabularDataFileReader {
                         // yes, this is a factor, with levels defined.
                         LOG.fine("this is a factor.");
                         // TODO: the following line requires changes to DataVariable
-                        //dataTable.getDataVariables().get(k).setFactor(true);
+                        dataTable.getDataVariables().get(k).setFactor(true);
                         boolean ordered = false; 
                         
                         if (variableFormat != null && variableFormat.equals("ordered")) {
