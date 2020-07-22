@@ -9,9 +9,8 @@ FROM openjdk:8
 # 9009: debug port (JPDA)
 EXPOSE 4848 8080 8181 9009
 
-ARG PAYARA_VERSION=5.201
-ARG PAYARA_PKG=https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/${PAYARA_VERSION}/payara-${PAYARA_VERSION}.zip
-ARG PAYARA_SHA1=ea86d69233826b4d35612260ea4e8f81a9b992f2
+ARG PAYARA_PKG=https://github.com/payara/Payara/releases/download/payara-server-5.2020.3/payara-5.2020.3.zip
+ARG PAYARA_SHA1=42b7acd468c19dfe02953815aa27bac36f8e39f6
 ARG TINI_VERSION=v0.19.0
 ARG TRSA_VERSION=2.0
 ARG GF_UID=1000
