@@ -1,0 +1,11 @@
+[Unit]
+Description = h2
+After = network.target
+
+[Service]
+Type = forking
+WorkingDirectory = /opt/h2
+ExecStart = /opt/h2/bin/h2.sh
+
+[Install]
+WantedBy = multi-user.target
