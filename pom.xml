@@ -4,7 +4,7 @@
 
     <groupId>us.cyberimpact</groupId>
     <artifactId>trsa-web</artifactId>
-    <version>2.0</version>
+    <version>3.0</version>
     <packaging>war</packaging>
 
     <name>Trusted Remote Storage Agent Web GUI</name>
@@ -86,7 +86,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.0.3.Final</version>
+            <version>5.4.3.Final</version>
         </dependency>
         <!--        <dependency>
             <groupId>org.eclipse.persistence</groupId>

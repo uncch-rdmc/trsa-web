@@ -49,7 +49,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -61,25 +60,16 @@ import javax.inject.Named;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import javax.xml.stream.XMLStreamException;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import static org.apache.commons.text.CharacterPredicates.ARABIC_NUMERALS;
 import static org.apache.commons.text.CharacterPredicates.ASCII_UPPERCASE_LETTERS;
 import org.apache.commons.text.RandomStringGenerator;
 import org.dataverse.unf.UNFUtil;
 import org.dataverse.unf.UnfException;
-import us.cyberimpact.trsa.settings.AppConfig;
 import us.cyberimpact.trsa.settings.SettingsServiceBean;
-import us.cyberimpact.trsa.web.jsf.util.JsfUtil;
 
 /**
  *
@@ -548,7 +538,7 @@ public class IngestService {
                     
                     
                     try {
-                        // the blow line corresponds to ISB line 746
+                        // the below line corresponds to ISB line 746
                         if (tabDataIngest != null) {
                             logger.log(Level.INFO, "tabular-data ingest case");
                             logger.log(Level.FINE, "tabDataIngest:contents={0}", xstream.toXML(tabDataIngest));

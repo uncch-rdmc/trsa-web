@@ -1,7 +1,6 @@
 package us.cyberimpact.trsa.web;
 
 import edu.harvard.iq.dataverse.entities.DataFile;
-import us.cyberimpact.trsa.entities.TrsaProfileFacade;
 import edu.harvard.iq.dataverse.entities.DatasetVersion;
 import edu.harvard.iq.dataverse.entities.DatasetVersionFacade;
 import edu.harvard.iq.dataverse.export.ExportException;
@@ -13,13 +12,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -28,14 +28,12 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import us.cyberimpact.trsa.entities.DsTemplateData;
-import us.cyberimpact.trsa.entities.TrsaProfile;
-import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
+import us.cyberimpact.trsa.entities.TrsaProfile;
+import us.cyberimpact.trsa.entities.TrsaProfileFacade;
 
 @Named("fileUploadView")
 @SessionScoped
@@ -194,6 +192,8 @@ public class FileUploadView implements Serializable {
     public void upload(FileUploadEvent event) {
         logger.log(Level.INFO, "=========== FileUploadView#upload: start ===========");
         file = event.getFile();
+        logger.log(Level.INFO, "file.getFileName()={0}", file.getFileName());
+        Path tmp = Paths.get(fileName);
         String filePath = "";
         if (file != null) {
             FacesMessage message = new FacesMessage("Succesful",
