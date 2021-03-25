@@ -56,5 +56,5 @@ pom.xml.releaseBackup
 pom.xml.tag
 /nbproject/
 
-.vs code specific
+# vs code specific
 .vscode
