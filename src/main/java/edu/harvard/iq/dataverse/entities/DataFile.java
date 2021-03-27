@@ -503,6 +503,11 @@ public class DataFile implements Serializable {
     public void setModificationTime(Timestamp modificationTime) {
         this.modificationTime = modificationTime;
     }
+
+    @Override
+    public String toString() {
+        return "DataFile{" + "id=" + id + ", filesize=" + filesize + ", contentType=" + contentType + ", ingestStatus=" + ingestStatus + ", rootDataFileId=" + rootDataFileId + ", previousDataFileId=" + previousDataFileId + ", dataTables=" + dataTables + ", fileMetadatas=" + fileMetadatas + ", restricted=" + restricted + ", notaryServiceBound=" + notaryServiceBound + ", dataset=" + dataset + ", checksumType=" + checksumType + ", checksumValue=" + checksumValue + ", storageIdentifier=" + storageIdentifier + ", createDate=" + createDate + ", modificationTime=" + modificationTime + '}';
+    }
     
     
     

@@ -5,12 +5,16 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
+import edu.harvard.iq.dataverse.datavariable.VarGroup;
+import edu.harvard.iq.dataverse.datavariable.VariableMetadata;
+import edu.harvard.iq.dataverse.util.StringUtil;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +23,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -34,25 +39,33 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 public class FileMetadata implements Serializable {
     private static final long serialVersionUID = 1L;
-    private static final DateFormat displayDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);    
     private static final Logger logger = Logger.getLogger(FileMetadata.class.getCanonicalName());
 
 
     @Expose
     @Pattern(regexp="^[^:<>;#/\"\\*\\|\\?\\\\]*$", 
-            message = "File Name cannot contain any of the following characters: \\ / : * ? \" < > | ; # .")    
-    @NotBlank(message = "Please specify a file name.")
+            message = "{filename.illegalCharacters}")
+    @NotBlank(message = "{filename.blank}")
     @Column( nullable=false )
     private String label = "";
     
-    @Pattern(regexp="|[^/\\\\]|^[^/\\\\]+.*[^/\\\\]+$",
-            message = "Directory Name cannot contain leading or trailing file separators.")    
+    
+    @ValidateDataFileDirectoryName(message = "{directoryname.illegalCharacters}")
     @Expose
     @Column ( nullable=true )
+
     private String directoryLabel;
+    @Expose
     @Column(columnDefinition = "TEXT")
     private String description = "";
     
+    /**
+     * At the FileMetadata level, "restricted" is a historical indication of the
+     * data owner's intent for the file by version. Permissions are actually
+     * enforced based on the "restricted" boolean at the *DataFile* level. On
+     * publish, the latest intent is copied from the FileMetadata level to the
+     * DataFile level.
+     */
     @Expose
     private boolean restricted;
 
@@ -64,6 +77,18 @@ public class FileMetadata implements Serializable {
     @JoinColumn(nullable=false)
     private DataFile dataFile;
 
+    /**
+     * There are two types of provenance types and this "free-form" type is
+     * represented in the GUI as text box the user can type into. The other type
+     * is based on PROV-JSON from the W3C.
+     */
+    @Expose
+    @Column(columnDefinition = "TEXT", nullable = true, name="prov_freeform")
+    private String provFreeForm;
+
+    @OneToMany (mappedBy="fileMetadata", cascade={ CascadeType.REMOVE, CascadeType.MERGE,CascadeType.PERSIST})
+    private Collection<VariableMetadata> variableMetadatas;
+        
     /**
      * Creates a copy of {@code this}, with identical business logic fields.
      * E.g., {@link #label} would be duplicated; {@link #version} will not.
@@ -90,11 +115,22 @@ public class FileMetadata implements Serializable {
         this.label = label;
     }
 
+    public FileMetadata() {
+        variableMetadatas = new ArrayList<VariableMetadata>();
+        varGroups = new ArrayList<VarGroup>();
+    }
+
     public String getDirectoryLabel() {
         return directoryLabel;
     }
 
     public void setDirectoryLabel(String directoryLabel) {
+        //Strip off beginning and ending \ // - .
+        // and replace any sequences/combinations of / and \ with a single /
+        if (directoryLabel != null) {
+            directoryLabel = StringUtil.sanitizeFileDirectory(directoryLabel);
+        }
+
         this.directoryLabel = directoryLabel;
     }
 
@@ -113,9 +149,27 @@ public class FileMetadata implements Serializable {
     public void setRestricted(boolean restricted) {
         this.restricted = restricted;
     }
-    
 
-    /* 
+    @OneToMany(mappedBy="fileMetadata", cascade={ CascadeType.REMOVE, CascadeType.MERGE,CascadeType.PERSIST})
+    private List<VarGroup> varGroups;
+
+    public Collection<VariableMetadata> getVariableMetadatas() {
+        return variableMetadatas;
+    }
+
+    public List<VarGroup> getVarGroups() {
+        return varGroups;
+    }
+
+    public void setVariableMetadatas(Collection<VariableMetadata> variableMetadatas) {
+        this.variableMetadatas = variableMetadatas;
+    }
+
+    public void setVarGroups(List<VarGroup> varGroups) {
+        this.varGroups = varGroups;
+    }
+
+    /*
      * File Categories to which this version of the DataFile belongs: 
      */
 //    @ManyToMany

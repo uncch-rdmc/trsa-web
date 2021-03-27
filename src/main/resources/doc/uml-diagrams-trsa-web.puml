@@ -1,11 +1,74 @@
 = UML diagrams for TRSA
 * last updated: {docdatetime}
 
-.Dataverse: Downloading a remote DataFile: with/without Notary-service
+.Dataverse: Downloading a remote DataFile: with/without Notary-service: as of September 2019
 [uml]
 --
 @startuml
-title Downloading a remote Datafile with/without-Notary-service-restriction
+title Downloading a remote Datafile with/without-Notary-service-restriction: as of September 2019
+actor Researcher as rs
+'actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as sa
+participant "presido: file storage" as fs
+participant  Dataverse as dv
+participant "Notary Service" as ns
+participant "Authenticator" as ia
+
+alt Configuration 1 TRSA-to-NS-first
+rs -> wb: type the NS URL
+wb -> ns: request: Home (NS) Page
+ns -> wb: response: home page of NS
+rs -> wb: click the "Login" link
+wb -> ns: request: login
+ns -> ia: redirect action
+ia -> wb: rendering the institutional sign-on page
+rs -> wb: type user-name/password and click the "Sign in" button
+wb -> ia: request: authentication
+ia -> ns: redirecting to the NS
+ns -> wb: response: rendering the home page
+rs -> wb: click Datasets link
+wb -> ns: request: rendering the Datasets page
+rs -> wb: click My Datasets+ link to add a new Dataset
+wb -> ns: request: rendering the Add Dataset page
+ns -> wb: response: Add Dataset page
+rs -> wb: enter relevant Dataset-related data
+
+
+else Configuration 2
+
+end
+
+rs -> wb: type the landing URL\n of a Dataset
+wb -> dv: request: landing page of the Dataset
+dv -> wb: response: Landing page with a list of DataFiles
+rs -> wb: click the "Download" button\n of a DataFile
+wb -> dv: request: Downloading the DataFile
+dv -> dv: check the file location\n in terms of\n notary service
+alt with Notary Service
+dv -> ns: forward the pre-specified \nNotary-Service \nproject page
+note right
+Notary Service is
+expected to handle
+the ultimate
+file-downloading
+action
+end note
+else withoug Notary Service
+dv -> wb: redirect action
+wb -> fs: downloading request
+fs -> wb: response: prompt downloading
+rs -> wb: click "Save"
+end
+@enduml
+--
+
+
+.Dataverse: Downloading a remote DataFile: with/without Notary-service: as of June 2019
+[uml]
+--
+@startuml
+title Downloading a remote Datafile with/without-Notary-service-restriction: as of June 2019
 actor Researcher as rs
 'actor "Data Provider" as dp
 participant "Web Browser" as wb
@@ -36,9 +99,6 @@ rs -> wb: click "Save"
 end
 @enduml
 --
-
-
-
 
 .TRSA Functionality: Uploading Metadata to an Existing Dataset
 [uml]

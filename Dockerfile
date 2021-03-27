@@ -62,9 +62,12 @@ RUN mkdir -p ${FILES_DIR} && \
 COPY trsa-web-${TRSA_VERSION}.war $DEPLOY_DIR/
 
 # Install tini as minimized init system
-RUN wget --no-verbose -O tini-amd64 https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-amd64 && \
-    echo '93dcc18adc78c65a028a84799ecf8ad40c936fdfc5f2a57b1acda5a8117fa82c tini-amd64' | sha256sum -c - && \
-    mv tini-amd64 /tini && chmod +x /tini
+# RUN wget --no-verbose -O /tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini && \
+#     wget --no-verbose -O /tini.asc https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini.asc && \
+#     gpg --batch --keyserver "hkp://p80.pool.sks-keyservers.net:80" --recv-keys 595E85A6B1B4779EA4DAAEC70B588DFF0527A9B7 && \
+#     gpg --batch --verify /tini.asc /tini && \
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
 
 USER payara
 WORKDIR ${HOME_DIR}
@@ -83,7 +86,6 @@ RUN wget --no-verbose -O payara.zip ${PAYARA_PKG} && \
     ${PAYARA_DIR}/bin/asadmin --user ${ADMIN_USER} --passwordfile=/tmp/tmpfile change-admin-password --domain_name=${DOMAIN_NAME} && \
     ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} start-domain ${DOMAIN_NAME} && \
     ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} enable-secure-admin && \
-
     # odum: add jhove confs and trsa.config
     cp /tmp/jhove* ${PAYARA_DIR}/glassfish/domains/domain1/config/ && \
     cp /tmp/trsa.config ${PAYARA_DIR}/glassfish/domains/domain1/config/ && \
@@ -93,7 +95,6 @@ RUN wget --no-verbose -O payara.zip ${PAYARA_PKG} && \
     # odum: configure h2 jdbc resource/connection pool
     ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jdbc-connection-pool --datasourceclassname org.h2.jdbcx.JdbcDataSource --restype javax.sql.DataSource --property user=impactUser:password=1mq\@xt6z31:url="jdbc\:h2\:tcp\://localhost/~/trsa" H2impactPool && \
     ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jdbc-resource --connectionpoolid H2impactPool jdbc/trsa && \
-
     for MEMORY_JVM_OPTION in $(${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} list-jvm-options | grep "Xm[sx]"); do\
         ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} delete-jvm-options $MEMORY_JVM_OPTION;\
     done && \

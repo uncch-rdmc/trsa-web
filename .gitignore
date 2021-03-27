@@ -55,3 +55,6 @@ release.properties
 pom.xml.releaseBackup
 pom.xml.tag
 /nbproject/
+
+# vs code specific
+.vscode

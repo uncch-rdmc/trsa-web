@@ -16,10 +16,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Table;
 
 /**
  *
@@ -31,6 +33,7 @@ import javax.persistence.OrderBy;
  */
 
 @Entity
+@Table(indexes = {@Index(columnList="datafile_id")})
 public class DataTable implements Serializable {
     
     /** Creates a new instance of DataTable */
@@ -67,8 +70,7 @@ public class DataTable implements Serializable {
      * ICPSR. 
      */
      private Long recordsPerCase;
-
-
+     
      /*
       * DataFile that stores the data for this DataTable
       */
@@ -95,6 +97,18 @@ public class DataTable implements Serializable {
      * format; for example, STATA 9, SPSS 12, etc. 
      */
     private String originalFormatVersion;
+    
+    /* 
+     * Size of the original file:
+    */
+    
+    private Long originalFileSize; 
+    
+    /**
+     * originalFileName: the file name upon upload/ingest
+     */
+    @Column( nullable = true )
+    private String originalFileName;
     
     /*
      * Getter and Setter methods:
@@ -138,7 +152,7 @@ public class DataTable implements Serializable {
     public void setRecordsPerCase(Long recordsPerCase) {
         this.recordsPerCase = recordsPerCase;
     }
-
+    
     public DataFile getDataFile() {
         return this.dataFile;
     }
@@ -165,6 +179,14 @@ public class DataTable implements Serializable {
         this.originalFileFormat = originalFileType;
     }
 
+    public Long getOriginalFileSize() {
+        return originalFileSize; 
+    }
+    
+    public void setOriginalFileSize(Long originalFileSize) {
+        this.originalFileSize = originalFileSize;
+    }
+    
     
     public String getOriginalFormatVersion() {
         return originalFormatVersion;
@@ -172,6 +194,14 @@ public class DataTable implements Serializable {
 
     public void setOriginalFormatVersion(String originalFormatVersion) {
         this.originalFormatVersion = originalFormatVersion;
+    }
+       
+    public String getOriginalFileName() {
+        return originalFileName;
+    }
+
+    public void setOriginalFileName(String originalFileName) {
+        this.originalFileName = originalFileName;
     }
     
     /* 

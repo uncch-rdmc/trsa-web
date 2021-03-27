@@ -256,7 +256,9 @@ public class SAVFileReader  extends TabularDataFileReader{
     private String defaultCharSet = "ISO-8859-1";
     //private String defaultCharSet = "US-ASCII"; // -- temporary! -- 4.0 beta 6
     private int    spssVersionNumber = 0; 
-
+    private String defaultUnicodeCharSet = "UTF-8";
+    private String defaultWindowsCharSet = "windows-1252";
+    private int subtype721counter=0;
 
     /**
      * The <code>String</code> that represents the numeric missing value 
@@ -323,90 +325,86 @@ public class SAVFileReader  extends TabularDataFileReader{
         try {
          /* ingest happens here ... */ 
         
-        // the following methods are now executed, in this order:
-	    
-	// decodeHeader -- this method doesn't read any [meta]data and 
-	//    doesn't initialize any values; its only purpose is to 
-	//    make sure that the file is indeed an SPSS/SAV file. 
-	// 
-	// decodeRecordType1 -- there's always one RT1 record; it is 
-	//    always 176 byte long. it contains the very basic metadata
-	//    about the data file. most notably, the number of observations
-	//    and the number of OBS (8 byte values) per observation.
-	//
-	// decodeRecordType2 -- there are multiple RT2 records. there's 
-	//    one RT2 for every OBS (8 byte value); i.e. one per variable,
-	//    or more per every String variable split into multiple OBS
-	//    segments. this one is a 400 line method, that may benefit 
-	//    from being split into smaller methods.
-	//
-	// decodeRecordType3and4 -- these sections come in pairs, each
-	//    pair dedicated to one set of variable labels. 
-	// decodeRecordType6,
-	//
-	// decodeRecordType7 -- this RT contains some extended 
-	//    metadata for the data file. (including the information 
-	//    about the extended variables, i.e. variables longer than
-	//    255 bytes split into 255 byte fragments that are stored 
-	//    in the data file as independent variables). 
-	//
-	// decodeRecordType999 -- this RT does not contain any data; 
-	//    its sole function is to indicate that the metadata portion 
-	//    of the data file is over and the data section follows. 
-	// 
-	// decodeRecordTypeData -- this method decodes the data section 
-	//    of the file. Inside this method, 2 distinct methods are 
-	//    called to process compressed or uncompressed data, depending
-	//    on which method is used in this data file. 
+            // the following methods are now executed, in this order:
+            // decodeHeader -- this method doesn't read any [meta]data and 
+            //    doesn't initialize any values; its only purpose is to 
+            //    make sure that the file is indeed an SPSS/SAV file. 
+            // 
+            // decodeRecordType1 -- there's always one RT1 record; it is 
+            //    always 176 byte long. it contains the very basic metadata
+            //    about the data file. most notably, the number of observations
+            //    and the number of OBS (8 byte values) per observation.
+            //
+            // decodeRecordType2 -- there are multiple RT2 records. there's 
+            //    one RT2 for every OBS (8 byte value); i.e. one per variable,
+            //    or more per every String variable split into multiple OBS
+            //    segments. this one is a 400 line method, that may benefit 
+            //    from being split into smaller methods.
+            //
+            // decodeRecordType3and4 -- these sections come in pairs, each
+            //    pair dedicated to one set of variable labels. 
+            // decodeRecordType6,
+            //
+            // decodeRecordType7 -- this RT contains some extended 
+            //    metadata for the data file. (including the information 
+            //    about the extended variables, i.e. variables longer than
+            //    255 bytes split into 255 byte fragments that are stored 
+            //    in the data file as independent variables). 
+            //
+            // decodeRecordType999 -- this RT does not contain any data; 
+            //    its sole function is to indicate that the metadata portion 
+            //    of the data file is over and the data section follows. 
+            // 
+            // decodeRecordTypeData -- this method decodes the data section 
+            //    of the file. Inside this method, 2 distinct methods are 
+            //    called to process compressed or uncompressed data, depending
+            //    on which method is used in this data file. 
+            String methodCurrentlyExecuted = null;
 
+            try {
+                methodCurrentlyExecuted = "decodeHeader";
+                dbgLog.fine("***** SAVFileReader: executing method decodeHeader");
+                decodeHeader(stream);
 
-	String methodCurrentlyExecuted = null; 
+                methodCurrentlyExecuted = "decodeRecordType1";
+                dbgLog.fine("***** SAVFileReader: executing method decodeRecordType1");
+                decodeRecordType1(stream);
 
-	try {
-	    methodCurrentlyExecuted = "decodeHeader";
-	    dbgLog.fine("***** SAVFileReader: executing method decodeHeader");
-	    decodeHeader(stream); 
+                methodCurrentlyExecuted = "decodeRecordType2";
+                dbgLog.fine("***** SAVFileReader: executing method decodeRecordType1");
+                decodeRecordType2(stream);
 
-	    methodCurrentlyExecuted = "decodeRecordType1";
-	    dbgLog.fine("***** SAVFileReader: executing method decodeRecordType1");
-	    decodeRecordType1(stream); 
+                methodCurrentlyExecuted = "decodeRecordType3and4";
+                dbgLog.fine("***** SAVFileReader: executing method decodeRecordType3and4");
+                decodeRecordType3and4(stream);
 
-	    methodCurrentlyExecuted = "decodeRecordType2";
-	    dbgLog.fine("***** SAVFileReader: executing method decodeRecordType1");
-	    decodeRecordType2(stream); 
+                methodCurrentlyExecuted = "decodeRecordType6";
+                dbgLog.fine("***** SAVFileReader: executing method decodeRecordType6");
+                decodeRecordType6(stream);
 
-	    methodCurrentlyExecuted = "decodeRecordType3and4"; 
-	    dbgLog.fine("***** SAVFileReader: executing method decodeRecordType3and4");
-	    decodeRecordType3and4(stream); 
+                methodCurrentlyExecuted = "decodeRecordType7";
+                dbgLog.fine("***** SAVFileReader: executing method decodeRecordType7");
+                decodeRecordType7(stream);
 
-	    methodCurrentlyExecuted = "decodeRecordType6";
-	    dbgLog.fine("***** SAVFileReader: executing method decodeRecordType6");
-	    decodeRecordType6(stream); 
+                methodCurrentlyExecuted = "decodeRecordType999";
+                dbgLog.fine("***** SAVFileReader: executing method decodeRecordType999");
+                decodeRecordType999(stream);
 
-	    methodCurrentlyExecuted = "decodeRecordType7";
-	    dbgLog.fine("***** SAVFileReader: executing method decodeRecordType7");
-	    decodeRecordType7(stream);
+                methodCurrentlyExecuted = "decodeRecordTypeData";
+                dbgLog.fine("***** SAVFileReader: executing method decodeRecordTypeData");
+                decodeRecordTypeData(stream);
 
-	    methodCurrentlyExecuted = "decodeRecordType999"; 
-	    dbgLog.fine("***** SAVFileReader: executing method decodeRecordType999");
-	    decodeRecordType999(stream);
+            } catch (IllegalArgumentException e) {
+                //Throwable cause = e.getCause();
+                dbgLog.fine("***** SAVFileReader: ATTENTION: IllegalArgumentException thrown while executing " + methodCurrentlyExecuted);
+                e.printStackTrace();
+                throw new IOException("IllegalArgumentException in method " + methodCurrentlyExecuted + ": " + e.getMessage());
+            } catch (IOException e) {
+                dbgLog.fine("***** SAVFileReader: ATTENTION: IOException thrown while executing " + methodCurrentlyExecuted);
+                e.printStackTrace();
+                throw new IOException("IO Exception in method " + methodCurrentlyExecuted + ": " + e.getMessage());
+            }
 
-	    methodCurrentlyExecuted = "decodeRecordTypeData";
-	    dbgLog.fine("***** SAVFileReader: executing method decodeRecordTypeData");
-	    decodeRecordTypeData(stream); 
-
-		
-	} catch (IllegalArgumentException e) {
-	    //Throwable cause = e.getCause();
-	    dbgLog.fine("***** SAVFileReader: ATTENTION: IllegalArgumentException thrown while executing "+methodCurrentlyExecuted);
-	    e.printStackTrace();
-	    throw new IOException ( "IllegalArgumentException in method "+methodCurrentlyExecuted+": "+e.getMessage() ); 
-	} catch (IOException e) {
-	    dbgLog.fine("***** SAVFileReader: ATTENTION: IOException thrown while executing "+methodCurrentlyExecuted);
-	    e.printStackTrace();
-	    throw new IOException ( "IO Exception in method "+methodCurrentlyExecuted+": "+e.getMessage() ); 
-	} 
-	
         /* 
          * Final variable type assignments;
          * TODO: (maybe?) 
@@ -496,6 +494,7 @@ public class SAVFileReader  extends TabularDataFileReader{
             
             if (shortToLongVariableNameTable.containsKey(varName)) {
                 String longName = shortToLongVariableNameTable.get(varName); 
+                dbgLog.log(Level.INFO, "longName={0}", longName);
                 if (longName != null && !longName.equals("")) {
                     dataTable.getDataVariables().get(indx).setName(longName);
                 }
@@ -1165,17 +1164,17 @@ public class SAVFileReader  extends TabularDataFileReader{
                     String variableLabel = "";
 
                     if (rawVariableLabelLength > 0) {
-                    byte[] variable_label = new byte[variableLabelLength];
-                    int nbytes_2_5 = stream.read(variable_label);
-                    if (nbytes_2_5 == 0){
+                        byte[] variable_label = new byte[variableLabelLength];
+                        int nbytes_2_5 = stream.read(variable_label);
+                        if (nbytes_2_5 == 0) {
                             throw new IOException("RT 2: error reading recordType2.5: "
-                                    +variableLabelLength+" bytes requested, no bytes read!");
-                    } else {
-                        dbgLog.fine("nbytes_2_5="+nbytes_2_5);
-                    }
+                                    + variableLabelLength + " bytes requested, no bytes read!");
+                        } else {
+                            dbgLog.fine("nbytes_2_5=" + nbytes_2_5);
+                        }
                         variableLabel = getNullStrippedString(new String(Arrays.copyOfRange(variable_label,
-                                0, rawVariableLabelLength),defaultCharSet));
-                        dbgLog.fine("RT2: variableLabel="+variableLabel+"<-");
+                                0, rawVariableLabelLength), defaultCharSet));
+                        dbgLog.fine("RT2: variableLabel=" + variableLabel + "<-");
 
                         dbgLog.fine(variableName + " => " + variableLabel);
                     } else {
@@ -1470,15 +1469,15 @@ public class SAVFileReader  extends TabularDataFileReader{
                 if (stream == null) {
                     throw new IllegalArgumentException("stream == null!");
                 }
-		// this secton may not exit so first check the 4-byte header value
+                // this secton may not exit so first check the 4-byte header value
                 //if (stream.markSupported()){
                 stream.mark(1000);
-		//}
+                //}
                 // 3.0 check the first 4 bytes
                 byte[] headerCode = new byte[LENGTH_RECORD_TYPE3_CODE];
 
                 int nbytes_rt3 = stream.read(headerCode, 0, LENGTH_RECORD_TYPE3_CODE);
-		// to-do check against nbytes
+                // to-do check against nbytes
                 //printHexDump(headerCode, "RT3 header test");
                 ByteBuffer bb_header_code = ByteBuffer.wrap(headerCode,
                         0, LENGTH_RECORD_TYPE3_CODE);
@@ -1534,7 +1533,7 @@ public class SAVFileReader  extends TabularDataFileReader{
                     if (nbytes_3_value == 0) {
                         throw new IOException("RT 3: reading recordType3 value: no byte was read");
                     }
-		    // note these 8 bytes are interpreted later
+                    // note these 8 bytes are interpreted later
                     // currently no information about which variable's (=> type unknown)
                     ByteBuffer bb_value = ByteBuffer.wrap(value,
                             0, LENGTH_RT3_VALUE);
@@ -1547,17 +1546,17 @@ public class SAVFileReader  extends TabularDataFileReader{
                      double valueD = bb_value.getDouble();                
                      dbgLog.fine("value="+valueD);
                      */
-		    // read 1st byte as unsigned integer = label_length
+                    // read 1st byte as unsigned integer = label_length
 
                     // read label_length byte as label
                     byte[] labelLengthByte = new byte[LENGTH_RT3_LABEL_LENGTH];
 
                     int nbytes_3_label_length = stream.read(labelLengthByte);
 
-		    // add check-routine here
+                    // add check-routine here
                     dbgLog.fine("labelLengthByte" + Hex.encodeHex(labelLengthByte));
                     dbgLog.fine("label length = " + labelLengthByte[0]);
-		    // the net-length of a value label is saved as
+                    // the net-length of a value label is saved as
                     // unsigned byte; however, the length is less than 127
                     // byte should be ok
                     int rawLabelLength = labelLengthByte[0] & 0xFF;
@@ -1567,7 +1566,7 @@ public class SAVFileReader  extends TabularDataFileReader{
                     byte[] valueLabelBytes = new byte[labelLength];
                     int nbytes_3_value_label = stream.read(valueLabelBytes);
 
-		    // ByteBuffer bb_label = ByteBuffer.wrap(valueLabel,0,labelLength);
+                    // ByteBuffer bb_label = ByteBuffer.wrap(valueLabel,0,labelLength);
                     valueLabel[i] = StringUtils.stripEnd(new String(Arrays.copyOfRange(valueLabelBytes, 0, rawLabelLength), defaultCharSet), " ");
                     dbgLog.fine(i + "-th valueLabel=" + valueLabel[i] + "<-");
 
@@ -1585,7 +1584,7 @@ public class SAVFileReader  extends TabularDataFileReader{
                     throw new IOException("RT4: reading recordType4 value: no byte was read");
                 }
 
-		//printHexDump(headerCode4, "RT4 header test");
+                //printHexDump(headerCode4, "RT4 header test");
                 ByteBuffer bb_header_code_4 = ByteBuffer.wrap(headerCode4,
                         0, LENGTH_RECORD_TYPE4_CODE);
                 if (isLittleEndian) {
@@ -1688,27 +1687,34 @@ public class SAVFileReader  extends TabularDataFileReader{
     }
    
     void assignValueLabels(Map<String, Map<String, String>> valueLabelTable) {
+        dbgLog.log(Level.INFO, "===== assignValueLabels: begins =====");
         // Let's go through all the categorical value label mappings and 
         // assign them to the correct variables: 
-        
+            dbgLog.log(Level.INFO, "valueVariableMappingTable={0}", valueVariableMappingTable);
         for (int i = 0; i < dataTable.getVarQuantity().intValue(); i++) {
             
             String varName = dataTable.getDataVariables().get(i).getName();
-            
+            dbgLog.log(Level.INFO, "varName={0}", varName);
+
+            dbgLog.log(Level.INFO, "valueVariableMappingTable.get(varName)={0}", valueVariableMappingTable.get(varName));
             Map<String, String> valueLabelPairs = valueLabelTable.get(valueVariableMappingTable.get(varName));
+            
             if (valueLabelPairs != null && !valueLabelPairs.isEmpty()) {
                 for (String value : valueLabelPairs.keySet()) {
-                    
+                    dbgLog.log(Level.INFO, "value={0}", value);
                     VariableCategory cat = new VariableCategory();
                     cat.setValue(value);
                     cat.setLabel(valueLabelPairs.get(value));
 
                     /* cross-link the variable and category to each other: */
+                    dbgLog.log(Level.INFO, "dataTable.getDataVariables().get(i)={0}", dataTable.getDataVariables().get(i));
                     cat.setDataVariable(dataTable.getDataVariables().get(i));
                     dataTable.getDataVariables().get(i).getCategories().add(cat);
                 }
             }
         }
+        
+        dbgLog.log(Level.INFO, "===== assignValueLabels: ends =====");
     }
     
 
@@ -2063,7 +2069,7 @@ public class SAVFileReader  extends TabularDataFileReader{
                             shortToLongVariableNameTable.put(pair[0], pair[1]);
                         }
 
-                        dbgLog.fine("RT7: shortToLongVarialbeNameTable"+
+                        dbgLog.fine("RT7: shortToLongVariableNameTable"+
                                 shortToLongVariableNameTable);
                         // We are saving the short-to-long name map; at the
                         // end of ingest, we'll go through the data variables and
@@ -2163,7 +2169,8 @@ public class SAVFileReader  extends TabularDataFileReader{
                     break;
                 case 21:
                     // Value labels for long strings
-                    parseRT7SubTypefield(stream);
+                    dbgLog.fine("RT7-21: subtype 21 is the Value labels for long strings");
+                    parseRT721SubTypefield(stream);
                     break;
                 case 22:
                     // Missing values for long strings
@@ -2191,7 +2198,7 @@ public class SAVFileReader  extends TabularDataFileReader{
     
     
     void decodeRecordType999(BufferedInputStream stream) throws IOException {
-        dbgLog.fine("decodeRecordType999(): start");
+        dbgLog.fine("decodeRecordType:999(): start");
         try {
             if (stream ==null){
                 throw new IllegalArgumentException("RT999: stream == null!");
@@ -3047,7 +3054,7 @@ public class SAVFileReader  extends TabularDataFileReader{
                         }
                     
                     } else {
-                        dbgLog.finer(k+"-th variable is string");
+                        dbgLog.fine(k+"-th variable is string");
                         // string case
                         // strip space-padding
                         // do not trim: string might have spaces within it
@@ -3058,7 +3065,7 @@ public class SAVFileReader  extends TabularDataFileReader{
                         String strdatum = new String(
                             Arrays.copyOfRange(buffer,
                             offset, (offset+LENGTH_SAV_OBS_BLOCK)),defaultCharSet);
-                        dbgLog.finer("str_datum="+strdatum);
+                        dbgLog.fine("str_datum="+strdatum);
                         // add this non-missing-value string datum 
                         casewiseRecordForTabFile.add(strdatum);
 
@@ -3070,7 +3077,7 @@ public class SAVFileReader  extends TabularDataFileReader{
                 if (hasStringVarContinuousBlock){
 		    // continuous blocks: string case
 		    // concatenating process
-                    //dbgLog.fine("concatenating process starts");
+                    dbgLog.log(Level.INFO, "concatenating process starts for {0}-th obs", i);
 
                     //dbgLog.fine("casewiseRecordForTabFile(before)="+casewiseRecordForTabFile);
                     //dbgLog.fine("casewiseRecordForTabFile(before:size)="+casewiseRecordForTabFile.size());
@@ -3079,8 +3086,11 @@ public class SAVFileReader  extends TabularDataFileReader{
                     int firstPosition = 0;
 
                     Set<Integer> removeJset = new HashSet<Integer>();
+                    int tracejc =0;
+                    int traceType=0;
                     for (int j=0; j< nOBS; j++){
-                        dbgLog.finer("j="+j+"-th type ="+OBSwiseTypelList.get(j));
+                        dbgLog.fine("j="+j+"-th type ="+OBSwiseTypelList.get(j));
+                        traceType=OBSwiseTypelList.get(j);
                         if (OBSwiseTypelList.get(j) == -1){
                             // String continued fount at j-th 
                             // look back the j-1 
@@ -3091,18 +3101,41 @@ public class SAVFileReader  extends TabularDataFileReader{
                             removeJset.add(j);
                             sb.append(casewiseRecordForTabFile.get(j-1));
                             sb.append(casewiseRecordForTabFile.get(j));
-                            for (int jc =1; ; jc++ ){
-                                if (OBSwiseTypelList.get(j+jc) != -1){
-                                // j is the end unit of this string variable
+                            
+                            
+//                            try {
+                            for (int jc = 1;; jc++) {
+                                tracejc = jc;
+                                dbgLog.log(Level.FINE, "j+jc={0}", j + jc);
+                                // J+jc becomes ==  noBS, it must be terminated
+                                if (j + jc < nOBS) {
+                                    if (OBSwiseTypelList.get(j + jc) != -1) {
+                                        // j is the end unit of this string variable
+                                        concatanated = sb.toString();
+                                        sb.setLength(0);
+                                        lastJ = j + jc;
+                                        break;
+                                    } else {
+                                        sb.append(casewiseRecordForTabFile.get(j + jc));
+                                        removeJset.add(j + jc);
+                                    }
+                                } else if (j + jc == nOBS) {
+                                    // The var-unit list ends with a continuous segment
+                                    dbgLog.log(Level.FINE, "last unit: j+jc=nOBS={0}", j + jc);
                                     concatanated = sb.toString();
                                     sb.setLength(0);
-                                   lastJ = j+jc;
-                                   break;
+                                    lastJ = j + jc;
+                                    break;
                                 } else {
-                                    sb.append(casewiseRecordForTabFile.get(j+jc));
-                                    removeJset.add(j+jc);
+                                    
                                 }
                             }
+//                            } catch (IndexOutOfBoundsException e){
+//                                dbgLog.log(Level.INFO, "j={0}", j);
+//                                dbgLog.log(Level.INFO, "jc={0}", tracejc);
+//                                dbgLog.log(Level.INFO, "type={0}", traceType);
+//                                dbgLog.log(Level.SEVERE, "IndexOutOfBoundsException was thrown", e);
+//                            }
                             casewiseRecordForTabFile.set(j-1, concatanated); 
 
                             //out.println(j-1+"th concatanated="+concatanated);
@@ -3317,7 +3350,7 @@ public class SAVFileReader  extends TabularDataFileReader{
                     // reached the end of this file
                     // do exit-processing
 
-                    dbgLog.fine("reached the end of the file at "+ii
+                    dbgLog.fine("reached the end of the file at "+i
 				+"th iteration");
 
                     break;
@@ -3453,41 +3486,40 @@ public class SAVFileReader  extends TabularDataFileReader{
         int length_unit_length = 4;
         int length_number_of_units = 4;
         int storage_size = length_unit_length + length_number_of_units;
-        
+
         int[] headerSection = new int[2];
-        
+
         byte[] byteStorage = new byte[storage_size];
 
-	try {
-	    int nbytes = stream.read(byteStorage);
-	    // to-do check against nbytes
+        try {
+            int nbytes = stream.read(byteStorage);
+            // to-do check against nbytes
 
-	    //printHexDump(byteStorage, "RT7:storage");
-	    
-	    ByteBuffer bb_data_type = ByteBuffer.wrap(byteStorage,
-						      0, length_unit_length);
-	    if (isLittleEndian){
-		bb_data_type.order(ByteOrder.LITTLE_ENDIAN);
-	    }
+            //printHexDump(byteStorage, "RT7:storage");
+            ByteBuffer bb_data_type = ByteBuffer.wrap(byteStorage,
+                    0, length_unit_length);
+            if (isLittleEndian) {
+                bb_data_type.order(ByteOrder.LITTLE_ENDIAN);
+            }
 
-	    int unitLength = bb_data_type.getInt();
-	    dbgLog.fine("parseRT7 SubTypefield: unitLength="+unitLength);
-	    
-	    ByteBuffer bb_number_of_units = ByteBuffer.wrap(byteStorage,
-							    length_unit_length, length_number_of_units);
-	    if (isLittleEndian){
-		bb_number_of_units.order(ByteOrder.LITTLE_ENDIAN);
-	    }
+            int unitLength = bb_data_type.getInt();
+            dbgLog.fine("parseRT7 SubTypefield: unitLength=" + unitLength);
 
-	    int numberOfUnits = bb_number_of_units.getInt();
-	    dbgLog.fine("parseRT7 SubTypefield: numberOfUnits="+numberOfUnits);
-	
-	    headerSection[0] = unitLength;
-	    headerSection[1] = numberOfUnits;
-	    return headerSection;
-	} catch (IOException ex) {
-	    throw ex;
-	}
+            ByteBuffer bb_number_of_units = ByteBuffer.wrap(byteStorage,
+                    length_unit_length, length_number_of_units);
+            if (isLittleEndian) {
+                bb_number_of_units.order(ByteOrder.LITTLE_ENDIAN);
+            }
+
+            int numberOfUnits = bb_number_of_units.getInt();
+            dbgLog.fine("parseRT7 SubTypefield: numberOfUnits=" + numberOfUnits);
+
+            headerSection[0] = unitLength;
+            headerSection[1] = numberOfUnits;
+            return headerSection;
+        } catch (IOException ex) {
+            throw ex;
+        }
     }
     
     // TODO: 
@@ -3540,7 +3572,7 @@ public class SAVFileReader  extends TabularDataFileReader{
                 if (isLittleEndian){
                     bb_field.order(ByteOrder.LITTLE_ENDIAN);
                 }
-                dbgLog.fine("RT7ST: raw bytes in Hex:"+ new String(Hex.encodeHex(bb_field.array())));
+                dbgLog.finer("RT7ST: raw bytes in Hex:"+ new String(Hex.encodeHex(bb_field.array())));
                 if (unitLength==4){
                     int fieldData = bb_field.getInt();
                     dbgLog.fine("RT7ST: "+i+"-th fieldData="+fieldData);
@@ -3620,6 +3652,223 @@ public class SAVFileReader  extends TabularDataFileReader{
         }
     }    
         
+    
+    
+    private  Map<String, Map<String, String>> parseRT721SubTypefield(BufferedInputStream stream) throws IOException {
+        dbgLog.log(Level.INFO, "===== parseRT721SubTypefield: begins =====");
+        /*
+         SubType 7.21: sTructure
+         1. Record Type code: (int: 7)
+         2. Subtype code (int: 21 = x15)
+         3. Data Type Code ?(int: 1 = string?)
+         4. Number of characters follows (int)
+         5. Length of next segment(variable name)(int)
+         6. Variable name (string)
+         7. Width (int)
+         8. How many value-label pairs follow: (int)
+         9. Length of the 1st value: (int)
+        10. The first value (string)
+        11. Legth of the 1st label: (int)
+        12. The first lable (string)
+            Length of the 2nd value [if exists] (int)
+        */
+        // At this point, subtype code (21) has been already decoded 
+        // to-be-returned object: value-label table
+        
+        
+        Map<String, Map<String, String>> longValueLabelTables
+                = new LinkedHashMap<String, Map<String, String>>();
+        
+        
+
+
+        // Data type code: seems 1 (=String type?): 4-byte integer
+        int dataTypeCode = parsingIntegerField(stream, LENGTH_SAV_INT_BLOCK);
+        
+        dbgLog.log(Level.INFO, "dataTypeCode:1 expected={0}", dataTypeCode);
+        
+        // length of the remaining segment: 4-byte integer
+        int lengthRemaining = parsingIntegerField(stream, LENGTH_SAV_INT_BLOCK);
+        dbgLog.log(Level.INFO, "lengthRemaining:{0}", lengthRemaining);
+        
+        
+        do {
+            Map<String, String> longValueLabelTable = new LinkedHashMap<>();
+            
+            String varName = parsingIntStringBlock(stream, LENGTH_SAV_INT_BLOCK);
+            dbgLog.log(Level.INFO, "variable Name:{0}", varName);
+
+            // width 4 byte integer
+            int valueWidth = parsingIntegerField(stream, LENGTH_SAV_INT_BLOCK);
+            dbgLog.log(Level.INFO, "valueWidth:{0}", valueWidth);
+            subtype721counter +=LENGTH_SAV_INT_BLOCK;
+            // Number of value-label pairs: 4-byte integer
+            int numValueLablePairs = parsingIntegerField(stream, LENGTH_SAV_INT_BLOCK);
+            dbgLog.log(Level.INFO, "numValueLablePairs:{0}", numValueLablePairs);
+            subtype721counter +=LENGTH_SAV_INT_BLOCK;
+
+
+            for (int i = 0; i < numValueLablePairs; i++) {
+                // value
+                String parsedValue = parsingIntStringBlock(stream, LENGTH_SAV_INT_BLOCK);
+                // label 
+                String parsedLabel = parsingIntStringBlock(stream, LENGTH_SAV_INT_BLOCK);
+
+                longValueLabelTable.put(parsedValue, parsedLabel);
+            }
+            
+            
+            dbgLog.log(Level.INFO, "longValueLabelTable:{0}", longValueLabelTable);
+            longValueLabelTables.put(varName, longValueLabelTable);
+            dbgLog.log(Level.INFO, "subtype721counter:{0}", subtype721counter);
+        } while (subtype721counter < lengthRemaining);
+        
+        dbgLog.log(Level.INFO, "longValueLabelTables:{0}", longValueLabelTables);
+        if (!longValueLabelTables.isEmpty()){
+            dbgLog.log(Level.INFO, "longValueLabelTables is not empty: to be added to DB");
+            assignLongValueLabels(longValueLabelTables);
+        }
+        
+        dbgLog.log(Level.INFO, "===== parseRT721SubTypefield: ends =====");
+        return longValueLabelTables;
+    }
+    
+    private String parsingIntStringBlock(BufferedInputStream stream, 
+            int lengthHeader) throws IOException {
+        dbgLog.log(Level.INFO, "===== parsingIntStringBlock: begins =====");
+
+        // terminology
+        // header:4-byte int whose number tells the length of the following 
+        // body (String) segment
+        // body: variable-length set by the integer value of the header
+        
+        // part 1: parse the header
+        
+        byte[] headerLengthArray = new byte[lengthHeader];
+        
+        int nbytesHeader = stream.read(headerLengthArray);
+
+        if (nbytesHeader == 0) {
+            throw new IOException("Error reading the header: no bytes read!");
+        } else {
+            dbgLog.log(Level.INFO, "nbytesHeader={0}", nbytesHeader);
+            subtype721counter +=nbytesHeader;
+        }
+
+        ByteBuffer bbLengthHeader = ByteBuffer.wrap(headerLengthArray, 0, lengthHeader);
+
+        if (isLittleEndian) {
+            bbLengthHeader.order(ByteOrder.LITTLE_ENDIAN);
+        }
+
+        int rawBodyLength = bbLengthHeader.getInt();
+        dbgLog.log(Level.INFO, "rawBodyLength={0}", rawBodyLength);
+        
+        // is this adjustment applicable for subtype 7.21? No
+        int bodyLength = rawBodyLength;//getSAVintAdjustedBlockLength(rawBodyLength);
+        dbgLog.log(Level.INFO, "bodyLength={0}", bodyLength);
+        
+        // part 2: parsing the body
+        String body = "";
+        
+        if (rawBodyLength > 0) {
+            byte[] bodyArray = new byte[bodyLength];
+            int nbytesBody = stream.read(bodyArray);
+            
+            if (nbytesBody == 0) {
+                throw new IOException("error reading this block"
+                        + bodyLength + " bytes requested, no bytes read!");
+            } else {
+                dbgLog.log(Level.INFO, "nbytesBody={0}", nbytesBody);
+                subtype721counter +=nbytesBody;
+            }
+            body = getNullStrippedString(new String(Arrays.copyOfRange(
+                    bodyArray, 0, rawBodyLength), defaultCharSet));
+            
+            dbgLog.log(Level.INFO, "body: variable name={0}", body);
+        } else {
+            // this is unlikely here: A pasring error is suspected
+            dbgLog.log(Level.WARNING, "no labe is available: parsing error"
+                    + "is suspected", new IOException("Exception thrown in parsingIntStringBlock()"));
+        }
+        
+        
+        dbgLog.log(Level.INFO, "===== parsingIntStringBlock: ends =====");
+        return body;
+    }
+    
+    
+    private int parsingIntegerField(BufferedInputStream stream, 
+            int lengthField) throws IOException{
+        dbgLog.log(Level.INFO, "===== parsingIntegerField: begins =====");
+        byte[] intFieldLengthArray = new byte[lengthField];
+        int nbytesIntField = stream.read(intFieldLengthArray);
+        
+        if (nbytesIntField == 0) {
+            throw new IOException("Error reading this int field: no bytes read!");
+        } else {
+            dbgLog.log(Level.INFO, "nbytesHeader={0}", nbytesIntField);
+        }
+        
+        ByteBuffer bbLengthIntField = ByteBuffer.wrap(intFieldLengthArray, 0, 
+                lengthField);
+        if (isLittleEndian) {
+            bbLengthIntField.order(ByteOrder.LITTLE_ENDIAN);
+        }
+        
+        int intFieldValue = bbLengthIntField.getInt();
+        dbgLog.log(Level.INFO, "intFieldValue={0}", intFieldValue);
+        dbgLog.log(Level.INFO, "===== parsingIntegerField: ends =====");
+        return intFieldValue;
+    }
+    
+    
+
+    void assignLongValueLabels(Map<String, Map<String, String>> valueLabelTable) {
+        dbgLog.log(Level.INFO, "===== assignLongValueLabels: begins =====");
+        // Let's go through all the categorical value label mappings and 
+        // assign them to the correct variables: 
+
+        for (int i = 0; i < dataTable.getVarQuantity().intValue(); i++) {
+
+            String varName = dataTable.getDataVariables().get(i).getName();
+            dbgLog.log(Level.INFO, "varName={0}", varName);
+
+            if (shortToLongVariableNameTable.containsKey(varName)) {
+                String longName = shortToLongVariableNameTable.get(varName);
+                dbgLog.log(Level.INFO, "longName={0}", longName);
+                if (longName != null && !longName.equals("")) {
+                    //dataTable.getDataVariables().get(i).setName(longName);
+
+                    if (!valueLabelTable.containsKey(longName)) {
+                        continue;
+                    }
+
+                    Map<String, String> valueLabelPairs = valueLabelTable.get(longName);
+                    dbgLog.log(Level.INFO, "valueLabelPairs={0}", valueLabelPairs);
+
+                    if (valueLabelPairs != null && !valueLabelPairs.isEmpty()) {
+                        for (String value : valueLabelPairs.keySet()) {
+                            dbgLog.log(Level.INFO, "value={0}", value);
+                            VariableCategory cat = new VariableCategory();
+                            cat.setValue(value);
+                            cat.setLabel(valueLabelPairs.get(value));
+                            dbgLog.log(Level.INFO, "dataTable.getDataVariables().get(i)={0}", dataTable.getDataVariables().get(i));
+                            // cross-link the variable and category to each other: 
+                            cat.setDataVariable(dataTable.getDataVariables().get(i));
+                            dataTable.getDataVariables().get(i).getCategories().add(cat);
+                        }
+                    }
+
+                }
+            }
+
+        }
+        
+        dbgLog.log(Level.INFO, "===== assignLongValueLabels: ends =====");
+    }
+
+    
     
 }
 

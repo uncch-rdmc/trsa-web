@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import static java.lang.System.err;
 import static java.lang.System.out;
 import java.lang.reflect.InvocationTargetException;
@@ -35,13 +37,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
+import javax.xml.bind.DatatypeConverter;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
 
 /**
  * This is a virtually unchanged DVN v2-3 implementation by 
@@ -51,33 +55,38 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Leonid Andreev
  * 
  */
-public class IngestableDataChecker implements java.io.Serializable {
+public class IngestableDataChecker implements Serializable {
 
     /**
-     * 
+     *
      */
-
     // static fields
-    private static Logger dbgLog = Logger.getLogger(IngestableDataChecker.class.getCanonicalName());
+    private static final Logger logger = Logger.getLogger(IngestableDataChecker.class.getName());
 
     // default format set
-    private static String[] defaultFormatSet = {"POR", "SAV", "DTA", "RDA", "XPT"};
+    private static String[] defaultFormatSet = {"POR", "SAV", "DTA", "RDA", "XPT", "SAS7BDAT"};
     private String[] testFormatSet;
     // Map that returns a Stata Release number
     private static Map<Byte, String> stataReleaseNumber = new HashMap<Byte, String>();
     public static String STATA_13_HEADER = "<stata_dta><header><release>117</release>";
+    public static String STATA_14_HEADER = "<stata_dta><header><release>118</release>";
+    public static String STATA_15_HEADER = "<stata_dta><header><release>119</release>";
     // Map that returns a reader-implemented mime-type
     private static Set<String> readableFileTypes = new HashSet<String>();
     private static Map<String, Method> testMethods = new HashMap<String, Method>();
     public static String SAS_XPT_HEADER_80 = "HEADER RECORD*******LIBRARY HEADER RECORD!!!!!!!000000000000000000000000000000  ";
     public static String SAS_XPT_HEADER_11 = "SAS     SAS";
+    public static String SAS_MAGIC_TOKEN="000000000000000000000000C2EA8160B31411CFBD92080009C7318C181F1011";
+    public static String SAS_7BDAT_HEADER_TOKEN1 = "SAS FILE";
+    public static String SAS_7BDAT_HEADER_TOKEN2 = "DATA";
+    
     public static int POR_MARK_POSITION_DEFAULT = 461;
     public static String POR_MARK = "SPSSPORT";
     private static int DEFAULT_BUFFER_SIZE = 500;
     private static String regex = "^test(\\w+)format$";
 
     // static initialization block
-    private static String rdargx = "^(52)(44)(41|42|58)(31|32)(0A)$";
+    private static String rdargx = "^(52)(44)(41|42|58)(31|32|33)(0A)$";
     private static int RDA_HEADER_SIZE = 5;
     private static Pattern ptn;
 
@@ -91,7 +100,7 @@ public class IngestableDataChecker implements java.io.Serializable {
         stataReleaseNumber.put((byte) 111, "rel_7scnd");
         stataReleaseNumber.put((byte) 113, "rel_8_or_9");
         stataReleaseNumber.put((byte) 114, "rel_10");
-        stataReleaseNumber.put((byte) 115, "rel_12"); 
+        stataReleaseNumber.put((byte) 115, "rel_12");
         // 116 was an in-house experimental version that was never 
         // released.
         // STATA v.13 introduced a new format, 117. It's a completely
@@ -103,7 +112,11 @@ public class IngestableDataChecker implements java.io.Serializable {
         readableFileTypes.add("application/x-spss-por");
         readableFileTypes.add("application/x-rlang-transport");
         readableFileTypes.add("application/x-stata-13");
-
+        readableFileTypes.add("application/x-stata-14");
+        readableFileTypes.add("application/x-stata-15");
+        readableFileTypes.add("application/x-sas-xport");
+        readableFileTypes.add("application/x-sas-data");
+        
         Pattern p = Pattern.compile(regex);
         ptn = Pattern.compile(rdargx);
 
@@ -128,7 +141,8 @@ public class IngestableDataChecker implements java.io.Serializable {
 
     public IngestableDataChecker(String[] requestedFormatSet) {
         this.testFormatSet = requestedFormatSet;
-        dbgLog.fine("SubsettableFileChecker instance=" + this.toString());
+        logger.log(Level.FINE, "SubsettableFileChecker instance={0}",
+                this.toString());
     }
 
     // public class methods
@@ -137,7 +151,7 @@ public class IngestableDataChecker implements java.io.Serializable {
     }
 
     /**
-     *  print the usage
+     * print the usage
      *
      */
     public static void printUsage() {
@@ -160,14 +174,13 @@ public class IngestableDataChecker implements java.io.Serializable {
         buff.rewind();
         boolean DEBUG = false;
 
-        
         // -----------------------------------------
         // Avoid java.nio.BufferUnderflowException
         // -----------------------------------------
-        if (buff.capacity() < 4){
+        if (buff.capacity() < 4) {
             return null;
         }
-        
+
         if (DEBUG) {
             out.println("applying the sav test\n");
         }
@@ -189,11 +202,10 @@ public class IngestableDataChecker implements java.io.Serializable {
                 out.println("this file is NOT spss-sav type");
             }
         }
-        
+
         return result;
     }
 
-    
     /**
      * test this byte buffer against STATA DTA spec
      *
@@ -203,59 +215,47 @@ public class IngestableDataChecker implements java.io.Serializable {
         buff.rewind();
         boolean DEBUG = false;
 
-        if (DEBUG) {
-            dbgLog.info("applying the dta test\n");
-        }
-
+        logger.log(Level.FINE, "applying the dta test\n");
         // -----------------------------------------
         // Avoid java.nio.BufferUnderflowException
         // -----------------------------------------
-        if (buff.capacity() < 4) {            
+        if (buff.capacity() < 4) {
             return result;
         }
-        
+
         // We first check if it's a "classic", old DTA format 
         // (up to version 115): 
-        
         byte[] hdr4 = new byte[4];
         buff.get(hdr4, 0, 4);
-        
-        if (DEBUG) {
-            for (int i = 0; i < hdr4.length; ++i) {
-                dbgLog.info(String.format("%d\t%02X\n", i, hdr4[i]));
-            }
+
+        for (int i = 0; i < hdr4.length; ++i) {
+            logger.log(Level.FINE, String.format("%d\t%02X\n", i, hdr4[i]));
         }
 
         if (hdr4[2] != 1) {
-            if (DEBUG) {
-                dbgLog.info("3rd byte is not 1: given file is not stata-dta type");
-            }
+            logger.log(Level.FINE, "3rd byte is not 1: given file is not stata-dta type");
             //return result;
         } else if ((hdr4[1] != 1) && (hdr4[1] != 2)) {
-            if (DEBUG) {
-                dbgLog.info("2nd byte is neither 0 nor 1: this file is not stata-dta type");
-            }
+            logger.log(Level.FINE, "2nd byte is neither 0 nor 1: this file is not stata-dta type");
             //return result;
         } else if (!IngestableDataChecker.stataReleaseNumber.containsKey(hdr4[0])) {
-            if (DEBUG) {
-                dbgLog.info("1st byte (" + hdr4[0] +
-                    ") is not within the ingestable range [rel. 3-10]: this file is NOT stata-dta type");
-            }
+            logger.log(Level.FINE, "1st byte ({0}) is not within the "
+                    + "ingestable range [rel. 3-10]: "
+                    + "this file is NOT stata-dta type", hdr4[0]);
             //return result;
         } else {
-            if (DEBUG) {
-                dbgLog.info("this file is stata-dta type: " +
-                    IngestableDataChecker.stataReleaseNumber.get(hdr4[0]) +
-                    "(No in HEX=" + hdr4[0] + ")");
-            }
+            logger.log(Level.FINE, "this file is stata-dta type: "
+                    + "(No in HEX={1})", 
+                new Object[]{IngestableDataChecker.stataReleaseNumber.get(hdr4[0]), 
+                    hdr4[0]});
             result = "application/x-stata";
         }
-        
-        if ((result == null)&&(buff.capacity() >= STATA_13_HEADER.length())) {
+
+        if ((result == null) && (buff.capacity() >= STATA_13_HEADER.length())) {
             // Let's see if it's a "new" STATA (v.13+) format: 
             buff.rewind();
-            byte[] headerBuffer = null; 
-            String headerString = null; 
+            byte[] headerBuffer = null;
+            String headerString = null;
             try {
                 headerBuffer = new byte[STATA_13_HEADER.length()];
                 buff.get(headerBuffer, 0, STATA_13_HEADER.length());
@@ -265,13 +265,51 @@ public class IngestableDataChecker implements java.io.Serializable {
                 // we don't have to do anything... null will 
                 // be returned, below. 
             }
-            
+
             if (STATA_13_HEADER.equals(headerString)) {
                 result = "application/x-stata-13";
             }
-            
+
         }
-        
+
+        if ((result == null) && (buff.capacity() >= STATA_14_HEADER.length())) {
+            // Let's see if it's a "new" STATA (v.14+) format:
+            buff.rewind();
+            byte[] headerBuffer = null;
+            String headerString = null;
+            try {
+                headerBuffer = new byte[STATA_14_HEADER.length()];
+                buff.get(headerBuffer, 0, STATA_14_HEADER.length());
+                headerString = new String(headerBuffer, "US-ASCII");
+            } catch (Exception ex) {
+                // probably a buffer underflow exception;
+                // we don't have to do anything... null will
+                // be returned, below.
+            }
+            if (STATA_14_HEADER.equals(headerString)) {
+                result = "application/x-stata-14";
+            }
+        }
+
+        if ((result == null) && (buff.capacity() >= STATA_15_HEADER.length())) {
+            // Let's see if it's a "new" STATA (v.14+) format:
+            buff.rewind();
+            byte[] headerBuffer = null;
+            String headerString = null;
+            try {
+                headerBuffer = new byte[STATA_15_HEADER.length()];
+                buff.get(headerBuffer, 0, STATA_15_HEADER.length());
+                headerString = new String(headerBuffer, "US-ASCII");
+            } catch (Exception ex) {
+                // probably a buffer underflow exception;
+                // we don't have to do anything... null will
+                // be returned, below.
+            }
+            if (STATA_15_HEADER.equals(headerString)) {
+                result = "application/x-stata-15";
+            }
+        }
+
         return result;
     }
 
@@ -309,8 +347,8 @@ public class IngestableDataChecker implements java.io.Serializable {
             out.println("next-11 bytes=" + hdrnxt11);
         }
 
-        if ((hdr1st80.equals(IngestableDataChecker.SAS_XPT_HEADER_80)) &&
-            (hdrnxt11.equals(IngestableDataChecker.SAS_XPT_HEADER_11))) {
+        if ((hdr1st80.equals(IngestableDataChecker.SAS_XPT_HEADER_80))
+                && (hdrnxt11.equals(IngestableDataChecker.SAS_XPT_HEADER_11))) {
             if (DEBUG) {
                 out.println("this file is sas-export type\n");
             }
@@ -322,6 +360,82 @@ public class IngestableDataChecker implements java.io.Serializable {
         }
         return result;
     }
+    
+    
+    /**
+     * tests this byte buffer against SAS 7bdat format
+     * @param buff byte-buffer based on the target file
+     * @return mime-type value or null if the test fails
+     */
+    public String testSAS7BDATformat(MappedByteBuffer buff) {
+        logger.log(Level.INFO, "========== testSAS7BDATformat(): start ==========");
+        String result = null;
+        buff.rewind();
+        boolean DEBUG = true;
+
+        if (DEBUG) {
+            out.println("applying the sas-transport test\n");
+        }
+        // size test
+        logger.log(Level.INFO, "buff.capacity()={0}", buff.capacity());
+        if (buff.capacity() < 159) {
+            if (DEBUG) {
+                out.println("this file is NOT sas7bdat type\n");
+            }
+
+            return result;
+        }
+        // 1st stage: first 32 byte pattern
+        byte[] hdr0 = new byte[32];
+        byte[] hdr1 = new byte[8];
+        byte[] hdr2 = new byte[4];
+        buff.get(hdr0, 0, 32);
+        String decoded1st32BytePattern = DatatypeConverter.printHexBinary(hdr0);
+        logger.log(Level.INFO, "1st32BytePattern={0}", decoded1st32BytePattern);
+
+        boolean isSASDataHeader = false;
+        if (decoded1st32BytePattern.equals(SAS_MAGIC_TOKEN)){
+            logger.log(Level.INFO, "sas7bdat magic pattern was found");
+            isSASDataHeader=true;
+        } else {
+            logger.log(Level.INFO, "sas7bdat magic pattern was NOT found");
+        }
+        // 2nd stage: two tokens in the header segment
+        buff.rewind();
+        buff.position(84);
+        buff.get(hdr1, 0, 8);
+        buff.position(156);
+        buff.get(hdr2, 0, 4);
+
+        String hdrToken1 = new String(hdr1);
+        String hdrToken2 = new String(hdr2);
+
+        if (DEBUG) {
+            out.println("1st-sinature:SAS FILE=" + hdrToken1);
+            out.println("2nd-signature:DATA=" + hdrToken2);
+        }
+
+        if (isSASDataHeader &&
+                (hdrToken1.equals(SAS_7BDAT_HEADER_TOKEN1))
+                && (hdrToken2.equals(SAS_7BDAT_HEADER_TOKEN2))) {
+            if (DEBUG) {
+                out.println("this file is sas-7bdat type\n");
+            }
+            logger.log(Level.INFO, "This is sas-7bdat: result={0}");
+            result = "application/x-sas-data";
+        } else {
+            logger.log(Level.INFO, "This file NOT sas-7bdat");
+            if (DEBUG) {
+                out.println("this file is NOT sas-7bdat type\n");
+            }
+        }
+
+        return result;
+    }
+    
+    
+    
+    
 
     /**
      * test this byte buffer against SPSS Portable (POR) spec
@@ -337,8 +451,9 @@ public class IngestableDataChecker implements java.io.Serializable {
         }
 
         // size test
-	int bufferCapacity = buff.capacity();
-	dbgLog.fine("Subsettable Checker: buffer capacity: "+bufferCapacity);
+        int bufferCapacity = buff.capacity();
+        logger.log(Level.FINE, "Subsettable Checker: buffer capacity: ={0}",
+            bufferCapacity);
 
         if (bufferCapacity < 491) {
             if (DEBUG) {
@@ -356,7 +471,6 @@ public class IngestableDataChecker implements java.io.Serializable {
         // unix    case: [0A]   : [80], [161], [242], [323], [404], [485]
         // windows case: [0D0A] : [81], [163], [245], [327], [409], [491]
         //  : [0D0D0A] : [82], [165], [248], [331], [414], [495]
-
         buff.rewind();
         byte[] nlch = new byte[36];
         int pos1;
@@ -373,10 +487,11 @@ public class IngestableDataChecker implements java.io.Serializable {
             // 1-char case
             pos1 = baseBias + i;
 
-	    if ( pos1 > bufferCapacity - 1 ) {
-		dbgLog.fine("Subsettable Checker: request to go beyond buffer capacity ("+pos1+")");
-		return result; 
-	    }
+            if ( pos1 > bufferCapacity - 1 ) {
+                logger.log(Level.FINE, "Subsettable Checker: request to go beyond "
+                    + "buffer capacity ({0})", pos1);
+                return result; 
+            }
 
             buff.position(pos1);
             if (DEBUG) {
@@ -394,11 +509,11 @@ public class IngestableDataChecker implements java.io.Serializable {
             // 2-char case
             pos2 = baseBias + 2 * i;
 
-	    if ( pos2 > bufferCapacity - 2 ) {
-		dbgLog.fine("Subsettable Checker: request to read 2 bytes beyond buffer capacity ("+pos2+")");
-		return result; 
-	    }
-
+            if ( pos2 > bufferCapacity - 2 ) {
+                logger.log(Level.FINE, "Subsettable Checker: request to read 2"
+                        + " bytes beyond buffer capacity ({0})", pos2);
+                return result; 
+            }
 
             buff.position(pos2);
             if (DEBUG) {
@@ -410,11 +525,11 @@ public class IngestableDataChecker implements java.io.Serializable {
             // 3-char case
             pos3 = baseBias + 3 * i;
 
-	    if ( pos3 > bufferCapacity - 3 ) {
-		dbgLog.fine("Subsettable Checker: request to read 3 bytes beyond buffer capacity ("+pos3+")");
-		return result; 
-	    }
-
+            if ( pos3 > bufferCapacity - 3 ) {
+                logger.log(Level.FINE, "Subsettable Checker: request to read"
+                        + " 3 bytes beyond buffer capacity ({0})", pos3);
+                return result; 
+            }
 
             buff.position(pos3);
             if (DEBUG) {
@@ -457,7 +572,6 @@ public class IngestableDataChecker implements java.io.Serializable {
             windowsNewLine = false;
         }
 
-
         buff.rewind();
         int PORmarkPosition = POR_MARK_POSITION_DEFAULT;
         if (windowsNewLine) {
@@ -479,6 +593,7 @@ public class IngestableDataChecker implements java.io.Serializable {
             if (DEBUG) {
                 out.println("this file is spss-por type");
             }
+            logger.log(Level.FINE, "this file is spss-por type:{0}", result);
             result = "application/x-spss-por";
         } else {
             if (DEBUG) {
@@ -494,18 +609,20 @@ public class IngestableDataChecker implements java.io.Serializable {
      *
      */
     public String testRDAformat(MappedByteBuffer buff) {
+        logger.log(Level.INFO, "========== testRDAformat starts here ==========");
         String result = null;
         buff.rewind();
-        
-        if (buff.capacity() < 4){
+
+        if (buff.capacity() < 4) {
+            logger.log(Level.INFO, "buffer is too short to test the buffer");
             return null;
         }
-        
+
         boolean DEBUG = false;
-        if (DEBUG) {
-            out.println("applying the RData test\n");
-            out.println("buffer capacity=" + buff.capacity());
-        }
+
+        logger.log(Level.INFO, "applying the RData test\n");
+        logger.log(Level.INFO, "buffer capacity={0}", buff.capacity());
+
         if (DEBUG) {
             byte[] rawhdr = new byte[4];
             buff.get(rawhdr, 0, 4);
@@ -533,22 +650,28 @@ public class IngestableDataChecker implements java.io.Serializable {
                 // gunzip the first 5 bytes and check their bye-pattern
 
                 // get gzip buffer size
-
                 int gzip_buffer_size = this.getGzipBufferSize(buff);
 
                 byte[] hdr = new byte[gzip_buffer_size];
                 buff.get(hdr, 0, gzip_buffer_size);
 
-                GZIPInputStream gzin = new GZIPInputStream(new ByteArrayInputStream(hdr));
-
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < RDA_HEADER_SIZE; i++) {
-                    sb.append(String.format("%02X", gzin.read()));
+                try (GZIPInputStream gzin = new GZIPInputStream(new ByteArrayInputStream(hdr))) {
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < RDA_HEADER_SIZE; i++) {
+                        sb.append(String.format("%02X", gzin.read()));
+                    }
+                    String fisrt5bytes = sb.toString();
+                    out.println("first5bytes=" + fisrt5bytes);
+                    result = this.checkUncompressedFirst5bytes(fisrt5bytes);
+                    if (result != null) {
+                        out.println("result:c-case & not null=" + result);
+                        if (result.equals("application/x-rlang-transport")) {
+                            out.println("more to come later");
+//                            readRDAformat(buff);
+                        }
+                    }
                 }
-                String fisrt5bytes = sb.toString();
-
-                result = this.checkUncompressedFirst5bytes(fisrt5bytes);
-            // end of compressed case
+                // end of compressed case
             } else {
                 // uncompressed case?
                 if (DEBUG) {
@@ -566,6 +689,7 @@ public class IngestableDataChecker implements java.io.Serializable {
                 String fisrt5bytes = sb.toString();
 
                 result = this.checkUncompressedFirst5bytes(fisrt5bytes);
+                logger.log(Level.FINE, "RData: uncompressed case={0}", result);
             // end of uncompressed case
             }
         } catch (IOException ex) {
@@ -580,8 +704,8 @@ public class IngestableDataChecker implements java.io.Serializable {
         String readableFormatType = null;
         try {
             int buffer_size = this.getBufferSize(fh);
-            dbgLog.fine("buffer_size: " + buffer_size);
-        
+            logger.log(Level.FINE, "buffer_size: {0}", buffer_size);
+
             // set-up a FileChannel instance for a given file object
             FileChannel srcChannel = new FileInputStream(fh).getChannel();
 
@@ -589,12 +713,11 @@ public class IngestableDataChecker implements java.io.Serializable {
             MappedByteBuffer buff = srcChannel.map(FileChannel.MapMode.READ_ONLY, 0, buffer_size);
 
             //this.printHexDump(buff, "hex dump of the byte-buffer");
-
             //for (String fmt : defaultFormatSet){
             buff.rewind();
-            dbgLog.fine("before the for loop");
+            logger.log(Level.FINE, "before the for loop");
             for (String fmt : this.getTestFormatSet()) {
-                
+
                 // get a test method
                 Method mthd = testMethods.get(fmt);
                 //dbgLog.info("mthd: " + mthd.getName());
@@ -605,17 +728,20 @@ public class IngestableDataChecker implements java.io.Serializable {
                     String result = (String) retobj;
 
                     if (result != null) {
-                        dbgLog.fine("result for (" + fmt + ")=" + result);
+                        logger.log(Level.FINE, "result for ({0})={1}",
+                                new Object[]{fmt, result});
                         if (DEBUG) {
                             out.println("result for (" + fmt + ")=" + result);
                         }
                         if (readableFileTypes.contains(result)) {
                             readableFormatType = result;
                         }
-                        dbgLog.fine("readableFormatType=" + readableFormatType);
+                        logger.log(Level.FINE, "readableFormatType={0}",
+                                readableFormatType);
                         return readableFormatType;
                     } else {
-                        dbgLog.fine("null was returned for " + fmt + " test");
+                        logger.log(Level.FINE, "null was returned for {0} test",
+                                fmt);
                         if (DEBUG) {
                             out.println("null was returned for " + fmt + " test");
                         }
@@ -627,13 +753,13 @@ public class IngestableDataChecker implements java.io.Serializable {
                         err.format(cause.getMessage());
                         e.printStackTrace();
                     } else {
-                        dbgLog.info("cause.getMessage() was null for " + e);
+                        logger.log(Level.WARNING, "cause.getMessage() was null for {0}", e);
                         e.printStackTrace();
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } catch (BufferUnderflowException e){
-                    dbgLog.info("BufferUnderflowException " + e);
+                    logger.log(Level.WARNING, "BufferUnderflowException:{0} ", e);
                     e.printStackTrace();
                 }
             }
@@ -641,11 +767,9 @@ public class IngestableDataChecker implements java.io.Serializable {
             return readableFormatType;
 
         } catch (FileNotFoundException fe) {
-            dbgLog.fine("exception detected: file was not foud");
-            fe.printStackTrace();
+            logger.log(Level.WARNING, "exception detected: file was not foud:{0}", fe);
         } catch (IOException ie) {
-            dbgLog.fine("other io exception detected");
-            ie.printStackTrace();
+            logger.log(Level.WARNING, "other io exception detected:{0}", ie);
         }
         return readableFormatType;
     }
@@ -677,8 +801,8 @@ public class IngestableDataChecker implements java.io.Serializable {
     }
 
     /**
-     * adjust the size of the buffer according to the size of 
-     * the file if necessary; otherwise, use the default size
+     * adjust the size of the buffer according to the size of the file if
+     * necessary; otherwise, use the default size
      */
     private int getBufferSize(File fh) {
         boolean DEBUG = false;

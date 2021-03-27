@@ -155,7 +155,7 @@ public class HomePageView implements Serializable {
     
     private String gotoDestinationSelectionPage(){
         logger.log(Level.INFO, "HomePageView:gotoDestinationSelectionPage: metadataOnly={0}", metadataOnly);
-        return "/destination.xhtml" ;
+        return "/destination.xhtml?faces-redirect=true" ;
     }
     
     
@@ -180,7 +180,7 @@ public class HomePageView implements Serializable {
         hostInfoTable = hostInfoFacade.findAll();
         logger.log(Level.INFO, "homePageView:hostInfoTable:howManyRows={0}", hostInfoTable.size());
         
-        return "/selectDataverse.xhtml";
+        return "/selectDataverse.xhtml?faces-redirect=true";
     }
     
     
