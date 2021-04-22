@@ -1,0 +1,132 @@
+= How to use the TRSA-Web GUI with paired Dataverse instance
+
+* last updated: 2021-04-21
+
+The primary function of TRASA-Web is to send locally extracted metadata to its paired Dataverse's dataset.  This means a setup at both TRSA and Dataverse sides are necessary.  The following sections explain the required setup at TRSA and Dataverse sides before testing the above metadata-uploading functionality by TRSA-Web.
+
+As of TRSA-Web version 2.0, the communication mode between TRSA-Web and its paired Dataverse is one-directional (simplex) from TRSA-Web to its paired Dataverse, **not vice versa**; therefore, Dataverse-side's setup comes first.
+
+== Preparations
+
+=== Dataverse side
+==== Prerequisites
+
+* An Dataverse user account with elevated permissions ('superuser')  
+
+* A target Dataverse instance and dataset to which TRSA-Web sends metadata
+
+* Other URL data such as the Notary-Service server, data-access-information server, datafile server, TRSA-Web
+
+NOTE:: You must have a superuser account that can access the dashboard of Dataverse(the dashboard is invisible for less-privileged users)
+
+==== How to register a paired TRSA-Web 
+For a TRSA-Web installation, its relationship with its paired Dataverse is one-to-one; however, for this Dataverse installation, it can be be paired with other, multiple TRSA-web installations, i.e., one-to-many relationships.  Therefore, each paired relationship must be registered at the Dataverse-side to sort out upload requests from multiple TRSA-Web installations.
+
+. Log in Dataverse with a superuser account (after this action, the dashboard becomes visible)
+. Click the dow arrow at Dataverse's top-left corner and open the pulldown menu
+. Click the `Dashboard` link from the menu (the Dashboard page shows up)
+. Click the button titled `Manage TRSAs` (registration table appears)
+. Click the `+ Create` button (popup windows appears)
+
+. Enter data in each box of the popup windows titled "Create New TRSA"
++
+The following set is a sample case: 
++
+----
+Institution: UNC Odum Institute
+Email: trsa_curator@mailinator.com 
+DataFile Server URL: http://localhost:8585
+Dataccessinfo: https://dp-dev-1.cyberimpact.us
+Notary Service URL: https://ns-dev-1.cyberimpact.us
+TRSA URL: http://localhost:8080/trsa-web/index.xhtml
+Register time: 2021-01-01 00:00:00
+Expire time:   2022-01-01 00:00:00
+----
+. Click the `Save` button
+Note::
+As of TRSA-Web version 2.0, data for `DataFile Server URL` and 
+`Dataccessinfo` are just nominal (placeholder); a datum for `Notary Service URL` is expected to be a just reachable web site for the Dataverse installation (whether functioning as an NS server does not matter now).
+. Set aside the id datum of a newly saved TRSA-Web installation for the setup of the paired TRSA-Web installation.
+
+=== TRSA-Web Side
+
+==== Prerequisites
+
+* TRSA registration Id from the paired Dataverse installation 
+* The DOI datum of the paired dataset of the paired Dataverse instance
+
+
+
+
+
+
+
+
+
+
+
+=== TRSA registration at Dataverse-side 
+
+
+
+
+
+. Click the dashboard link from the account menu
+. Click the Manage TRSAs button
+. Click the "+ create" button 
+
+. Enter data in the popup windows ("Create New TRSA")
+
+Institution: UNC Odum Institute
+Email: trsa_curator@mailinator.com 
+DataFile Server URL: http://localhost:8585
+Dataccessinfo: https://dp-dev-1.cyberimpact.us
+Notary Service URL: https://ns-dev-1.cyberimpact.us
+TRSA URL: http://localhost:8080/trsa-web/index.xhtml
+Register time: 2021-01-01 00:00:00
+Expire time:   2022-01-01 00:00:00
+
+
+
+=== Dataverse registration at TRSA-Web side 
+. Click "Setup the paired Dataverse" button in the center pane 
+
+. Enter data in the 4 boxes in the pane of "PAIRED DATAVERSE: KEY DATA confirmation"
+* Dataverse URL(required): http://localhost:8083 
+or http://localhost:8083/dataverse/trsatest1
+* Dataverse Alias(required): trsatest1
+* API Token (required): 51614fc4-dd27-4756-af3b-d2292bd26bb8
+* TRSA Registry Number: 1 
+
+
+
+
+= How to use TRSA-Web 
+
+Prerequisite: Create a Dataverse and a Dataset in the Dataverse instance of your choice.
+
+1) Click "Manage Dataverse Settings"
+
+   Under "Maintenance" choose "TRSA Profile"
+
+1) Manage Dataverse Settings
+
+   Click "Create"
+
+   Populate fields with pertinent info from pre-existing dataset
+
+1) Upload a file
+
+   Click "TRSA home"
+
+   Click "Upload file metadata to an existing dataset"
+
+   Select destination dataset.
+
+   If desired, create ingest metadata, then "Go To Submission Page".
+
+1) Click Pencil to Bind to Notary Service, check Yes, click checkmark to save changes, then click "Save Notary Service Designation"
+
+1) Click "Publish This Dataset"
+
+1) Click "Go to Dataverse Site"
