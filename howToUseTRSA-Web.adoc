@@ -62,7 +62,9 @@ As of TRSA-Web version 2.0, data for `DataFile Server URL` and
 . Type ${trsa-web-server-url}/trsa-web-2.0/ in the address box of your browser (TRSA-Web's top page appears)
 . Click the "Setup the paired Dataverse" button in the center pane ("Paired Dataverse: Key Data Confirmation" pane appears)
 . Type data in the 4 boxes within the pane of "PAIRED DATAVERSE: KEY DATA confirmation"
++
 The following set is a sample set
++
 ----
 Dataverse URL(required): http://localhost:8083 
 Dataverse Alias(required): trsatest1
@@ -71,6 +73,7 @@ TRSA Registry Number: 1
 ----
 Note:: 
 The value for the TRSA Registration Number is the Id of the row in which your TRSA-Web is registered; the default value "0" must be replaced with an actual Id (integer).
+
 . Click the "Confirm" button (after this action, the main menu re-appears)
 
 
