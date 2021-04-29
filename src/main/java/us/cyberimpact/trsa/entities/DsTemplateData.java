@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author akios
  */
 @Entity
-@Table(name = "DS_TEMPLATE_DATA", catalog = "TRSA", schema = "PUBLIC")
+@Table(name = "DS_TEMPLATE_DATA", schema = "PUBLIC")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DsTemplateData.findAll", query = "SELECT d FROM DsTemplateData d"),

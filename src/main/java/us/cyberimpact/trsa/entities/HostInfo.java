@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author asone
  */
 @Entity
-@Table(name = "HOST_INFO", catalog = "TRSA", schema = "PUBLIC", uniqueConstraints = {
+@Table(name = "HOST_INFO", schema = "PUBLIC", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"ID"})})
 @XmlRootElement
 @NamedQueries({

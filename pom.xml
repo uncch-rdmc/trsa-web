@@ -17,6 +17,26 @@
     <dependencies>
         
         
+        
+<dependency>
+<groupId>javax.xml.bind</groupId>
+<artifactId>jaxb-api</artifactId>
+<version>2.3.0</version>
+</dependency>
+<dependency>
+<groupId>com.sun.xml.bind</groupId>
+<artifactId>jaxb-core</artifactId>
+<version>2.3.0</version>
+</dependency>
+<dependency>
+<groupId>com.sun.xml.bind</groupId>
+<artifactId>jaxb-impl</artifactId>
+<version>2.3.0</version>
+</dependency>
+        
+        
+        
+        
         <dependency>
             <groupId>javax.json</groupId>
             <artifactId>javax.json-api</artifactId>
@@ -75,7 +95,7 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>1.4.197</version>
-            <scope>provided</scope>
+            <!-- scope>provided</scope -->
         </dependency>        
         <dependency>  
             <groupId>org.eclipse.persistence</groupId>  
@@ -418,10 +438,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.8.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
