@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="558px" preserveAspectRatio="none" style="width:582px;height:558px;" version="1.1" viewBox="0 0 582 558" width="582px" zoomAndPan="magnify"><defs><filter height="300%" id="f81aqqczzs2j4" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="427" x="75" y="29.9999">Dataverse-side Initial Setup: Create a New Dataverse</text><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="50" x2="50" y1="124.3998" y2="453.3999"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="292.5" x2="292.5" y1="124.3998" y2="453.3999"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="531" x2="531" y1="124.3998" y2="453.3999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="5" y="121.5998">Data Provider</text><ellipse cx="50.5" cy="50.5999" fill="#FEFECE" filter="url(#f81aqqczzs2j4)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M50.5,58.5999 L50.5,85.5999 M37.5,66.5999 L63.5,66.5999 M50.5,85.5999 L37.5,100.5999 M50.5,85.5999 L63.5,100.5999 " fill="none" filter="url(#f81aqqczzs2j4)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="5" y="466.3999">Data Provider</text><ellipse cx="50.5" cy="479.1999" fill="#FEFECE" filter="url(#f81aqqczzs2j4)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M50.5,487.1999 L50.5,514.1999 M37.5,495.1999 L63.5,495.1999 M50.5,514.1999 L37.5,529.1999 M50.5,514.1999 L63.5,529.1999 " fill="none" filter="url(#f81aqqczzs2j4)" style="stroke:#A80036;stroke-width:2.0;"/><rect fill="#FEFECE" filter="url(#f81aqqczzs2j4)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="96" x="242.5" y="88.5999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="249.5" y="109.5998">Web Browser</text><rect fill="#FEFECE" filter="url(#f81aqqczzs2j4)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="96" x="242.5" y="452.3999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="249.5" y="473.3999">Web Browser</text><rect fill="#FEFECE" filter="url(#f81aqqczzs2j4)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="77" x="491" y="88.5999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="498" y="109.5998">Dataverse</text><rect fill="#FEFECE" filter="url(#f81aqqczzs2j4)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="77" x="491" y="452.3999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="498" y="473.3999">Dataverse</text><polygon fill="#A80036" points="280.5,151.9998,290.5,155.9998,280.5,159.9998,284.5,155.9998" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="286.5" y1="155.9998" y2="155.9998"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="177" x="57.5" y="151.3998">type the URL of Root Dataverse</text><polygon fill="#A80036" points="519.5,181.5998,529.5,185.5998,519.5,189.5998,523.5,185.5998" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="292.5" x2="525.5" y1="185.5998" y2="185.5998"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="191" x="299.5" y="180.9998">request:Top (root Dataverse) page</text><polygon fill="#A80036" points="303.5,211.1998,293.5,215.1998,303.5,219.1998,299.5,215.1998" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="297.5" x2="530.5" y1="215.1998" y2="215.1998"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="107" x="309.5" y="210.5998">response:Top page</text><polygon fill="#A80036" points="280.5,240.7998,290.5,244.7998,280.5,248.7998,284.5,244.7998" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="286.5" y1="244.7998" y2="244.7998"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="218" x="57.5" y="240.1998">click "Add Data/New Dataverse" option</text><polygon fill="#A80036" points="519.5,270.3999,529.5,274.3999,519.5,278.3999,523.5,274.3999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="292.5" x2="525.5" y1="274.3999" y2="274.3999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="215" x="299.5" y="269.7999">request: New Dataverse Creation page</text><polygon fill="#A80036" points="303.5,299.9999,293.5,303.9999,303.5,307.9999,299.5,303.9999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="297.5" x2="530.5" y1="303.9999" y2="303.9999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="175" x="309.5" y="299.3999">response: Datavese creation UI</text><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="92.5" y1="333.5999" y2="333.5999"/><line style="stroke:#A80036;stroke-width:1.0;" x1="92.5" x2="92.5" y1="333.5999" y2="346.5999"/><line style="stroke:#A80036;stroke-width:1.0;" x1="51.5" x2="92.5" y1="346.5999" y2="346.5999"/><polygon fill="#A80036" points="61.5,342.5999,51.5,346.5999,61.5,350.5999,57.5,346.5999" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="144" x="57.5" y="328.9999">prepare a Dataverse Alias</text><polygon fill="#A80036" points="280.5,372.1999,290.5,376.1999,280.5,380.1999,284.5,376.1999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="286.5" y1="376.1999" y2="376.1999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="185" x="57.5" y="371.5999">enter required data in the UI form</text><polygon fill="#A80036" points="519.5,401.7999,529.5,405.7999,519.5,409.7999,523.5,405.7999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="292.5" x2="525.5" y1="405.7999" y2="405.7999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="154" x="299.5" y="401.1999">request: Dataverse creation</text><polygon fill="#A80036" points="303.5,431.3999,293.5,435.3999,303.5,439.3999,299.5,435.3999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="297.5" x2="530.5" y1="435.3999" y2="435.3999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="203" x="309.5" y="430.7999">response: OK (render success page)</text><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="122" x="227.5" y="550.1998">Note: log-in step is excluded</text><!--MD5=[8e80a3f8586fd722ad37006225811c9f]
+@startuml
+title Dataverse-side Initial Setup: Create a New Dataverse
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as trsa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+
+dp -> wb: type the URL of Root Dataverse
+wb -> dv: request:Top (root Dataverse) page
+dv -> wb: response:Top page
+dp -> wb: click "Add Data/New Dataverse" option
+wb -> dv: request: New Dataverse Creation page
+dv -> wb: response: Datavese creation UI
+dp -> dp: prepare a Dataverse Alias
+dp -> wb: enter required data in the UI form
+wb -> dv: request: Dataverse creation
+dv -> wb: response: OK (render success page)
+footer Note: log-in step is excluded
+@enduml
+
+@startuml
+title Dataverse-side Initial Setup: Create a New Dataverse
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+participant  Dataverse as dv
+
+dp -> wb: type the URL of Root Dataverse
+wb -> dv: request:Top (root Dataverse) page
+dv -> wb: response:Top page
+dp -> wb: click "Add Data/New Dataverse" option
+wb -> dv: request: New Dataverse Creation page
+dv -> wb: response: Datavese creation UI
+dp -> dp: prepare a Dataverse Alias
+dp -> wb: enter required data in the UI form
+wb -> dv: request: Dataverse creation
+dv -> wb: response: OK (render success page)
+footer Note: log-in step is excluded
+@enduml
+
+PlantUML version 1.2021.4(Sun Apr 04 08:49:39 GMT 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

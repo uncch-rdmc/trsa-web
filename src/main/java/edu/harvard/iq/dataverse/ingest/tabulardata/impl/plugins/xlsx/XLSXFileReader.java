@@ -77,6 +77,9 @@ public class XLSXFileReader extends TabularDataFileReader {
     @Override
     public TabularDataIngest read(BufferedInputStream stream, File dataFile) throws IOException {
         init();
+        if (stream == null) {
+            dbglog.log(Level.WARNING, "stream is null");
+        }
         
         TabularDataIngest ingesteddata = new TabularDataIngest();
         DataTable dataTable = new DataTable();
@@ -383,7 +386,7 @@ public class XLSXFileReader extends TabularDataFileReader {
             // Do it now, as characters() may be called more than once
             if (nextIsString) {
                 int idx = Integer.parseInt(cellContents);
-                cellContents = new XSSFRichTextString(sst.getEntryAt(idx)).toString();
+                cellContents = new XSSFRichTextString(sst.getItemAt(idx).getString()).toString();
                 nextIsString = false;
             }
 

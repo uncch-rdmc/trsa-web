@@ -10,8 +10,8 @@
     <h:body>
         <ui:composition>
             <p:menu>
-                <p:menuitem value="TRSA Home" url="/index.xhtml" />
-                <p:menuitem value="Manage Dataverse Settings" url="/hostinfo/List.xhtml"/>
+                <p:menuitem value="TRSA Home" outcome="${pageContext.request.contextPath}/index.xhtml" />
+                <p:menuitem value="Manage Dataverse Settings" outcome="${pageContext.request.contextPath}/hostinfo/List.xhtml"/>
             </p:menu>
         </ui:composition>
     </h:body>

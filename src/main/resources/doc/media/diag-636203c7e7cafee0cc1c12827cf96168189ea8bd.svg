@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="647px" preserveAspectRatio="none" style="width:580px;height:647px;" version="1.1" viewBox="0 0 580 647" width="580px" zoomAndPan="magnify"><defs><filter height="300%" id="f1w7b2zr7jcmzd" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="407" x="84" y="29.9999">Dataverse-side Initial Setup: Create a New Dataset</text><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="50" x2="50" y1="124.3998" y2="542.2"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="279.5" x2="279.5" y1="124.3998" y2="542.2"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="529" x2="529" y1="124.3998" y2="542.2"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="5" y="121.5998">Data Provider</text><ellipse cx="50.5" cy="50.5999" fill="#FEFECE" filter="url(#f1w7b2zr7jcmzd)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M50.5,58.5999 L50.5,85.5999 M37.5,66.5999 L63.5,66.5999 M50.5,85.5999 L37.5,100.5999 M50.5,85.5999 L63.5,100.5999 " fill="none" filter="url(#f1w7b2zr7jcmzd)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="5" y="555.1999">Data Provider</text><ellipse cx="50.5" cy="567.9999" fill="#FEFECE" filter="url(#f1w7b2zr7jcmzd)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M50.5,575.9999 L50.5,602.9999 M37.5,583.9999 L63.5,583.9999 M50.5,602.9999 L37.5,617.9999 M50.5,602.9999 L63.5,617.9999 " fill="none" filter="url(#f1w7b2zr7jcmzd)" style="stroke:#A80036;stroke-width:2.0;"/><rect fill="#FEFECE" filter="url(#f1w7b2zr7jcmzd)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="96" x="229.5" y="88.5999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="236.5" y="109.5998">Web Browser</text><rect fill="#FEFECE" filter="url(#f1w7b2zr7jcmzd)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="96" x="229.5" y="541.2"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="236.5" y="562.1999">Web Browser</text><rect fill="#FEFECE" filter="url(#f1w7b2zr7jcmzd)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="77" x="489" y="88.5999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="496" y="109.5998">Dataverse</text><rect fill="#FEFECE" filter="url(#f1w7b2zr7jcmzd)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="77" x="489" y="541.2"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="496" y="562.1999">Dataverse</text><polygon fill="#A80036" points="267.5,151.9998,277.5,155.9998,267.5,159.9998,271.5,155.9998" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="273.5" y1="155.9998" y2="155.9998"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="177" x="57.5" y="151.3998">type the URL of Root Dataverse</text><polygon fill="#A80036" points="517.5,181.5998,527.5,185.5998,517.5,189.5998,521.5,185.5998" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="279.5" x2="523.5" y1="185.5998" y2="185.5998"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="191" x="286.5" y="180.9998">request:Top (root Dataverse) page</text><polygon fill="#A80036" points="290.5,211.1998,280.5,215.1998,290.5,219.1998,286.5,215.1998" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="284.5" x2="528.5" y1="215.1998" y2="215.1998"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="107" x="296.5" y="210.5998">response:Top page</text><polygon fill="#A80036" points="267.5,240.7998,277.5,244.7998,267.5,248.7998,271.5,244.7998" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="273.5" y1="244.7998" y2="244.7998"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="204" x="57.5" y="240.1998">click the host Dataverse from the list</text><polygon fill="#A80036" points="517.5,270.3999,527.5,274.3999,517.5,278.3999,521.5,274.3999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="279.5" x2="523.5" y1="274.3999" y2="274.3999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="151" x="286.5" y="269.7999">request: the host dataverse</text><polygon fill="#A80036" points="290.5,299.9999,280.5,303.9999,290.5,307.9999,286.5,303.9999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="284.5" x2="528.5" y1="303.9999" y2="303.9999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="222" x="296.5" y="299.3999">response: landing page of the dataverse</text><polygon fill="#A80036" points="267.5,329.5999,277.5,333.5999,267.5,337.5999,271.5,333.5999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="273.5" y1="333.5999" y2="333.5999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="205" x="57.5" y="328.9999">click "Add Data/New Dataset" option</text><polygon fill="#A80036" points="517.5,359.1999,527.5,363.1999,517.5,367.1999,521.5,363.1999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="279.5" x2="523.5" y1="363.1999" y2="363.1999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="202" x="286.5" y="358.5999">request: New Dataset Creation page</text><polygon fill="#A80036" points="290.5,388.7999,280.5,392.7999,290.5,396.7999,286.5,392.7999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="284.5" x2="528.5" y1="392.7999" y2="392.7999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="166" x="296.5" y="388.1999">response: Dataset creation UI</text><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="92.5" y1="422.3999" y2="422.3999"/><line style="stroke:#A80036;stroke-width:1.0;" x1="92.5" x2="92.5" y1="422.3999" y2="435.3999"/><line style="stroke:#A80036;stroke-width:1.0;" x1="51.5" x2="92.5" y1="435.3999" y2="435.3999"/><polygon fill="#A80036" points="61.5,431.3999,51.5,435.3999,61.5,439.3999,57.5,435.3999" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="128" x="57.5" y="417.7999">prepare a Dataset Title</text><polygon fill="#A80036" points="267.5,460.9999,277.5,464.9999,267.5,468.9999,271.5,464.9999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="273.5" y1="464.9999" y2="464.9999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="185" x="57.5" y="460.3999">enter required data in the UI form</text><polygon fill="#A80036" points="517.5,490.6,527.5,494.6,517.5,498.6,521.5,494.6" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="279.5" x2="523.5" y1="494.6" y2="494.6"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="141" x="286.5" y="490">request: Dataset creation</text><polygon fill="#A80036" points="290.5,520.2,280.5,524.2,290.5,528.2,286.5,524.2" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="284.5" x2="528.5" y1="524.2" y2="524.2"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="226" x="296.5" y="519.6">response: OK (render success message)</text><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="122" x="226.5" y="638.9999">Note: log-in step is excluded</text><!--MD5=[c8f511f2bdf00b821e6a2a67573165eb]
+@startuml
+title Dataverse-side Initial Setup: Create a New Dataset
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as trsa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+
+dp -> wb: type the URL of Root Dataverse
+wb -> dv: request:Top (root Dataverse) page
+dv -> wb: response:Top page
+dp -> wb: click the host Dataverse from the list
+wb -> dv: request: the host dataverse
+dv -> wb: response: landing page of the dataverse
+dp -> wb: click "Add Data/New Dataset" option
+wb -> dv: request: New Dataset Creation page
+dv -> wb: response: Dataset creation UI
+dp -> dp: prepare a Dataset Title
+dp -> wb: enter required data in the UI form
+wb -> dv: request: Dataset creation
+dv -> wb: response: OK (render success message)
+footer Note: log-in step is excluded
+@enduml
+
+@startuml
+title Dataverse-side Initial Setup: Create a New Dataset
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+participant  Dataverse as dv
+
+dp -> wb: type the URL of Root Dataverse
+wb -> dv: request:Top (root Dataverse) page
+dv -> wb: response:Top page
+dp -> wb: click the host Dataverse from the list
+wb -> dv: request: the host dataverse
+dv -> wb: response: landing page of the dataverse
+dp -> wb: click "Add Data/New Dataset" option
+wb -> dv: request: New Dataset Creation page
+dv -> wb: response: Dataset creation UI
+dp -> dp: prepare a Dataset Title
+dp -> wb: enter required data in the UI form
+wb -> dv: request: Dataset creation
+dv -> wb: response: OK (render success message)
+footer Note: log-in step is excluded
+@enduml
+
+PlantUML version 1.2021.4(Sun Apr 04 08:49:39 GMT 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

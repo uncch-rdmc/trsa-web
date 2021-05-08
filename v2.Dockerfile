@@ -1,4 +1,5 @@
 # This version uses H2's mixed mode setup; no installation of H2
+# The war file to be copied into the image must exist in target/ directory
 
 # FROM payara/server-full:5.2021.1
 FROM payara/server-full:5.2021.2-jdk11
@@ -76,6 +77,8 @@ RUN  ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FI
 ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} set-log-attributes com.sun.enterprise.server.logging.GFFileHandler.logtoFile=true && \
 ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jvm-options '-Dtrsa.configfile.directory=${com.sun.aas.installRoot}/domains/domain1/config' && \
 ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jvm-options "\-Dtrsa.files.directory=${FILES_DIR}" && \
+${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jdbc-connection-pool --datasourceclassname org.h2.jdbcx.JdbcDataSource --restype javax.sql.DataSource --property 'url="jdbc:h2:${com.sun.aas.instanceRoot}/lib/databases/trsa2;AUTO_SERVER=TRUE;AUTO_SERVER_PORT=9595":user=impactUser2:password=1mq@xt6z312' H2impact2Pool && \
+${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} create-jdbc-resource --connectionpoolid H2impact2Pool jdbc/trsa2 &&\
 ${PAYARA_DIR}/bin/asadmin --user=${ADMIN_USER} --passwordfile=${PASSWORD_FILE} stop-domain ${DOMAIN_NAME} 
 
 RUN cp /tmp/jhove* ${PAYARA_DIR}/glassfish/domains/domain1/config/ && \

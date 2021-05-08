@@ -201,7 +201,7 @@ public class IngestService {
     }
 
     public  List<DataFile> run(String filename, String contentType, String datasetIdentifier) 
-            throws FileNotFoundException, IOException, XMLStreamException, ExportException {
+            throws FileNotFoundException, IOException, XMLStreamException, ExportException, IngestException {
 
         // setup an InputStream instance from the 1st argument as a local file name
         BufferedInputStream fileInputStream = null;
@@ -210,14 +210,15 @@ public class IngestService {
         try {
             fileInputStream = new BufferedInputStream(new FileInputStream(new File(filename)));
         } catch (FileNotFoundException notfoundEx) {
-            logger.log(Level.INFO, "FileNotFoundException={0}", notfoundEx);
-            fileInputStream = null;
+            logger.log(Level.SEVERE, "could not open file={0}", filename);
+            logger.log(Level.SEVERE, "FileNotFoundException={0}", notfoundEx);
+            throw new IngestException("Ingest failure: cannot open a datafile:" + filename, notfoundEx);
         }
 
-        if (fileInputStream == null) {
-            System.err.println("Could not open file " + filename + ".");
-            System.exit(1);
-        }
+//        if (fileInputStream == null) {
+//            System.err.println("Could not open file " + filename + ".");
+//            System.exit(1);
+//        }
 
         // dataset-level operation before each data file is ingested
         // 
@@ -354,6 +355,9 @@ public class IngestService {
             logger.log(Level.FINE, "addFilesToDataset:dataset={0}", xstream.toXML(dataset));
             logger.log(Level.FINE, "addFilesToDataset:version={0}", xstream.toXML(version));
             // end of emulating ISB#addFilesToDataset method
+        } else {
+            logger.log(Level.WARNING, "initialFileList is null or empty");
+            throw new IngestException("Ingest failure: initialFileList is null or empty");
         }
 
         // After the source file is determined as a single file or a list of 
@@ -467,6 +471,7 @@ public class IngestService {
             logger.fine("Done! Finished saving new files in permanent storage.");
         } else {
             logger.log(Level.WARNING, "initialFileList is null or empty");
+            throw new IngestException("Ingest failure: initialFileList is null or empty");
         }
 
         // The following block emulates ISB#startIngestJobs() and ingestAsTabular():line 651
@@ -494,8 +499,9 @@ public class IngestService {
                         // return false; 
                         // 
 
-                        System.err.println("Could not locate an ingest plugin for type " + contentType + ".");
-                        System.exit(1);
+                        logger.log(Level.SEVERE, "Could not locate an ingest plugin for type: {0}", contentType);
+                        throw new IngestException("Ingest failure: Could not locate an ingest plugin for type: " + contentType);
+                        //System.exit(1);
                     }
 
                     // here a missing block (ISB lines 700-710) is about IngestRequest 
@@ -530,14 +536,14 @@ public class IngestService {
                         // the line below corresponds to ISB line 717 additionalData is null
                         tabDataIngest = ingestPlugin.read(newflis, null);
                     } catch (IOException ingestEx) {
-                        logger.log(Level.INFO, "IOException={0}", ingestEx);
                         // ISB line 720-736 come here
                         // dataFile.SetIngestProblem();
                         // FileUtil.createIngestFailureReport(dataFile, ingestEx.getMessage());
                         // dataFile = fileService.save(dataFile);
                         // return false;
-                        System.err.println("Caught an exception trying to ingest file " + fileName + ".");
-                        System.exit(1);
+                        logger.log(Level.SEVERE, "Caught the IOexception trying to ingest file: {0}", fileName);
+                        throw new IngestException("Ingest failure: Caught an exception trying to ingest file:" + fileName, ingestEx);
+                        //System.exit(1);
                     }
 
                     String originalContentType = dataFile.getContentType();
@@ -663,22 +669,25 @@ public class IngestService {
                                 dataset.setModificationTime(now);
 
                                 // persisting all tables via Dataset
-                                logger.log(Level.INFO, "persisting dataset");
+                                logger.log(Level.INFO, "persisting the dataset");
                                 em.persist(dataset);
                             } else {
                                 logger.log(Level.SEVERE, "tabDataIngest.getDataTable() is null");
-                                System.err.println("Ingest failed to produce tab file or data table for file " + filename + ".");
-                                System.exit(1);
+                                //System.err.println("Ingest failed to produce tab file or data table for file " + filename + ".");
+                                throw new IngestException("Ingest failure: Ingest failed to produce tab file or data table for file: " + filename);
+                                //System.exit(1);
                             }
                         } else {
                             logger.log(Level.SEVERE, "Ingest resulted in a null tabDataIngest object for data file:{0}", filename);
-                            System.err.println("Ingest resulted in a null tabDataIngest object for data file " + filename + ".");
-                            System.exit(1);
+                            //System.err.println("Ingest resulted in a null tabDataIngest object for data file " + filename + ".");
+                            throw new IngestException("Ingest failure: Ingest resulted in a null tabDataIngest object for data file " + filename);
+                            //System.exit(1);
                         }
                     } catch (IOException ex) {
                         logger.log(Level.INFO, "saving a tab file failed for data file:{0}", filename);
-                        System.err.println("Caught an exception trying to save ingested data for file " + filename + ".");
-                        System.exit(1);
+                        //System.err.println("Caught an exception trying to save ingested data for file " + filename + ".");
+                        throw new IngestException("Ingest failure: Caught the IOException trying to save ingested data for file:" + filename, ex);
+                        //System.exit(1);
                     }
                     
                     logger.log(Level.INFO, "end of each scheduled case");
@@ -700,13 +709,16 @@ public class IngestService {
             }
             logger.log(Level.INFO, "after parsing iterations ended");
             logger.log(Level.INFO, "+++++++++++++++++ parsing block ends here +++++++++++++++++");
+        } else {
+            logger.log(Level.WARNING, "initialFileList is null or empty");
+            throw new IngestException("Ingest failure: initialFileList is null or empty");
         }
 
         // persistence-required segment: end
 //        em.getTransaction().commit();
 //        em.close();
 
-        logger.log(Level.INFO, "closing entity manager factory and exiting the application");
+//        logger.log(Level.INFO, "closing entity manager factory and exiting the application");
 //        emf.close();
 
 //        logger.log(Level.FINE, "\n\nafter em: dataset={0}", xstream.toXML(dataset));
