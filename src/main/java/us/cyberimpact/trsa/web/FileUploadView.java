@@ -20,28 +20,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.file.NativeUploadedFile;
 import org.primefaces.model.file.UploadedFile;
 import us.cyberimpact.trsa.entities.DsTemplateData;
 import us.cyberimpact.trsa.entities.TrsaProfile;
-import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
 
 @Named("fileUploadView")
-@SessionScoped
+@ViewScoped
 public class FileUploadView implements Serializable {
 
     private static final Logger logger = Logger.getLogger(FileUploadView.class.getName());
@@ -77,7 +73,7 @@ public class FileUploadView implements Serializable {
     HomePageView homePageView;
     
     
-    private NativeUploadedFile file;
+    private UploadedFile file;
     private String destination = "/tmp/";
     private String fileName;
     
@@ -149,11 +145,11 @@ public class FileUploadView implements Serializable {
         logger.log(Level.INFO, "=========== FileUploadView#init: end ===========");
     }
 
-    public NativeUploadedFile getFile() {
+    public UploadedFile getFile() {
         return file;
     }
 
-    public void setFile(NativeUploadedFile file) {
+    public void setFile(UploadedFile file) {
         this.file = file;
     }
 
@@ -196,7 +192,7 @@ public class FileUploadView implements Serializable {
 
     public void upload(FileUploadEvent event) {
         logger.log(Level.INFO, "=========== FileUploadView#upload: start ===========");
-        file = (NativeUploadedFile) event.getFile();
+        file = event.getFile();
         String filePath = "";
         if (file != null) {
             FacesMessage message = new FacesMessage("Succesful",

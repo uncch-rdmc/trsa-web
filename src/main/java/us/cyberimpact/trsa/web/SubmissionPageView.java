@@ -10,7 +10,6 @@ import edu.harvard.iq.dataverse.entities.DatasetVersion;
 import edu.harvard.iq.dataverse.entities.DatasetVersionFacade;
 import edu.harvard.iq.dataverse.ingest.IngestService;
 import edu.harvard.iq.dataverse.util.SystemConfig;
-import edu.unc.odum.dataverse.util.json.JsonFilter;
 import edu.unc.odum.dataverse.util.json.JsonPointerForDataset;
 import edu.unc.odum.dataverse.util.json.JsonResponseParser;
 import java.io.File;
@@ -19,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +29,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -51,7 +50,7 @@ import us.cyberimpact.trsa.settings.AppConfig;
  * @author asone
  */
 @Named(value = "submissionPageView")
-@SessionScoped
+@ViewScoped
 public class SubmissionPageView implements Serializable {
 
     private static final Logger logger = Logger.getLogger(SubmissionPageView.class.getName());
