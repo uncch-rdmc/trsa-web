@@ -1,6 +1,6 @@
 = How to use the TRSA-Web GUI with paired Dataverse instance
 
-* last updated: 2021-04-21
+* last updated: 2021-05-09
 
 The primary function of TRASA-Web is to send locally extracted metadata to its paired Dataverse's dataset.  This means a setup at both TRSA and Dataverse sides are necessary.  The following sections explain the required setup at TRSA and Dataverse sides before testing the above metadata-uploading functionality by TRSA-Web.
 
@@ -59,7 +59,7 @@ As of TRSA-Web version 2.0, data for `DataFile Server URL` and
 
 === Dataverse registration at TRSA-Web side 
 
-. Type ${trsa-web-server-url}/trsa-web-2.0/ in the address box of your browser (TRSA-Web's top page appears)
+. Type ${trsa-web-server-url}/trsa-web-2.0/or ${trsa-web-server-url}/trsa-web/ in the address box of your browser (TRSA-Web's top page appears)
 . Click the "Setup the paired Dataverse" button in the center pane ("Paired Dataverse: Key Data Confirmation" pane appears)
 . Type data in the 4 boxes within the pane of "PAIRED DATAVERSE: KEY DATA confirmation"
 +
@@ -79,6 +79,20 @@ The value for the TRSA Registration Number is the Id of the row in which your TR
 
 == How to upload the metadata of a data file to the paired Dataverse-dataset
 
-**under construction**
+. Type ${trsa-web-server-url}/trsa-web-2.0/ or ${trsa-web-server-url}/trsa-web/ in the address box of your browser (TRSA-Web's top page appears)
+
+. Confirm the first button of the button list on the home page is grayed out ( a paired dataverse had been already specified); if not, follow the above <<Dataverse registration at TRSA-Web side>>.
+
+. Click the "Upload the metadata to an existing Dataset" button ("Select a destination Dataset" page appears).
+
+. Select a dataset on the list (make the chosen dataset selected)
+. Click the "Select" button ("Upload and Ingest a File" page appears) 
+. Click the "CHOOSE" button (file-selection pane such as "Open File" appears)
+. Move to the directory where a to-be-uploaded file exists
+. Click the file.
+. Click the "Open" button (for Google Chrome case) (the name of the selected file appears in the pane)
+. Click the "Upload" button (uploading starts and ends with "Ingest the uploaded file" button enabled)
+. Click the "Ingest the uploaded file" button (if successful, the banner in blue appears above the pane and the "go to Submission page" enabled; otherwise, the banner in pink appears; this means the selected file cannot be ingested and click the "TRSA Home" button to try another file to ingest)
+. Click the "go to Submission page" button ()
 
 
