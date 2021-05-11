@@ -21,15 +21,19 @@
                 <h:form id="form1">
                     <!--                <p:panel header="TRSA Web GUI Demo">-->
                         <h3>Welcome to Trusted Remote Storage Agent (TRSA) Web GUI</h3>
-                        <p:messages severity="info,warn,error,fatal" showDetail="true" closable="true" >
+                        <p:messages id="messages" showDetail="true" closable="true"
+                                    for="topMessage" severity="warn,error,fatal" >
                             <p:autoUpdate />
                         </p:messages>
+                        <p:growl id="top-growl" showDetail="true" 
+                                    for="topMessage" severity="info"/>
 
                         <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
                             
                             <p:commandButton icon="fa fa-fw fa-gear"
                                              value="Setup the paired Dataverse "  
-                                             action="#{homePageView.gotoPairingConfirmationPage()}"                                             disabled="#{homePageView.hostInfoSaved}"
+                                             action="#{homePageView.gotoPairingConfirmationPage()}"
+                                             disabled="#{homePageView.hostInfoSaved}"
                                              style="font-size: 1.2em!important"/>
                             <p:commandButton icon="fa fa-fw fa-gear"
                                              value="Manage the paired Dataverse data"  

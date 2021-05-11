@@ -5,7 +5,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      >
+          
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title></title>
     </h:head>
@@ -17,9 +18,11 @@
 
 
                 <h:form id="form1">
-                    <p:messages id="messages" showDetail="true" closable="true" for="topMessage" severity="info,warn,error,fatal">
+                    <p:messages id="messages" showDetail="true" closable="true" for="topMessage" severity="warn,error,fatal">
                         <p:autoUpdate />
                     </p:messages>
+                    <p:growl id="top-growl" showDetail="true" 
+                                    for="topMessage" severity="info"/>
                     <h3 style="margin:5px 5px 30px 5px">Select a destination Dataset</h3>
 
 
@@ -46,7 +49,7 @@
         <p:column headerText="dataset Name">
             <h:outputText value="#{hostInfo.dataversetitle}" />
         </p:column>
-        <p:column headerText="dataset Id" visible="#{destinationSelectionView.metadataOnly}">
+        <p:column headerText="dataset Id">
             <h:outputText value="#{hostInfo.datasetid}" />
         </p:column>
 

@@ -22,13 +22,14 @@
 
                 <h:form id="form">
 
-                    <p:messages id="messages" showDetail="true" closable="true">
+                    <p:messages id="messages" showDetail="true" closable="true" 
+                                for="topMessage" severity="info,warn,error,fatal">
                         <p:autoUpdate />
                     </p:messages>
 
                     <h3 style="margin:5px 5px 30px 5px">Submission</h3>
 
-
+                    <p:panel id="notaryServiceSelection" visible="#{! submissionPageView.publishButtonEnabled}">
                     <p:panelGrid id="nsPanel" columns="1"  >
                         <f:facet name="header">
                             Notary Service Designation
@@ -96,15 +97,15 @@
                         <f:facet name="footer">
                             <p:commandButton id="saveNSBoundupdate" 
                                              ajax="true" 
-                                             update="messages publishButton" 
+                                             update="messages summaryPanel publishButton " 
                                              value="save Notary Service designation" 
                                              action="#{submissionPageView.saveNSchanges}" />
                         </f:facet>
                     </p:panelGrid>
-
+                </p:panel>
 <br/>
 
-
+<p:panel id="summaryPanel" visible="#{submissionPageView.publishButtonEnabled}">
                     <p:panelGrid columns="3"  
                                  >            
                         <f:facet name="header">
@@ -149,43 +150,44 @@
 
                         <h:outputLabel for="datasetDoiUrlLink" value="Returned Dataset DOI" />
 
-                        <p:link id="datasetDoiUrlLink" 
-                                href="#{submissionPageView.datasetDoiUrl}" 
-                                value="#{submissionPageView.returnedDatasetDoi}"/>
+                        <h:outputText value="{submissionPageView.returnedDatasetDoi}"/>
+<!--                        <p:link id="datasetDoiUrlLink" 
+                                href="{submissionPageView.datasetDoiUrl}" 
+                                value="{submissionPageView.returnedDatasetDoi}"/>-->
                         <h:outputText value="note: DOI-link to the Dataset" /> 
 
 
 
                         <f:facet name="footer">
-                            <p:commandButton id="createDSButton" 
+<!--                            <p:commandButton id="createDSButton" 
                                              ajax="true" 
                                              update="messages dataverseButton publishButton" 
                                              value="create an empty dataset" 
                                              disabled="#{!submissionPageView.emptyDatasetCreation}"
-                                             actionListener="#{submissionPageView.submissionFacade()}" />
+                                             actionListener="#{submissionPageView.submissionFacade()}" />-->
 
                             <p:commandButton id="publishButton" 
                                              ajax="true" 
-                                             update="messages dataverseButton publishButton DatasetDoi remoteDatasetId datasetDoiUrlLink" 
+                                             update="messages dataverseButton publishButton DatasetDoi remoteDatasetId" 
                                              value="publish this dataset" 
                                              disabled="#{!submissionPageView.publishButtonEnabled}"
                                              actionListener="#{submissionPageView.submissionFacade()}" />
 
-                            <p:commandButton id="dataverseButton"
+<!--                            <p:commandButton id="dataverseButton"
                                              ajax="true" update="messages" 
                                              value="Go to Dataverse site" 
                                              disabled="#{!submissionPageView.gotoDataverseButtonEnabled}"
-                                             actionListener="#{submissionPageView.goToDataverseSite}" />
+                                             actionListener="#{submissionPageView.goToDataverseSite}" />-->
 
                             <p:commandButton id="returnToMainMenuButton"
                                              ajax="true" update="messages" 
                                              value="Return to the Main Menu" 
-                                             action="/index.xhtml?faces-redirect=true"
+                                             action="#{submissionPageView.returnToMainMenu}"
                                              />
 
                         </f:facet>
                     </p:panelGrid>
-
+</p:panel>
 
                 </h:form>
 

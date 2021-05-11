@@ -39,6 +39,7 @@ import javax.json.JsonReader;
 import javax.json.JsonValue;
 import javax.json.JsonWriter;
 import javax.ws.rs.WebApplicationException;
+import org.omnifaces.util.Faces;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import us.cyberimpact.trsa.entities.HostInfo;
@@ -62,20 +63,20 @@ public class SubmissionPageView implements Serializable {
     
     // injecting objects
     
-    
-    @Inject
-    private HomePageView homePageView;
+//    
+//    @Inject
+//    private HomePageView homePageView;
     
 //    private RequestType selectedRequestType=homePageView.getSelectedRequestType();
     private RequestType selectedRequestType;
     
-    @Inject
-    private DestinationSelectionView destSelectionView;
+//    @Inject
+//    private DestinationSelectionView destSelectionView;
     
     private HostInfo selectedHostInfo;// =  destSelectionView.getSelectedHostInfo();
     
-    @Inject
-    private HostInfoFacade hostInfoFacade;
+//    @Inject
+//    private HostInfoFacade hostInfoFacade;
 
     public HostInfo getSelectedHostInfo() {
         return selectedHostInfo;
@@ -86,8 +87,8 @@ public class SubmissionPageView implements Serializable {
     }
     
     
-    @Inject
-    private FileUploadView fileUploadView;
+//    @Inject
+//    private FileUploadView fileUploadView;
     
     @Inject
     private AppConfig appConfig; 
@@ -179,6 +180,7 @@ public class SubmissionPageView implements Serializable {
     
     private boolean notaryServiceEnabled=false;
     
+    private String ingestedFilename;
     
     
     
@@ -186,12 +188,14 @@ public class SubmissionPageView implements Serializable {
     @PostConstruct
     public void init() {
         logger.log(Level.INFO, "========== SubmissionPageView#init() start ==========");
-        selectedRequestType=homePageView.getSelectedRequestType();
-        selectedHostInfo =  destSelectionView.getSelectedHostInfo();
+        //selectedRequestType=homePageView.getSelectedRequestType();
+        selectedRequestType=Faces.getSessionAttribute("selectedRequestType");
+        //selectedHostInfo =  destSelectionView.getSelectedHostInfo();
+        selectedHostInfo = Faces.getSessionAttribute("selectedHostInfo");
         logger.log(Level.INFO, "#init: selectedRequestType={0}", selectedRequestType);
-
-        
         logger.log(Level.INFO, "#init: selectedHostInfo={0}", selectedHostInfo);
+        
+        
         if (selectedHostInfo == null){
             logger.log(Level.INFO, "selectedHostInfo is null");
             // TODO
@@ -212,6 +216,12 @@ public class SubmissionPageView implements Serializable {
         dataverseServer = selectedHostInfo.getHosturl();//dataverseServerHCValue;
         logger.log(Level.INFO, "dataverseServer={0}", dataverseServer);
         
+        String datasetIdFromFileUploadView = Faces.getSessionAttribute("datasetIdentifier");
+        logger.log(Level.INFO, "datasetIdFromFileUploadView={0}", datasetIdFromFileUploadView);
+        ingestedFilename = Faces.getSessionAttribute("fileName");
+        logger.log(Level.INFO, "ingestedFilename={0}", ingestedFilename);
+        
+        
         // here setup data for each submission request type
         switch (selectedRequestType) {
             case EMPTY_DATASET:
@@ -223,7 +233,7 @@ public class SubmissionPageView implements Serializable {
             case FULL_DATASET:
                 logger.log(Level.INFO, "FULL_DATASET case");
                 // localDatasetID must be saved
-                localDatasetIdentifier = fileUploadView.getDatasetIdentifier();
+                localDatasetIdentifier =  datasetIdFromFileUploadView;//fileUploadView.getDatasetIdentifier();
                 logger.log(Level.INFO, "SubmissionPageView#init():localDatasetIdentifier passed={0}", localDatasetIdentifier);
                 // DataverseId is required 
                 selectedDataverseId = Long.toString(selectedHostInfo.getDataverseid());
@@ -232,7 +242,7 @@ public class SubmissionPageView implements Serializable {
             case METADATA_ONLY:
                 logger.log(Level.INFO, "METADATA_ONLY case");
                 // localDatasetID must be saved
-                localDatasetIdentifier = fileUploadView.getDatasetIdentifier();
+                localDatasetIdentifier = datasetIdFromFileUploadView;//fileUploadView.getDatasetIdentifier();
                 logger.log(Level.INFO, "SubmissionPageView:init():localDatasetIdentifier passed={0}", localDatasetIdentifier);
                 // DatasetId is required
                 selectedDatasetId =  Long.toString(selectedHostInfo.getDatasetid());
@@ -266,12 +276,14 @@ public class SubmissionPageView implements Serializable {
 //            logger.log(Level.INFO, "the number of datafiles to be uploaded is {0}", fileIdList.size());
 //        }
         
-        ingestedDataFileList = fileUploadView.getIngestedDataFileList();
+        ingestedDataFileList = Faces.getSessionAttribute("ingestedDataFileList");//fileUploadView.getIngestedDataFileList();
         if (ingestedDataFileList.isEmpty()){
             logger.log(Level.WARNING, "datafile is empty");
         } else {
             logger.log(Level.INFO, "the number of datafiles to be uploaded is {0}", ingestedDataFileList.size());
         }
+        
+        logger.log(Level.INFO, "datasetDoiUrl={0}", datasetDoiUrl);
         
         
         logger.log(Level.INFO, "========== SubmissionPageView#init() end ==========");
@@ -305,9 +317,11 @@ public class SubmissionPageView implements Serializable {
     private String ingestedFile;
 
     public String getIngestedFile() {
-        return  (fileUploadView != null) && 
-                (fileUploadView.getFileName() != null) ?
-                fileUploadView.getFileName() : "N/A";
+//        return  (fileUploadView != null) && 
+//                (fileUploadView.getFileName() != null) ?
+//                fileUploadView.getFileName() : "N/A";
+        
+        return ingestedFilename!= null ? ingestedFilename : "N/A";
     }
     
     public void setIngestedFile(String ingestedFile) {
@@ -719,5 +733,11 @@ public class SubmissionPageView implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
-    
+    public String returnToMainMenu(){
+        logger.log(Level.INFO, "SubmissionPageView#returnToMainMenu: sessionscoped data are reset");
+        Faces.getExternalContext().invalidateSession();
+        
+        logger.log(Level.INFO, "return to the main menu");
+        return "/index.xhtml?faces-redirect=true";
+    }
 }
