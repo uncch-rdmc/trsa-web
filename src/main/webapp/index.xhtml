@@ -14,7 +14,9 @@
 
         <ui:composition template="/template/layout.xhtml">
 
-
+        <ui:define name="pageTitle">
+            <h:outputText value="#{bundle.AppName}: Home"></h:outputText>
+        </ui:define>
 
             <ui:define name="content">
 
@@ -25,7 +27,7 @@
                                     for="topMessage" severity="warn,error,fatal" >
                             <p:autoUpdate />
                         </p:messages>
-                        <p:growl id="top-growl" showDetail="true" 
+                        <p:growl id="topGrowl" showDetail="true" 
                                     for="topMessage" severity="info"/>
 
                         <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
@@ -36,7 +38,7 @@
                                              disabled="#{homePageView.hostInfoSaved}"
                                              style="font-size: 1.2em!important"/>
                             <p:commandButton icon="fa fa-fw fa-gear"
-                                             value="Manage the paired Dataverse data"  
+                                             value="Manage the destination datasets"  
                                              action="#{homePageView.gotoHostinfoPage()}" 
                                              disabled="#{! homePageView.hostInfoSaved}"
                                              style="font-size: 1.2em!important"/>

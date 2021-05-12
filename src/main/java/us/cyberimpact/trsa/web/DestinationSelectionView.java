@@ -10,7 +10,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 
 
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.commons.lang3.StringUtils;
@@ -157,7 +156,9 @@ public class DestinationSelectionView implements Serializable {
     
     
     public void addMessageEmptyHostInfo(){
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Dataset's DOI is missing", "Add the DOI to the host info before uploading Metadata.");
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                "Dataset's DOI is missing",
+                "Add the DOI to the host info before uploading Metadata.");
         Faces.getContext().addMessage("topMessage", message);
     }
     

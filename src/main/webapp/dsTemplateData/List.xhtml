@@ -9,11 +9,11 @@
     <ui:composition template="/template.xhtml">
 
 
-        <ui:define name="title">
+        <ui:define name="pageTitle">
             <h:outputText value="#{bundle.ListDsTemplateDataTitle}"></h:outputText>
         </ui:define>
 
-        <ui:define name="body">
+        <ui:define name="content">
             <h:form id="DsTemplateDataListForm">
                 <p:panel header="#{bundle.ListDsTemplateDataTitle}">
                     <p:dataTable id="datalist" value="#{dsTemplateDataController.items}" var="item"

@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import org.omnifaces.cdi.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -104,28 +103,29 @@ public class HomePageView implements Serializable {
         if (hostInfoTable.isEmpty()){
             logger.log(Level.INFO, "homePageView:hostInfoTable is empty");
             addMessageEmptyHostInfo();
-            
+            Faces.setSessionAttribute("hostInfoSaved", false);
         } else {
             logger.log(Level.INFO, "homePageView:hostInfoTable exists and not empty:{0}", hostInfoTable);
             hostInfoSaved=true;
             addMessageHostInfoAvailable();
+            Faces.setSessionAttribute("hostInfoSaved", true);
         }
         logger.log(Level.INFO, "========== HomePageView#init : end ==========");
     }
     
     
-
     
     public void addMessageHostInfoAvailable(){
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-                "Dataverse data available",
-                "Dataverse are already saved: if necessary, add new Dataverse data before uploading.");
+      "The paired Dataverse is already saved",
+       "if necessary, add a new Dataverse before submitting metadata.");
         Faces.getContext().addMessage("topMessage", message);
     }
     
     public void addMessageEmptyHostInfo(){
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN,
-                "Dataverse data are not saved!", "Add Dataverse data before uploading.");
+       "The paired Dataverse must be saved", 
+        "Before submitting metadata, setup the paired Dataverse");
         Faces.getContext().addMessage("topMessage", message);
     }
     
@@ -196,7 +196,8 @@ public class HomePageView implements Serializable {
         // setEmptyDatasetCreation(true);
         //logger.log(Level.INFO, "isEmptyDatasetCreation set to ={0}", isEmptyDatasetCreation());
         // return "/dsTemplateSelection.xhtml";
-        return "/pairingConfirmation.xhtml";
+        //return "/pairingConfirmation.xhtml";
+        return "dataverseConfirmation.xhtml";
     }
     
     private void clearSession(){

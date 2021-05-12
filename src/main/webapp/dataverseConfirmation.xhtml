@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui"
       >
     <h:head>
-        <title>Pairing Confirmation Page</title>
+        <title>Dataverse Confirmation Page</title>
     </h:head>
     <h:body>
         
@@ -23,37 +23,37 @@
 
                     
             <p:panel header="Paired Dataverse: Key Data Confirmation">
-                <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
-                <h:panelGrid columns="2" columnClasses="label, value">
-                    <p:outputLabel value="Dataverse URL: *" for="hosturl"/>
+
+                <p:panelGrid columns="2" columnClasses="label, value">
+                    <p:outputLabel value="Dataverse URL:" for="hosturl"/>
                     <p:inputText id="hosturl" 
-                                 value="#{setupWizardView.hostInfo.hosturl}" 
+                                 value="#{dataverseConfirmationView.hostInfo.hosturl}" 
                                  required="true" 
                                  title="Dataverse URL to be paired"/>
- 
-                    <p:outputLabel value="Dataverse Alias: *" for="dataversealias"/>
+                    <p:outputLabel value="Dataverse Alias:" for="dataversealias"/>
                     <p:inputText id="dataversealias" 
-                                 value="#{setupWizardView.hostInfo.dataversealias}" 
+                                 value="#{dataverseConfirmationView.hostInfo.dataversealias}" 
                                  required="true" 
                                  title="Shown under General Information"/>
- 
-                    <p:outputLabel value="API Token: *" for="apitoken"/>
+                    <p:outputLabel value="API Token:" for="apitoken"/>
                     <p:inputText id="apitoken" 
-                                 value="#{setupWizardView.hostInfo.apitoken}" 
+                                 value="#{dataverseConfirmationView.hostInfo.apitoken}" 
                                  required="true" 
                                  title="Shown on the Account Page" />
-
-                    <p:outputLabel value="TRSA Registry Number: *" for="trsaRegNmbr"/>
+                    <p:outputLabel value="TRSA Registry Number:" for="trsaRegNmbr"/>
                     <p:inputText id="trsaRegNmbr" 
-                                 value="#{setupWizardView.hostInfo.trsaRegNmbr}" 
+                                 value="#{dataverseConfirmationView.hostInfo.trsaRegNmbr}" 
                                  required="true" 
                                  title="From Dataverse Dashboard:TRSA Registry Table" />
-                    
-                </h:panelGrid>
-                </h:panelGrid>
+                </p:panelGrid>
  
-                <p:commandButton value="Confirm" 
-                                 action="#{setupWizardView.confirmDataverseData()}" 
+                <p:commandButton id="confirmButton" value="Confirm" 
+                                 action="#{dataverseConfirmationView.confirmDataverseData()}" 
+                                 disabled="#{dataverseConfirmationView.mainButtonEnabled}"
+                                 update="messages confirmButton mainButton" />
+                <p:commandButton id="mainButton" value="Return to Main Menu" 
+                                 disabled="#{! dataverseConfirmationView.mainButtonEnabled}"
+                                 action="#{dataverseConfirmationView.returnToMainMenu()}" 
                                  update="messages" />
             </p:panel>
                     

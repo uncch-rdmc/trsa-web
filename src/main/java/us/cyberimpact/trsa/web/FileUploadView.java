@@ -72,7 +72,7 @@ public class FileUploadView implements Serializable {
     
     private UploadedFile file;
     private String destination = "/tmp/";
-    private String fileName;
+
     
     private String mimeType="application/octet-stream";
 
@@ -150,6 +150,8 @@ public class FileUploadView implements Serializable {
         logger.log(Level.INFO, "=========== FileUploadView#init: end ===========");
     }
 
+    private String fileName;    
+    
     public UploadedFile getFile() {
         return file;
     }

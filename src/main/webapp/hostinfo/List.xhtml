@@ -6,14 +6,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/template/layout.xhtml">
 
 
-        <ui:define name="title">
+        <ui:define name="pageTitle">
             <h:outputText value="#{bundle_host.ListHostInfoTitle}"></h:outputText>
         </ui:define>
 
-        <ui:define name="body">
+        <ui:define name="content">
             <h:form id="HostInfoListForm">
                 <p:panel header="#{bundle_host.ListHostInfoTitle}">
                     <p:dataTable id="datalist" value="#{hostInfoController.items}" var="item"

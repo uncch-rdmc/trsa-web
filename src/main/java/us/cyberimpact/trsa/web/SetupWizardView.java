@@ -11,13 +11,9 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import edu.unc.odum.dataverse.util.json.JsonPointerForDataset;
 import edu.unc.odum.dataverse.util.json.JsonResponseParser;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,21 +30,20 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonPatch;
 import javax.json.JsonPatchBuilder;
-import javax.json.JsonReader;
-import javax.json.JsonWriter;
 import javax.ws.rs.WebApplicationException;
 import org.apache.commons.lang3.StringUtils;
+import org.omnifaces.cdi.ViewScoped;
+import org.omnifaces.util.Faces;
 import org.primefaces.event.FlowEvent;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
-import us.cyberimpact.trsa.settings.SettingsServiceBean;
 
 /**
  *
  * @author asone
  */
 @Named(value = "setupWizardView")
-@SessionScoped
+@ViewScoped
 public class SetupWizardView implements Serializable {
 
     private static final Logger logger = Logger.getLogger(SetupWizardView.class.getName());
@@ -65,13 +60,13 @@ public class SetupWizardView implements Serializable {
     @Inject
     private HostInfoFacade hostInfoFacade;
     
-    @Inject
-    private HomePageView homePageView;
+//    @Inject
+//    private HomePageView homePageView;
     
     
-    @Inject 
-    private DestinationSelectionView destinationSelectionView;
-    
+//    @Inject 
+//    private DestinationSelectionView destinationSelectionView;
+//    
     private boolean datasetCreated=false;
 
     public boolean isDatasetCreated() {
@@ -89,15 +84,15 @@ public class SetupWizardView implements Serializable {
     public void init() {
         logger.log(Level.INFO, "========== SetupWizardView#init : start ==========");
         
-        if (homePageView.isHostInfoSaved()){
-//        if (StringUtils.isNotBlank(destinationSelectionView.getSelectedHostInfo().getDataversealias())){
-            logger.log(Level.INFO, "Target Dataverse is not null:{0}", 
-                    destinationSelectionView.getSelectedHostInfo());
-            hostInfo = destinationSelectionView.getSelectedHostInfo();
-        } else {
-            logger.log(Level.INFO, "information about the selected dataverse is missing");
+//        if (homePageView.isHostInfoSaved()){
+////        if (StringUtils.isNotBlank(destinationSelectionView.getSelectedHostInfo().getDataversealias())){
+//            logger.log(Level.INFO, "Target Dataverse is not null:{0}", 
+//                    destinationSelectionView.getSelectedHostInfo());
+//            hostInfo = destinationSelectionView.getSelectedHostInfo();
+//        } else {
+//            logger.log(Level.INFO, "information about the selected dataverse is missing");
             hostInfo = new HostInfo();
-        }
+//        }
         subjectList.add("Agricultural Sciences");
         subjectList.add("Arts and Humanities");
         subjectList.add("Astronomy and Astrophysics");
@@ -209,8 +204,10 @@ public class SetupWizardView implements Serializable {
         
         logger.log(Level.INFO, "========== SetupWizardView#save : end ==========");
 
-        FacesMessage msg = new FacesMessage("Successful", "A new Dataset has been created:ID="+ assignedDatasetDoi);
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+        "Creating an empty Dataset was Successful", 
+                "A new Dataset has been created: ID="+ assignedDatasetDoi);
+         Faces.getContext().addMessage("topGrowl", msg);
     }
     
     // EMPTY_DATASET
@@ -339,6 +336,11 @@ public class SetupWizardView implements Serializable {
 
         } catch (IOException ie) {
             logger.log(Level.INFO, "IOException was thrown", ie);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Creating an Empty dataset failed",
+                    "Creating a new empty Dataset failed due to IOException");
+            Faces.getContext().addMessage("topMessage", msg);
+            return;
         }
         logger.log(Level.INFO, "========== SetupWizardView#createEmptyDataset: end ==========");
     }
@@ -481,28 +483,29 @@ public class SetupWizardView implements Serializable {
                 
                 
                 saveHostInfo(hostInfo);
-                if (hostInfoFacade.findAll().size() > 0){
-                    logger.log(Level.INFO, "host_info table has been updated");
-                    homePageView.setHostInfoSaved(true);
-                } else {
-                    logger.log(Level.INFO, "host_info table has not been updated");
-                }
+//                if (hostInfoFacade.findAll().size() > 0){
+//                    logger.log(Level.INFO, "host_info table has been updated");
+//                    homePageView.setHostInfoSaved(true);
+//                } else {
+//                    logger.log(Level.INFO, "host_info table has not been updated");
+//                }
 
-                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", 
-                    "Confirmation successful");
+                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Confirmation success", 
+                    "The Dataverse Alias was confirmed");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return "/index.xhtml?faces-redirect=true";
             } else {
-                logger.log(Level.INFO, "dataverseAlias is NOT confirmed");
-                msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", 
-                    "Confirmation of the alias failed: ");
+                logger.log(Level.INFO, "Confirmation failure");
+                msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "The Dataverse alias was not confirmed", 
+                    "Confirmation of the Dataverse alias failed: ");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return "";
             }
         } else {
-            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Confirmation request failed; Enter correct data again");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                return "";
+            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Reqequest Failure",
+                    "Confirmation failed; correct data and/or resubmit again ");
+            Faces.getContext().addMessage("messages", msg);
+            return "";
             
             
         }

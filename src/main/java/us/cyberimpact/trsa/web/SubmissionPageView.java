@@ -29,7 +29,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -39,11 +38,11 @@ import javax.json.JsonReader;
 import javax.json.JsonValue;
 import javax.json.JsonWriter;
 import javax.ws.rs.WebApplicationException;
+import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import us.cyberimpact.trsa.entities.HostInfo;
-import us.cyberimpact.trsa.entities.HostInfoFacade;
 import us.cyberimpact.trsa.settings.AppConfig;
 
 /**
@@ -219,9 +218,9 @@ public class SubmissionPageView implements Serializable {
         String datasetIdFromFileUploadView = Faces.getSessionAttribute("datasetIdentifier");
         logger.log(Level.INFO, "datasetIdFromFileUploadView={0}", datasetIdFromFileUploadView);
         ingestedFilename = Faces.getSessionAttribute("fileName");
-        logger.log(Level.INFO, "ingestedFilename={0}", ingestedFilename);
-        
-        
+        logger.log(Level.INFO, "ingestedFilename received={0}", ingestedFilename);
+        String filenameonly = Faces.getSessionAttribute("fileNameOnly");
+        logger.log(Level.INFO, "filenameonly received={0}", filenameonly);
         // here setup data for each submission request type
         switch (selectedRequestType) {
             case EMPTY_DATASET:
@@ -381,7 +380,10 @@ public class SubmissionPageView implements Serializable {
             // Dataset title 
             // 
         } catch (IOException ie){
-            
+            // TODO 
+            // create the error message
+            // call the sweeping method
+            // return
         }
     }
     
@@ -438,7 +440,10 @@ public class SubmissionPageView implements Serializable {
 
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "IOException was thrown during io operations", ex);
-            throw new WebApplicationException(ex);
+            // TODO 
+            // create the error message
+            // call the sweeping method
+            // return
         }
         
         logger.log(Level.FINE, "jsonbody={0}", jsonBody);
@@ -536,6 +541,10 @@ public class SubmissionPageView implements Serializable {
             jsonBody = payloadObject.toString(); 
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "IOException was thrown during io operations", ex);
+            // TODO
+            // create error messages
+            // call the sweeping method
+            // return
         }
 
         logger.log(Level.FINE, "jsonbody={0}", jsonBody);
@@ -556,6 +565,10 @@ public class SubmissionPageView implements Serializable {
                     .asJson();
         } catch (UnirestException ex) {
             logger.log(Level.SEVERE, "UnirestException was thrown: a request of uploading metadata failed", ex);
+            // TODO 
+            // create the error message
+            // call the sweeping method
+            // return
         }
 
         logger.log(Level.INFO, "status code={0}", jsonResponse.getStatus());
@@ -649,7 +662,7 @@ public class SubmissionPageView implements Serializable {
     
     public void addMessage() {
         String summary = notaryServiceBound ? "Checked" : "Unchecked";
-        FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(summary));
+        FacesContext.getCurrentInstance().addMessage("topMessage", new FacesMessage(summary));
     }
     
     
@@ -692,6 +705,8 @@ public class SubmissionPageView implements Serializable {
         }
         
         publishButtonEnabled=true;
+        String message ="Notary-Service-related Settings were successfully saved";
+        Faces.getContext().addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "NS settings were successfully saved", message));
     }
     
     
@@ -704,6 +719,10 @@ public class SubmissionPageView implements Serializable {
                 ingestService.exportDataset(latestDatasetVerion);
             } else {
                 logger.log(Level.WARNING, "DatasetVersion is null/empty");
+                // TODO
+                // create the error message 
+                // call the sweeping method
+                // return
             }
             
         

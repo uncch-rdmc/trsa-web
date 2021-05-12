@@ -16,36 +16,46 @@
 
 
                 <h:form id="form1">
-                    <p:messages id="messages" showDetail="true" closable="true" for="topMessage" severity="info,warn,error,fatal">
+                    <p:messages id="messages" showDetail="true" closable="true" 
+                        for="topMessage" severity="info,warn,error,fatal">
                         <p:autoUpdate />
                     </p:messages>
-                    <h3 style="margin:5px 5px 30px 5px">Creating a New Dataset</h3>
+                    <p:growl id="topGrowl" showDetail="true" 
+                                     severity="info"/>
+                    
+                    <h3 style="margin:5px 5px 30px 5px">Setup the paired Dataverse</h3>
                     
                     
                     
 
     <p:wizard flowListener="#{setupWizardView.onFlowProcess}">
+        
+        <!<!-- tab 1: type dataverse data  -->
         <p:tab id="personal" title="Dataverse">
             <p:panel header="Dataverse Details">
                 <p:messages />
-                <h:panelGrid columns="2" columnClasses="label, value">
-                    <h:outputText value="Dataverse URL: *" />
-                    <p:inputText value="#{setupWizardView.hostInfo.hosturl}" 
+                <p:panelGrid columns="2" columnClasses="label, value">
+                    <p:outputLabel value="Dataverse URL: *" for="hosturl"/>
+                    <p:inputText id="hosturl"
+                                value="#{setupWizardView.hostInfo.hosturl}" 
                                  required="true" 
                                  title="Dataverse URL to be paired"/>
-                    <h:outputText value="Dataverse Alias: *" />
-                    <p:inputText value="#{setupWizardView.hostInfo.dataversealias}" 
+                    <p:outputLabel value="Dataverse Alias: *" for="dataversealias"/>
+                    <p:inputText id="dataversealias" 
+                                 value="#{setupWizardView.hostInfo.dataversealias}" 
                                  required="true" 
                                  title="Shown under General Information"/>
-                    <h:outputText value="API Token: *" />
-                    <p:inputText value="#{setupWizardView.hostInfo.apitoken}" 
+                    <p:outputLabel value="API Token: *" for="apitoken"/>
+                    <p:inputText id="apitoken" 
+                                 value="#{setupWizardView.hostInfo.apitoken}" 
                                  required="true" 
                                  title="Shown on the Account Page" />
-                    <h:outputText value="TRSA Registry Number: *" />
-                    <p:inputText value="#{setupWizardView.hostInfo.trsaRegNmbr}" 
+                    <h:outputLabel value="TRSA Registry Number: *" for=""/>
+                    <p:inputText id="trsaRegNmbr" 
+                                 value="#{setupWizardView.hostInfo.trsaRegNmbr}" 
                                  required="true" 
                                  title="From TRSA Registry Table" />
-                </h:panelGrid>
+                </p:panelGrid>
                 
                 <p:commandButton value="Select Another Dataverse" 
                                  action="#{setupWizardView.gotoSelectDataverse}"  />
@@ -59,35 +69,39 @@
                 <p:messages />
                 <h:panelGrid columns="2" columnClasses="label, value">
                     
-                    <h:outputText value="Title: *" />
-                    <p:inputText value="#{setupWizardView.skeletalDataset.datasetTitle}"
+                    <p:outputLabel value="Title: *" for="datasetTitle2" />
+                    <p:inputText id="datasetTitle2" 
+                                 value="#{setupWizardView.skeletalDataset.datasetTitle}"
                                  required="true" 
                                  title="Dataset Title"/>
                     
                     
-                    <h:outputText value="Author's Name: *" />
-                    <p:inputText value="#{setupWizardView.skeletalDataset.authorName}"
+                    <p:outputLabel value="Author's Name: *" for="authorName2"/>
+                    <p:inputText id="authorName2"
+                                 value="#{setupWizardView.skeletalDataset.authorName}"
                                  required="true" 
                                  title="1st Author's Name"/>
                     
                     
                     
-                    <h:outputText value="Author's Affiliation: *" />
-                    <p:inputText value="#{setupWizardView.skeletalDataset.authorAffiliation}"
+                    <h:outputLabel value="Author's Affiliation: *" for="authorAffiliation2"/>
+                    <p:inputText id="authorAffiliation2"
+                                 value="#{setupWizardView.skeletalDataset.authorAffiliation}"
                                  required="true" 
                                  title="Author's Affiliation"/>
  
-                    <h:outputText value="Contact Email: *" />
-                    <p:inputText value="#{setupWizardView.skeletalDataset.datasetContactEmail}"
+                    <p:outputLabel value="Contact Email: *" for="datasetContactEmail2"/>
+                    <p:inputText id="datasetContactEmail2"
+                                 value="#{setupWizardView.skeletalDataset.datasetContactEmail}"
                                  required="true" 
                                  title="Contact Email"/>
                     
-                    <h:outputText value="Description: *" />
-                    <p:inputText value="#{setupWizardView.skeletalDataset.dsDescriptionValue}"
+                    <p:outputLabel value="Description: *" for="dsDescriptionValue2"/>
+                    <p:inputText id="dsDescriptionValue2" value="#{setupWizardView.skeletalDataset.dsDescriptionValue}"
                                  required="true" 
                                  title="Short Description of this Dataset"/>
                     
-                    <p:outputLabel for="subject" value="Subject:" />
+                    <p:outputLabel value="Subject:" for="subject"/>
                     <p:selectOneMenu id="subject" 
                                      value="#{setupWizardView.skeletalDataset.subject}" 
                         dynamic="true" 
@@ -108,28 +122,37 @@
         <p:tab id="confirm" title="Confirmation">
             <p:panel header="Confirmation">
                 <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
-                    <h:panelGrid columns="2" columnClasses="label, value">
-                    <h:outputText value="Dataverse URL: *" />
-                    <h:outputText value="#{setupWizardView.hostInfo.hosturl}" styleClass="outputLabel"/>
-                    <h:outputText value="Dataverse Alias: *" />
-                    <h:outputText value="#{setupWizardView.hostInfo.dataversealias}" styleClass="outputLabel"/>
-                    <h:outputText value="API Token: *" />
-                    <h:outputText value="#{setupWizardView.hostInfo.apitoken}" styleClass="outputLabel"/>
-                    </h:panelGrid>
+                    <p:panelGrid columns="2" columnClasses="label, value">
+                    <p:outputLabel value="Dataverse URL: *" />
+                    <h:outputText value="#{setupWizardView.hostInfo.hosturl}" />
+                    <p:outputLabel value="Dataverse Alias: *" for="" />
+                    <h:outputText id="dataversealias3"  value="#{setupWizardView.hostInfo.dataversealias}"/>
+                    <p:outputLabel value="API Token: *" for="apitoken3" />
+                    <h:outputText id="apitoken3" value="#{setupWizardView.hostInfo.apitoken}" />
+                    </p:panelGrid>
+                    
+                    
+                    
                     <h:panelGrid columns="2" columnClasses="label, value">
 
-                    <h:outputText value="Dataset Title: *" />
-                    <h:outputText value="#{setupWizardView.skeletalDataset.datasetTitle}" styleClass="outputLabel"/>
-                    <h:outputText value="Author's Name: *" />
-                    <h:outputText value="#{setupWizardView.skeletalDataset.authorName}" styleClass="outputLabel"/>
-                    <h:outputText value="Author's Affiliation: *" />
-                    <h:outputText value="#{setupWizardView.skeletalDataset.authorAffiliation}" styleClass="outputLabel"/>
-                    <h:outputText value="Contact Email: *" />
-                    <h:outputText value="#{setupWizardView.skeletalDataset.datasetContactEmail}" styleClass="outputLabel"/>
-                    <h:outputText value="Description: *" />
-                    <h:outputText value="#{setupWizardView.skeletalDataset.dsDescriptionValue}" styleClass="outputLabel"/>
-                    <h:outputText value="Subject:" />
-                    <h:outputText value="#{setupWizardView.skeletalDataset.subject}" styleClass="outputLabel"/>
+                    <p:outputLabel value="Dataset Title: *" for="datasetTitle3"/>
+                    <h:outputText id="datasetTitle3" 
+                                  value="#{setupWizardView.skeletalDataset.datasetTitle}" />
+                    <p:outputLabel value="Author's Name: *" for="authorName3" />
+                    <h:outputText id="authorName3" 
+                                  value="#{setupWizardView.skeletalDataset.authorName}" />
+                    <p:outputLabel value="Author's Affiliation: *" for="authorAffiliation3"/>
+                    <h:outputText id="authorAffiliation3"
+                                  value="#{setupWizardView.skeletalDataset.authorAffiliation}" />
+                    <p:outputLabel value="Contact Email: *" for="datasetContactEmail3"/>
+                    <h:outputText id="datasetContactEmail3"
+                                  value="#{setupWizardView.skeletalDataset.datasetContactEmail}" />
+                    <p:outputLabel value="Description: *" for="dsDescriptionValue3"/>
+                    <h:outputText id="dsDescriptionValue3"
+                                  value="#{setupWizardView.skeletalDataset.dsDescriptionValue}" />
+                    <p:outputLabel value="Subject:" for="subject3"/>
+                    <h:outputText id="subject3" 
+                                  value="#{setupWizardView.skeletalDataset.subject}" />
                     </h:panelGrid>
  
 
