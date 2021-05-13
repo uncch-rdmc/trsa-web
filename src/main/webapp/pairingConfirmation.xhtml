@@ -15,7 +15,8 @@
 
             <ui:define name="content">
                 <h:form id="form1">
-                    <p:messages id="messages" showDetail="true" closable="true" for="topMessage" severity="info,warn,error,fatal">
+                    <p:messages id="messages" showDetail="true" closable="true"
+                        for="topMessage" severity="info,warn,error,fatal">
                         <p:autoUpdate />
                     </p:messages>
                      <p:growl id="topGrowl" showDetail="true" 
@@ -25,7 +26,7 @@
             <p:panel header="Paired Dataverse: Key Data Confirmation">
                 <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
                 <h:panelGrid columns="2" columnClasses="label, value">
-                    <p:outputLabel value="Dataverse URL: *" for="hosturl"/>
+                    <p:outputLabel value="Dataverse URL: *" for="hosturl" />
                     <p:inputText id="hosturl" 
                                  value="#{setupWizardView.hostInfo.hosturl}" 
                                  required="true" 

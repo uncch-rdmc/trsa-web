@@ -128,6 +128,7 @@ public class DestinationSelectionView implements Serializable {
             addMessageEmptyHostInfo();
             logger.log(Level.INFO, "doi is empty: dataset Id cannot be extracted");
             logger.log(Level.INFO, "go to host_info editor page");
+            destDsButtonEnabled=true;
             return "";
         } else {
             selectedDatasetId= getDatasetId(selectedHostInfo.getDatasetDoi());
@@ -157,21 +158,21 @@ public class DestinationSelectionView implements Serializable {
     
     public void addMessageEmptyHostInfo(){
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                "Dataset's DOI is missing",
-                "Add the DOI to the host info before uploading Metadata.");
+                "Selected Dataset's data are incomplete",
+                "Complete data for the destination Dataset before uploading metadata.");
         Faces.getContext().addMessage("topMessage", message);
     }
     
     
     public void onRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage("host Selected", ((HostInfo) event.getObject()).getDataversetitle());
-        Faces.getContext().addMessage(null, msg);
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dataset Selected", ((HostInfo) event.getObject()).getDataversetitle());
+        Faces.getContext().addMessage("topGrowl", msg);
         logger.log(Level.INFO, "onRowSelect:selectedHostInfo={0}", selectedHostInfo);
     }
  
     public void onRowUnselect(UnselectEvent event) {
-        FacesMessage msg = new FacesMessage("host Unselected", ((HostInfo) event.getObject()).getDataversetitle());
-        Faces.getContext().addMessage(null, msg);
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Dataset Unselected", ((HostInfo) event.getObject()).getDataversetitle());
+        Faces.getContext().addMessage("topGrowl", msg);
         logger.log(Level.INFO, "onRowUnselect:selectedHostInfo={0}", selectedHostInfo);
     }
     
@@ -182,5 +183,20 @@ public class DestinationSelectionView implements Serializable {
         return parts[parts.length-1];
     }
     
+    
+    private boolean destDsButtonEnabled=false;
+
+    public boolean isDestDsButtonEnabled() {
+        return destDsButtonEnabled;
+    }
+
+    public void setDestDsButtonEnabled(boolean destDsButtonEnabled) {
+        this.destDsButtonEnabled = destDsButtonEnabled;
+    }
+    
+    public String gotoSavedDsPage(){
+        logger.log(Level.INFO, "go to the saved dataset page");
+        return "/hostinfo/List.xhtml";
+    }
     
 }

@@ -23,10 +23,10 @@
                 <h:form id="form">
 
                     <p:messages id="messages" showDetail="true" closable="true" 
-                                for="topMessage" severity="warn,error,fatal">
+                                for="topMessage" severity="info,warn,error,fatal">
                         <p:autoUpdate />
                     </p:messages>
-                    <p:growl id="topgrowl" showDetail="true" 
+                    <p:growl id="growl" showDetail="true" for="topGrowl"
                                      severity="info"/>
                     <h3 style="margin:5px 5px 30px 5px">Submission</h3>
 
@@ -67,7 +67,7 @@
                                 <h:outputText value="#{dataFile.fileMetadata.label}" />
                             </p:column>
 
-                            <p:column headerText="Notary-Service Bound">
+                            <p:column headerText="Notary-Service">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <p:selectBooleanButton 
@@ -90,111 +90,74 @@
                             </p:column>
                             <p:column style="width:35px" headerText="Modify">
                                 <p:rowEditor 
-                                    editTitle="Modify default designation" 
+                                    editTitle="Change default designation" 
                                     saveTitle="Save change" 
-                                    cancelTitle='Cancel'/>
+                                    cancelTitle='Cancel' 
+                                    />
                             </p:column>
-
-                        </p:dataTable>
-
-
                         <f:facet name="footer">
                             <p:commandButton id="saveNSBoundupdate" 
                                              ajax="true" 
-                                             update="messages summaryPanel publishButton saveNSBoundupdate notaryServiceSelection" 
+                                             update="form:messages form:growl, form:summaryPanel form:submitButton saveNSBoundupdate form:notaryServiceSelection" 
                                              value="save Notary Service designation" 
                                              action="#{submissionPageView.saveNSchanges}"
                                              disabled="#{submissionPageView.publishButtonEnabled}"
                                              style="font-size: 120%"/>
                         </f:facet>
+                        </p:dataTable>
+
+
+
+                        
                     </p:panelGrid>
 </p:panel>
 
 
 <p:panel id="summaryPanel" visible="#{submissionPageView.publishButtonEnabled}">
-                    <p:panelGrid columns="3"  
+                    <p:panelGrid columns="2"  
                                  >            
                         <f:facet name="header">
-                            Submission: Summary
+                            Submission: Detail
                         </f:facet>
-
-                        <h:outputLabel for="dataverseServer"  value="selected Dataverse server:" /> 
+                        <h:outputLabel for="dataverseServer"  value="Dataverse server:" /> 
                         <h:outputText id="dataverseServer" value="#{submissionPageView.dataverseServer}" />
-                        <h:outputText value="" /> 
-
-                        <h:outputLabel for="apiKey" value="api key:" /> 
-                        <h:outputText id="apiKey" value="#{submissionPageView.apiKey}" /> 
-                        <h:outputText value="" /> 
-
-
-                        <h:outputLabel for="dataverseId" value="Selected Dataverse Id:" /> 
-                        <h:outputText id="dataverseId" value="#{submissionPageView.selectedDataverseId}" /> 
-                        <h:outputText value="note: integer" /> 
-
-                        <h:outputLabel for="targetDatasetId" value="Selected Dataset Id:" /> 
+                        <h:outputLabel for="apiKey" value="api key:" />
+                        <h:outputText id="apiKey" value="#{submissionPageView.apiKey}" />
+                        <h:outputLabel for="targetDatasetId" value="Dataset Id:" /> 
                         <h:outputText id="targetDatasetId" value="#{submissionPageView.selectedDatasetId}" /> 
-                        <h:outputText value="note: integer" />
-
+                        <h:outputLabel for="DatasetDoi" value="Dataset DOI:" />
+                        <h:outputText id="DatasetDoi" value="#{submissionPageView.datasetDoi}" /> 
                         <h:outputLabel for="zipfileName" value="Ingested file:" /> 
-                        <h:outputText id="zipfileName" value="#{submissionPageView.ingestedFile}" /> 
-                        <h:outputText value="note: ingested file" /> 
-
-
-
-                        <h:outputLabel for="localDatasetId" value="Payload Dataset Id" />
-                        <h:outputText id="localDatasetId" value="#{submissionPageView.localDatasetIdentifier}" /> 
-                        <h:outputText value="note: locally generated" /> 
-
-
-                        <h:outputLabel for="remoteDatasetId" value="assigned Dataset Id:" /> 
-                        <h:outputText id="remoteDatasetId" value="#{submissionPageView.assignedDatasetId}" /> 
-                        <h:outputText value="note: integer" />
-
-                        <h:outputLabel for="DatasetDoi" value="Returned Dataset DOI" />
-                        <h:outputText id="DatasetDoi" value="#{submissionPageView.returnedDatasetDoi}" /> 
-                        <h:outputText value="note: assigned by Dataverse" /> 
-
-<!--                        <h:outputLabel for="datasetDoiUrlLink" value="Returned Dataset DOI" />-->
-
-<!--                        <h:outputText value="{submissionPageView.returnedDatasetDoi}"/>-->
-<!--                        <p:link id="datasetDoiUrlLink" 
-                                href="{submissionPageView.datasetDoiUrl}" 
-                                value="{submissionPageView.returnedDatasetDoi}"/>-->
-<!--                        <h:outputText value="note: DOI-link to the Dataset" /> -->
-
-
-
+                        <h:outputText id="zipfileName" value="#{submissionPageView.filenameonly}" />
+                        <h:outputLabel for="trsaRegNmbr" value="TRSA Registration Number:" /> 
+                        <h:outputText id="trsaRegNmbr" value="#{submissionPageView.trsaRegNmbr}" /> 
                         <f:facet name="footer">
-<!--                            <p:commandButton id="createDSButton" 
-                                             ajax="true" 
-                                             update="messages  publishButton" 
-                                             value="create an empty dataset" 
-                                             disabled="{!submissionPageView.emptyDatasetCreation}"
-                                             actionListener="{submissionPageView.submissionFacade()}" />-->
 
-                            <p:commandButton id="publishButton" 
+                            <p:commandButton id="submitButton" 
                                              ajax="true" 
-                                             update="messages  publishButton DatasetDoi remoteDatasetId" 
-                                             value="publish this dataset" 
+                                             update="messages submitButton showPayload showResponseBody" 
+                                             value="Submit Metadata" 
                                              disabled="#{!submissionPageView.publishButtonEnabled}"
                                              actionListener="#{submissionPageView.submissionFacade()}" />
-
-<!--                            <p:commandButton id="dataverseButton"
-                                             ajax="true" update="messages" 
-                                             value="Go to Dataverse site" 
-                                             disabled="{!submissionPageView.gotoDataverseButtonEnabled}"
-                                             actionListener="{submissionPageView.goToDataverseSite}" />-->
-
+                            <p:commandButton id="showPayload"
+                                             value="Show Payload(Metadata)"
+                                             icon="pi pi-external-link" 
+                                             disabled="#{!submissionPageView.viewDetailButtonEnabled}"
+                                             action="#{submissionPageView.showPayload}"/>
+                            
+                            <p:commandButton id="showResponseBody"
+                                             value="Show Response"
+                                             icon="pi pi-external-link" 
+                                             disabled="#{!submissionPageView.viewDetailButtonEnabled}"
+                                             action="#{submissionPageView.showResponseBody}"/>
                             <p:commandButton id="returnToMainMenuButton"
                                              ajax="true" update="messages" 
-                                             value="Discard and return to the Main Menu" 
+                                             value="return to the Main Menu" 
                                              action="#{submissionPageView.returnToMainMenu}"
                                              />
-
                         </f:facet>
                     </p:panelGrid>
 </p:panel>
-
                 </h:form>
 
             </ui:define>

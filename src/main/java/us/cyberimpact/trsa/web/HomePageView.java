@@ -80,6 +80,17 @@ public class HomePageView implements Serializable {
         this.hostInfoSaved = hostInfoSaved;
     }
 
+    private boolean  underMaintenance=true;
+
+    public boolean isUnderMaintenance() {
+        return underMaintenance;
+    }
+
+    public void setUnderMaintenance(boolean underMaintenance) {
+        this.underMaintenance = underMaintenance;
+    }
+    
+    
 
     /**
      * Creates a new instance of HomePageView

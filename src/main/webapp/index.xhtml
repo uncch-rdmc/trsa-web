@@ -28,7 +28,7 @@
                             <p:autoUpdate />
                         </p:messages>
                         <p:growl id="topGrowl" showDetail="true" 
-                                    for="topMessage" severity="info"/>
+                                    for="topGrowl" severity="info"/>
 
                         <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
                             
@@ -43,11 +43,7 @@
                                              disabled="#{! homePageView.hostInfoSaved}"
                                              style="font-size: 1.2em!important"/>
                             
-                            <p:commandButton icon="fa fa-fw fa-upload"
-                                             value="Create a new empty Dataset"  
-                                             action="#{homePageView.gotoEmptyDatasetCreationPage()}"
-                                             disabled="#{! homePageView.hostInfoSaved}"
-                                             style="font-size: 1.2em!important"/>
+                            <!-- 'Create a new empty Dataset' was removed at the last update of version 2 -->
                             
                             
                             <p:commandButton icon="fa fa-fw fa-upload"

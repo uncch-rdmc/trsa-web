@@ -38,8 +38,10 @@ import javax.json.JsonReader;
 import javax.json.JsonValue;
 import javax.json.JsonWriter;
 import javax.ws.rs.WebApplicationException;
+import org.apache.commons.lang3.StringUtils;
 import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import us.cyberimpact.trsa.entities.HostInfo;
@@ -207,7 +209,6 @@ public class SubmissionPageView implements Serializable {
             
         }
         // here setup common data 
-        // api-key from TRSA-Profile table
         apiKey = selectedHostInfo.getApitoken();//apiKeyHCValue ;
         logger.log(Level.INFO, "SubmissionPageView:init():apiKey={0}", apiKey);
         
@@ -219,8 +220,14 @@ public class SubmissionPageView implements Serializable {
         logger.log(Level.INFO, "datasetIdFromFileUploadView={0}", datasetIdFromFileUploadView);
         ingestedFilename = Faces.getSessionAttribute("fileName");
         logger.log(Level.INFO, "ingestedFilename received={0}", ingestedFilename);
-        String filenameonly = Faces.getSessionAttribute("fileNameOnly");
+        filenameonly = Faces.getSessionAttribute("fileNameOnly");
         logger.log(Level.INFO, "filenameonly received={0}", filenameonly);
+        
+        
+        trsaRegNmbr = selectedHostInfo.getTrsaRegNmbr();
+        logger.log(Level.INFO, "trsaRegNmbr={0}", trsaRegNmbr);
+        
+        
         // here setup data for each submission request type
         switch (selectedRequestType) {
             case EMPTY_DATASET:
@@ -281,9 +288,8 @@ public class SubmissionPageView implements Serializable {
         } else {
             logger.log(Level.INFO, "the number of datafiles to be uploaded is {0}", ingestedDataFileList.size());
         }
-        
-        logger.log(Level.INFO, "datasetDoiUrl={0}", datasetDoiUrl);
-        
+        datasetDoi = selectedHostInfo.getDatasetDoi();
+        logger.log(Level.INFO, "datasetDoi={0}", datasetDoi);
         
         logger.log(Level.INFO, "========== SubmissionPageView#init() end ==========");
     }
@@ -326,6 +332,39 @@ public class SubmissionPageView implements Serializable {
     public void setIngestedFile(String ingestedFile) {
         this.ingestedFile = ingestedFile;
     }
+    
+    
+    private Long trsaRegNmbr;
+
+    public Long getTrsaRegNmbr() {
+        return trsaRegNmbr;
+    }
+
+    public void setTrsaRegNmbr(Long trsaRegNmbr) {
+        this.trsaRegNmbr = trsaRegNmbr;
+    }
+    
+    private String filenameonly;
+
+    public String getFilenameonly() {
+        return filenameonly;
+    }
+
+    public void setFilenameonly(String filenameonly) {
+        this.filenameonly = filenameonly;
+    }
+    
+    private String datasetDoi;
+
+    public String getDatasetDoi() {
+        return datasetDoi;
+    }
+
+    public void setDatasetDoi(String datasetDoi) {
+        this.datasetDoi = datasetDoi;
+    }
+    
+    
     
     // Facade for all three cases
     
@@ -466,28 +505,9 @@ public class SubmissionPageView implements Serializable {
             logger.log(Level.SEVERE, "Unirest request error", ex);
             throw new WebApplicationException(ex, jsonResponse.getStatus());
         }
-
-        logger.log(Level.INFO, "status code={0}", jsonResponse.getStatus());
-
-        String responseString = jsonResponse.getBody().toString();
-        logger.log(Level.INFO, "response body={0}", responseString);
-
-        JsonResponseParser jsonParser = new JsonResponseParser();
-//        JsonFilter jsonFilter = new JsonFilter();
-//
-//        String datasetIdString = jsonFilter.parseDatasetIdFromCreationResponse(responseString);
-        assignedDatasetId = jsonParser.parseDatasetIdFromCreationResponse(responseString);
-        
-        logger.log(Level.INFO, "assignedDatasetId={0}", assignedDatasetId);
-
-        returnedDatasetDoi = jsonParser.parseDatasetDoiFromDsCreationResponse(responseString);
-        logger.log(Level.INFO, "returnedDatasetDoi={0}", returnedDatasetDoi);
-        
-        datasetDoiUrl= doiServerPrefix+ returnedDatasetDoi.split(":")[1];
-        logger.log(Level.INFO, "datasetDoiUrl={0}", datasetDoiUrl);
-        gotoDataverseButtonEnabled=true;
-        publishButtonEnabled=false;
-        
+        responseBody = jsonResponse.getBody().toString();
+        commonPostRequestStep(jsonResponse);
+        parseResponseBodyFulldataset();
         //clearSession();
     }
     
@@ -495,14 +515,38 @@ public class SubmissionPageView implements Serializable {
     void uploadMetadataOnly(){
         logger.log(Level.INFO, "========== SubmissionPageView#uploadMetadataOnly: start ==========");
         logger.log(Level.INFO, "uploadMetadataOnly case");
+        
+        // sanity check one more tiem before submission
+        try {
+            if (StringUtils.isBlank(apiKey) || 
+                    StringUtils.isBlank(dataverseServer) ||
+            StringUtils.isBlank(selectedDatasetId) || 
+                    StringUtils.isBlank(trsaRegNmbr.toString())){
+                String message="API key, dataverse server name, and trsa-registration number are incomplete ";
+                throw new IllegalArgumentException(message);
+            }
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.SEVERE, "Data to construct the API endpoint is incomplete");
+            String message ="Data to construct the API endpoint is incomplete; complete data before submission";
+            Faces.getContext().addMessage("topMessage", 
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+             "Incomplete destination data", message));
+            publishButtonEnabled=false;
+            return;
+        }
+        
         String fileLocation = trsaFilesPath
                 + localDatasetIdentifier
                 + "/" + WebAppConstants.EXPORT_FILE_NAME_JSON;
+        
+        logger.log(Level.FINE, "fileLocation={0}", fileLocation);
         String payloadFileName = trsaFilesPath
                 + localDatasetIdentifier
                 + "/" + WebAppConstants.FILTERED_PAYLOAD_FILENAME;
-
-        String jsonBody = "";
+        logger.log(Level.FINE, "payloadFileName={0}", payloadFileName);
+        
+        
+        
         try (InputStream rawIs = new FileInputStream(new File(fileLocation));
                 JsonReader jsonReader = Json.createReader(rawIs);
                 PrintWriter printWriter = new PrintWriter(new File(payloadFileName), "UTF-8");
@@ -540,22 +584,26 @@ public class SubmissionPageView implements Serializable {
             jsonWriter.writeObject(payloadObject);
             jsonBody = payloadObject.toString(); 
         } catch (IOException ex) {
-            logger.log(Level.SEVERE, "IOException was thrown during io operations", ex);
+            logger.log(Level.SEVERE, "IOException was thrown during io operations");
             // TODO
-            // create error messages
             // call the sweeping method
-            // return
+            String message ="Payload creation failed with IOException: check server.log";
+                Faces.getContext().addMessage("topMessage", 
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                                "Payload-creation Failure before submission", message));
+            publishButtonEnabled=false;
+            return;
         }
 
-        logger.log(Level.FINE, "jsonbody={0}", jsonBody);
+        logger.log(Level.INFO, "payload: jsonbody={0}", jsonBody);
 
-        logger.log(Level.INFO, "publish Metadata-only API case");
+        logger.log(Level.INFO, "submit-metadata-only API case");
         String apiEndpoint = dataverseServer + "/api/datasets/" + selectedDatasetId
                 + "/" + WebAppConstants.PATH_ADD_METADATA;
         logger.log(Level.INFO, "apiEndpoint={0}", apiEndpoint);
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Dataverse-key", apiKey);
-        headers.put("X-TRSA-registrationId", getRegisteredTrsaId());
+        headers.put("X-TRSA-registrationId", trsaRegNmbr.toString());
 
         HttpResponse<JsonNode> jsonResponse=null;
         try {
@@ -564,26 +612,100 @@ public class SubmissionPageView implements Serializable {
                     .body(jsonBody)
                     .asJson();
         } catch (UnirestException ex) {
-            logger.log(Level.SEVERE, "UnirestException was thrown: a request of uploading metadata failed", ex);
+            logger.log(Level.SEVERE, "Submission failed with UnirestException");
             // TODO 
-            // create the error message
             // call the sweeping method
-            // return
+            String message ="Submission preparation failed with UnirestException";
+                Faces.getContext().addMessage("topMessage", 
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                                "Submission Failure", message));
+            publishButtonEnabled=false;
+            return;
         }
-
-        logger.log(Level.INFO, "status code={0}", jsonResponse.getStatus());
-        logger.log(Level.INFO, "response body={0}", jsonResponse.getBody().toString());
-        gotoDataverseButtonEnabled=true;
-        publishButtonEnabled=false;
-
-        //clearSession();
+        logger.log(Level.INFO, "Submission ended anyway; check the return code");
+        responseBody = jsonResponse.getBody().toString();
+        commonPostRequestStep(jsonResponse);
+        parseResponseBodyMetadataOnly();
+        viewDetailButtonEnabled=true;
         logger.log(Level.INFO, "========== SubmissionPageView#uploadMetadataOnly: end ==========");
     }
     
-    private String getRegisteredTrsaId(){
-        // this is a temporary solution
-        return "1";
+    private void commonPostRequestStep(HttpResponse<JsonNode> jsonResponse){
+        logger.log(Level.INFO, "#commonPostRequestStep(): start");
+        
+        
+        if (jsonResponse !=null){
+            int statusCode = jsonResponse.getStatus();
+            logger.log(Level.INFO, "status code={0}", statusCode);
+
+            if (statusCode== 200 || statusCode==201){
+                logger.log(Level.INFO, "status code was OK:{0}", statusCode);
+                String message ="Metadata were successfully submitted";
+                Faces.getContext().addMessage("topMessage", 
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, 
+                                "Submission Success", message));
+                
+                publishButtonEnabled=false;
+            } else {
+                // returned code is not 200 nor 201
+                logger.log(Level.WARNING, "Status code is not 200:{0}",
+                        statusCode);
+                String message ="Submission failed with the status code="+statusCode;
+                Faces.getContext().addMessage("topMessage", 
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                                "Submission Failure", message));
+                publishButtonEnabled=false;
+                
+            }
+        } else {
+            logger.log(Level.WARNING, "Response is null");
+            // failed locally or no response
+            String message ="Failed to get a response from the Dataverse server";
+                Faces.getContext().addMessage("topMessage", 
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+             "Submission Failure: Null response", message));
+            publishButtonEnabled=false;
+            
+        }
+        logger.log(Level.INFO, "#commonPostRequestStep(): end");
+        
+
     }
+    
+    private void parseResponseBodyFulldataset(){
+        
+        logger.log(Level.FINE, "response body={0}", responseBody);
+        JsonResponseParser jsonParser = new JsonResponseParser();
+
+        assignedDatasetId = jsonParser.parseDatasetIdFromCreationResponse(responseBody);
+        
+        logger.log(Level.INFO, "assignedDatasetId={0}", assignedDatasetId);
+
+        returnedDatasetDoi = jsonParser.parseDatasetDoiFromDsCreationResponse(responseBody);
+        logger.log(Level.INFO, "returnedDatasetDoi={0}", returnedDatasetDoi);
+        
+        datasetDoiUrl= doiServerPrefix+ returnedDatasetDoi.split(":")[1];
+        logger.log(Level.INFO, "datasetDoiUrl={0}", datasetDoiUrl);
+    }
+    
+    private void parseResponseBodyMetadataOnly(){
+        
+        //logger.log(Level.FINE, "response body={0}", responseBody);
+        // TODO
+        // get key data from the response body
+//        JsonResponseParser jsonParser = new JsonResponseParser();
+
+//        assignedDatasetId = jsonParser.parseDatasetIdFromCreationResponse(responseString);
+//        
+//        logger.log(Level.INFO, "assignedDatasetId={0}", assignedDatasetId);
+//
+//        returnedDatasetDoi = jsonParser.parseDatasetDoiFromDsCreationResponse(responseString);
+//        logger.log(Level.INFO, "returnedDatasetDoi={0}", returnedDatasetDoi);
+//        
+//        datasetDoiUrl= doiServerPrefix+ returnedDatasetDoi.split(":")[1];
+//        logger.log(Level.INFO, "datasetDoiUrl={0}", datasetDoiUrl);
+    }
+    
     
     private void clearSession(){
         logger.log(Level.INFO, "sessionscoped data are reset");
@@ -699,18 +821,32 @@ public class SubmissionPageView implements Serializable {
         logger.log(Level.INFO, "how many DataFiles were updated={0}", modifiedCounter);
         if (modifiedCounter >0){
             logger.log(Level.INFO, "re-exporting metadata files are necessary");
-            reExportMetadataFiles();
+            
+            try {
+                reExportMetadataFiles();
+            } catch (RuntimeException e){
+                String message ="Failed to get a DatasetVersion; an ingest failure is suspected; check server.log";
+                Faces.getContext().addMessage("topMessage", 
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+             "Dataset Version is not available", message));
+                publishButtonEnabled=false;
+                return;
+            }
+            
+            
         } else {
             logger.log(Level.INFO, "re-exporting metadata files are NOT necessary");
         }
         
         publishButtonEnabled=true;
-        String message ="Notary-Service-related Settings were successfully saved";
-        Faces.getContext().addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "NS settings were successfully saved", message));
+        String message ="New Notary-Service Settings were successfully saved";
+        Faces.getContext().addMessage("topMessage", 
+            new FacesMessage(FacesMessage.SEVERITY_INFO, 
+     "Change was successfully saved", message));
     }
     
     
-    public void reExportMetadataFiles (){
+    public void reExportMetadataFiles() throws RuntimeException{
         logger.log(Level.INFO, "========== SubmissionPageView#reExportMetadataFiles: start ==========");
             List<DatasetVersion> versions = datasetVersionFcd.findAll();
             if (versions != null && !versions.isEmpty()) {
@@ -718,7 +854,9 @@ public class SubmissionPageView implements Serializable {
                 DatasetVersion latestDatasetVerion= versions.get(versions.size()-1);
                 ingestService.exportDataset(latestDatasetVerion);
             } else {
-                logger.log(Level.WARNING, "DatasetVersion is null/empty");
+                logger.log(Level.WARNING, "DatasetVersion is null|empty");
+                throw new RuntimeException("DatasetVersion is null|empty");
+                
                 // TODO
                 // create the error message 
                 // call the sweeping method
@@ -737,19 +875,20 @@ public class SubmissionPageView implements Serializable {
         if(newValue != null && !newValue.equals(oldValue)) {
             
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
-                    "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage("messages", msg);
+                    "Selection Changed", "Old: " + oldValue + ", New:" + newValue);
+            Faces.getContext().addMessage("topGrowl", msg);
         }
     }
     
     public void onRowEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("DataFile Edited", ((DataFile) event.getObject()).getId().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesMessage msg = new FacesMessage("Selection Edited", 
+                ((DataFile) event.getObject()).getId().toString());
+        Faces.getContext().addMessage("topGrowl", msg);
     }
      
     public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", ((DataFile) event.getObject()).getId().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        Faces.getContext().addMessage("topGrowl", msg);
     }
     
     public String returnToMainMenu(){
@@ -759,4 +898,55 @@ public class SubmissionPageView implements Serializable {
         logger.log(Level.INFO, "return to the main menu");
         return "/index.xhtml?faces-redirect=true";
     }
+    
+    public void showResponseBody(){
+        logger.log(Level.FINE, "responseBody={0}", responseBody);
+        
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, 
+                "Response Body", responseBody);
+        PrimeFaces.current().dialog().showMessageDynamic(message);
+    }
+    
+    private String responseBody;
+
+    public String getResponseBody() {
+        return responseBody;
+    }
+
+    public void setResponseBody(String responseBody) {
+        this.responseBody = responseBody;
+    }
+    
+    
+    private String jsonBody="";
+
+    public String getJsonBody() {
+        return jsonBody;
+    }
+
+    public void setJsonBody(String jsonBody) {
+        this.jsonBody = jsonBody;
+    }
+    
+    
+    
+    public void showPayload(){
+        logger.log(Level.FINE, "jsonBody={0}", jsonBody);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, 
+                "Metadata to be submitted", jsonBody);
+        PrimeFaces.current().dialog().showMessageDynamic(message);
+    }
+    
+    
+    private boolean viewDetailButtonEnabled=false;
+
+    public boolean isViewDetailButtonEnabled() {
+        return viewDetailButtonEnabled;
+    }
+
+    public void setViewDetailButtonEnabled(boolean viewDetailButtonEnabled) {
+        this.viewDetailButtonEnabled = viewDetailButtonEnabled;
+    }
+    
+    
 }

@@ -22,12 +22,12 @@
                                 for="topMessage" severity="warn,error,fatal">
                         <p:autoUpdate />
                     </p:messages>
-                    <p:growl id="top-growl" showDetail="true" 
-                                    for="topMessage" severity="info"/>
+                    <p:growl id="topGrowl" showDetail="true" 
+                                    for="topGrowl" severity="info"/>
                     <h3 style="margin:5px 5px 30px 5px">Select a destination Dataset</h3>
 
-
-                        
+<p:panel header="List of Saved Datasets">
+                    
                         
                         
     <p:dataTable id="destSelect" 
@@ -47,22 +47,29 @@
         <p:column headerText="Dataverse URL">
             <h:outputText value="#{hostInfo.hosturl}" />
         </p:column>
-        <p:column headerText="dataset Name">
+        <p:column headerText="Dataverse Name">
             <h:outputText value="#{hostInfo.dataversetitle}" />
         </p:column>
-        <p:column headerText="dataset Id">
+        <p:column headerText="Dataset Name">
+            <h:outputText value="#{hostInfo.datasetTitle}" />
+        </p:column>
+        <p:column headerText="Dataset Id">
             <h:outputText value="#{hostInfo.datasetid}" />
         </p:column>
 
         <p:column>
             <p:commandButton value="Select" 
-            action="#{destinationSelectionView.selectDestination(hostInfo)}"/>
+            action="#{destinationSelectionView.selectDestination(hostInfo)}" 
+            update="form1:messages form1:destDsButton"/>
 
         </p:column>
     </p:dataTable>
-                        
+    <p:commandButton id="destDsButton" value="Go to Saved Dataset Page" 
+                                 disabled="#{! destinationSelectionView.destDsButtonEnabled}"
+                                 action="#{destinationSelectionView.gotoSavedDsPage()}" 
+                                 update="messages" />
 
-
+</p:panel>
                 </h:form>
 
 
