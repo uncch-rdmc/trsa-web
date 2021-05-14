@@ -1,9 +1,13 @@
 = UML diagrams for TRSA
+:kroki-server-url: http://localhost:8087
+:kroki-fetch-diagram:
+:imagesdir: media
+
 * last updated: {docdatetime}
 
 .Dataverse: Downloading a remote DataFile: with/without Notary-service
-[uml]
---
+[plantuml]
+....
 @startuml
 title Downloading a remote Datafile with/without-Notary-service-restriction
 actor Researcher as rs
@@ -35,14 +39,14 @@ fs -> wb: response: prompt downloading
 rs -> wb: click "Save"
 end
 @enduml
---
+....
 
 
-
+'''
 
 .TRSA Functionality: Uploading Metadata to an Existing Dataset
-[uml]
---
+[plantuml]
+....
 @startuml
 title Uploading Metadata to an Existing Dataset
 actor "Data Provider" as dp
@@ -61,12 +65,12 @@ sa -> wb: response: ingest page
 'destination-selection
 'submission
 @enduml
---
+....
 
 
 .TRSA Functionality: Creating a new Dataset with its file metadata
-[uml]
---
+[plantuml]
+....
 @startuml
 title Creating a new Dataset with its file metadata
 actor "Data Provider" as dp
@@ -85,12 +89,12 @@ sa -> wb: reponse: ingest page
 'destination-selection
 'submission
 @enduml
-
+....
 
 
 .TRSA: Initial Setup
-[uml]
---
+[plantuml]
+....
 @startuml
 title TRSA: Initial Setup
 actor "Data Provider" as dp
@@ -110,11 +114,11 @@ sa -> wb: response: list of registered Datasets
 'Edit
 'Delete
 @enduml
---
+....
 
 .TRSA: Dataverse-side Initial Setup: Part 4
-[uml]
---
+[plantuml]
+....
 @startuml
 title Dataverse-side Initial Setup: Registration of a TRSA
 actor "Data Provider" as dp
@@ -140,11 +144,11 @@ dp -> wb: enter required data and click "Save" button
 wb -> dv: request: persist a new set of TRSA-related data in the DB
 dv -> wb: response: OK (saved) and list of registered TRSAs is updaded
 @enduml
---
+....
 
 .TRSA: Dataverse-side Initial Setup: Part 3
-[uml]
---
+[plantuml]
+....
 @startuml
 title Dataverse-side Initial Setup: Create a New Dataset
 actor "Data Provider" as dp
@@ -169,11 +173,11 @@ wb -> dv: request: Dataset creation
 dv -> wb: response: OK (render success message)
 footer Note: log-in step is excluded
 @enduml
---
+....
 
 .TRSA: Dataverse-side Initial Setup: Part 2
-[uml]
---
+[plantuml]
+....
 @startuml
 title Dataverse-side Initial Setup: Create a New Dataverse
 actor "Data Provider" as dp
@@ -195,11 +199,11 @@ wb -> dv: request: Dataverse creation
 dv -> wb: response: OK (render success page)
 footer Note: log-in step is excluded
 @enduml
---
+....
 
 .TRSA: Dataverse-side Initial Setup: Part 1
-[uml]
---
+[plantuml]
+....
 @startuml
 title Dataverse-side setup: Get a API Token
 actor "Data Provider" as dp
@@ -222,4 +226,4 @@ dp -> wb: click username/API Token link
 wb -> dv: request: API-token page
 dv -> wb: response: API-token page
 @enduml
---
+....

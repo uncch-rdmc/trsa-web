@@ -11,12 +11,15 @@
     <h:body>
 <h:form>
                  
-    <p:growl id="growl" sticky="true" showDetail="true"/>
- 
+    <p:growl id="growl" showDetail="true" severity="info"/>
+    <p:messages id="messages" showDetail="true" closable="true"
+                                    for="topMessage" severity="warn,error,fatal" >
+                            <p:autoUpdate />
+                        </p:messages>
     <p:wizard flowListener="#{userWizard.onFlowProcess}">
         <p:tab id="personal" title="Personal">
             <p:panel header="Personal Details">
-                <p:messages />
+<!--                <p:messages />-->
                 <h:panelGrid columns="2" columnClasses="label, value">
                     <h:outputText value="Firstname: *" />
                     <p:inputText value="#{userWizard.user.firstname}" required="true" label="Firstname"/>

@@ -56,5 +56,9 @@ pom.xml.releaseBackup
 pom.xml.tag
 /nbproject/
 
+
 # vs code specific
 .vscode
+# asciidoc svg-file directory
+meida/
+

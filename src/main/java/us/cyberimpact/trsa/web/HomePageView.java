@@ -12,12 +12,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import org.omnifaces.cdi.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.omnifaces.util.Faces;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
 
@@ -26,7 +25,7 @@ import us.cyberimpact.trsa.entities.HostInfoFacade;
  * @author asone
  */
 @Named("homePageView")
-@SessionScoped
+@ViewScoped
 public class HomePageView implements Serializable {
 
     private static final Logger logger = Logger.getLogger(HomePageView.class.getName());
@@ -81,6 +80,17 @@ public class HomePageView implements Serializable {
         this.hostInfoSaved = hostInfoSaved;
     }
 
+    private boolean  underMaintenance=true;
+
+    public boolean isUnderMaintenance() {
+        return underMaintenance;
+    }
+
+    public void setUnderMaintenance(boolean underMaintenance) {
+        this.underMaintenance = underMaintenance;
+    }
+    
+    
 
     /**
      * Creates a new instance of HomePageView
@@ -104,26 +114,30 @@ public class HomePageView implements Serializable {
         if (hostInfoTable.isEmpty()){
             logger.log(Level.INFO, "homePageView:hostInfoTable is empty");
             addMessageEmptyHostInfo();
-            
+            Faces.setSessionAttribute("hostInfoSaved", false);
         } else {
             logger.log(Level.INFO, "homePageView:hostInfoTable exists and not empty:{0}", hostInfoTable);
             hostInfoSaved=true;
-            //addMessageHostInfoAvailable();
+            addMessageHostInfoAvailable();
+            Faces.setSessionAttribute("hostInfoSaved", true);
         }
         logger.log(Level.INFO, "========== HomePageView#init : end ==========");
     }
     
     
-
     
     public void addMessageHostInfoAvailable(){
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dataverse data available", "Dataverse are already saved: if necessary, add new Dataverse data before uploading.");
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+      "The paired Dataverse is already saved",
+       "if necessary, add a new Dataverse before submitting metadata.");
+        Faces.getContext().addMessage("topMessage", message);
     }
     
     public void addMessageEmptyHostInfo(){
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Dataverse data are not saved!", "Add Dataverse data before uploading.");
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN,
+       "The paired Dataverse must be saved", 
+        "Before submitting metadata, setup the paired Dataverse");
+        Faces.getContext().addMessage("topMessage", message);
     }
     
     
@@ -136,6 +150,9 @@ public class HomePageView implements Serializable {
     public String gotoUploadMetadataPage(){
         logger.log(Level.INFO, "HomePageView: got to UploadMetadataPage");
         selectedRequestType=RequestType.METADATA_ONLY;
+        //FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedRequestType", selectedRequestType);
+        //Faces.setRequestAttribute("selectedRequestType", selectedRequestType);
+        Faces.setSessionAttribute("selectedRequestType", selectedRequestType);
         return gotoDestinationSelectionPage();
     }
     
@@ -190,12 +207,13 @@ public class HomePageView implements Serializable {
         // setEmptyDatasetCreation(true);
         //logger.log(Level.INFO, "isEmptyDatasetCreation set to ={0}", isEmptyDatasetCreation());
         // return "/dsTemplateSelection.xhtml";
-        return "/pairingConfirmation.xhtml";
+        //return "/pairingConfirmation.xhtml";
+        return "dataverseConfirmation.xhtml";
     }
     
     private void clearSession(){
         logger.log(Level.INFO, "HomePageView#clearSession: sessionscoped data are reset");
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        Faces.getExternalContext().invalidateSession();
     }
     
     

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Facelets Template</title>
+
+        <style type="text/css">
+            .ui-g div {
+                background-color: #ededed;
+                text-align: center;
+                border: 1px solid #fafafa;
+            }
+        </style>
+        
+
+
+    </h:head>
+
+    <h:body>
+
+        <div class="card">
+            <h5>Sample Layout</h5>
+            <div class="ui-g">
+                <!-- menu -->
+                <div class="ui-g-12 ui-md-2">Menu</div>
+                <div class="ui-g-12 ui-md-10 ui-g-nopad">
+                    <!-- body: top -->
+                    <div class="ui-g-12">
+                        body: top
+                    </div>
+                    <!-- body: middle -->
+                    <div class="ui-g-12 ui-g-nopad">
+                        <!-- 1st rows: 3 columns -->
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-4"></div>
+                            <div class="ui-g-12 ui-md-4"></div>
+                            <div class="ui-g-12 ui-md-4"></div>
+                        </div>
+                        <!-- 2nd rows: 4 columns -->
+                        <div class="ui-g">
+                            <div class="ui-g-6 ui-md-3"></div>
+                            <div class="ui-g-6 ui-md-3"></div>
+                            <div class="ui-g-6 ui-md-3"></div>
+                            <div class="ui-g-6 ui-md-3"></div>
+                        </div>
+                        <!-- 3rd rows: 2 columns -->
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-6"></div>
+                            <div class="ui-g-12 ui-md-6"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- footer -->
+                <div class="ui-g-12">
+                    Footer
+                </div>
+            </div>
+        </div>
+
+    </h:body>
+
+</html>

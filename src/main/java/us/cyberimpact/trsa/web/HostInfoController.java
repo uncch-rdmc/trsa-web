@@ -12,16 +12,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import org.omnifaces.util.Faces;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 @Named("hostInfoController")
-@SessionScoped
+@ViewScoped
 public class HostInfoController implements Serializable {
 
     private static final Logger logger = Logger.getLogger(HostInfoController.class.getName());
@@ -188,5 +192,24 @@ public class HostInfoController implements Serializable {
         }
 
     }
+    
+    public void onRowSelect(SelectEvent event) {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dataset Selected", ((HostInfo) event.getObject()).getDataversetitle());
+        Faces.getContext().addMessage("topGrowl", msg);
+        logger.log(Level.INFO, "onRowSelect:selectedHostInfo={0}", selected);
+    }
+ 
+    public void onRowUnselect(UnselectEvent event) {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Dataset Unselected", ((HostInfo) event.getObject()).getDataversetitle());
+        Faces.getContext().addMessage("topGrowl", msg);
+        logger.log(Level.INFO, "onRowUnselect:selectedHostInfo={0}", selected);
+    }
+    
+    public String gotoSavedDsPage(){
+        logger.log(Level.INFO, "go to the destination dataset page");
+        return "/destination.xhtml" ;
+    }
+    
+    
 
 }

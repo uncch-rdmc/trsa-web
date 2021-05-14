@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package us.cyberimpact.trsa.web;
 
 
@@ -12,15 +7,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
 
 
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.commons.lang3.StringUtils;
+import org.omnifaces.cdi.ViewScoped;
+import org.omnifaces.util.Faces;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import us.cyberimpact.trsa.entities.HostInfo;
@@ -31,7 +25,7 @@ import us.cyberimpact.trsa.entities.HostInfoFacade;
  * @author asone
  */
 @Named("destinationSelectionView")
-@SessionScoped
+@ViewScoped
 public class DestinationSelectionView implements Serializable {
 
     private static final Logger logger = Logger.getLogger(DestinationSelectionView.class.getName());
@@ -40,26 +34,40 @@ public class DestinationSelectionView implements Serializable {
      */
     public DestinationSelectionView() {
     }
+
     @Inject
     HostInfoFacade hostInfoFacade;
     
     List<HostInfo> hostInfoTable = new ArrayList<>();
     
     
-    @Inject
-    private HomePageView homePageView;
+//    @Inject
+//    private HomePageView homePageView;
     
-    public boolean isMetadataOnly() {
-        return homePageView.isMetadataOnly();
+//    public boolean isMetadataOnly() {
+//        return homePageView.isMetadataOnly();
+//    }
+
+//    public HomePageView getHomePageView() {
+//        return homePageView;
+//    }
+//
+//    public void setHomePageView(HomePageView homePageView) {
+//        this.homePageView = homePageView;
+//    }
+    
+    
+    private RequestType selectedRequestType;
+
+    public RequestType getSelectedRequestType() {
+        return selectedRequestType;
     }
 
-    public HomePageView getHomePageView() {
-        return homePageView;
+    public void setSelectedRequestType(RequestType selectedRequestType) {
+        this.selectedRequestType = selectedRequestType;
     }
-
-    public void setHomePageView(HomePageView homePageView) {
-        this.homePageView = homePageView;
-    }
+    
+    
     
     private String selectedDatasetId;
 
@@ -83,10 +91,14 @@ public class DestinationSelectionView implements Serializable {
             selectedHostInfo=hostInfoTable.get(hostInfoTable.size()-1);
             logger.log(Level.INFO, "init:selectedHostInfo={0}", selectedHostInfo);
         }
+        
+        selectedRequestType= Faces.getSessionAttribute("selectedRequestType");
+        logger.log(Level.INFO, "selectedRequestType={0}", selectedRequestType);
         logger.log(Level.INFO, "=========== DestinationSelectionView#init: end ===========");
     }
 
     public List<HostInfo> getHostInfoTable() {
+        logger.log(Level.INFO, "getHostInfoTable is called");
         return hostInfoTable;
     }
 
@@ -108,6 +120,7 @@ public class DestinationSelectionView implements Serializable {
         logger.log(Level.INFO, "=========== DestinationSelectionView#selectDestination: start ===========");
         logger.log(Level.INFO, "selectDestination: selectedHostInfo={0}", selectedHostInfo);
         logger.log(Level.INFO, "selectedHostInfo={0}", hostInfo);
+        Faces.setSessionAttribute("selectedHostInfo", selectedHostInfo);
 
         logger.log(Level.INFO, "selected datasetId={0}", selectedHostInfo.getDatasetid());
         // the dataset is extracted from a doi, it must not be empty
@@ -115,12 +128,15 @@ public class DestinationSelectionView implements Serializable {
             addMessageEmptyHostInfo();
             logger.log(Level.INFO, "doi is empty: dataset Id cannot be extracted");
             logger.log(Level.INFO, "go to host_info editor page");
+            destDsButtonEnabled=true;
             return "";
         } else {
             selectedDatasetId= getDatasetId(selectedHostInfo.getDatasetDoi());
             logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
             logger.log(Level.INFO, "go to fileupload page");
         }
+        logger.log(Level.INFO, "selectedRequestType:current value={0}", selectedRequestType);
+        Faces.setSessionAttribute("selectedDatasetId", selectedDatasetId);
         logger.log(Level.INFO, "=========== DestinationSelectionView#selectDestination: end ===========");
         return "/fileupload.xhtml";
     }
@@ -141,20 +157,22 @@ public class DestinationSelectionView implements Serializable {
     
     
     public void addMessageEmptyHostInfo(){
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Dataset's DOI is missing", "Add the DOI to the host info before uploading Metadata.");
-        FacesContext.getCurrentInstance().addMessage("topMessage", message);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                "Selected Dataset's data are incomplete",
+                "Complete data for the destination Dataset before uploading metadata.");
+        Faces.getContext().addMessage("topMessage", message);
     }
     
     
     public void onRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage("host Selected", ((HostInfo) event.getObject()).getDataversetitle());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dataset Selected", ((HostInfo) event.getObject()).getDataversetitle());
+        Faces.getContext().addMessage("topGrowl", msg);
         logger.log(Level.INFO, "onRowSelect:selectedHostInfo={0}", selectedHostInfo);
     }
  
     public void onRowUnselect(UnselectEvent event) {
-        FacesMessage msg = new FacesMessage("host Unselected", ((HostInfo) event.getObject()).getDataversetitle());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Dataset Unselected", ((HostInfo) event.getObject()).getDataversetitle());
+        Faces.getContext().addMessage("topGrowl", msg);
         logger.log(Level.INFO, "onRowUnselect:selectedHostInfo={0}", selectedHostInfo);
     }
     
@@ -165,5 +183,20 @@ public class DestinationSelectionView implements Serializable {
         return parts[parts.length-1];
     }
     
+    
+    private boolean destDsButtonEnabled=false;
+
+    public boolean isDestDsButtonEnabled() {
+        return destDsButtonEnabled;
+    }
+
+    public void setDestDsButtonEnabled(boolean destDsButtonEnabled) {
+        this.destDsButtonEnabled = destDsButtonEnabled;
+    }
+    
+    public String gotoSavedDsPage(){
+        logger.log(Level.INFO, "go to the saved dataset page");
+        return "/hostinfo/List.xhtml";
+    }
     
 }

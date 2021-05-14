@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="406px" preserveAspectRatio="none" style="width:762px;height:406px;" version="1.1" viewBox="0 0 762 406" width="762px" zoomAndPan="magnify"><defs><filter height="300%" id="f195mm293a5190" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="152" x="302.5" y="29.9999">TRSA: Initial Setup</text><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="50" x2="50" y1="124.3998" y2="321.9999"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="263.5" x2="263.5" y1="124.3998" y2="321.9999"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="532" x2="532" y1="124.3998" y2="321.9999"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="615" x2="615" y1="124.3998" y2="321.9999"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="711" x2="711" y1="124.3998" y2="321.9999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="5" y="121.5998">Data Provider</text><ellipse cx="50.5" cy="50.5999" fill="#FEFECE" filter="url(#f195mm293a5190)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M50.5,58.5999 L50.5,85.5999 M37.5,66.5999 L63.5,66.5999 M50.5,85.5999 L37.5,100.5999 M50.5,85.5999 L63.5,100.5999 " fill="none" filter="url(#f195mm293a5190)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="5" y="334.9998">Data Provider</text><ellipse cx="50.5" cy="347.7998" fill="#FEFECE" filter="url(#f195mm293a5190)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M50.5,355.7998 L50.5,382.7998 M37.5,363.7998 L63.5,363.7998 M50.5,382.7998 L37.5,397.7998 M50.5,382.7998 L63.5,397.7998 " fill="none" filter="url(#f195mm293a5190)" style="stroke:#A80036;stroke-width:2.0;"/><rect fill="#FEFECE" filter="url(#f195mm293a5190)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="96" x="213.5" y="88.5999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="220.5" y="109.5998">Web Browser</text><rect fill="#FEFECE" filter="url(#f195mm293a5190)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="96" x="213.5" y="320.9999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="220.5" y="341.9998">Web Browser</text><rect fill="#FEFECE" filter="url(#f195mm293a5190)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="51" x="505" y="88.5999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="37" x="512" y="109.5998">TRSA</text><rect fill="#FEFECE" filter="url(#f195mm293a5190)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="51" x="505" y="320.9999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="37" x="512" y="341.9998">TRSA</text><rect fill="#FEFECE" filter="url(#f195mm293a5190)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="87" x="570" y="88.5999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="73" x="577" y="109.5998">File Storage</text><rect fill="#FEFECE" filter="url(#f195mm293a5190)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="87" x="570" y="320.9999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="73" x="577" y="341.9998">File Storage</text><rect fill="#FEFECE" filter="url(#f195mm293a5190)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="77" x="671" y="88.5999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="678" y="109.5998">Dataverse</text><rect fill="#FEFECE" filter="url(#f195mm293a5190)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="77" x="671" y="320.9999"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="678" y="341.9998">Dataverse</text><polygon fill="#A80036" points="251.5,151.9998,261.5,155.9998,251.5,159.9998,255.5,155.9998" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="257.5" y1="155.9998" y2="155.9998"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="135" x="57.5" y="151.3998">type the url of the TRSA</text><polygon fill="#A80036" points="520.5,181.5998,530.5,185.5998,520.5,189.5998,524.5,185.5998" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="263.5" x2="526.5" y1="185.5998" y2="185.5998"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="147" x="270.5" y="180.9998">request: Top (TRSA) page</text><polygon fill="#A80036" points="274.5,211.1998,264.5,215.1998,274.5,219.1998,270.5,215.1998" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="268.5" x2="531.5" y1="215.1998" y2="215.1998"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="110" x="280.5" y="210.5998">response: Top page</text><polygon fill="#A80036" points="251.5,240.7998,261.5,244.7998,251.5,248.7998,255.5,244.7998" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="257.5" y1="244.7998" y2="244.7998"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="189" x="57.5" y="240.1998">click the "Dataverse Settings" link</text><polygon fill="#A80036" points="520.5,270.3999,530.5,274.3999,520.5,278.3999,524.5,274.3999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="263.5" x2="526.5" y1="274.3999" y2="274.3999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="245" x="270.5" y="269.7999">request: Landing page of Dataverse settings</text><polygon fill="#A80036" points="274.5,299.9999,264.5,303.9999,274.5,307.9999,270.5,303.9999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="268.5" x2="531.5" y1="303.9999" y2="303.9999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="199" x="280.5" y="299.3999">response: list of registered Datasets</text><!--MD5=[ee9ff4e13ded1fc60efca906dbaa16b0]
+@startuml
+title TRSA: Initial Setup
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+participant TRSA as sa
+participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+dp -> wb: type the url of the TRSA
+wb -> sa: request: Top (TRSA) page
+sa -> wb: response: Top page
+dp -> wb: click the "Dataverse Settings" link
+wb -> sa: request: Landing page of Dataverse settings
+sa -> wb: response: list of registered Datasets
+'Create
+'Browse
+'Edit
+'Delete
+@enduml
+
+@startuml
+title TRSA: Initial Setup
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+participant TRSA as sa
+participant "File Storage" as fs
+participant  Dataverse as dv
+dp -> wb: type the url of the TRSA
+wb -> sa: request: Top (TRSA) page
+sa -> wb: response: Top page
+dp -> wb: click the "Dataverse Settings" link
+wb -> sa: request: Landing page of Dataverse settings
+sa -> wb: response: list of registered Datasets
+@enduml
+
+PlantUML version 1.2021.4(Sun Apr 04 08:49:39 GMT 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

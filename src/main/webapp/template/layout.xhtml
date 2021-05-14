@@ -8,7 +8,7 @@
       >
 
     <h:head>
-        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <title><ui:insert name="pageTitle"><ui:include src="/template/default/titleDefault.xhtml" /></ui:insert></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="css/default.css"/>
         <h:outputStylesheet name="css/cssLayout.css"/>
@@ -17,50 +17,52 @@
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
         
+        <h:outputStylesheet library="primefaces" name="fa/font-awesome.css" />
+        <h:outputStylesheet library="webjars" name="font-awesome/5.8.1/css/all-jsf.css" />
+        <h:outputStylesheet library="webjars" name="font-awesome/5.8.1/css/v4-shims-jsf.css" />
+        <h:outputStylesheet name="css/customization.css" />
     </h:head>
 
     <h:body>
+<!--    <f:facet name="last">
 
+    </f:facet>-->
         <p:growl id="growl" life="3000" />
 
-        <p:layout fullPage="true">
-            
-<!--        <div id="top">-->
-            <!-- original size was 65 but it failed to accommodate a logo-->
-            <p:layoutUnit position="north"  header="#{bundle.AppName}">
+<!--        <p:layout fullPage="true">-->
+<div>
+        <div id="top">
             <ui:insert name="top">
                 <ui:include src="/template/default/topDefault.xhtml" />
             </ui:insert>
-            </p:layoutUnit>
+        </div>
         
-
-<!--            <div id="left">-->
-            <p:layoutUnit position="west" >
+        <div>
+            <div id="left">
                 <ui:insert name="left">
                     <ui:include src="/template/default/leftDefault.xhtml" />
                 </ui:insert>
-            </p:layoutUnit>
+            </div>
 
-<!--            <div id="content">-->
-            <p:layoutUnit position="center">
+            <div id="content">
                 <ui:insert name="content">
                     <ui:include src="/template/default/contentDefault.xhtml" />
                 </ui:insert>
-            </p:layoutUnit>
-<!--            <div id="right">-->
-            <p:layoutUnit position="east">
+            </div>
+            <div id="right">
                 <ui:insert name="right">
                     <ui:include src="/template/default/rightDefault.xhtml" />
                 </ui:insert>
-            </p:layoutUnit>
+            </div>
+
+        </div>
             
-<!--        <div id="bottom">-->
-            <p:layoutUnit position="south" size="60">
+        <div id="bottom">
             <ui:insert name="bottom">
                 <ui:include src="/template/default/bottomDefault.xhtml" />
             </ui:insert>
-            </p:layoutUnit>
-            
-        </p:layout>
+        </div>
+</div>
+        <!--</p:layout>-->
     </h:body>
 </html>
