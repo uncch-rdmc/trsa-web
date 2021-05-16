@@ -203,8 +203,9 @@ public class FileUploadView implements Serializable {
         logger.log(Level.INFO, "=========== FileUploadView#upload: start ===========");
         file = event.getFile();
         logger.log(Level.INFO, "file.getFileName()={0}", file.getFileName());
-        Path tmp = Paths.get(fileName);
-        String filePath = "";
+        logger.log(Level.INFO, "fileName={0}", fileName);
+//        Path tmp = Paths.get(fileName);
+//        String filePath = "";
         if (file == null) {
                 logger.log(Level.SEVERE, "file is null");
                 wipeOutIngestFailure();
