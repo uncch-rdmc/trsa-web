@@ -17,13 +17,13 @@
 *.rar
 
 
-*.war
+#*.war
 *.ear
 *.sar
 *.class
 
 # Maven 
-target/
+#target/
 
 # IntelliJ project files 
 *.iml
