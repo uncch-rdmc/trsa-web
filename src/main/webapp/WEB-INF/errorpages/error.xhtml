@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title></title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="/template/layout.xhtml">
+
+        <ui:define name="pageTitle">
+            <h:outputText value="#{bundle.AppName}: Error Page"></h:outputText>
+        </ui:define>
+
+    
+    <ui:define name="content">
+        <h2 style="color:red; border:0px">An unexpected error occurred:</h2>
+
+        <h4><strong>Error Message:</strong> #{exceptionMessage}</h4>
+
+        <a href="#" onmousedown="if(document.getElementById('mydiv').style.display == 'none'){ document.getElementById('mydiv').style.display = 'block'; }else{ document.getElementById('mydiv').style.display = 'none'; }">Show more details</a>
+
+        <br />
+        <div id="mydiv" style="border:1px solid black; display:none; background-color:lightgray;">            
+            <pre>
+#{exceptionTrace}
+            </pre>
+        </div>
+
+    </ui:define> 
+    
+    
+    </h:body>
+
+</html>

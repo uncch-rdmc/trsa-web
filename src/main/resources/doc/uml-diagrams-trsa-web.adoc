@@ -5,6 +5,208 @@
 
 * last updated: {docdatetime}
 
+.TRSA: Dataverse-side Initial Setup: Step 1: How to get an API token
+[plantuml]
+....
+@startuml
+'title Dataverse-side setup: Get an API Token
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as sa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+
+dp -> wb: type the URL of Dataverse
+wb -> dv: request:home page
+dv -> wb: response:home page
+dp -> wb: click the sign-in link
+wb -> dv: request: sign-in page
+dv -> wb: response: sign-in page
+dp -> wb: enter required data
+wb -> dv: request: register the user
+dv -> wb: response: OK (registered)
+dp -> wb: click username/API Token link
+wb -> dv: request: API-token page
+dv -> wb: response: API-token page
+@enduml
+....
+
+
+''''
+.TRSA: Dataverse-side Initial Setup: Step 2: How to create a new Dataverse instance
+[plantuml]
+....
+@startuml
+'title Dataverse-side Initial Setup: Create a New Dataverse
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as trsa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+
+dp -> wb: type the URL of Root Dataverse
+wb -> dv: request:Top (root Dataverse) page
+dv -> wb: response:Top page
+dp -> wb: click "Add Data/New Dataverse" option
+wb -> dv: request: New Dataverse Creation page
+dv -> wb: response: Datavese creation UI
+dp -> dp: prepare a Dataverse Alias
+dp -> wb: enter required data in the UI form
+wb -> dv: request: Dataverse creation
+dv -> wb: response: OK (render success page)
+footer Note: log-in step is excluded
+@enduml
+....
+
+''''
+
+.TRSA: Dataverse-side Initial Setup: Step 3: how to create a new Dataset
+[plantuml]
+....
+@startuml
+'title Dataverse-side Initial Setup: Create a New Dataset
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as trsa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+
+dp -> wb: type the URL of Root Dataverse
+wb -> dv: request:Top (root Dataverse) page
+dv -> wb: response:Top page
+dp -> wb: click the host Dataverse from the list
+wb -> dv: request: the host dataverse
+dv -> wb: response: landing page of the dataverse
+dp -> wb: click "Add Data/New Dataset" option
+wb -> dv: request: New Dataset Creation page
+dv -> wb: response: Dataset creation UI
+dp -> dp: prepare a Dataset Title
+dp -> wb: enter required data in the UI form
+wb -> dv: request: Dataset creation
+dv -> wb: response: OK (render success message)
+footer Note: log-in step is excluded
+@enduml
+....
+
+''''
+
+
+.TRSA: Dataverse-side Initial Setup: Step 4: How to register a TRSA
+[plantuml]
+....
+@startuml
+'title Dataverse-side Initial Setup: Registration of a TRSA
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as trsa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+
+dp -> wb: type the URL of Root Dataverse
+wb -> dv: request:Top (root Dataverse) page
+dv -> wb: response:Top page
+dp -> wb: click username/Dashboard link
+wb -> dv: request: Dashboard page
+dv -> wb: response: Dashboard page
+dp -> wb: click "Manage TRSAs" button
+wb -> dv: request: TRSA registry landing page
+dv -> wb: response: landing page with a List of registered TRSAs
+dp -> wb: click "+ Create" button
+wb -> wb: request: TRSA-registry UI
+wb -> wb: response: pop up the UI
+dp -> wb: enter required data and click "Save" button
+wb -> dv: request: persist a new set of TRSA-related data in the DB
+dv -> wb: response: OK (saved) and list of registered TRSAs is updaded
+@enduml
+....
+
+''''
+
+
+.TRSA: Initial setup
+[plantuml]
+....
+@startuml
+'title Initial Setup Steps
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+participant TRSA as sa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+dp -> wb: type the url of the TRSA
+wb -> sa: request: Top (TRSA) page
+sa -> wb: response: Top page
+dp -> wb: click "Setup the paired Dataverse" button\n from the menu in the main pane
+wb -> sa: request: Dataverse setup page
+sa -> wb: response: Dataverse setup page
+dp -> wb: type requested data in the 4 boxes and click its "Confirm" button
+wb -> sa: request: confirmation of the entered data
+sa -> dv: request: confirmation of the entered data
+dv -> sa: response: confirmed
+sa -> wb: response: "Return to Main Menu" enabled and "Confirm" button disabled
+dp -> wb: click "Return to Main Menu"
+wb -> sa: request: Main page
+sa -> wb: response: Main page
+@enduml
+....
+
+'''
+
+.TRSA Functionality: Uploading Metadata to an Existing Dataset
+[plantuml]
+....
+@startuml
+title Uploading Metadata to an Existing Dataset
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+participant TRSA as sa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+dp -> wb: type the url of the TRSA
+wb -> sa: request: Top (TRSA) page
+sa -> wb: response: Top page
+dp -> wb: click \n"Upload file metadata to ..."\n button\n from the menu \nin the main pane
+wb -> sa: request:  dataset-selection page
+sa -> wb: response: "Select a destination Dataset" page
+dp -> wb: select a row (Dataset) and click its "Select" button
+wb -> sa: request: file-ingest page
+sa -> wb: response: "Upload and Ingest a File" page
+dp -> wb: click \n"+ CHOOSE"\n button
+wb -> wb: popup "Open File" window
+dp -> wb: select a file to be ingested
+wb -> sa: request: uploading the file
+sa -> sa: save the file in a tmp directory
+sa -> wb: response: the name of the uploaded file returned\n"Ingest the uploaded file" button enabled
+dp -> wb: click "Ingest the uploaded file " button
+wb -> sa: request: ingest the uploaded file
+sa -> sa: ingest the file and save metadata and data themselves
+sa -> wb: response: ingest result returned\n"go to Submission page" button enabled
+dp -> wb: click "go to Submission page" button
+wb -> sa: request: "Submission" page 
+sa -> wb: response: "Submission" page
+dp -> wb: set Notary-service options (default:no)
+dp -> wb: click the icon of column "Modify"
+dp -> wb: toggle "No" button in Column "Notary-Service" to "Yes"
+dp -> wb: click the check icon in Column "Modify"
+dp -> wb: click "save Notary Service designation" button
+wb -> sa: request: saving the NS option
+sa -> wb: response: open the submission pane
+dp -> wb: click "Submit Metadata" button
+wb -> sa: request: metadata-only submission
+sa -> dv: request: metadata-only submission
+dv -> sa: response: OK
+sa -> wb: response: "Show Payload(Metadata"\n "Show Response" buttons enabled 
+@enduml
+....
+
+'''
+
 .Dataverse: Downloading a remote DataFile: with/without Notary-service
 [plantuml]
 ....
@@ -42,188 +244,4 @@ end
 ....
 
 
-'''
 
-.TRSA Functionality: Uploading Metadata to an Existing Dataset
-[plantuml]
-....
-@startuml
-title Uploading Metadata to an Existing Dataset
-actor "Data Provider" as dp
-participant "Web Browser" as wb
-participant TRSA as sa
-participant "File Storage" as fs
-participant  Dataverse as dv
-'participant "Notary Service" as ns
-dp -> wb: type the url of the TRSA
-wb -> sa: request: Top (TRSA) page
-sa -> wb: response: Top page
-dp -> wb: click \n"upload the file metadata to ..."\n button\n from the menu \nin the main pane
-wb -> sa: request: ingest page
-sa -> wb: response: ingest page
-'ingest
-'destination-selection
-'submission
-@enduml
-....
-
-
-.TRSA Functionality: Creating a new Dataset with its file metadata
-[plantuml]
-....
-@startuml
-title Creating a new Dataset with its file metadata
-actor "Data Provider" as dp
-participant "Web Browser" as wb
-participant TRSA as sa
-participant "File Storage" as fs
-participant  Dataverse as dv
-'participant "Notary Service" as ns
-dp -> wb: type the url of the TRSA
-wb -> sa: request: Top (TRSA) page
-sa -> wb: response: Top page
-dp -> wb: click \n"Create a new Dataset ..." \nbutton\n from the menu \nin the main pane
-wb -> sa: request: ingest page
-sa -> wb: reponse: ingest page
-'ingest
-'destination-selection
-'submission
-@enduml
-....
-
-
-.TRSA: Initial Setup
-[plantuml]
-....
-@startuml
-title TRSA: Initial Setup
-actor "Data Provider" as dp
-participant "Web Browser" as wb
-participant TRSA as sa
-participant "File Storage" as fs
-participant  Dataverse as dv
-'participant "Notary Service" as ns
-dp -> wb: type the url of the TRSA
-wb -> sa: request: Top (TRSA) page
-sa -> wb: response: Top page
-dp -> wb: click the "Dataverse Settings" link
-wb -> sa: request: Landing page of Dataverse settings
-sa -> wb: response: list of registered Datasets
-'Create
-'Browse
-'Edit
-'Delete
-@enduml
-....
-
-.TRSA: Dataverse-side Initial Setup: Part 4
-[plantuml]
-....
-@startuml
-title Dataverse-side Initial Setup: Registration of a TRSA
-actor "Data Provider" as dp
-participant "Web Browser" as wb
-'participant TRSA as trsa
-'participant "File Storage" as fs
-participant  Dataverse as dv
-'participant "Notary Service" as ns
-
-dp -> wb: type the URL of Root Dataverse
-wb -> dv: request:Top (root Dataverse) page
-dv -> wb: response:Top page
-dp -> wb: click username/Dashboard link
-wb -> dv: request: Dashboard page
-dv -> wb: response: Dashboard page
-dp -> wb: click "Manage TRSAs" button
-wb -> dv: request: TRSA registry landing page
-dv -> wb: response: landing page with a List of registered TRSAs
-dp -> wb: click "+ Create" button
-wb -> wb: request: TRSA-registry UI
-wb -> wb: response: pop up the UI
-dp -> wb: enter required data and click "Save" button
-wb -> dv: request: persist a new set of TRSA-related data in the DB
-dv -> wb: response: OK (saved) and list of registered TRSAs is updaded
-@enduml
-....
-
-.TRSA: Dataverse-side Initial Setup: Part 3
-[plantuml]
-....
-@startuml
-title Dataverse-side Initial Setup: Create a New Dataset
-actor "Data Provider" as dp
-participant "Web Browser" as wb
-'participant TRSA as trsa
-'participant "File Storage" as fs
-participant  Dataverse as dv
-'participant "Notary Service" as ns
-
-dp -> wb: type the URL of Root Dataverse
-wb -> dv: request:Top (root Dataverse) page
-dv -> wb: response:Top page
-dp -> wb: click the host Dataverse from the list
-wb -> dv: request: the host dataverse
-dv -> wb: response: landing page of the dataverse
-dp -> wb: click "Add Data/New Dataset" option
-wb -> dv: request: New Dataset Creation page
-dv -> wb: response: Dataset creation UI
-dp -> dp: prepare a Dataset Title
-dp -> wb: enter required data in the UI form
-wb -> dv: request: Dataset creation
-dv -> wb: response: OK (render success message)
-footer Note: log-in step is excluded
-@enduml
-....
-
-.TRSA: Dataverse-side Initial Setup: Part 2
-[plantuml]
-....
-@startuml
-title Dataverse-side Initial Setup: Create a New Dataverse
-actor "Data Provider" as dp
-participant "Web Browser" as wb
-'participant TRSA as trsa
-'participant "File Storage" as fs
-participant  Dataverse as dv
-'participant "Notary Service" as ns
-
-dp -> wb: type the URL of Root Dataverse
-wb -> dv: request:Top (root Dataverse) page
-dv -> wb: response:Top page
-dp -> wb: click "Add Data/New Dataverse" option
-wb -> dv: request: New Dataverse Creation page
-dv -> wb: response: Datavese creation UI
-dp -> dp: prepare a Dataverse Alias
-dp -> wb: enter required data in the UI form
-wb -> dv: request: Dataverse creation
-dv -> wb: response: OK (render success page)
-footer Note: log-in step is excluded
-@enduml
-....
-
-.TRSA: Dataverse-side Initial Setup: Part 1
-[plantuml]
-....
-@startuml
-title Dataverse-side setup: Get a API Token
-actor "Data Provider" as dp
-participant "Web Browser" as wb
-'participant TRSA as sa
-'participant "File Storage" as fs
-participant  Dataverse as dv
-'participant "Notary Service" as ns
-
-dp -> wb: type the URL of Dataverse
-wb -> dv: request:home page
-dv -> wb: response:home page
-dp -> wb: click the sign-in link
-wb -> dv: request: sign-in page
-dv -> wb: response: sign-in page
-dp -> wb: enter required data
-wb -> dv: request: register the user
-dv -> wb: response: OK (registered)
-dp -> wb: click username/API Token link
-wb -> dv: request: API-token page
-dv -> wb: response: API-token page
-@enduml
-....

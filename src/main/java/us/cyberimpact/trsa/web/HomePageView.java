@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import org.omnifaces.cdi.ViewScoped;
 import javax.inject.Inject;
@@ -19,6 +20,9 @@ import javax.inject.Named;
 import org.omnifaces.util.Faces;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
+import us.cyberimpact.trsa.exception.TrsaConfigurationException;
+import us.cyberimpact.trsa.settings.AppConfig;
+import us.cyberimpact.trsa.settings.AppConfigState;
 
 /**
  *
@@ -32,6 +36,10 @@ public class HomePageView implements Serializable {
 
     @Inject
     private HostInfoFacade hostInfoFacade;
+    
+    
+    @EJB
+    private AppConfig appConfig;
 
     List<HostInfo> hostInfoTable = new ArrayList<>();
 
@@ -108,6 +116,8 @@ public class HomePageView implements Serializable {
         
         clearSession();
         
+
+        
         hostInfoTable = hostInfoFacade.findAll();
         logger.log(Level.INFO, "homePageView:hostInfoTable:howManyRows={0}", hostInfoTable.size());
         logger.log(Level.FINE, "homePageView:hostInfoTable={0}", hostInfoTable);
@@ -121,19 +131,39 @@ public class HomePageView implements Serializable {
             addMessageHostInfoAvailable();
             Faces.setSessionAttribute("hostInfoSaved", true);
         }
+        
         logger.log(Level.INFO, "========== HomePageView#init : end ==========");
     }
     
+    public void onload(){
+        AppConfigState configState = appConfig.getStartupState();
+        if (configState != null){
+            logger.log(Level.INFO, "configState={0}", configState);
+            addMessageConfigurationFailure(configState);
+            String message = "Cause: "+configState.getState()+"; Solution: "+ configState.getSolution() +" reported at "+ configState.getReportTime();
+            Faces.setRequestAttribute("reason", message);
+            throw new TrsaConfigurationException(message);
+        } else {
+            logger.log(Level.INFO, "no configuration failure");
+        }
+    }
+    
+    void addMessageConfigurationFailure(AppConfigState state){
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL,
+       state.getState(), 
+        state.getSolution() +" at: "+ state.getReportTime());
+        Faces.getContext().addMessage("topMsg", message);
+    }
     
     
-    public void addMessageHostInfoAvailable(){
+    void addMessageHostInfoAvailable(){
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
       "The paired Dataverse is already saved",
        "if necessary, add a new Dataverse before submitting metadata.");
         Faces.getContext().addMessage("topMessage", message);
     }
     
-    public void addMessageEmptyHostInfo(){
+    void addMessageEmptyHostInfo(){
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN,
        "The paired Dataverse must be saved", 
         "Before submitting metadata, setup the paired Dataverse");

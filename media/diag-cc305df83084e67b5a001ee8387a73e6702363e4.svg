@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="663px" preserveAspectRatio="none" style="width:732px;height:663px;" version="1.1" viewBox="0 0 732 663" width="732px" zoomAndPan="magnify"><defs><filter height="300%" id="f1q0hfl78805rv" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="50" x2="50" y1="88.7999" y2="578.8001"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="313.5" x2="313.5" y1="88.7999" y2="578.8001"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="681" x2="681" y1="88.7999" y2="578.8001"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="5" y="85.9999">Data Provider</text><ellipse cx="50.5" cy="15" fill="#FEFECE" filter="url(#f1q0hfl78805rv)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M50.5,23 L50.5,50 M37.5,31 L63.5,31 M50.5,50 L37.5,65 M50.5,50 L63.5,65 " fill="none" filter="url(#f1q0hfl78805rv)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="5" y="591.8001">Data Provider</text><ellipse cx="50.5" cy="604.6001" fill="#FEFECE" filter="url(#f1q0hfl78805rv)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M50.5,612.6001 L50.5,639.6001 M37.5,620.6001 L63.5,620.6001 M50.5,639.6001 L37.5,654.6001 M50.5,639.6001 L63.5,654.6001 " fill="none" filter="url(#f1q0hfl78805rv)" style="stroke:#A80036;stroke-width:2.0;"/><rect fill="#FEFECE" filter="url(#f1q0hfl78805rv)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="96" x="263.5" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="270.5" y="73.9999">Web Browser</text><rect fill="#FEFECE" filter="url(#f1q0hfl78805rv)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="96" x="263.5" y="577.8001"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="270.5" y="598.8001">Web Browser</text><rect fill="#FEFECE" filter="url(#f1q0hfl78805rv)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="77" x="641" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="648" y="73.9999">Dataverse</text><rect fill="#FEFECE" filter="url(#f1q0hfl78805rv)" height="30.7999" style="stroke:#A80036;stroke-width:1.5;" width="77" x="641" y="577.8001"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="648" y="598.8001">Dataverse</text><polygon fill="#A80036" points="301.5,116.3999,311.5,120.3999,301.5,124.3999,305.5,120.3999" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="307.5" y1="120.3999" y2="120.3999"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="177" x="57.5" y="115.7999">type the URL of Root Dataverse</text><polygon fill="#A80036" points="669.5,146,679.5,150,669.5,154,673.5,150" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="313.5" x2="675.5" y1="150" y2="150"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="191" x="320.5" y="145.4">request:Top (root Dataverse) page</text><polygon fill="#A80036" points="324.5,175.6,314.5,179.6,324.5,183.6,320.5,179.6" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="318.5" x2="680.5" y1="179.6" y2="179.6"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="107" x="330.5" y="175">response:Top page</text><polygon fill="#A80036" points="301.5,205.2,311.5,209.2,301.5,213.2,305.5,209.2" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="307.5" y1="209.2" y2="209.2"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="174" x="57.5" y="204.6">click username/Dashboard link</text><polygon fill="#A80036" points="669.5,234.8,679.5,238.8,669.5,242.8,673.5,238.8" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="313.5" x2="675.5" y1="238.8" y2="238.8"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="140" x="320.5" y="234.2">request: Dashboard page</text><polygon fill="#A80036" points="324.5,264.4,314.5,268.4,324.5,272.4,320.5,268.4" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="318.5" x2="680.5" y1="268.4" y2="268.4"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="149" x="330.5" y="263.8">response: Dashboard page</text><polygon fill="#A80036" points="301.5,294,311.5,298,301.5,302,305.5,298" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="307.5" y1="298" y2="298"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="167" x="57.5" y="293.4">click "Manage TRSAs" button</text><polygon fill="#A80036" points="669.5,323.6,679.5,327.6,669.5,331.6,673.5,327.6" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="313.5" x2="675.5" y1="327.6" y2="327.6"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="202" x="320.5" y="323">request: TRSA registry landing page</text><polygon fill="#A80036" points="324.5,353.2001,314.5,357.2001,324.5,361.2001,320.5,357.2001" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="318.5" x2="680.5" y1="357.2001" y2="357.2001"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="305" x="330.5" y="352.6">response: landing page with a List of registered TRSAs</text><polygon fill="#A80036" points="301.5,382.8001,311.5,386.8001,301.5,390.8001,305.5,386.8001" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="307.5" y1="386.8001" y2="386.8001"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="126" x="57.5" y="382.2001">click "+ Create" button</text><line style="stroke:#A80036;stroke-width:1.0;" x1="313.5" x2="355.5" y1="416.4001" y2="416.4001"/><line style="stroke:#A80036;stroke-width:1.0;" x1="355.5" x2="355.5" y1="416.4001" y2="429.4001"/><line style="stroke:#A80036;stroke-width:1.0;" x1="314.5" x2="355.5" y1="429.4001" y2="429.4001"/><polygon fill="#A80036" points="324.5,425.4001,314.5,429.4001,324.5,433.4001,320.5,429.4001" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="144" x="320.5" y="411.8001">request: TRSA-registry UI</text><line style="stroke:#A80036;stroke-width:1.0;" x1="313.5" x2="355.5" y1="459.0001" y2="459.0001"/><line style="stroke:#A80036;stroke-width:1.0;" x1="355.5" x2="355.5" y1="459.0001" y2="472.0001"/><line style="stroke:#A80036;stroke-width:1.0;" x1="314.5" x2="355.5" y1="472.0001" y2="472.0001"/><polygon fill="#A80036" points="324.5,468.0001,314.5,472.0001,324.5,476.0001,320.5,472.0001" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="132" x="320.5" y="454.4001">response: pop up the UI</text><polygon fill="#A80036" points="301.5,497.6001,311.5,501.6001,301.5,505.6001,305.5,501.6001" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="50.5" x2="307.5" y1="501.6001" y2="501.6001"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="239" x="57.5" y="497.0001">enter required data and click "Save" button</text><polygon fill="#A80036" points="669.5,527.2001,679.5,531.2001,669.5,535.2001,673.5,531.2001" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="313.5" x2="675.5" y1="531.2001" y2="531.2001"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="319" x="320.5" y="526.6001">request: persist a new set of TRSA-related data in the DB</text><polygon fill="#A80036" points="324.5,556.8001,314.5,560.8001,324.5,564.8001,320.5,560.8001" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="318.5" x2="680.5" y1="560.8001" y2="560.8001"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="344" x="330.5" y="556.2001">response: OK (saved) and list of registered TRSAs is updaded</text><!--MD5=[7cd2d9e8fa5ff0ca47cd0a461cbcafcd]
+@startuml
+'title Dataverse-side Initial Setup: Registration of a TRSA
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as trsa
+'participant "File Storage" as fs
+participant  Dataverse as dv
+'participant "Notary Service" as ns
+
+dp -> wb: type the URL of Root Dataverse
+wb -> dv: request:Top (root Dataverse) page
+dv -> wb: response:Top page
+dp -> wb: click username/Dashboard link
+wb -> dv: request: Dashboard page
+dv -> wb: response: Dashboard page
+dp -> wb: click "Manage TRSAs" button
+wb -> dv: request: TRSA registry landing page
+dv -> wb: response: landing page with a List of registered TRSAs
+dp -> wb: click "+ Create" button
+wb -> wb: request: TRSA-registry UI
+wb -> wb: response: pop up the UI
+dp -> wb: enter required data and click "Save" button
+wb -> dv: request: persist a new set of TRSA-related data in the DB
+dv -> wb: response: OK (saved) and list of registered TRSAs is updaded
+@enduml
+
+@startuml
+actor "Data Provider" as dp
+participant "Web Browser" as wb
+participant  Dataverse as dv
+
+dp -> wb: type the URL of Root Dataverse
+wb -> dv: request:Top (root Dataverse) page
+dv -> wb: response:Top page
+dp -> wb: click username/Dashboard link
+wb -> dv: request: Dashboard page
+dv -> wb: response: Dashboard page
+dp -> wb: click "Manage TRSAs" button
+wb -> dv: request: TRSA registry landing page
+dv -> wb: response: landing page with a List of registered TRSAs
+dp -> wb: click "+ Create" button
+wb -> wb: request: TRSA-registry UI
+wb -> wb: response: pop up the UI
+dp -> wb: enter required data and click "Save" button
+wb -> dv: request: persist a new set of TRSA-related data in the DB
+dv -> wb: response: OK (saved) and list of registered TRSAs is updaded
+@enduml
+
+PlantUML version 1.2021.4(Sun Apr 04 08:49:39 GMT 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

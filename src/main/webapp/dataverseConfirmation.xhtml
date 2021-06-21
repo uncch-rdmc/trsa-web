@@ -21,36 +21,74 @@
                      <p:growl id="topGrowl" showDetail="true" 
                                     for="topMessage" severity="info"/>
 
-                    
+                     <!-- valid dataverse alias: Found an illegal character(s). Valid characters are a-Z, 0-9, '_', and '-'. -->
             <p:panel header="Paired Dataverse: Key Data Confirmation">
-
-                <p:panelGrid columns="2" columnClasses="label, value">
+                <p:panel widgetVar="progressPanel"
+                 visible="false"
+                 style="border:none;"
+                 closable="true"
+                 toggleable="true">
+                
+                <p:progressBar style="height:10px;width:222px;"
+                               mode="indeterminate"/></p:panel>
+                <p:panelGrid id="pgrid" columns="3" columnClasses="label, value">
                     <p:outputLabel value="Dataverse URL:" for="hosturl"/>
                     <p:inputText id="hosturl" 
+                                 binding="#{dataverseConfirmationView.dataverseUrl}"
                                  value="#{dataverseConfirmationView.hostInfo.hosturl}" 
                                  required="true" 
-                                 title="Dataverse URL to be paired"/>
+                                 title="Dataverse URL to be paired"
+                                 validatorMessage="URL must start from a scheme such as http">
+                        <f:validateRegex pattern="^(?i)(http|https)(://).+"/>
+                    </p:inputText>
+                    <p:message for="hosturl"/>
                     <p:outputLabel value="Dataverse Alias:" for="dataversealias"/>
                     <p:inputText id="dataversealias" 
+                                 binding="#{dataverseConfirmationView.dataverseAlias}"
                                  value="#{dataverseConfirmationView.hostInfo.dataversealias}" 
                                  required="true" 
-                                 title="Shown under General Information"/>
+                                 title="Shown under General Information"
+                                 validatorMessage="Valid Characters for an alias are: a-Z,0-9, hyphen, and underscore">
+                        <f:validateRegex pattern="^[a-zA-Z_0-9-]+$"/>
+                    </p:inputText>
+                    <p:message for="dataversealias"/>
                     <p:outputLabel value="API Token:" for="apitoken"/>
                     <p:inputText id="apitoken" 
+                                 binding="#{dataverseConfirmationView.apitokenField}"
                                  value="#{dataverseConfirmationView.hostInfo.apitoken}" 
                                  required="true" 
-                                 title="Shown on the Account Page" />
+                                 title="Shown on the Account Page"
+                                 validatorMessage="API token is 36-character long">
+                        <f:validateLength minimum="36" maximum="36"/>
+                    </p:inputText>
+                    <p:message id="msgApitoken" for="apitoken"/>
                     <p:outputLabel value="TRSA Registry Number:" for="trsaRegNmbr"/>
                     <p:inputText id="trsaRegNmbr" 
                                  value="#{dataverseConfirmationView.hostInfo.trsaRegNmbr}" 
                                  required="true" 
-                                 title="From Dataverse Dashboard:TRSA Registry Table" />
+                                 title="From Dataverse Dashboard:TRSA Registry Table" 
+                                 validatorMessage="TRSA registration number is a positive integer">
+                        <f:validateLongRange minimum="1"/>
+                    </p:inputText>
+                    <p:message for="trsaRegNmbr"/>
                 </p:panelGrid>
  
-                <p:commandButton id="confirmButton" value="Confirm" 
-                                 action="#{dataverseConfirmationView.confirmDataverseData()}" 
+                <p:commandButton id="confirmButton" 
+                                 value="Confirm" 
+                                 widgetVar="confirmBttn"
+                                 actionListener="#{dataverseConfirmationView.confirmDataverseData}" 
+                         onstart="PF('confirmBttn').disable();PF('progressPanel').show();"
+                         oncomplete="PF('progressPanel').close();"
                                  disabled="#{dataverseConfirmationView.mainButtonEnabled}"
-                                 update="messages confirmButton mainButton" />
+                                 update="messages confirmButton mainButton pgrid showExceptionMessage" />
+                
+                            <p:commandButton id="showExceptionMessage"
+                                             value="Show Exception messages"
+                                             icon="pi pi-external-link" 
+                                             disabled="#{! dataverseConfirmationView.showMsgButtonEnabled}"
+                                             action="#{dataverseConfirmationView.showExceptionMessage}"/>
+                
+                
                 <p:commandButton id="mainButton" value="Return to Main Menu" 
                                  disabled="#{! dataverseConfirmationView.mainButtonEnabled}"
                                  action="#{dataverseConfirmationView.returnToMainMenu()}" 

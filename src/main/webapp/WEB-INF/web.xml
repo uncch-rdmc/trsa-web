@@ -65,9 +65,12 @@
         <param-name>primefaces.MOVE_SCRIPTS_TO_BOTTOM</param-name>
         <param-value>true</param-value>
     </context-param>
-    
-    
-    
+
+    <error-page>
+        <exception-type>us.cyberimpact.trsa.exception.TrsaConfigurationException</exception-type>
+        <location>/error.xhtml</location>
+    </error-page>
+
     <session-config>
         <session-timeout>
             30

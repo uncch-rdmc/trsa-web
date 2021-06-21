@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="template/default/contentDefault.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="dsTemplateData/View.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="trsaProfile/Edit.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="template/default/leftDefault.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="submission.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="dsTemplateSelection.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="welcomePrimefaces.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="template/default/rightDefault.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="dsTemplateData/Edit.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="selectDataverse.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="hostinfo/List.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="trsaProfile/List.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="template/pf_grid_layout.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="index.html" x="150" y="750" zoom="true"/>
+        <Node id="trsaProfile/View.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="template/default/topDefault.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="dsTemplateData/List.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="template.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="hostinfo/View.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="hostinfo/Edit.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="template/default/bottomDefault.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="fileupload.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="template/layout.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="pairingConfirmation.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="index.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="template/pf_flexgrid_layout.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="dsTemplateData/Create.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="destination.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="ingest.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="setupWizard.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="trsaProfile/Create.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="wizard.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="template/default/titleDefault.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="dataverseConfirmation.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="hostinfo/Create.xhtml" x="400" y="300" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

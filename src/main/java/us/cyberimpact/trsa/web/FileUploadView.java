@@ -13,24 +13,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
+import org.primefaces.PrimeFaces;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.file.UploadedFile;
@@ -60,13 +61,8 @@ public class FileUploadView implements Serializable {
     HostInfoFacade hostInfoFacade;
     
     
-//    @Inject
-//    DestinationSelectionView destinationSelectionView; 
     
     
-//    List<HostInfo> hostInfoTable = new ArrayList<>();
-    
-
     private String selectedDatasetId;
     
     @Inject
@@ -111,13 +107,6 @@ public class FileUploadView implements Serializable {
         logger.log(Level.INFO, "=========== FileUploadView#init: start ===========");
         selectedRequestType = Faces.getSessionAttribute("selectedRequestType");
         logger.log(Level.INFO, "requestType received={0}", selectedRequestType);
-//        logger.log(Level.INFO, "requestType={0}", homePageView.getSelectedRequestType());
-//        selectedRequestType=homePageView.getSelectedRequestType();
-//        
-//        logger.log(Level.INFO, "selectedRequestType={0}", selectedRequestType);
-
-//        logger.log(Level.INFO, "destinationSelectionView.getSelectedDatasetId()={0}", destinationSelectionView.getSelectedDatasetId());
-//        selectedDatasetId=destinationSelectionView.getSelectedDatasetId();
         selectedDatasetId=Faces.getSessionAttribute("selectedDatasetId");
         logger.log(Level.INFO, "selectedDatasetId received={0}",selectedDatasetId);
         
@@ -133,20 +122,8 @@ public class FileUploadView implements Serializable {
             // turn on the publish button
             isTrsaProfileReady=true;
             logger.log(Level.INFO, "FileUploadView:trsa profile exists");
-//            
-//            logger.log(Level.INFO, "url={0}",trsaProfileTable.get(0).getDataverseurl()); 
-//            logger.log(Level.INFO, "api-token={0}",trsaProfileTable.get(0).getApitoken());
         }
         
-        
-//        hostInfoTable = hostInfoFacade.findAll();
-//        logger.log(Level.INFO, "FileUploadView:hostInfoTable:howMany={0}", hostInfoTable.size());
-//        if (hostInfoTable.isEmpty()){
-//            logger.log(Level.INFO, "hostInfoTable is empty");
-//        } else {
-//            logger.log(Level.INFO, "FileUploadView:hostInfoTable exists and not empty");
-//        }
-
         selectedDsTemplateData= dsTemplateSelectionView.getSelectedDsTemplateData();
         logger.log(Level.INFO, "selectedDsTemplateData={0}", selectedDsTemplateData);
         logger.log(Level.INFO, "=========== FileUploadView#init: end ===========");
@@ -204,29 +181,23 @@ public class FileUploadView implements Serializable {
         file = event.getFile();
         logger.log(Level.INFO, "file.getFileName()={0}", file.getFileName());
         logger.log(Level.INFO, "fileName={0}", fileName);
-//        Path tmp = Paths.get(fileName);
-//        String filePath = "";
+
+        String summaryMsg="Uploading Failure";
         if (file == null) {
                 logger.log(Level.SEVERE, "file is null");
                 wipeOutIngestFailure();
                 ingestButtonEnabled = false;
                 publishButtonEnabled = false;
-                String emessage = "Uplolading " + fileName + " failed: selected file was null"; 
+                String detailedMessage = "Uplolading " + fileName + " failed: your selected file was null"; 
+                String errorMessage ="Your selected file was null";
+                postExceptionCommonSteps(errorMessage, summaryMsg, detailedMessage);
                 
-                Faces.getContext().addMessage("topMessage",
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                "Uploading Failure", emessage));
                 return;
         } else {
-//            FacesMessage message = new FacesMessage("Succesful",
-//                    file.getFileName() + " is uploaded.");
-//            Faces.getContext().addMessage(null, message);
             byte[] bytes = null;
             try {
-//                copyFile(event.getFile().getFileName(), event.getFile().getInputstream());
                 bytes = file.getContent();
                 fileNameOnly = FilenameUtils.getName(file.getFileName());
-//                mimeType = FilenameUtils.getExtension(file.getFileName());
                 Faces.setSessionAttribute("fileNameOnly", fileNameOnly);
                 fileName = destination + fileNameOnly;
                 logger.log(Level.INFO, "fileName is set to={0}", fileName);
@@ -234,57 +205,35 @@ public class FileUploadView implements Serializable {
                         new FileOutputStream(new File(fileName)))) {
                     stream.write(bytes);
                 }
-            } catch (EJBException ejbe) {
-                logger.log(Level.SEVERE, "uploading ended with a failure with EJBException");
-                wipeOutIngestFailure();
-                ingestButtonEnabled = false;
-                publishButtonEnabled = false;
-                String emessage = "Uploading " + fileName + " failed due to EJBException:" + ejbe.getMessage();
-                Faces.getContext().addMessage("topMessage", 
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                "Uploading Failure", emessage));
+
+            } catch (IOException ex) {
+                logger.log(Level.SEVERE, "IOException was thrown during the uploading", ex);
+                String detailedMessage = "Uplolading " + fileName + " failed due to IOException:"; 
+                postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex), summaryMsg, detailedMessage);
                 return;
-            } catch (IOException e) {
-                logger.log(Level.SEVERE, "IOException was thrown during the uploading", e);
-                wipeOutIngestFailure();
-                ingestButtonEnabled = false;
-                publishButtonEnabled = false;
-                String emessage = "Uplolading " + fileName + " failed due to IOException:"; 
-                
-                Faces.getContext().addMessage("topMessage",
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                "Uploading Failure", emessage));
+            } catch (EJBException ex) {
+                logger.log(Level.SEVERE, "uploading ended with a failure with EJBException");
+                String detailedMessage = "Uploading of (" + fileName + ") failed:EJBException:" + ex.getMessage();
+                postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex), summaryMsg, detailedMessage);
                 return;
             }
-
-//      file = event.getFile();
-//      byte[] contents = file.getContents();
-//      fileContent = new String(contents);
-//      fileName = file.getFileName();
 
             Faces.getContext().addMessage("topMessage",
                     new FacesMessage(FacesMessage.SEVERITY_INFO, 
      "Uploading Success", "Uploading " + file.getFileName() + " Successfully ended"));
         }
 
-//        logger.log(Level.INFO, "FileUploadView:upload():TrsaProfileTable={0}", trsaProfileTable);
-//        logger.log(Level.INFO, "upload():url={0}", trsaProfileTable.get(0).getDataverseurl());
-//        logger.log(Level.INFO, "upload():api-token={0}", trsaProfileTable.get(0).getApitoken());
-//        logger.log(Level.INFO, "upload():isTrsaProfileReady={0}", isTrsaProfileReady);
         setIngestButtonEnabled(true);
+        setUploadButtonEnabled(false);
         logger.log(Level.INFO, "=========== FileUploadView#upload: end ===========");
-//        return "/index.xhtml";
     }
 
     public void execIngest() {
         logger.log(Level.INFO, "=========== FileUploadView#execIngest: start ===========");
         
-        //FacesContext context = FacesContext.getCurrentInstance();
         logger.log(Level.INFO, "fileName={0}", fileName);
-        // 2019-06-12 update: for metadata-uploading cases, use the pre-selected dataset Id
-//        datasetIdentifier = IngestService.generateTempDatasetIdentifier(6);
-
         logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
+        
         if (selectedRequestType==RequestType.METADATA_ONLY){
             logger.log(Level.INFO, "this is a metadata-only case");
             datasetIdentifier = selectedDatasetId;
@@ -297,6 +246,7 @@ public class FileUploadView implements Serializable {
         // Warning: contentType expects a / included mime type
         // without "/" a validation error is returned
         logger.log(Level.INFO, "contentType={0}", mimeType);
+        String summaryMsg="Ingest Failure";
         try {
 
             ingestedDataFileList = ingestService.run(fileName, mimeType, datasetIdentifier);
@@ -334,10 +284,11 @@ public class FileUploadView implements Serializable {
             Faces.setSessionAttribute("fileName", fileName);
             ingestButtonEnabled = false;
             publishButtonEnabled = true;
-            
+            uploadButtonEnabled=false;
         } catch (ConstraintViolationException ex){
-            logger.log(Level.SEVERE, "ConstraintViolationException occurred");
-            wipeOutIngestFailure();
+            logger.log(Level.SEVERE, "Ingest of {0} failed with ConstraintViolationException", fileName);
+            String detailedMessage;
+            
             if (ex instanceof ConstraintViolationException) {
                 StringBuilder sb = new StringBuilder();
                 ConstraintViolationException cve = (ConstraintViolationException) ex;
@@ -345,82 +296,72 @@ public class FileUploadView implements Serializable {
                     sb.append(cv.toString());
                     logger.log(Level.SEVERE, "CONSTRAINT VIOLOATION : {0}", cv.toString());
                 }
-                ingestButtonEnabled = false;
-                publishButtonEnabled = false;
-                Faces.getContext().addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingest failure: Validation Error", sb.toString()));
-                return;
+                
+                detailedMessage = "The ingest of (" + fileName + ") failed:Validation Error: ConstraintViolationException:" + sb.toString();
+                
             } else {
-                ingestButtonEnabled = false;
-                publishButtonEnabled = false;
-                logger.log(Level.WARNING, "Some uexpected case within ConstraintViolationException block");
-                Faces.getContext().addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingest failure: Validation Error", "ConstraintViolationException"));
-                return;
+                logger.log(Level.WARNING, "ConstraintViolationException: message={0}", ex.getMessage());
+                detailedMessage = "The ingest of (" + fileName + ") failed:Validation Error: ConstraintViolationException:" + ex.getMessage();
+                
             }
-
+            postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex), summaryMsg, detailedMessage);
+            return;
         } catch (IOException ex) {
-            logger.log(Level.SEVERE, "IOException");
-            wipeOutIngestFailure();
-            ingestButtonEnabled = false;
-            publishButtonEnabled = false;
-            Faces.getContext().addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingest failure", "ingest failure due to IOException"));
+            logger.log(Level.SEVERE, "Ingest of {0} failed with IOException", fileName);
+            String detailedMessage = "The ingest of (" + fileName + ") failed:IOException:" + ex.getMessage();
+            postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex), summaryMsg, detailedMessage);
             return;
         } catch (XMLStreamException ex) {
-            logger.log(Level.SEVERE, "XMLStreamException");
-            wipeOutIngestFailure();
-            ingestButtonEnabled = false;
-            publishButtonEnabled = false;
-            Faces.getContext().addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingest failure", "ingest failure due to XMLStreamException"));
+            logger.log(Level.SEVERE, "Ingest of {0} failed with XMLStreamException", fileName);
+            String detailedMessage = "The ingest of (" + fileName + ") failed:XMLStreamException:" + ex.getMessage();
+            postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex), summaryMsg, detailedMessage);
             return;
         } catch (ExportException ex) {
-            logger.log(Level.SEVERE, "ExportException");
-            wipeOutIngestFailure();
-            ingestButtonEnabled = false;
-            publishButtonEnabled = false;
-            Faces.getContext().addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingest failure", "ingest failure due to ExportException"));
+            logger.log(Level.SEVERE, "Ingest of {0} failed with ExportException", fileName);
+            String detailedMessage = "The ingest of (" + fileName + ") failed:XMLStreamException:" + ex.getMessage();
+            postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex), summaryMsg, detailedMessage);
             return;
-        } catch (EJBException ejbe) {
-            logger.log(Level.SEVERE, "Ingest ended with a failure with EJBException");
-            wipeOutIngestFailure();
-            ingestButtonEnabled = false;
-            publishButtonEnabled = false;
-            String message = "The ingest of (" + fileName + ") failed due to EBJException:" + ejbe.getMessage();
-            Faces.getContext().addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingest failure", message));
+        } catch (EJBException ex) {
+            logger.log(Level.SEVERE, "Ingest of {0} failed with EJBException", fileName);
+            String detailedMessage = "The ingest of (" + fileName + ") failed:EJBException:" + ex.getMessage();
+            postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex), summaryMsg, detailedMessage);
             return;
-        } catch (IngestException ie) {
-            logger.log(Level.SEVERE, "Ingest ended with a failure");
-            wipeOutIngestFailure();
-            ingestButtonEnabled = false;
-            publishButtonEnabled = false;
-            String message = "The ingest of (" + fileName + ") failed:" + ie.getMessage();
-            Faces.getContext().addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingest failure", message));
+        } catch (IngestException ex) {
+            logger.log(Level.SEVERE, "Ingest of {0} failed with IngestException", fileName);
+            String detailedMessage = "The ingest of (" + fileName + ") failed:IngestException:" + ex.getMessage();
+            postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex), summaryMsg, detailedMessage);
             return;
         }
         
 
-/*
-        logger.log(Level.INFO, "execIngest():isTrsaProfileReady={0}", isTrsaProfileReady);
-        logger.log(Level.INFO, "FileUploadView:execIngest():TrsaProfileTable={0}", trsaProfileTable);
-        logger.log(Level.INFO, "execIngest():url={0}",trsaProfileTable.get(0).getDataverseurl());            
-        logger.log(Level.INFO, "execIngest():api-token={0}", trsaProfileTable.get(0).getApitoken());
-        if (isTrsaProfileReady){
-            logger.log(Level.INFO, "TRSA Profile is available");
-        } else {
-            logger.log(Level.INFO, "TRSA Profile is not available");
-            publishButtonEnabled = true;
-            String messageWarning = "TRSA Profile is not set; please add a profile";
-            context.addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_WARN, "warn", messageWarning));
-            
-            publishButtonEnabled = false;
-            try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/trsaProfile/List.xhtml/");
-            } catch (IOException ex){
-                logger.log(Level.INFO, "redirection error", ex);
-            }
-            
-        }
-*/
-        //return "/ingest.xhtml";
         logger.log(Level.INFO, "=========== FileUploadView#execIngest: end ===========");
+    }
+    
+    private void postExceptionCommonSteps(String exceptionMsg, String summaryMsg, String detailedMsg) {
+        Faces.setSessionAttribute("currentMessageKey", "fileuploadIngestMsg");
+        Faces.setSessionAttribute("fileuploadIngestMsg", exceptionMsg);
+        Faces.getContext().addMessage("topMessage",
+          new FacesMessage(FacesMessage.SEVERITY_ERROR,
+            summaryMsg, detailedMsg));
+        wipeOutIngestFailure();
+        showMsgButtonEnabled = true;
+        ingestButtonEnabled = false;
+        publishButtonEnabled = false;
+        uploadButtonEnabled = false;
+    }
+    
+    
+    public void showExceptionMessage(){
+        Map<String, Object> options = new HashMap<>();
+        options.put("resizable", true);
+        options.put("draggable", true);
+        options.put("modal", true);
+        options.put("width", 800);
+        options.put("height", 400);
+        options.put("contentWidth", "100%");
+        options.put("contentHeight", "100%");
+        PrimeFaces.current().dialog().openDynamic("/ingestFailureMessage.xhtml", 
+          options, null);
     }
 
     public String goHome() {
@@ -467,9 +408,6 @@ public class FileUploadView implements Serializable {
         }
     }
 
-//    List<DatasetVersion> getIngestedDatasetVersion(){
-//        return em.createNamedQuery("findAll", DatasetVersion.class).getResultList();
-//    }
     boolean ingestButtonEnabled = false;
 
     public boolean isIngestButtonEnabled() {
@@ -525,6 +463,31 @@ public class FileUploadView implements Serializable {
     }
     
     private void wipeOutIngestFailure() {
-
+        // To be implemented
     }
+    
+    boolean showMsgButtonEnabled=false;
+
+    public boolean isShowMsgButtonEnabled() {
+        return showMsgButtonEnabled;
+    }
+
+    public void setShowMsgButtonEnabled(boolean showMsgButtonEnabled) {
+        this.showMsgButtonEnabled = showMsgButtonEnabled;
+    }
+    
+    boolean uploadButtonEnabled=true;
+
+    public boolean isUploadButtonEnabled() {
+        return uploadButtonEnabled;
+    }
+
+    public void setUploadButtonEnabled(boolean uploadButtonEnabled) {
+        this.uploadButtonEnabled = uploadButtonEnabled;
+    }
+    
+    
+    
+
+
 }

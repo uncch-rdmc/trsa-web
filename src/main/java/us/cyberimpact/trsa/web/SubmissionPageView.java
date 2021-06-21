@@ -39,6 +39,7 @@ import javax.json.JsonValue;
 import javax.json.JsonWriter;
 import javax.ws.rs.WebApplicationException;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
 import org.primefaces.PrimeFaces;
@@ -183,7 +184,9 @@ public class SubmissionPageView implements Serializable {
     
     private String ingestedFilename;
     
+    String summaryMsg="Submission Failure";
     
+    String detailedMsg;
     
     
     @PostConstruct
@@ -287,8 +290,9 @@ public class SubmissionPageView implements Serializable {
             logger.log(Level.WARNING, "datafile is empty");
         } else {
             logger.log(Level.INFO, "the number of datafiles to be uploaded is {0}", ingestedDataFileList.size());
-            logger.log(Level.INFO, "ingestedDataFileList={0}", ingestedDataFileList.get(0));
+            logger.log(Level.INFO, "ingestedDataFileList={0}", ingestedDataFileList.get(ingestedDataFileList.size()-1));
         }
+        logger.log(Level.INFO, "fileMetadata={0}", ingestedDataFileList.get(ingestedDataFileList.size()-1).getFileMetadata());
         datasetDoi = selectedHostInfo.getDatasetDoi();
         logger.log(Level.INFO, "datasetDoi={0}", datasetDoi);
         
@@ -436,7 +440,7 @@ public class SubmissionPageView implements Serializable {
         String payloadFileName = trsaFilesPath
                 + localDatasetIdentifier + "/" + WebAppConstants.FILTERED_PAYLOAD_FILENAME;
         
-        String jsonBody="";
+        //String jsonBody="";
         try (InputStream rawIs = new FileInputStream(new File(fileLocation));
                 JsonReader jsonReader = Json.createReader(rawIs);
                 PrintWriter printWriter = new PrintWriter(new File(payloadFileName), "UTF-8");
@@ -512,13 +516,9 @@ public class SubmissionPageView implements Serializable {
         //clearSession();
     }
     
-    // METADATA_ONLY
-    void uploadMetadataOnly(){
-        logger.log(Level.INFO, "========== SubmissionPageView#uploadMetadataOnly: start ==========");
-        logger.log(Level.INFO, "uploadMetadataOnly case");
-        
+    
+    void checkAPIdata() throws IllegalArgumentException{
         // sanity check one more tiem before submission
-        try {
             if (StringUtils.isBlank(apiKey) || 
                     StringUtils.isBlank(dataverseServer) ||
             StringUtils.isBlank(selectedDatasetId) || 
@@ -526,15 +526,79 @@ public class SubmissionPageView implements Serializable {
                 String message="API key, dataverse server name, and trsa-registration number are incomplete ";
                 throw new IllegalArgumentException(message);
             }
-        } catch (IllegalArgumentException e) {
+    }
+    
+    String createPayload(JsonReader jsonReader ,JsonWriter jsonWriter) throws IOException, Exception{
+        
+        
+        JsonObject rawJsonObject = jsonReader.readObject();
+        logger.log(Level.INFO, "rawJsonObject={0}", rawJsonObject);
+
+        // create a new Json object to store two JsonPointers
+        JsonObject object = Json.createObjectBuilder().build();
+        // Warning: The following lines work with Java-ee-api-8 package
+        // i.e., not 7 that does not include JsonPointer API
+        // create the two JsonPointer instances 
+        // point to the metadataBlock segment from the raw JSON object
+        JsonPointer metadataBlock
+                = Json.createPointer(JsonPointerForDataset.POINTER_METADATABLOCKS);
+        // point to files segment, too
+        JsonPointer files = Json.createPointer(JsonPointerForDataset.POINTER_FILES);
+
+        // get the value for each of the above JsonPointer instances
+        JsonValue metadataBlockValue = metadataBlock.getValue(rawJsonObject);
+        JsonValue filesValue = files.getValue(rawJsonObject);
+
+        // create a JsonPatchBuilder object and add JsonValue instances
+        JsonPatchBuilder builder = Json.createPatchBuilder();
+
+
+        JsonObject payloadObject = builder
+                        .add(JsonPointerForDataset.POINTER_METADATABLOCKS_FILTERED, metadataBlockValue)
+                        .add(JsonPointerForDataset.POINTER_FILES_FILTERED, filesValue)
+                        .build()
+                        .apply(object);
+
+        logger.log(Level.INFO, "payload JSON object={0}", payloadObject);
+        jsonWriter.writeObject(payloadObject);
+        return payloadObject.toString();
+        
+    }
+    
+    boolean isTestRun = true;
+    
+    // METADATA_ONLY CASE
+    void uploadMetadataOnly(){
+        logger.log(Level.INFO, "========== SubmissionPageView#uploadMetadataOnly: start ==========");
+        logger.log(Level.INFO, "uploadMetadataOnly case");
+        
+        
+        // step 1: check API-data again
+        try {
+            checkAPIdata();
+            
+        } catch (IllegalArgumentException ex) {
             logger.log(Level.SEVERE, "Data to construct the API endpoint is incomplete");
-            String message ="Data to construct the API endpoint is incomplete; complete data before submission";
+            
+            
+            detailedMsg ="Data to construct the API endpoint is incomplete; complete the required data";
             Faces.getContext().addMessage("topMessage", 
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-             "Incomplete destination data", message));
+             summaryMsg, detailedMsg));
             publishButtonEnabled=false;
+            showNsExceptionMsgEnabled=true;
+            
+            Faces.setSessionAttribute("currentMessageKey", "submissionMsg");
+            Faces.setSessionAttribute("submissionMsg", ExceptionUtils.getStackTrace(ex));
+            
+            
             return;
         }
+        
+        
+        
+        
+        // step 2: payload creation
         
         String fileLocation = trsaFilesPath
                 + localDatasetIdentifier
@@ -548,56 +612,57 @@ public class SubmissionPageView implements Serializable {
         
         
         
-        try (InputStream rawIs = new FileInputStream(new File(fileLocation));
-                JsonReader jsonReader = Json.createReader(rawIs);
-                PrintWriter printWriter = new PrintWriter(new File(payloadFileName), "UTF-8");
-                JsonWriter jsonWriter = Json.createWriter(printWriter)) {
+        try (JsonReader jsonReader = Json.createReader(
+              new FileInputStream(new File(fileLocation)));
+            JsonWriter jsonWriter = Json.createWriter(
+              new PrintWriter(new File(payloadFileName), "UTF-8"))) {
 
-            JsonObject rawJsonObject = jsonReader.readObject();
-            logger.log(Level.INFO, "rawJsonObject={0}", rawJsonObject);
+            jsonBody = createPayload(jsonReader, jsonWriter);
 
-            // create a new Json object to store two JsonPointers
-            JsonObject object = Json.createObjectBuilder().build();
-            // Warning: The following lines work with Java-ee-api-8 package
-            // i.e., not 7 that does not include JsonPointer API
-            // create the two JsonPointer instances 
-            // point to the metadataBlock segment from the raw JSON object
-            JsonPointer metadataBlock
-                    = Json.createPointer(JsonPointerForDataset.POINTER_METADATABLOCKS);
-            // point to files segment, too
-            JsonPointer files = Json.createPointer(JsonPointerForDataset.POINTER_FILES);
-
-            // get the value for each of the above JsonPointer instances
-            JsonValue metadataBlockValue = metadataBlock.getValue(rawJsonObject);
-            JsonValue filesValue = files.getValue(rawJsonObject);
-
-            // create a JsonPatchBuilder object and add JsonValue instances
-            JsonPatchBuilder builder = Json.createPatchBuilder();
-
-                    
-            JsonObject payloadObject = builder
-                            .add(JsonPointerForDataset.POINTER_METADATABLOCKS_FILTERED, metadataBlockValue)
-                            .add(JsonPointerForDataset.POINTER_FILES_FILTERED, filesValue)
-                            .build()
-                            .apply(object);
-
-            logger.log(Level.INFO, "payload JSON object={0}", payloadObject);
-            jsonWriter.writeObject(payloadObject);
-            jsonBody = payloadObject.toString(); 
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "IOException was thrown during io operations");
-            // TODO
-            // call the sweeping method
-            String message ="Payload creation failed with IOException: check server.log";
-                Faces.getContext().addMessage("topMessage", 
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-                                "Payload-creation Failure before submission", message));
-            publishButtonEnabled=false;
+
+            detailedMsg ="Payload-creation failed with IOException: check server.log";
+//            Faces.getContext().addMessage("topMessage", 
+//                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//                                summaryMsg, detailedMsg));
+//            publishButtonEnabled=false;
+//            String stackTrace = ExceptionUtils.getStackTrace(ex);
+            
+            postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex),
+                  summaryMsg, detailedMsg);
+            
+            
+            
+            return;
+        } catch (Exception ex){
+            logger.log(Level.SEVERE, "Non-IOException was thrown during io operations");
+            detailedMsg="Payload-creation failed with Non-IOException: check server.log";
+//            Faces.getContext().addMessage("topMessage", 
+//                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//                                summaryMsg, detailedMsg));
+//            publishButtonEnabled=false;
+//            String stackTrace = ExceptionUtils.getStackTrace(ex);
+            postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex),
+                  summaryMsg, detailedMsg);
             return;
         }
 
         logger.log(Level.INFO, "payload: jsonbody={0}", jsonBody);
-
+        
+        
+        if (StringUtils.isBlank(jsonBody)){
+            
+            logger.log(Level.SEVERE, "payload is blank: creating the payload failed");
+            detailedMsg ="The payload is blank for some unknown reason; Check server.log";
+            
+            postExceptionCommonSteps("Creating the metadata has been done without any exception but its content is empty; check server.log",
+                  summaryMsg, detailedMsg);
+            
+            return;
+        }
+        
+        // step 3: submission 
         logger.log(Level.INFO, "submit-metadata-only API case");
         String apiEndpoint = dataverseServer + "/api/datasets/" + selectedDatasetId
                 + "/" + WebAppConstants.PATH_ADD_METADATA;
@@ -606,7 +671,7 @@ public class SubmissionPageView implements Serializable {
         headers.put("X-Dataverse-key", apiKey);
         headers.put("X-TRSA-registrationId", trsaRegNmbr.toString());
 
-        HttpResponse<JsonNode> jsonResponse=null;
+        HttpResponse<JsonNode> jsonResponse;
         try {
             jsonResponse = Unirest.post(apiEndpoint)
                     .headers(headers)
@@ -614,58 +679,83 @@ public class SubmissionPageView implements Serializable {
                     .asJson();
         } catch (UnirestException ex) {
             logger.log(Level.SEVERE, "Submission failed with UnirestException");
-            // TODO 
-            // call the sweeping method
-            String message ="Submission preparation failed with UnirestException";
-                Faces.getContext().addMessage("topMessage", 
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-                                "Submission Failure", message));
-            publishButtonEnabled=false;
+
+            detailedMsg ="Submission preparation failed with UnirestException";
+//            Faces.getContext().addMessage("topMessage", 
+//                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//                                summaryMsg, detailedMsg));
+//            publishButtonEnabled=false;
+//            
+//            String stackTrace=ExceptionUtils.getStackTrace(ex);
+            
+            postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex),
+                  summaryMsg, detailedMsg);
+            
+            
+            
+            
+            
             return;
         }
-        logger.log(Level.INFO, "Submission ended anyway; check the return code");
+        
+        logger.log(Level.INFO, "Submission ended without throwing any Exception; check the return code");
         responseBody = jsonResponse.getBody().toString();
         commonPostRequestStep(jsonResponse);
-        parseResponseBodyMetadataOnly();
-        viewDetailButtonEnabled=true;
+        //viewDetailButtonEnabled=true;
         logger.log(Level.INFO, "========== SubmissionPageView#uploadMetadataOnly: end ==========");
     }
     
     private void commonPostRequestStep(HttpResponse<JsonNode> jsonResponse){
         logger.log(Level.INFO, "#commonPostRequestStep(): start");
         
-        
         if (jsonResponse !=null){
+            String responseString = jsonResponse.getBody().toString();
             int statusCode = jsonResponse.getStatus();
             logger.log(Level.INFO, "status code={0}", statusCode);
 
             if (statusCode== 200 || statusCode==201){
                 logger.log(Level.INFO, "status code was OK:{0}", statusCode);
-                String message ="Metadata were successfully submitted";
+                
+                
+                detailedMsg ="Metadata were successfully submitted";
                 Faces.getContext().addMessage("topMessage", 
                         new FacesMessage(FacesMessage.SEVERITY_INFO, 
-                                "Submission Success", message));
+                                "Submission Success", detailedMsg));
                 
                 publishButtonEnabled=false;
+                
+                
+                
+                
             } else {
                 // returned code is not 200 nor 201
                 logger.log(Level.WARNING, "Status code is not 200:{0}",
                         statusCode);
-                String message ="Submission failed with the status code="+statusCode;
-                Faces.getContext().addMessage("topMessage", 
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-                                "Submission Failure", message));
-                publishButtonEnabled=false;
+                
+                
+                detailedMsg ="Submission failed with the status code="+statusCode;
+//                Faces.getContext().addMessage("topMessage", 
+//                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//                                summaryMsg, detailedMsg));
+//                publishButtonEnabled=false;
+                
+                postExceptionCommonSteps(responseString,
+                  summaryMsg, detailedMsg);
+                
                 
             }
         } else {
             logger.log(Level.WARNING, "Response is null");
             // failed locally or no response
-            String message ="Failed to get a response from the Dataverse server";
-                Faces.getContext().addMessage("topMessage", 
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-             "Submission Failure: Null response", message));
-            publishButtonEnabled=false;
+            
+            detailedMsg ="Failed to get a response from the Dataverse server";
+//            Faces.getContext().addMessage("topMessage", 
+//                    new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//             summaryMsg, detailedMsg));
+//            publishButtonEnabled=false;
+            
+            postExceptionCommonSteps(detailedMsg,
+                  summaryMsg, detailedMsg);
             
         }
         logger.log(Level.INFO, "#commonPostRequestStep(): end");
@@ -689,8 +779,8 @@ public class SubmissionPageView implements Serializable {
         logger.log(Level.INFO, "datasetDoiUrl={0}", datasetDoiUrl);
     }
     
-    private void parseResponseBodyMetadataOnly(){
-        
+//    private void parseResponseBodyMetadataOnly(){
+//        
         //logger.log(Level.FINE, "response body={0}", responseBody);
         // TODO
         // get key data from the response body
@@ -705,7 +795,7 @@ public class SubmissionPageView implements Serializable {
 //        
 //        datasetDoiUrl= doiServerPrefix+ returnedDatasetDoi.split(":")[1];
 //        logger.log(Level.INFO, "datasetDoiUrl={0}", datasetDoiUrl);
-    }
+//    }
     
     
     private void clearSession(){
@@ -821,18 +911,40 @@ public class SubmissionPageView implements Serializable {
                     new Object[]{dataFile.getId(), dataFile.isNotaryServiceBound()});
             dataFileFacade.edit(dataFile);
         }
-        logger.log(Level.INFO, "how many DataFiles were updated={0}", modifiedCounter);
+        logger.log(Level.INFO, "how many DataFiles were updated={0}", 
+          modifiedCounter);
         if (modifiedCounter >0){
             logger.log(Level.INFO, "re-exporting metadata files are necessary");
             
             try {
+                
                 reExportMetadataFiles();
-            } catch (RuntimeException e){
-                String message ="Failed to get a DatasetVersion; an ingest failure is suspected; check server.log";
-                Faces.getContext().addMessage("topMessage", 
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-             "Dataset Version is not available", message));
-                publishButtonEnabled=false;
+                
+            } catch (RuntimeException ex){
+                String message ="Failed to get a DatasetVersion;Ingest failure is suspected; check server.log";
+//                Faces.getContext().addMessage("topMessage", 
+//                    new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//                      summaryMsg, message));
+//                
+//                String stackTrace=ExceptionUtils.getStackTrace(ex);
+//                
+//                publishButtonEnabled=false;
+                
+                postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex),
+                  summaryMsg, message);
+                
+                return;
+            } catch (Exception ex){
+                String message ="Ingest failure is suspected; check server.log";
+//                Faces.getContext().addMessage("topMessage", 
+//                    new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//             "Dataset Version is not available", message));
+//                
+//                String stackTrace=ExceptionUtils.getStackTrace(ex);
+//                publishButtonEnabled=false;
+                postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex),
+                  summaryMsg, message);
+                
                 return;
             }
             
@@ -842,30 +954,29 @@ public class SubmissionPageView implements Serializable {
         }
         
         publishButtonEnabled=true;
-        String message ="New Notary-Service Settings were successfully saved";
+        String message ="Notary-Service designation was successfully saved";
         Faces.getContext().addMessage("topMessage", 
             new FacesMessage(FacesMessage.SEVERITY_INFO, 
-     "Change was successfully saved", message));
+     "The above esignation was successfully saved", message));
     }
     
     
     public void reExportMetadataFiles() throws RuntimeException{
         logger.log(Level.INFO, "========== SubmissionPageView#reExportMetadataFiles: start ==========");
-            List<DatasetVersion> versions = datasetVersionFcd.findAll();
-            if (versions != null && !versions.isEmpty()) {
-                logger.log(Level.INFO, "how many dataset versions={0}", versions.size());
-                DatasetVersion latestDatasetVerion= versions.get(versions.size()-1);
-                ingestService.exportDataset(latestDatasetVerion);
-            } else {
-                logger.log(Level.WARNING, "DatasetVersion is null|empty");
-                throw new RuntimeException("DatasetVersion is null|empty");
-                
-                // TODO
-                // create the error message 
-                // call the sweeping method
-                // return
-            }
-            
+        List<DatasetVersion> versions = datasetVersionFcd.findAll();
+        if (versions != null && !versions.isEmpty()) {
+            logger.log(Level.INFO, "how many dataset versions={0}", versions.size());
+            DatasetVersion latestDatasetVerion = versions.get(versions.size() - 1);
+            ingestService.exportDataset(latestDatasetVerion);
+        } else {
+            logger.log(Level.WARNING, "DatasetVersion is null|empty");
+            throw new RuntimeException("DatasetVersion is null|empty");
+
+            // TODO
+            // create the error message 
+            // call the sweeping method
+            // return
+        }
         
         logger.log(Level.INFO, "========== SubmissionPageView#reExportMetadataFiles: end ==========");
     }
@@ -877,9 +988,10 @@ public class SubmissionPageView implements Serializable {
         
         if(newValue != null && !newValue.equals(oldValue)) {
             
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
-                    "Selection Changed", "Old: " + oldValue + ", New:" + newValue);
-            Faces.getContext().addMessage("topGrowl", msg);
+            
+            Faces.getContext().addMessage("topGrowl", 
+              new FacesMessage(FacesMessage.SEVERITY_INFO, 
+              "Selection Changed", "Old: " + oldValue + ", New:" + newValue));
         }
     }
     
@@ -890,12 +1002,15 @@ public class SubmissionPageView implements Serializable {
     }
      
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((DataFile) event.getObject()).getId().toString());
-        Faces.getContext().addMessage("topGrowl", msg);
+        
+        Faces.getContext().addMessage("topGrowl", 
+          new FacesMessage("Edit Cancelled", 
+            ((DataFile) event.getObject()).getId().toString()));
     }
     
     public String returnToMainMenu(){
         logger.log(Level.INFO, "SubmissionPageView#returnToMainMenu: sessionscoped data are reset");
+        
         Faces.getExternalContext().invalidateSession();
         
         logger.log(Level.INFO, "return to the main menu");
@@ -905,9 +1020,11 @@ public class SubmissionPageView implements Serializable {
     public void showResponseBody(){
         logger.log(Level.FINE, "responseBody={0}", responseBody);
         
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, 
-                "Response Body", responseBody);
-        PrimeFaces.current().dialog().showMessageDynamic(message);
+//        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, 
+//                "Response Body", responseBody);
+//        PrimeFaces.current().dialog().showMessageDynamic(message);
+        showExceptionMessage();
+
     }
     
     private String responseBody;
@@ -935,21 +1052,73 @@ public class SubmissionPageView implements Serializable {
     
     public void showPayload(){
         logger.log(Level.FINE, "jsonBody={0}", jsonBody);
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, 
-                "Metadata to be submitted", jsonBody);
-        PrimeFaces.current().dialog().showMessageDynamic(message);
+//        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, 
+//                "Metadata to be submitted", jsonBody);
+//        PrimeFaces.current().dialog().showMessageDynamic(message);
+        showExceptionMessage();
     }
     
     
-    private boolean viewDetailButtonEnabled=false;
+//    private boolean viewDetailButtonEnabled=false;
+//
+//    public boolean isViewDetailButtonEnabled() {
+//        return viewDetailButtonEnabled;
+//    }
+//
+//    public void setViewDetailButtonEnabled(boolean viewDetailButtonEnabled) {
+//        this.viewDetailButtonEnabled = viewDetailButtonEnabled;
+//    }
+    
+    
+    
+    
+    private void postExceptionCommonSteps(String exceptionMsg, String summaryMsg, String detailedMsg) {
+        Faces.setSessionAttribute("currentMessageKey", "submissionMsg");
+        Faces.setSessionAttribute("submissionMsg", exceptionMsg);
+        Faces.getContext().addMessage("topMessage",
+          new FacesMessage(FacesMessage.SEVERITY_ERROR,
+            summaryMsg, detailedMsg));
 
-    public boolean isViewDetailButtonEnabled() {
-        return viewDetailButtonEnabled;
+        publishButtonEnabled=false;
+        designationButtonEnable=false;
+        showNsExceptionMsgEnabled=true;
+    }
+    
+    
+    public void showExceptionMessage(){
+        Map<String, Object> options = new HashMap<>();
+        options.put("resizable", true);
+        options.put("draggable", true);
+        options.put("modal", true);
+        options.put("width", 800);
+        options.put("height", 400);
+        options.put("contentWidth", "100%");
+        options.put("contentHeight", "100%");
+        PrimeFaces.current().dialog().openDynamic("/ingestFailureMessage.xhtml", 
+          options, null);
+    }
+    
+    boolean showNsExceptionMsgEnabled=false;
+
+    public boolean isShowNsExceptionMsgEnabled() {
+        return showNsExceptionMsgEnabled;
     }
 
-    public void setViewDetailButtonEnabled(boolean viewDetailButtonEnabled) {
-        this.viewDetailButtonEnabled = viewDetailButtonEnabled;
+    public void setShowNsExceptionMsgEnabled(boolean showNsExceptionMsgEnabled) {
+        this.showNsExceptionMsgEnabled = showNsExceptionMsgEnabled;
     }
+
+    boolean designationButtonEnable=true;
+
+    public boolean isDesignationButtonEnable() {
+        return designationButtonEnable;
+    }
+
+    public void setDesignationButtonEnable(boolean designationButtonEnable) {
+        this.designationButtonEnable = designationButtonEnable;
+    }
+    
+    
     
     
 }

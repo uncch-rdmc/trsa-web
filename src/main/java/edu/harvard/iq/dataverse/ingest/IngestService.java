@@ -69,6 +69,7 @@ import static org.apache.commons.text.CharacterPredicates.ASCII_UPPERCASE_LETTER
 import org.apache.commons.text.RandomStringGenerator;
 import org.dataverse.unf.UNFUtil;
 import org.dataverse.unf.UnfException;
+import us.cyberimpact.trsa.settings.AppConfig;
 import us.cyberimpact.trsa.settings.SettingsServiceBean;
 
 /**
@@ -88,6 +89,9 @@ public class IngestService {
     
     @EJB
     DatasetFacade datasetFacade;
+    
+    @EJB
+    AppConfig appConfig;
     
     static XStream xstream = new XStream(new JsonHierarchicalStreamDriver());
     
@@ -120,8 +124,9 @@ public class IngestService {
         logger.log(Level.INFO, "protocol={0}", protocol);
         String doiBase = authority + "/"+shoulder;
         logger.log(Level.INFO, "doiBase={0}", doiBase);
-        String filesRootDir = settingsSvc.getValueForKey(SettingsServiceBean.Key.TrsaLocalFiles);
-        
+        String filesRootDir = appConfig.getTrsaFilesBaseDirectory();//;
+        logger.log(Level.INFO, "appConfig:filesRootDir={0}", filesRootDir);
+        logger.log(Level.INFO, "settingsSvc:TrsaLocalFiles={0}", settingsSvc.getValueForKey(SettingsServiceBean.Key.TrsaLocalFiles));
         // update the defaults
         
         defaultProtocol = protocol;

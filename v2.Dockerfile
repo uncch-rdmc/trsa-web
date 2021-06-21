@@ -34,7 +34,7 @@ ARG TRSA_VERSION=2.0
 
 # odum: stage jhove additions and trsa.config
 COPY jhove* /tmp/
-COPY trsa.config /tmp/
+COPY v2.trsa.config /tmp/trsa.config
 
 # odum: just use domain1 for prototype
 # Initialize the configurable environment variables

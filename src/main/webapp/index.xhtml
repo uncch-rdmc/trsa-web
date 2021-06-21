@@ -6,6 +6,10 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       >
+    <f:metadata>
+    <f:viewAction action="#{homePageView.onload}" />
+</f:metadata>
+
     <h:head>
         <title></title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
@@ -23,12 +27,16 @@
                 <h:form id="form1">
                     <!--                <p:panel header="TRSA Web GUI Demo">-->
                         <h3>Welcome to Trusted Remote Storage Agent (TRSA) Web GUI</h3>
+                        <p:messages id="msg" showDetail="true" closable="true"
+                                    for="topMsg" severity="fatal,warn,error" globalOnly="true">
+                            <p:autoUpdate />
+                        </p:messages>
                         <p:messages id="messages" showDetail="true" closable="true"
-                                    for="topMessage" severity="warn,error,fatal" >
+                                    for="topMessage" severity="fatal,warn,error">
                             <p:autoUpdate />
                         </p:messages>
                         <p:growl id="topGrowl" showDetail="true" 
-                                    for="topGrowl" severity="info"/>
+                                 for="topGrowl" severity="info" sticky="true"/>
 
                         <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
                             

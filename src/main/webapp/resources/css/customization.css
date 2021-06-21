@@ -12,3 +12,7 @@ and open the template in the editor.
 .ui-outputlabel-rfi {
     color: red ;
 }
+
+.ui-progressbar-value{
+    background-color:lightsteelblue;
+}

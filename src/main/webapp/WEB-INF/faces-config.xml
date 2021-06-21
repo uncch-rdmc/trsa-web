@@ -19,10 +19,32 @@
         <el-resolver>
             org.primefaces.application.exceptionhandler.PrimeExceptionHandlerELResolver
         </el-resolver>
+        
+        
+    <action-listener>
+        org.primefaces.application.DialogActionListener
+    </action-listener>
+    <navigation-handler>
+        org.primefaces.application.DialogNavigationHandler
+    </navigation-handler>
+    <view-handler>
+        org.primefaces.application.DialogViewHandler
+    </view-handler>
+        
+        
+        
     </application>
     <factory>
-        <exception-handler-factory>
-            org.primefaces.application.exceptionhandler.PrimeExceptionHandlerFactory
-        </exception-handler-factory>
+        <exception-handler-factory>us.cyberimpact.trsa.exception.TrsaExceptionHandlerFactory</exception-handler-factory>
+<exception-handler-factory>
+org.omnifaces.exceptionhandler.FullAjaxExceptionHandlerFactory
+</exception-handler-factory>
     </factory>
+<navigation-rule>
+    <from-view-id>*</from-view-id>
+    <navigation-case>
+        <from-outcome>error</from-outcome>
+        <to-view-id>/error.xhtml</to-view-id>
+    </navigation-case>
+</navigation-rule>
 </faces-config>

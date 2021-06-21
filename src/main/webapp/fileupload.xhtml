@@ -21,6 +21,15 @@
                         <p:autoUpdate />
                     </p:messages>
                     <h3 style="margin:5px 5px 30px 5px">Upload and Ingest a File</h3>
+                    
+                <p:panel widgetVar="progressPanel"
+                 visible="false"
+                 style="border:none;"
+                 closable="true"
+                 toggleable="true">
+                
+                <p:progressBar style="height:10px;width:222px;"
+                               mode="indeterminate"/></p:panel>
 
                     <p:panelGrid class="ui-panelgrid-blank">
                         <p:row>
@@ -31,8 +40,8 @@
                                               mode="advanced" 
                                               dragDropSupport="false"
                                               multiple="false" 
-                                              update="messages ingestButton filename" 
-                                              
+                                              update="messages ingestButton filename fileupload" 
+                                              disabled="#{! fileUploadView.uploadButtonEnabled}"
                                               fileLimit="1" 
                                              
                                               />
@@ -48,27 +57,48 @@
 
                         <p:row>
                             <p:column>
-                                <p:commandButton id="ingestButton"
-                                                 value="Ingest the uploaded file"  
-                                                 disabled="#{! fileUploadView.ingestButtonEnabled}" 
-                                                 update="messages publishButton ingestButton"
-                                                 action="#{fileUploadView.execIngest()}"
-                                                 ajax="true"
-                                                 />
+        <p:commandButton id="ingestButton"
+                        value="Ingest the uploaded file" 
+                         
+                        widgetVar="ingestBttn"
+                        actionListener="#{fileUploadView.execIngest}" 
+                        onstart="PF('ingestBttn').disable();PF('progressPanel').show();"
+                        oncomplete="PF('progressPanel').close();PF('ingestBttn').disable();"
+                         
+                         
+                         
+                         disabled="#{! fileUploadView.ingestButtonEnabled}" 
+                         update="messages publishButton ingestButton showExceptionMessage fileupload"
+                         
+                         ajax="true" />
                             </p:column>
                             
                             <p:column>
-
+        <p:commandButton id="showExceptionMessage" styleClass="ui-button-outlined"
+                         value="Show Exception messages"
+                         icon="pi pi-external-link" 
+                         disabled="#{! fileUploadView.showMsgButtonEnabled}"
+                         action="#{fileUploadView.showExceptionMessage}"/>
                             </p:column>
+                            
+                            
+                            
+              
+                            
+                            
                             <p:column>
-                                <p:commandButton id="publishButton"  
-                                                 value="go to Submission page"  
-                                                 disabled="#{! fileUploadView.publishButtonEnabled}" 
-                                                 action="#{fileUploadView.goSubmissionPage()}" />
+        <p:commandButton id="publishButton"  
+                         value="go to Submission page"  
+                         disabled="#{! fileUploadView.publishButtonEnabled}" 
+                         action="#{fileUploadView.goSubmissionPage()}" />
                             </p:column>
 
                         </p:row>
+
+
                     </p:panelGrid>
+                    
+                    
 
                 </h:form>
 

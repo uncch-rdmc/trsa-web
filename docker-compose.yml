@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+    trsa-web:
+        container_name: trsa-web-3.210609.0
+        ports:
+            - '8989:8080'
+        restart: unless-stopped
+        network_mode: impact
+        build: 
+          context: .
+          dockerfile: v3.Dockerfile
+        entrypoint: ["/tini", "--"]
+        command: ["/bin/sh", "-c", "/opt/payara/scripts/entrypoint.sh"]
+networks: 
+  impact:
+    driver: bridge
+# base image's ENTRYPOINT AND CMD are as follows:
+# ENTRYPOINT ["/tini" "--"]
+# CMD ["/bin/sh" "-c" "\"${SCRIPT_DIR}/entrypoint.sh\""]
