@@ -413,9 +413,10 @@ public class DataverseConfirmationView implements Serializable{
         hostInfoFacade.save(hostInfo);
     }
     
-    public String returnToMainMenu(){
-        logger.log(Level.INFO, "back to the main menu");
-        return "/index.xhtml";
+    public String gotoDatasetSetup(){
+        logger.log(Level.INFO, "Next: Setup of a Dataset");
+        //return "/index.xhtml";
+        return "/hostinfo/List.xhtml";
     }
     
     boolean mainButtonEnabled = false;

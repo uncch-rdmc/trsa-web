@@ -29,24 +29,27 @@
                                      requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_trsaRegNmbr}"/>
                         <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_dataversealias}" for="dataversealias" />
                         <p:inputText id="dataversealias" value="#{hostInfoController.selected.dataversealias}" 
-                                     title="#{bundle_host.CreateHostInfoTitle_dataversealias}" />
+                                     title="#{bundle_host.CreateHostInfoTitle_dataversealias}" 
+                                     required="true" 
+                                     />
                         <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_dataversetitle}" for="dataversetitle" />
                         <p:inputText id="dataversetitle" value="#{hostInfoController.selected.dataversetitle}" 
                                      title="#{bundle_host.CreateHostInfoTitle_dataversetitle}" />
                         <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_datasetid}" for="datasetid" />
                         <p:inputText id="datasetid" value="#{hostInfoController.selected.datasetid}" 
                                      title="#{bundle_host.CreateHostInfoTitle_datasetid}" 
-                                     required="false" 
+                                     required="true" 
                                      requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_datasetid}"/>
-                        
-
                         <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_datasettitle}" for="datasettitle" />
                         <p:inputText id="datasettitle" value="#{hostInfoController.selected.datasetTitle}" 
-                                     title="#{bundle_host.CreateHostInfoTitle_datasettitle}" />
-                        
+                                     title="#{bundle_host.CreateHostInfoTitle_datasettitle}" 
+                                     required="false" 
+                                     />
                         <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_datasetdoi}" for="datasetdoi" />
                         <p:inputText id="datasetdoi" value="#{hostInfoController.selected.datasetDoi}" 
-                                     title="#{bundle_host.CreateHostInfoTitle_datasetdoi}" />
+                                     title="#{bundle_host.CreateHostInfoTitle_datasetdoi}" 
+                                     required="true" 
+                                     />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{hostInfoController.create}" 
                                      value="#{bundle_host.Save}" 

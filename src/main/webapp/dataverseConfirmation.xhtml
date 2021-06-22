@@ -89,9 +89,10 @@
                                              action="#{dataverseConfirmationView.showExceptionMessage}"/>
                 
                 
-                <p:commandButton id="mainButton" value="Return to Main Menu" 
+                <p:commandButton id="mainButton" value="Next: Setup Dataset" 
+                                 icon="pi pi-arrow-right"
                                  disabled="#{! dataverseConfirmationView.mainButtonEnabled}"
-                                 action="#{dataverseConfirmationView.returnToMainMenu()}" 
+                                 action="#{dataverseConfirmationView.gotoDatasetSetup()}" 
                                  update="messages" />
             </p:panel>
                     

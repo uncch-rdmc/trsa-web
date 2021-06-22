@@ -50,17 +50,21 @@
                         <p:inputText id="datasetid" 
                             value="#{hostInfoController.selected.datasetid}"
                             title="#{bundle_host.EditHostInfoTitle_datasetid}" 
-                            required="false" 
+                            required="true" 
                             requiredMessage="#{bundle_host.EditHostInfoRequiredMessage_datasetid}"/>
                         
                         <p:outputLabel value="#{bundle_host.EditHostInfoLabel_datasettitle}" for="datasettitle" />
                         <p:inputText id="datasettitle" 
                             value="#{hostInfoController.selected.datasetTitle}" 
-                            title="#{bundle_host.EditHostInfoTitle_datasettitle}" />
+                            title="#{bundle_host.EditHostInfoTitle_datasettitle}" 
+                            required="false" 
+                            />
                         <p:outputLabel value="#{bundle_host.EditHostInfoLabel_datasetdoi}" for="datasetdoi" />
                         <p:inputText id="datasetdoi" 
                             value="#{hostInfoController.selected.datasetDoi}" 
-                            title="#{bundle_host.EditHostInfoTitle_datasetdoi}"/>
+                            title="#{bundle_host.EditHostInfoTitle_datasetdoi}"
+                            required="true" 
+                            />
                         
                     </p:panelGrid>
                     <p:commandButton actionListener="#{hostInfoController.update}" 
