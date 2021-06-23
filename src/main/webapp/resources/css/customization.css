@@ -14,5 +14,11 @@ and open the template in the editor.
 }
 
 .ui-progressbar-value{
-    background-color:lightsteelblue;
+    background-color:#cce6ff;
 }
+
+.ui-panel {
+    width: auto;
+}
+
+

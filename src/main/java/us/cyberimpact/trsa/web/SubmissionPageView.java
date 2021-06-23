@@ -953,6 +953,7 @@ public class SubmissionPageView implements Serializable {
             logger.log(Level.INFO, "re-exporting metadata files are NOT necessary");
         }
         
+        designationButtonEnable=false;
         publishButtonEnabled=true;
         String message ="Notary-Service designation was successfully saved";
         Faces.getContext().addMessage("topMessage", 

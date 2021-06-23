@@ -15,9 +15,44 @@
 
 
                 <style type="text/css">
-                    .ui-row-editor .ui-row-editor-pencil {
-                        margin-left:8px;
-                    }
+
+                    
+                    
+
+            .ui-toggleswitch-slider {
+                -webkit-transition: background-color 0.3s, box-shadow 0.2s;
+                transition: background-color 0.3s, box-shadow 0.2s;
+                background: #cccccc;
+            }
+
+            .ui-toggleswitch-slider:before {
+                background-color: #ffffff;
+            }
+
+            .ui-toggleswitch-focus .ui-toggleswitch-slider {
+                -moz-box-shadow: 0px 0px 5px #c0c0c0;
+                -webkit-box-shadow: 0px 0px 5px #c0c0c0;
+                box-shadow: 0px 0px 5px #c0c0c0;
+            }
+
+            .ui-toggleswitch:not(.ui-state-disabled):hover .ui-toggleswitch-slider {
+                background-color: #b7b7b7;
+            }
+
+            .ui-toggleswitch.ui-toggleswitch-checked .ui-toggleswitch-slider {
+                background-color: #cce6ff;
+            }
+
+            .ui-toggleswitch.ui-toggleswitch-checked:not(.ui-state-disabled):hover .ui-toggleswitch-slider {
+                background-color: #283593;
+            }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                 </style>
 
                 <h:form id="form" target="_blank">
@@ -30,34 +65,30 @@
                                      severity="info"/>
                     <h3 style="margin:5px 5px 30px 5px">Submission</h3>
 
-<p:panel id="notaryServiceSelection" visible="#{! submissionPageView.publishButtonEnabled}">
+<p:panel id="notaryServiceSelection" >
                         
-                    <h4 stype="margin:5px 5px 30px 5px"><h:outputText value="You may change the Notary Service Setting before submission."/></h4>
-                    <br/>
                     <p:panelGrid id="nsPanel" columns="1"  >
-                        <f:facet name="header">
-                            Notary Service Designation
+                        <f:facet name="header" >
+<h:outputText value="Notary Service Designation"/>
                         </f:facet>                    
 
 
 
+
+
+                        
+                        
+                        
+                        
                         <p:dataTable id="nsSelect" 
-                                     editable="true" 
-                                     editMode="row"
                                      var="dataFile"
                                      value="#{submissionPageView.ingestedDataFileList}" 
-                                     cellEditMode="eager" 
+                                     tableStyle="width:auto"
                                      style="margin-bottom:20px">
                             <f:facet name="header">
-                                Set Notary Service Bound or not for Each Ingested File
+<h:outputText value="Set Notary Service Bound or not for Each Ingested File"/>
                             </f:facet>
 
-                            <p:ajax event="rowEdit" 
-                                    listener="#{submissionPageView.onRowEdit}" 
-                                    update=":form:messages" />
-                            <p:ajax event="rowEditCancel" 
-                                    listener="#{submissionPageView.onRowCancel}" 
-                                    update=":form:messages" />
 
                             <p:column headerText="DataFile Id">
                                 <h:outputText value="#{dataFile.id}" />
@@ -68,37 +99,29 @@
                             </p:column>
 
                             <p:column headerText="Notary-Service">
-                                <p:cellEditor>
-                                    <f:facet name="output">
-                                        <p:selectBooleanButton 
-                                            onLabel="Yes" 
-                                            offLabel="No" 
-                                            value="#{dataFile.notaryServiceBound}" 
-                                            onIcon="ui-icon-check" 
-                                            offIcon="ui-icon-close" />
-                                    </f:facet>
-                                    <f:facet name="input" id="nsvalue">
-                                        <p:selectBooleanButton 
-                                            onLabel="Yes" 
-                                            offLabel="No" 
-                                            value="#{dataFile.notaryServiceBound}" 
-                                            onIcon="ui-icon-check" 
-                                            offIcon="ui-icon-close" />
-                                    </f:facet>
-                                </p:cellEditor>
+   
+                <h:outputText id="nsToggleLabel" 
+                              
+                              value="#{ dataFile.notaryServiceBound ? 'Yes' : 'No'}" 
+                              style="vertical-align: middle;" />
+                <p:toggleSwitch 
+                    id="nsToggle"
+                    disabled="#{ submissionPageView.publishButtonEnabled }"
+                    value="#{dataFile.notaryServiceBound}" 
+                    style="vertical-align: middle;margin-left:5px;margin-right:5px;" 
+                                >
+                    <p:ajax  update="nsToggleLabel"/>
+                </p:toggleSwitch>
+                                
+                                
+                                
+                
+                            </p:column>
 
-                            </p:column>
-                            <p:column style="width:35px" headerText="Modify">
-                                <p:rowEditor 
-                                    editTitle="Change default designation" 
-                                    saveTitle="Save change" 
-                                    cancelTitle='Cancel' 
-                                    />
-                            </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="saveNSBoundupdate" 
                                              ajax="true" 
-                                             update="form:messages form:growl, form:summaryPanel form:submitButton saveNSBoundupdate form:notaryServiceSelection showNsExceptionMessage" 
+                                             update="form:messages form:growl, form:summaryPanel form:submitButton saveNSBoundupdate form:notaryServiceSelection showNsExceptionMessage nsToggle" 
                                              value="save Notary Service designation" 
                                              action="#{submissionPageView.saveNSchanges}"
                                              disabled="#{! submissionPageView.designationButtonEnable}"
@@ -112,8 +135,10 @@
                             
                         </f:facet>
                         </p:dataTable>
-
-
+                        
+                        
+                        
+                        
 
                         
                     </p:panelGrid>
@@ -124,7 +149,7 @@
                     <p:panelGrid columns="2"  
                                  >            
                         <f:facet name="header">
-                            Submission: Detail
+<h:outputText value="Submission: Detail"/>
                         </f:facet>
                         <h:outputLabel for="dataverseServer"  value="Dataverse server:" /> 
                         <h:outputText id="dataverseServer" value="#{submissionPageView.dataverseServer}" />
