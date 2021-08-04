@@ -271,7 +271,7 @@ public class DataFile implements Serializable {
     }
     
     @Column(nullable = false)
-    private boolean notaryServiceBound=false;
+    private boolean notaryServiceBound=true;
 
     /**
      * Get the value of notaryServiceBound
