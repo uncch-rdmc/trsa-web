@@ -59,6 +59,7 @@ pom.xml.tag
 
 # vs code specific
 .vscode
+.factorypath
 # asciidoc svg-file directory
 meida/
 
