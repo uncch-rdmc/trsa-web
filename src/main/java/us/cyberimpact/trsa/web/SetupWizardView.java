@@ -463,15 +463,15 @@ public class SetupWizardView implements Serializable {
             JsonResponseParser jsonParser = new JsonResponseParser();
             
             String dataverseAlias = 
-                    jsonParser.ParseTargetStringField(responseString, "/data/alias");
+                    jsonParser.parseTargetStringField(responseString, "/data/alias");
             logger.log(Level.INFO, "dataverseAlias={0}", dataverseAlias);
             String dataverseTitle =
-                    jsonParser.ParseTargetStringField(responseString, "/data/name");
+                    jsonParser.parseTargetStringField(responseString, "/data/name");
                 // save the title 
                 hostInfo.setDataversetitle(dataverseTitle);
             logger.log(Level.INFO, "dataverseTitle={0}", dataverseTitle);
             String dataverseId = 
-                    jsonParser.ParseTargetNumericField(responseString, "/data/id").toString();
+                    jsonParser.parseTargetNumericField(responseString, "/data/id").toString();
             
             logger.log(Level.INFO, "dataverseId={0}", dataverseId);
             hostInfo.setDataverseid(Long.parseLong(dataverseId));

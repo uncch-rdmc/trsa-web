@@ -58,4 +58,11 @@ public class JsonPointerForDataset {
     public static String POINTER_TO_DATAVERSE_ALIAS="/data/alias";
     
     public static String POINTER_TO_DATAVERSE_TITLE="/data/name";
+    
+    // files tag: array
+    public static String POINTER_TO_FILES="/data/latestVersion/files";
+    
+    public static String POINTER_TO_MD5="/dataFile/md5";
+    
+    public static String POINTER_TO_FILENAME="/dataFile/filename";
 }

@@ -1,0 +1,76 @@
+{
+  "datasetVersion": {
+    "metadataBlocks": {
+      "citation": {
+        "displayName": "Citation Metadata",
+        "fields": [
+          {
+            "multiple": false,
+            "typeClass": "primitive",
+            "typeName": "title",
+            "value": "dataset title here"
+          },
+          {
+            "multiple": true,
+            "typeClass": "compound",
+            "typeName": "author",
+            "value": [
+              {
+                "authorAffiliation": {
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "typeName": "authorAffiliation",
+                  "value": "Institution name here"
+                },
+                "authorName": {
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "typeName": "authorName",
+                  "value": "last-name, first-name"
+                }
+              }
+            ]
+          },
+          {
+            "multiple": true,
+            "typeClass": "compound",
+            "typeName": "datasetContact",
+            "value": [
+              {
+                "datasetContactEmail": {
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "typeName": "datasetContactEmail",
+                  "value": "xxxx@email.unc.edu"
+                }
+              }
+            ]
+          },
+          {
+            "multiple": true,
+            "typeClass": "compound",
+            "typeName": "dsDescription",
+            "value": [
+              {
+                "dsDescriptionValue": {
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "typeName": "dsDescriptionValue",
+                  "value": "dataset description here"
+                }
+              }
+            ]
+          },
+          {
+            "multiple": true,
+            "typeClass": "controlledVocabulary",
+            "typeName": "subject",
+            "value": [
+              "Other"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
