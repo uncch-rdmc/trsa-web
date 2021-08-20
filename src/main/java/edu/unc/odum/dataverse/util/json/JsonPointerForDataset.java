@@ -62,7 +62,7 @@ public class JsonPointerForDataset {
     // files tag: array
     public static String POINTER_TO_FILES="/data/latestVersion/files";
     
-    public static String POINTER_TO_MD5="/dataFile/md5";
+    public static String POINTER_TO_MD5_VALUE="/dataFile/md5";
     
     public static String POINTER_TO_FILENAME="/dataFile/filename";
 }

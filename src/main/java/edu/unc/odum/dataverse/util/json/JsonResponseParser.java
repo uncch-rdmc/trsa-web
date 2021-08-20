@@ -170,9 +170,36 @@ public class JsonResponseParser {
      * @param responseString
      * @return 
      */
-    public Map<String, String> getFilenameToMD5Table(String responseString){
-        Map<String, String> fileNameToMD5 = new LinkedHashMap<>();
+    public Map<String, String> getMD5ToFilenameTable(String responseString) throws IOException{
+        Map<String, String> md5toFileName = new LinkedHashMap<>();
         
-        return fileNameToMD5;
+        
+        
+        try (InputStream is = new ByteArrayInputStream(responseString.getBytes());
+          JsonReader jsonReader = Json.createReader(is);) {
+
+            JsonStructure jsonStructure = jsonReader.read();
+            JsonPointer pFiles = Json.createPointer(JsonPointerForDataset.POINTER_TO_FILES);
+            JsonArray Files = (JsonArray) pFiles.getValue(jsonStructure);
+            JsonPointer pMd5 = Json.createPointer(JsonPointerForDataset.POINTER_TO_MD5_VALUE);
+            JsonPointer pFilename = Json.createPointer(JsonPointerForDataset.POINTER_TO_FILENAME);
+            
+            for (JsonValue jvFile : Files) {
+                JsonString jsMd5 = (JsonString) pMd5.getValue(jvFile.asJsonObject());
+                String md5Value = jsMd5.getString();
+                JsonString jsFilename = (JsonString) pFilename.getValue(jvFile.asJsonObject());
+                String filename = jsFilename.getString();
+                logger.log(Level.INFO, "md5value={0}", md5Value);
+                logger.log(Level.INFO, "filename={0}", filename);
+                //md5List.add(md5Value);
+                md5toFileName.put(md5Value, filename);
+            }
+            //logger.log(Level.INFO, "md5List={0}", md5List);
+            int result = md5toFileName.size();
+            
+            logger.log(Level.INFO, "result={0}", result);
+        }
+        
+        return md5toFileName;
     }
 }
