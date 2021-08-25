@@ -51,7 +51,7 @@ public class JsonPointerForDataset {
     // data tags: array
     public static String POINTER_TO_FILE_DATATAG="datasetVersion/files/5/categories/";
     
-    
+    // For a response string: Dataverse 
     
     public static String POINTER_TO_DATAVERSE_ID ="/data/id";
     
@@ -59,8 +59,16 @@ public class JsonPointerForDataset {
     
     public static String POINTER_TO_DATAVERSE_TITLE="/data/name";
     
+    
+    // for a response string: Dataset
+    public static String POINTER_TO_PROTOCOL="/data/protocol";
+    
+    public static String POINTER_TO_STORAGEIDENTIFIER="/data/storageIdentifier";
+    
     // files tag: array
-    public static String POINTER_TO_FILES="/data/latestVersion/files";
+    public static String POINTER_TO_LV_FILES="/data/latestVersion/files";
+    
+    public static String POINTER_TO_LV_DATASETPERSISTENTID="/data/latestVersion/datasetPersistentId";
     
     public static String POINTER_TO_MD5_VALUE="/dataFile/md5";
     
