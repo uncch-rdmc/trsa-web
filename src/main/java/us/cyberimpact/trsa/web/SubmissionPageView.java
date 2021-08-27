@@ -904,7 +904,9 @@ public class SubmissionPageView implements Serializable {
     public void saveNSchanges(){
         int modifiedCounter = 0;
         for (DataFile dataFile: ingestedDataFileList){
-            if (dataFile.isNotaryServiceBound()){
+            // as of August 2021, by default, notary-service-bound is set to true
+            // non-NS cases must be counted
+            if (! dataFile.isNotaryServiceBound()){
                 modifiedCounter++;
             }
             logger.log(Level.INFO, "id:{0}:isNotaryServiceBound={1}", 
