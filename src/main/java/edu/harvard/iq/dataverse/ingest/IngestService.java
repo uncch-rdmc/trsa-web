@@ -288,7 +288,7 @@ public class IngestService {
         logger.log(Level.FINE, "dataset:contents={0}", xstream.toXML(dataset));
         logger.log(Level.FINE, "version from dataset:contents={0}", xstream.toXML(version.getDataset()));
 
-        // The following step transfoms the target file to a list of Datafile(s)
+        // The following step transforms the target file to a list of Datafile(s)
         // and makes it ready for its ultimate ingest
         initialFileList = FileUtil.createDataFiles(version, fileInputStream, filename, contentType, systemConfig);
 

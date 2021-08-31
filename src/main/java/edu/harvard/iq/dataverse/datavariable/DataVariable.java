@@ -94,6 +94,7 @@ public class DataVariable implements Serializable {
      * former VariableIntervalType
      */
     //@ManyToOne
+    @Column(name="\"interval\"")
     private VariableInterval interval;
 
     
@@ -105,6 +106,7 @@ public class DataVariable implements Serializable {
      */
     //@ManyToOne
     //@JoinColumn(nullable=false)
+    @Column(name="\"type\"")
     private VariableType type;
 
     /*
