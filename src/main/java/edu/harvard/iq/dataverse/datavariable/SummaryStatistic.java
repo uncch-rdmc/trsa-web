@@ -7,6 +7,7 @@
 package edu.harvard.iq.dataverse.datavariable;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -58,12 +59,14 @@ public class SummaryStatistic implements Serializable {
     
     //@ManyToOne
     //@JoinColumn(nullable=false)
+    @Column(name="\"type\"")
     private SummaryStatisticType type;
 
     
     /*
      * value: string representation of this Summary Statistic value. 
      */
+    @Column(name="\"value\"")
     private String value;
 
     

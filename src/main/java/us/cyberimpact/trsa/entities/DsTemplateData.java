@@ -83,7 +83,7 @@ public class DsTemplateData implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 255, name="\"user\"")
     private String user;
 
     public DsTemplateData() {

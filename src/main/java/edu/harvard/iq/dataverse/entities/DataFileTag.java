@@ -91,7 +91,7 @@ public class DataFileTag implements Serializable {
         return retlist;
     }
     
-    @Column( nullable = false )
+    @Column(name="\"type\"", nullable = false )
     private TagType type; 
     
     public DataFile getDataFile() {
