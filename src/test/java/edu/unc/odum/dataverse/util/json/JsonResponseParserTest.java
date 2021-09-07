@@ -1,5 +1,6 @@
 package edu.unc.odum.dataverse.util.json;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -7,18 +8,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonNumber;
-import javax.json.JsonObject;
 import javax.json.JsonPointer;
 import javax.json.JsonReader;
 import javax.json.JsonString;
 import javax.json.JsonStructure;
 import javax.json.JsonValue;
-import org.glassfish.jersey.internal.guava.Lists;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.jupiter.api.AfterAll;
@@ -26,6 +26,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -162,8 +163,6 @@ public class JsonResponseParserTest {
     @Test
     public void testGetMD5ValueList() throws Exception {
         System.out.println("getMD5ValueList");
-
-
         
         
         String responseFileName = "/json/response-string-3.json";
@@ -198,6 +197,70 @@ public class JsonResponseParserTest {
         
         
         
+    }
+
+    /**
+     * Test of getListOfDuplicatedMD5Values method, of class JsonResponseParser.
+     */
+//    @Disabled
+//    @Test
+//    public void testGetListOfDuplicatedMD5Values() throws Exception {
+//        System.out.println("getListOfDuplicatedMD5Values");
+//        String responseFileName = "/json/response-string.json";
+//        
+//        //String responseString = "";
+//        //JsonResponseParser instance = new JsonResponseParser();
+//        List<String> expResult = new ArrayList<>(List.of("13 enforcer_menu_2012-10-08.png"));
+//        List<String> result;
+//        try (InputStream is = getClass().getResourceAsStream(responseFileName);
+//            Scanner sc = new Scanner(is);){
+//            String responseString = sc.nextLine();
+//            JsonResponseParser instance = new JsonResponseParser();
+//            result = instance.getListOfDuplicatedMD5Values(responseString);
+//        }
+//        assertEquals(expResult, result);
+//    }
+
+    /**
+     * Test of getMD5ValueToFilenameTable method, of class JsonResponseParser.
+     */
+    @Disabled
+    @Test
+    public void testGetMD5ValueToFilenameTable() throws IOException {
+        System.out.println("getMD5ValueToFilenameTable");
+        String responseFileName = "/json/response-string-3.json";
+        int expResult = 3;
+        Map<String, String> result;
+        logger.log(Level.INFO, "expResult={0}", expResult);
+        try (InputStream is = getClass().getResourceAsStream(responseFileName);
+            Scanner sc = new Scanner(is);){
+            String responseString = sc.nextLine();
+            JsonResponseParser instance = new JsonResponseParser();
+            result = instance.getMD5ValueToFilenameTable(responseString);
+        }
+        assertEquals(expResult, result.size());
+    }
+
+    /**
+     * Test of getFilenameSetFromResponse method, of class JsonResponseParser.
+     */
+    @Test
+    public void testGetFilenameSetFromResponse() throws IOException {
+        System.out.println("getFilenameSetFromResponse");
+        String responseFileName = "/json/response-string_latest-draft-all-in-1.json";
+        int expResult = 5;
+        Set<String> result;
+        
+        try (InputStream is = getClass().getResourceAsStream(responseFileName);
+            Scanner sc = new Scanner(is);){
+            String responseString = sc.nextLine();
+            logger.log(Level.INFO, "responseString={0}", responseString);
+            JsonResponseParser instance = new JsonResponseParser();
+            result = instance.getFilenameSetFromResponse(responseString);
+            logger.log(Level.INFO, "result={0}", result);
+        }
+        int actual = result.size();
+        assertEquals(expResult, actual);
     }
 
 

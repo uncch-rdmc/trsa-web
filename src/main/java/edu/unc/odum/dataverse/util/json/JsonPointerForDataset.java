@@ -67,10 +67,14 @@ public class JsonPointerForDataset {
     
     // files tag: array
     public static String POINTER_TO_LV_FILES="/data/latestVersion/files";
-    
+    public static String POINTER_TO_FILES="/data/files";    
     public static String POINTER_TO_LV_DATASETPERSISTENTID="/data/latestVersion/datasetPersistentId";
+    
+    public static String POINTER_TO_DIR_LABEL="/directoryLabel";
     
     public static String POINTER_TO_MD5_VALUE="/dataFile/md5";
     
     public static String POINTER_TO_FILENAME="/dataFile/filename";
+    
+    public static String POINTER_TO_ORIG_FILENAME="/dataFile/originalFileName";
 }
