@@ -6,6 +6,8 @@ import edu.harvard.iq.dataverse.entities.DatasetVersionFacade;
 import edu.harvard.iq.dataverse.export.ExportException;
 import edu.harvard.iq.dataverse.ingest.IngestException;
 import edu.harvard.iq.dataverse.ingest.IngestService;
+import edu.unc.odum.dataverse.util.json.HttpClientByUnirest;
+import edu.unc.odum.dataverse.util.json.JsonResponseParser;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,8 +17,11 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -36,6 +41,7 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.file.UploadedFile;
 import us.cyberimpact.trsa.entities.DsTemplateData;
+import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
 import us.cyberimpact.trsa.entities.TrsaProfile;
 import us.cyberimpact.trsa.entities.TrsaProfileFacade;
@@ -102,6 +108,32 @@ public class FileUploadView implements Serializable {
         this.selectedRequestType = selectedRequestType;
     }
     
+    
+    private HostInfo selectedHostInfo;
+
+    public HostInfo getSelectedHostInfo() {
+        return selectedHostInfo;
+    }
+
+    public void setSelectedHostInfo(HostInfo selectedHostInfo) {
+        this.selectedHostInfo = selectedHostInfo;
+    }
+    
+//    String dataverseServer;
+//
+//    public String getDataverseServer() {
+//        return dataverseServer;
+//    }
+//
+//    public void setDataverseServer(String dataverseServer) {
+//        this.dataverseServer = dataverseServer;
+//    }
+    
+    
+    
+    // related to the duplication check
+    Set<String> filenameSet; 
+    
     @PostConstruct
     public void init() {
         logger.log(Level.INFO, "=========== FileUploadView#init: start ===========");
@@ -110,7 +142,21 @@ public class FileUploadView implements Serializable {
         selectedDatasetId=Faces.getSessionAttribute("selectedDatasetId");
         logger.log(Level.INFO, "selectedDatasetId received={0}",selectedDatasetId);
         
-        logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
+        selectedHostInfo = Faces.getSessionAttribute("selectedHostInfo");
+        logger.log(Level.INFO, "FileUploadView#init: selectedHostInfo={0}", selectedHostInfo);
+        
+        
+        // TODO 
+        // add code here to make an API call to the dataset
+        // receive the current set of filenames in the Dataset
+        logger.log(Level.INFO, "numeric DatasetId={0}", selectedHostInfo.getDatasetid());
+        HttpClientByUnirest client = new HttpClientByUnirest(selectedHostInfo.getHosturl(), selectedHostInfo.getApitoken());
+        filenameSet = client.getLatestSetOfFilenamesFromDataset(selectedHostInfo.getDatasetid().toString());//getLatestSetOfFilenamesFromDataset(destination);
+        if (filenameSet== null || filenameSet.isEmpty()){
+            logger.log(Level.INFO, "filenameSet is empty");
+        } else {
+            logger.log(Level.INFO, "filenameSet:size={0}", filenameSet.size());
+        }
         
         trsaProfileTable= trsaProfileFacade.findAll();
         logger.log(Level.INFO, "FileUploadView:TrsaProfileTable={0}", trsaProfileTable);
@@ -179,8 +225,30 @@ public class FileUploadView implements Serializable {
     public void upload(FileUploadEvent event) {
         logger.log(Level.INFO, "=========== FileUploadView#upload: start ===========");
         file = event.getFile();
-        logger.log(Level.INFO, "file.getFileName()={0}", file.getFileName());
-        logger.log(Level.INFO, "fileName={0}", fileName);
+        String selectedFilename = file.getFileName();
+        logger.log(Level.INFO, "selectedFilename: file.getFileName()={0}", selectedFilename);
+        //logger.log(Level.INFO, "fileName={0}", fileName); // here fileName is null
+        
+        boolean hasThisDatafilename = filenameSet.contains(selectedFilename);//checkFilenameDuplication(selectedFilename);
+        
+        if (hasThisDatafilename){
+            logger.log(Level.INFO, "The selected filename={0} already exits in the Dataset", selectedFilename);
+            String summaryMsg = "Duplicated Filename";
+            wipeOutIngestFailure();
+            ingestButtonEnabled = false;
+            publishButtonEnabled = false;
+            String detailedMessage = "cannot upload [" + selectedFilename + "] : The selected filename exits in the target Dataset";
+//            String errorMessage = "Duplicated Filename";
+//            postExceptionCommonSteps(errorMessage, summaryMsg, detailedMessage);
+            Faces.getContext().addMessage("topMessage",
+            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+            summaryMsg, detailedMessage));
+            uploadButtonEnabled = true;
+            return ;
+        } else {
+            logger.log(Level.INFO, "The selected filename={0} does not exit in the laste Dataset", selectedFilename);
+        }
+    
 
         String summaryMsg="Uploading Failure";
         if (file == null) {
@@ -277,7 +345,7 @@ public class FileUploadView implements Serializable {
                 logger.log(Level.INFO, "DatasetVersion is null/empty");
             }
             
-            String message = fileName + " has been successfully ingested and new dataset (Id=" + datasetIdentifier + ") was created";
+            String message = fileName + " has been successfully ingested for dataset (Id=" + datasetIdentifier + ")";
             Faces.getContext().addMessage("topMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Ingest Success", message));
             Faces.setSessionAttribute("datasetIdentifier", datasetIdentifier);
             Faces.setSessionAttribute("ingestedDataFileList", ingestedDataFileList);
@@ -487,7 +555,31 @@ public class FileUploadView implements Serializable {
     }
     
     
-    
 
+    
+    
+    
+    
+//    public Map<String, String> parseResponseBody(String responseBody) {
+//        logger.log(Level.FINE, "response body={0}", responseBody);
+//        JsonResponseParser jsonParser = new JsonResponseParser();
+//        Map<String, String> mD5toFileNameTable = new LinkedHashMap<>();
+//        try {
+//            mD5toFileNameTable = jsonParser.getMD5ValueToFilenameTable(responseBody);
+//        } catch (IOException ex) {
+//            logger.log(Level.SEVERE, "IOEXception was thrown: mD5toFileNameTable will be empty", ex);
+//            
+//        }
+//        return mD5toFileNameTable;
+//    }
+
+//    private boolean checkFilenameDuplication(String filename){
+//        logger.log(Level.INFO, "filename to be checked={0}", filename);
+//        
+//        logger.log(Level.INFO, "The set contains the filename?={0}", 
+//          filenameSet.contains(filename));
+//        
+//        return filenameSet.contains(filename);
+//    }
 
 }

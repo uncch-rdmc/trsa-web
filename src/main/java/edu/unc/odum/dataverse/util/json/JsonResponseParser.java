@@ -8,11 +8,14 @@ package edu.unc.odum.dataverse.util.json;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +29,7 @@ import javax.json.JsonReader;
 import javax.json.JsonString;
 import javax.json.JsonStructure;
 import javax.json.JsonValue;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -145,11 +149,11 @@ public class JsonResponseParser {
 //
 //            JsonStructure jsonStructure = jsonReader.read();
 //            JsonPointer pFiles = Json.createPointer(JsonPointerForDataset.POINTER_TO_LV_FILES);
-//            JsonArray Files = (JsonArray) pFiles.getValue(jsonStructure);
+//            JsonArray files = (JsonArray) pFiles.getValue(jsonStructure);
 //            JsonPointer pMd5 = Json.createPointer("/dataFile/md5");
 //            List<String> md5List = new ArrayList<>();
 //            
-//            for (JsonValue jvFile : Files) {
+//            for (JsonValue jvFile : files) {
 //                JsonString jsMd5 = (JsonString) pMd5.getValue(jvFile.asJsonObject());
 //                String md5Value = jsMd5.getString();
 //                logger.log(Level.INFO, "md5value={0}", md5Value);
@@ -203,48 +207,48 @@ public class JsonResponseParser {
      * @return the list of duplicated MD5 values
      * @throws IOException
      */
-    public List<String> getListOfDuplicatedMD5Values(String responseString) throws IOException{
-        
-        List<String> md5List = new ArrayList<>();
-
-        try (InputStream is =  new ByteArrayInputStream(responseString.getBytes());
-          JsonReader jsonReader = Json.createReader(is);) {
-
-            JsonStructure jsonStructure = jsonReader.read();
-            JsonPointer pFiles = Json.createPointer(JsonPointerForDataset.POINTER_TO_LV_FILES);
-            JsonArray Files = (JsonArray) pFiles.getValue(jsonStructure);
-            JsonPointer pMd5 = Json.createPointer(JsonPointerForDataset.POINTER_TO_MD5_VALUE);
-
-            
-            for (JsonValue jvFile : Files) {
-                JsonString jsMd5 = (JsonString) pMd5.getValue(jvFile.asJsonObject());
-                String md5Value = jsMd5.getString();
-                logger.log(Level.INFO, "md5value={0}", md5Value);
-                md5List.add(md5Value);
-            }
-            logger.log(Level.INFO, "md5List={0}", md5List);
-            int result = md5List.size();
-            
-            logger.log(Level.INFO, "result={0}", result);
-
-        }
-        
-        List<String> duplicates = 
-          md5List.stream().collect(Collectors.groupingBy(Function.identity()))
-            .entrySet()
-            .stream()
-            .filter(e -> e.getValue().size() > 1)
-            .map(Map.Entry::getKey)
-            .collect(Collectors.toList());
-
-        if (duplicates==null){
-            duplicates = new ArrayList<>();
-        }
-        logger.log(Level.INFO, "duplicates={0}", duplicates);
-        int result = duplicates.size();
-        logger.log(Level.INFO, "result={0}", result);
-        return duplicates;
-    }
+//    public List<String> getListOfDuplicatedMD5Values(String responseString) throws IOException{
+//        
+//        List<String> md5List = new ArrayList<>();
+//
+//        try (InputStream is =  new ByteArrayInputStream(responseString.getBytes());
+//          JsonReader jsonReader = Json.createReader(is);) {
+//
+//            JsonStructure jsonStructure = jsonReader.read();
+//            JsonPointer pFiles = Json.createPointer(JsonPointerForDataset.POINTER_TO_LV_FILES);
+//            JsonArray Files = (JsonArray) pFiles.getValue(jsonStructure);
+//            JsonPointer pMd5 = Json.createPointer(JsonPointerForDataset.POINTER_TO_MD5_VALUE);
+//
+//            
+//            for (JsonValue jvFile : Files) {
+//                JsonString jsMd5 = (JsonString) pMd5.getValue(jvFile.asJsonObject());
+//                String md5Value = jsMd5.getString();
+//                logger.log(Level.INFO, "md5value={0}", md5Value);
+//                md5List.add(md5Value);
+//            }
+//            logger.log(Level.INFO, "md5List={0}", md5List);
+//            int result = md5List.size();
+//            
+//            logger.log(Level.INFO, "result={0}", result);
+//
+//        }
+//        
+//        List<String> duplicates = 
+//          md5List.stream().collect(Collectors.groupingBy(Function.identity()))
+//            .entrySet()
+//            .stream()
+//            .filter(e -> e.getValue().size() > 1)
+//            .map(Map.Entry::getKey)
+//            .collect(Collectors.toList());
+//
+//        if (duplicates==null){
+//            duplicates = new ArrayList<>();
+//        }
+//        logger.log(Level.INFO, "duplicates={0}", duplicates);
+//        int result = duplicates.size();
+//        logger.log(Level.INFO, "result={0}", result);
+//        return duplicates;
+//    }
     
     
     
@@ -254,7 +258,7 @@ public class JsonResponseParser {
      * @return the Map of MD5-value to-Filename
      * @throws IOException
      */
-    public Map<String, String> GetMD5ValueToFilenameTable(String responseString) throws IOException{
+    public Map<String, String> getMD5ValueToFilenameTable(String responseString) throws IOException{
         Map<String, String> md5toFileName = new LinkedHashMap<>();
 
         try (InputStream is = new ByteArrayInputStream(responseString.getBytes());
@@ -287,4 +291,78 @@ public class JsonResponseParser {
         return md5toFileName;
     }
     
+    
+    public Set<String> getFilenameSetFromResponse(String responseString) throws IOException{
+        logger.log(Level.INFO, "---------- JsonResponseParser#getFilenameSetFromResponse");
+        Set<String> filenameSet = new LinkedHashSet<>();
+        logger.log(Level.INFO, "responseString={0}", responseString);
+        try (Reader sr = new StringReader(responseString);
+          JsonReader jsonReader = Json.createReader(sr);) {
+
+            JsonStructure jsonStructure = jsonReader.read();
+            JsonPointer pFiles = Json.createPointer(JsonPointerForDataset.POINTER_TO_FILES);
+            JsonArray files = (JsonArray) pFiles.getValue(jsonStructure);
+            JsonPointer pFilename = Json.createPointer(JsonPointerForDataset.POINTER_TO_FILENAME);
+            
+            JsonPointer pOrigFilename = Json.createPointer(JsonPointerForDataset.POINTER_TO_ORIG_FILENAME);
+            
+            JsonPointer pDirLabel = Json.createPointer(JsonPointerForDataset.POINTER_TO_DIR_LABEL);
+            logger.log(Level.INFO, "before the loop ");
+            int loopCounter=0;
+            for (JsonValue jvFile : files) {
+                loopCounter++;
+                logger.log(Level.INFO, "================= within loop={0}", loopCounter);
+                JsonString jsFilename = (JsonString) pFilename.getValue(jvFile.asJsonObject());
+                String filename = jsFilename.getString();
+                
+                
+                logger.log(Level.INFO, "filename={0}", filename);
+                
+                boolean isOrigFilenameFound = pOrigFilename.containsValue((JsonStructure) jvFile);
+                String origFilename=null;
+                if (isOrigFilenameFound){
+                    logger.log(Level.INFO, "originalFilename is found:{0}", loopCounter);
+                    JsonString jsOrigFilename = (JsonString) pOrigFilename.getValue(jvFile.asJsonObject());
+                     origFilename = jsOrigFilename.getString();
+                                     logger.log(Level.INFO, "origFilename={0}", origFilename);
+                } else {
+                    logger.log(Level.INFO, "originalFilename is NOT found: {0}", loopCounter);
+                    
+                }
+                String dirLabel=null;
+                boolean isDirLabelFound = pDirLabel.containsValue((JsonStructure) jvFile);
+                if (isDirLabelFound){
+                    logger.log(Level.INFO, "directory labe is found:{0}", loopCounter);
+                    JsonString jsDirLabel = (JsonString) pDirLabel.getValue(jvFile.asJsonObject());
+                    dirLabel = jsDirLabel.getString();
+                    logger.log(Level.INFO, "dirLabel={0}", dirLabel);
+                } else {
+                    logger.log(Level.INFO, "directory labe is NOT found:{0}", loopCounter);
+                }
+                
+                
+                String fullFilename;
+
+                if (StringUtils.isNoneBlank(origFilename)) {
+                    fullFilename = origFilename;
+                } else {
+                    fullFilename = filename;
+                }
+                logger.log(Level.INFO, "updated filename={0}", fullFilename);
+                
+                if (StringUtils.isNotEmpty(dirLabel)){
+                    // prefix filename with ddirLabel
+                    fullFilename= dirLabel+"/"+fullFilename;
+                    logger.log(Level.INFO, "filename with dir label={0}", fullFilename);
+                }
+                logger.log(Level.INFO, "filename:final ={0}", fullFilename);
+                filenameSet.add(fullFilename);
+                
+            }
+            logger.log(Level.INFO, "filenameSet={0}", filenameSet);
+            int result = filenameSet.size();
+            logger.log(Level.INFO, "filenameSet:size={0}", result);
+        }
+        return filenameSet;
+    }
 }

@@ -195,6 +195,10 @@ public class IngestService {
                 .generate(digits);
     }
 
+    
+    
+    
+    
     public  List<DataFile> run(String filename, String contentType, String datasetIdentifier) 
             throws FileNotFoundException, IOException, XMLStreamException, ExportException, IngestException {
 
@@ -297,6 +301,12 @@ public class IngestService {
         logger.log(Level.FINE, "after FileUtil: datafile list:contents={0}", xstream.toXML(initialFileList));
         logger.log(Level.FINE, "after FileUtil: datasetversion:contents={0}", xstream.toXML(version));
         logger.log(Level.FINE, "after FileUtil: dataset:contents={0}", xstream.toXML(dataset));
+        
+        
+        // TODO: Filename-Duplication check against initialFileList
+        
+        
+        
         
         // set up an application-managed entity manager because this is a 
         // Java application not Java web application
