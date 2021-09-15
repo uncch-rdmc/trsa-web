@@ -565,7 +565,56 @@ public class SubmissionPageView implements Serializable {
         
     }
     
-    boolean isTestRun = true;
+    
+    String createPayloadPR7325(JsonReader jsonReader ,JsonWriter jsonWriter) throws IOException, Exception{
+        // how to process keys 
+        // move from the upper level:  "label"
+        // intact: filename, contentType,filesize,description,restricted,
+        // originalFileFormat,originalFormatLabel, UNF, md5, checksum,dataTables,
+        // add (optional): directoryLabel,categories
+        
+        JsonObject rawJsonObject = jsonReader.readObject();
+        logger.log(Level.INFO, "rawJsonObject={0}", rawJsonObject);
+
+        // create a new Json object to store two JsonPointers
+        JsonObject object = Json.createObjectBuilder().build();
+        // Warning: The following lines work with Java-ee-api-8 package
+        // i.e., not 7 that does not include JsonPointer API
+        // create the two JsonPointer instances 
+        // point to the metadataBlock segment from the raw JSON object
+        JsonPointer metadataBlock
+                = Json.createPointer(JsonPointerForDataset.POINTER_METADATABLOCKS);
+        // point to files segment, too
+        JsonPointer files = Json.createPointer(JsonPointerForDataset.POINTER_FILES);
+        
+        JsonPointer files0th = Json.createPointer(JsonPointerForDataset.POINTER_TO_FILES_0th);
+        
+        
+        
+        
+
+        // get the value for each of the above JsonPointer instances
+        JsonValue metadataBlockValue = metadataBlock.getValue(rawJsonObject);
+        JsonValue filesValue = files.getValue(rawJsonObject);
+
+        // create a JsonPatchBuilder object and add JsonValue instances
+        JsonPatchBuilder builder = Json.createPatchBuilder();
+
+
+        JsonObject payloadObject = builder
+                        .add(JsonPointerForDataset.POINTER_METADATABLOCKS_FILTERED, metadataBlockValue)
+                        .add(JsonPointerForDataset.POINTER_FILES_FILTERED, filesValue)
+                        .build()
+                        .apply(object);
+
+        logger.log(Level.INFO, "payload JSON object={0}", payloadObject);
+        jsonWriter.writeObject(payloadObject);
+        return payloadObject.toString();
+        
+    }
+    
+    
+    //boolean isTestRun = true;
     
     // METADATA_ONLY CASE
     void uploadMetadataOnly(){
