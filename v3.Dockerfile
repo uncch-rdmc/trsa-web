@@ -1,4 +1,4 @@
-FROM payara/server-full:5.2021.2-jdk11
+FROM payara/server-full:5.2021.8-jdk11
 LABEL dockerfile="v3.Dockerfile"
 LABEL description="This version: H2 is run in the mixed mode "
 LABEL description="trsa-files-directory is under /opt/payara"
