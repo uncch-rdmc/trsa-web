@@ -13,11 +13,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
@@ -25,17 +28,20 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
  *
  * @author asone
  */
+@RunWith(JUnitPlatform.class)
 public class HttpClientByUnirestTest {
     
     public HttpClientByUnirestTest() {
     }
     
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
+        System.out.println("HttpClientByUnirestTest begins");
     }
     
-    @AfterClass
+    @AfterAll
     public static void tearDownClass() {
+        System.out.println("HttpClientByUnirestTest ends");
     }
     
     @Before
@@ -49,9 +55,9 @@ public class HttpClientByUnirestTest {
     /**
      * Test of requestGetCall method, of class HttpClientByUnirest.
      */
+    @DisplayName("\n\ntesting requestGetCall")
     @Test
     public void testRequestGetCall() {
-        System.out.println("requestGetCall");
         String keyPath = "datasets";
         String apiPath = "versions/1.0/files";
         String selectedDatasetId = "6";
@@ -64,14 +70,15 @@ public class HttpClientByUnirestTest {
         String result = instance.requestGetCall(keyPath, apiPath, selectedDatasetId);
         assertEquals(expResult, result);
         JSONAssert.assertEquals(expResult, result, JSONCompareMode.STRICT);
+        System.out.println("ending to test requestGetCall\n\n");
     }
 
     /**
      * Test of getLastestVersionOfDataset method, of class HttpClientByUnirest.
      */
+    @DisplayName("\n\ntesting getLastestVersionOfDataset")
     @Test
     public void testGetLastestVersionOfDataset() throws IOException {
-        System.out.println("getLastestVersionOfDataset");
         String datasetId = "24";
 
         
@@ -89,16 +96,20 @@ public class HttpClientByUnirestTest {
         
 
         String result = instance.getLastestVersionOfDataset(datasetId);
-        JSONAssert.assertEquals(expResult, result, true);
+        
+        //System.out.println("result:\n"+result);
+        JSONAssert.assertEquals(expResult, result, JSONCompareMode.LENIENT);
 
+        //assertEquals(expResult, result);
+        System.out.println("ending to test getLastestVersionOfDataset\n\n");
     }
 
     /**
      * Test of getLatestSetOfFilenamesFromDataset method, of class HttpClientByUnirest.
      */
+    @DisplayName("\n\ntesting getLatestSetOfFilenamesFromDataset")
     @Test
     public void testGetLatestSetOfFilenamesFromDataset() {
-        System.out.println("getLatestSetOfFilenamesFromDataset");
         String datasetId = "24";
         String apiKey="c40e4923-1360-497f-9906-d4d67970ee83";
         String server="https://impacttest.irss.unc.edu";
@@ -109,7 +120,7 @@ public class HttpClientByUnirestTest {
               Collectors.toCollection(LinkedHashSet::new));
         Set<String> result = instance.getLatestSetOfFilenamesFromDataset(datasetId);
         assertEquals(expResult, result);
-
+        System.out.println("ending to test getLatestSetOfFilenamesFromDataset\n\n");
     }
     
 }
