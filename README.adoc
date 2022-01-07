@@ -31,6 +31,9 @@ To build your own Docker container:
 * The file storage directory was changed to `/opt/payara/trsa/files` from `/trsa/files`.
 * The context root no longer has a version-tag segment: `/trsa-web` not `/trsa-web-2.0` .
 * Each version has its own dockerfile and its corresponding `trsa.config` file
-** for version 3.0, its dockerfile = `v3.dockerfile` and its trsa.config file = `v3.trsa.config`
-* 
+** for version 3.0, its dockerfile = `v3.dockerfile` and its trsa.config file = `v3.trsa.config`, e.g., 
++
+----
+docker build -t odumunc/trsa-web:3.211216 -f v3.Dockerfile .
+----
 
