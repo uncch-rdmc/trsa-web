@@ -61,7 +61,7 @@ public class HttpClientByUnirestTest {
         String keyPath = "datasets";
         String apiPath = "versions/1.0/files";
         String selectedDatasetId = "6";
-        String apiKey="c40e4923-1360-497f-9906-d4d67970ee83";
+        String apiKey="4988fbdd-de13-49c9-a6cc-aad6c6261822";
         String server="https://impacttest.irss.unc.edu";
         HttpClientByUnirest instance = new HttpClientByUnirest(server, apiKey);
         // curl's oder is different from Unirest's one
@@ -82,7 +82,7 @@ public class HttpClientByUnirestTest {
         String datasetId = "24";
 
         
-        String apiKey="c40e4923-1360-497f-9906-d4d67970ee83";
+        String apiKey="4988fbdd-de13-49c9-a6cc-aad6c6261822";
         String server="https://impacttest.irss.unc.edu";
         HttpClientByUnirest instance = new HttpClientByUnirest(server, apiKey);
         String responseFileName = "/json/latestVerDataset.json";
@@ -111,7 +111,7 @@ public class HttpClientByUnirestTest {
     @Test
     public void testGetLatestSetOfFilenamesFromDataset() {
         String datasetId = "24";
-        String apiKey="c40e4923-1360-497f-9906-d4d67970ee83";
+        String apiKey="4988fbdd-de13-49c9-a6cc-aad6c6261822";
         String server="https://impacttest.irss.unc.edu";
         HttpClientByUnirest instance = new HttpClientByUnirest(server, apiKey);
         Set<String> expResult = 

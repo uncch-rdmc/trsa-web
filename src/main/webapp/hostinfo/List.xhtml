@@ -56,7 +56,11 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle_host.ListHostInfoTitle_apitoken}"/>
                             </f:facet>
-                            <h:outputText value="#{item.apitoken}"/>
+                            <h:outputText value="#{item.apitoken}">
+            <f:converter converterId="apiTokenConverter">
+                <f:attribute name="length" value="23"></f:attribute>
+            </f:converter>
+                            </h:outputText>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
