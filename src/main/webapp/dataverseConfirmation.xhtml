@@ -53,14 +53,16 @@
                     </p:inputText>
                     <p:message for="dataversealias"/>
                     <p:outputLabel value="API Token:" for="apitoken"/>
-                    <p:inputText id="apitoken" 
+                    <p:password id="apitoken" 
                                  binding="#{dataverseConfirmationView.apitokenField}"
                                  value="#{dataverseConfirmationView.hostInfo.apitoken}" 
                                  required="true" 
                                  title="Shown on the Account Page"
-                                 validatorMessage="API token is 36-character long">
-                        <f:validateLength minimum="36" maximum="36"/>
-                    </p:inputText>
+                                 validatorMessage="API token is 36-character long"
+                                 maxlength="36"
+                                 toggleMask="true" 
+                                 redisplay="true"
+                                 />
                     <p:message id="msgApitoken" for="apitoken"/>
                     <p:outputLabel value="TRSA Registry Number:" for="trsaRegNmbr"/>
                     <p:inputText id="trsaRegNmbr" 

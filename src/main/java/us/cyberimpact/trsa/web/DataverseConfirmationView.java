@@ -30,6 +30,7 @@ import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
 import org.primefaces.PrimeFaces;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.password.Password;
 import us.cyberimpact.trsa.entities.HostInfo;
 import us.cyberimpact.trsa.entities.HostInfoFacade;
 
@@ -66,13 +67,13 @@ public class DataverseConfirmationView implements Serializable{
     
     
     
-    InputText apitokenField;
+    Password apitokenField;
 
-    public InputText getApitokenField() {
+    public Password getApitokenField() {
         return apitokenField;
     }
 
-    public void setApitokenField(InputText apitokenField) {
+    public void setApitokenField(Password apitokenField) {
         this.apitokenField = apitokenField;
     }
     

@@ -21,7 +21,10 @@
                         <p:password id="apitoken" value="#{hostInfoController.selected.apitoken}" 
                                      title="#{bundle_host.CreateHostInfoTitle_apitoken}" 
                                      required="true" 
-                                     requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_apitoken}"/>
+                                     requiredMessage="#{bundle_host.CreateHostInfoRequiredMessage_apitoken}"
+                                     toggleMask="true" 
+                                     redisplay="true"
+                                     />
                         <p:outputLabel value="#{bundle_host.CreateHostInfoLabel_trsaRegNmbr}" for="trsaRegNmbr" />
                         <p:inputText id="trsaRegNmbr" value="#{hostInfoController.selected.trsaRegNmbr}" 
                                      title="#{bundle_host.CreateHostInfoTitle_trsaRegNmbr}" 

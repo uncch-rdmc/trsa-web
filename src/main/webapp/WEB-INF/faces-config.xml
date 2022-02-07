@@ -35,10 +35,8 @@
         
     </application>
     <factory>
+        <exception-handler-factory>org.omnifaces.exceptionhandler.FullAjaxExceptionHandlerFactory</exception-handler-factory>
         <exception-handler-factory>us.cyberimpact.trsa.exception.TrsaExceptionHandlerFactory</exception-handler-factory>
-<exception-handler-factory>
-org.omnifaces.exceptionhandler.FullAjaxExceptionHandlerFactory
-</exception-handler-factory>
     </factory>
 <navigation-rule>
     <from-view-id>*</from-view-id>

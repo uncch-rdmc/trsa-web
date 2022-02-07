@@ -70,6 +70,11 @@
         <exception-type>us.cyberimpact.trsa.exception.TrsaConfigurationException</exception-type>
         <location>/error.xhtml</location>
     </error-page>
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/error.xhtml</location>
+    </error-page>
+    
 
     <session-config>
         <session-timeout>
