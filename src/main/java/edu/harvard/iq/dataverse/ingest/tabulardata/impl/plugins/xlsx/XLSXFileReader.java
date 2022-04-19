@@ -227,7 +227,7 @@ public class XLSXFileReader extends TabularDataFileReader {
         dbglog.info("entering processSheet");
         OPCPackage pkg = OPCPackage.open(inputStream);
         XSSFReader r = new XSSFReader(pkg);
-        SharedStringsTable sst = r.getSharedStringsTable();
+        SharedStringsTable sst = (SharedStringsTable) r.getSharedStringsTable();
 
         XMLReader parser = fetchSheetParser(sst, dataTable, tempOut);
 
