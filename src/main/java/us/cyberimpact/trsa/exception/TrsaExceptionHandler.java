@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.FacesException;
 import javax.faces.application.NavigationHandler;
+import javax.faces.application.ViewExpiredException;
 import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
@@ -66,7 +67,15 @@ public class TrsaExceptionHandler extends ExceptionHandlerWrapper {
                 t.printStackTrace(pw);
                 
                 requestMap.put("exceptionTrace", sw.toString());
-                nav.handleNavigation(fc, null, "/error");
+                
+                if (t instanceof ViewExpiredException) {
+                    logger.log(Level.INFO, "This exception is an instance of ViewExpiredException");
+                    nav.handleNavigation(fc, null, "/index");
+                } else {
+                    logger.log(Level.INFO, "This exception is NOT an instance of ViewExpiredException");
+                    nav.handleNavigation(fc, null, "/error");
+                }
+                
                 fc.renderResponse(); 
                
                 // remove the comment below if you want to report the error in a jsf error message

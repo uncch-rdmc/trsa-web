@@ -1,0 +1,9 @@
+.progressmeter {overflow:auto; margin:1em 0;}
+.progressmeter ol {min-height:3em; margin:0; padding:0;}
+.progressmeter li.one {float:left; width:6em; min-height:3em; margin:0 .6em; padding-left:2.2em; color:#999; background:#fff url(numbers.gif) 0 4px no-repeat; list-style-type:none;}
+.progressmeter li.two {background-position:-142px 4px;}
+.progressmeter li.three {background-position:-280px 4px;}
+.progressmeter li.current.one {background-position:0 -38px;}
+.progressmeter li.current.two {background-position:-142px -38px;}
+.progressmeter li.current.three {background-position:-280px -38px;}
+.progressmeter p, .progressmeter li span {display:block; position:absolute; left:-9999px;}

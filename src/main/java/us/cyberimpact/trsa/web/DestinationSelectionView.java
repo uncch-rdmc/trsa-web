@@ -135,6 +135,20 @@ public class DestinationSelectionView implements Serializable {
             logger.log(Level.INFO, "selectedDatasetId={0}", selectedDatasetId);
             logger.log(Level.INFO, "go to fileupload page");
         }
+        
+        // TO Do
+        // Destination check: whether the selected Dataset is active
+        // If not, follow the above doi-misscase 
+//        if (!checkDataset(selectedDatasetId)){
+//            addMessageEmptyHostInfo();
+//            logger.log(Level.INFO, "The selected Dataset is currently accessible: choose another one or check the data of the selected Dataset");
+//            logger.log(Level.INFO, "go to host_info editor page");
+//            destDsButtonEnabled=true;
+//            return "";
+//        }
+        
+        
+        
         logger.log(Level.INFO, "selectedRequestType:current value={0}", selectedRequestType);
         Faces.setSessionAttribute("selectedDatasetId", selectedDatasetId);
         logger.log(Level.INFO, "=========== DestinationSelectionView#selectDestination: end ===========");
@@ -199,4 +213,11 @@ public class DestinationSelectionView implements Serializable {
         return "/hostinfo/List.xhtml";
     }
     
+    
+    
+//    private boolean checkDataset(String datasetId){
+//        
+//        
+//        
+//    }
 }

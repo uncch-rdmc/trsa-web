@@ -1,6 +1,5 @@
-= TRSA-Web: Step-by-Step GUI Guide
-
-:toc:
+= TRSA-Web Version 3.0: Step-by-Step GUI Guide
+:toc: right 
 :toclevels: 3
 
 
@@ -43,7 +42,7 @@ The first thing you have to do is to let TRSA-Web save key information about the
 
 . Click the "Setup the paired Dataverse" button and the following web page shows up:
 
-image::sbsg_image/dv-info-setup_2022-01-28.png[GUI for the paired Dataverse]
+image::../sbsg_image/dv-info-setup_2022-01-28.png[GUI for the paired Dataverse]
 
 . Type key information about the paired Dataverse in each box as the following example shows: 
 
@@ -94,10 +93,10 @@ To return the top menu (home page) of TRSA-Web to upload metadata, click the "TR
 
 
 
-== How to submit the metadata of a local file to a remote Dataset
+=== How to submit the metadata of a local file to a remote Dataset
 
 
-=== TRSA: top menu 
+==== TRSA: top menu 
 After information about the paired dataverse was saved, the two menu items are now enabled as follows:
 
 image::sbsg_image/trsa-top-page-after-dv-setting_2022-02-01.png[TRSA-Web Top Page: After the Dataverse was set]
@@ -106,14 +105,14 @@ image::sbsg_image/trsa-top-page-after-dv-setting_2022-02-01.png[TRSA-Web Top Pag
 
 image::sbsg_image/select_upload_menu_2022-01-28.png[Upload/Submission Option]
 
-=== Destination (Dataset) selection
+==== Destination (Dataset) selection
 Before submitting the metadata of a local file, you must select its destination (Dataset) from the table of saved Datasets:
 
 . click the "Select" button of your choice (row) and file-upload page appears next: 
 
 image::sbsg_image/select_destination_dataset_2022-01-28.png[Table of Saved Datasets]
 
-=== File upload/ingest
+==== File upload/ingest
 
 . Click the "CHOOSE" button from the file-upload pane as follows: 
 
@@ -133,7 +132,7 @@ If the selected file was successfully uploaded, a success messages appears above
 
 image::sbsg_image/after_successful_ingest_2022-01-28.png[After the Ingest request was successful]
 
-=== Submission 
+==== Submission 
 
 Before submission, the current selection of the Notary Service is shown as follows: 
 

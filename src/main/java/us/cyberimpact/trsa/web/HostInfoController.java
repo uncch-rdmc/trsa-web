@@ -78,7 +78,13 @@ public class HostInfoController implements Serializable {
 
     public void create() {
         logger.log(Level.INFO, "========== HostInfoController#create : start ==========");
-
+        
+        // TODO 
+        // Dataset check whether this Dataset is active, not deaccessioned
+        logger.log(Level.INFO, "selected={0}", selected);
+        if (!isDatasetAccessible(selected)){
+            return;
+        }
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle_host").getString("HostInfoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -88,8 +94,22 @@ public class HostInfoController implements Serializable {
 
     public void update() {
         logger.log(Level.INFO, "========== HostInfoController#update : start ==========");
+        
+        // TODO 
+        // Dataset check whether this Dataset is active, not deaccessioned
+        logger.log(Level.INFO, "selected={0}", selected);
+        if (!isDatasetAccessible(selected)){
+            return;
+        }
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle_host").getString("HostInfoUpdated"));
         logger.log(Level.INFO, "========== HostInfoController#update : end ==========");
+    }
+    
+    
+    private boolean isDatasetAccessible(HostInfo selected){
+        
+        
+        return true;
     }
 
     public void destroy() {

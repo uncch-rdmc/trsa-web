@@ -12,15 +12,14 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
@@ -28,7 +27,6 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
  *
  * @author asone
  */
-@RunWith(JUnitPlatform.class)
 public class HttpClientByUnirestTest {
     
     public HttpClientByUnirestTest() {
@@ -44,11 +42,11 @@ public class HttpClientByUnirestTest {
         System.out.println("HttpClientByUnirestTest ends");
     }
     
-    @Before
+    @BeforeEach
     public void setUp() {
     }
     
-    @After
+    @AfterEach
     public void tearDown() {
     }
 
@@ -56,6 +54,7 @@ public class HttpClientByUnirestTest {
      * Test of requestGetCall method, of class HttpClientByUnirest.
      */
     @DisplayName("\n\ntesting requestGetCall")
+    @Disabled("unirest is no longer used")
     @Test
     public void testRequestGetCall() {
         String keyPath = "datasets";
@@ -77,6 +76,7 @@ public class HttpClientByUnirestTest {
      * Test of getLastestVersionOfDataset method, of class HttpClientByUnirest.
      */
     @DisplayName("\n\ntesting getLastestVersionOfDataset")
+    @Disabled("unirest is no longer used")
     @Test
     public void testGetLastestVersionOfDataset() throws IOException {
         String datasetId = "24";
@@ -108,6 +108,7 @@ public class HttpClientByUnirestTest {
      * Test of getLatestSetOfFilenamesFromDataset method, of class HttpClientByUnirest.
      */
     @DisplayName("\n\ntesting getLatestSetOfFilenamesFromDataset")
+    @Disabled("unirest is no longer used")
     @Test
     public void testGetLatestSetOfFilenamesFromDataset() {
         String datasetId = "24";

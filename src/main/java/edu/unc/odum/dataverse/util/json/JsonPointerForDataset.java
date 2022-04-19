@@ -77,4 +77,7 @@ public class JsonPointerForDataset {
     public static String POINTER_TO_FILENAME="/dataFile/filename";
     
     public static String POINTER_TO_ORIG_FILENAME="/dataFile/originalFileName";
+    
+    
+    public static String POINTER_TO_ERR_MSG_DEACCD_DATASET="/message";
 }

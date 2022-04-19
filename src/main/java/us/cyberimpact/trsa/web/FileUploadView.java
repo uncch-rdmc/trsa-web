@@ -6,6 +6,7 @@ import edu.harvard.iq.dataverse.entities.DatasetVersionFacade;
 import edu.harvard.iq.dataverse.export.ExportException;
 import edu.harvard.iq.dataverse.ingest.IngestException;
 import edu.harvard.iq.dataverse.ingest.IngestService;
+import edu.unc.odum.dataverse.util.http.Jersey2HttpClient;
 import edu.unc.odum.dataverse.util.json.HttpClientByUnirest;
 import edu.unc.odum.dataverse.util.json.JsonResponseParser;
 import java.io.BufferedOutputStream;
@@ -17,7 +18,6 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +31,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.ws.rs.core.Response;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
@@ -150,8 +152,14 @@ public class FileUploadView implements Serializable {
         // add code here to make an API call to the dataset
         // receive the current set of filenames in the Dataset
         logger.log(Level.INFO, "numeric DatasetId={0}", selectedHostInfo.getDatasetid());
-        HttpClientByUnirest client = new HttpClientByUnirest(selectedHostInfo.getHosturl(), selectedHostInfo.getApitoken());
-        filenameSet = client.getLatestSetOfFilenamesFromDataset(selectedHostInfo.getDatasetid().toString());//getLatestSetOfFilenamesFromDataset(destination);
+        
+        
+        
+        //HttpClientByUnirest client = new HttpClientByUnirest(selectedHostInfo.getHosturl(), selectedHostInfo.getApitoken());
+        filenameSet = getLatestSetOfFilenamesFromDataset(selectedHostInfo.getDatasetid().toString());
+        
+        
+        
         if (filenameSet== null || filenameSet.isEmpty()){
             logger.log(Level.INFO, "filenameSet is empty");
         } else {
@@ -582,4 +590,70 @@ public class FileUploadView implements Serializable {
 //        return filenameSet.contains(filename);
 //    }
 
+    
+    
+    private String getLastestVersionOfDataset(String datasetId){
+        Jersey2HttpClient client = 
+          new Jersey2HttpClient(selectedHostInfo.getHosturl(), 
+            selectedHostInfo.getApitoken(),
+          selectedHostInfo.getTrsaRegNmbr().toString());
+        logger.log(Level.INFO, "server url={0}", client.getDvServer());
+        logger.log(Level.INFO, "api-token={0}", client.getApiKey());
+        logger.log(Level.INFO, "trsa reg number={0}", client.getTrsaRegNmbr());
+        Response jsonResponse = client.get(WebAppConstants.PATH_DATASET_API, datasetId, "versions/:latest");
+        String responseString = jsonResponse.readEntity(String.class);
+        int statusCode = jsonResponse.getStatus();
+        if (statusCode == 200 || statusCode == 201) {
+            logger.log(Level.INFO, "code: 200 or 201: OK case");
+            logger.log(Level.INFO, "responseString={0}", responseString);
+        } else {
+            // TODO
+            logger.log(Level.INFO, "non-200 response={0}", statusCode);
+            logger.log(Level.INFO, "responseString={0}", responseString);
+            String detailedMessage= "Status Code: "+ statusCode +": ";
+            if (statusCode == 404) {
+                detailedMessage +="A probable cause: the requested Dataset is not avialble, etc.";
+            } else {
+                detailedMessage +="Check the sever.log for this failure";
+            }
+            String errorMessage = "failed to get the set of existing filenames";
+            String summaryMsg = "Failure of getting a filename-list";
+            
+            logger.log(Level.WARNING, detailedMessage);
+            postExceptionCommonSteps(errorMessage, summaryMsg, detailedMessage);
+            return null;
+            
+        }
+        return responseString;
+    }
+    
+    
+    private Set<String> getLatestSetOfFilenamesFromDataset(String datasetId){
+        Set<String> setOfFilenames = new LinkedHashSet<>();
+        String responseString=getLastestVersionOfDataset(datasetId);
+        logger.log(Level.INFO, "responseString={0}", responseString);
+        if (StringUtils.isBlank(responseString)){
+//            String errorMessage = "failed to generate the set of existing filenames";
+//            String summaryMsg = "Failure of creating a filename-list";
+//            String detailedMessage="IOException is thrown; failed to generate the set of existing filenames";
+//            logger.log(Level.WARNING, detailedMessage);
+//            postExceptionCommonSteps(errorMessage, summaryMsg, detailedMessage);
+            return setOfFilenames;
+        }
+
+        try {
+            setOfFilenames = (new JsonResponseParser()).getFilenameSetFromResponse(responseString);
+        } catch (IOException ex) {
+            String errorMessage = "failed to generate the set of existing filenames";
+            String summaryMsg = "Failure of creating a filename-list";
+            String detailedMessage="IOException is thrown; failed to generate the set of existing filenames";
+            logger.log(Level.WARNING, detailedMessage, ex);
+            postExceptionCommonSteps(errorMessage, summaryMsg, detailedMessage);
+            return setOfFilenames;
+            
+        }
+        logger.log(Level.INFO, "setOfFilenames={0}", setOfFilenames);
+        return setOfFilenames; 
+    }
+    
 }

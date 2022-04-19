@@ -14,7 +14,7 @@
         <ui:composition template="/template/layout.xhtml">
 
             <ui:define name="content">
-                <h:form id="form1">
+                <h:form id="form">
                     <p:messages id="messages" showDetail="true" closable="true" for="topMessage" severity="info,warn,error,fatal">
                         <p:autoUpdate />
                     </p:messages>
@@ -22,7 +22,7 @@
                                     for="topMessage" severity="info"/>
 
                      <!-- valid dataverse alias: Found an illegal character(s). Valid characters are a-Z, 0-9, '_', and '-'. -->
-            <p:panel header="Paired Dataverse: Key Data Confirmation">
+            <p:panel header="Paired Dataverse: Key Data Confirmation" >
                 <p:panel widgetVar="progressPanel"
                  visible="false"
                  style="border:none;"
@@ -32,7 +32,11 @@
                 <p:progressBar style="height:10px;width:222px;"
                                mode="indeterminate"/></p:panel>
                 <p:panelGrid id="pgrid" columns="3" columnClasses="label, value">
-                    <p:outputLabel value="Dataverse URL:" for="hosturl"/>
+                    <p:outputLabel for="hosturl" value="Dataverse URL" id="rowurl">
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowurl" value="The URL of your paired Dataverse starting from https://" position="right"/>
+                    </p:outputLabel>
+
                     <p:inputText id="hosturl" 
                                  binding="#{dataverseConfirmationView.dataverseUrl}"
                                  value="#{dataverseConfirmationView.hostInfo.hosturl}" 
@@ -42,7 +46,10 @@
                         <f:validateRegex pattern="^(?i)(http|https)(://).+"/>
                     </p:inputText>
                     <p:message for="hosturl"/>
-                    <p:outputLabel value="Dataverse Alias:" for="dataversealias"/>
+                    <p:outputLabel for="dataversealias" value="Dataverse Alias" id="rowdvalias">
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowdvalias" value="The alias of the paired Dataverse" position="right"/>
+                    </p:outputLabel>
                     <p:inputText id="dataversealias" 
                                  binding="#{dataverseConfirmationView.dataverseAlias}"
                                  value="#{dataverseConfirmationView.hostInfo.dataversealias}" 
@@ -52,7 +59,10 @@
                         <f:validateRegex pattern="^[a-zA-Z_0-9-]+$"/>
                     </p:inputText>
                     <p:message for="dataversealias"/>
-                    <p:outputLabel value="API Token:" for="apitoken"/>
+                    <p:outputLabel for="apitoken" value="API Token" id="rowapitoken" >
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowapitoken" value="The API token of your Dataverse account" position="right"/>
+                    </p:outputLabel>
                     <p:password id="apitoken" 
                                  binding="#{dataverseConfirmationView.apitokenField}"
                                  value="#{dataverseConfirmationView.hostInfo.apitoken}" 
@@ -64,7 +74,10 @@
                                  redisplay="true"
                                  />
                     <p:message id="msgApitoken" for="apitoken"/>
-                    <p:outputLabel value="TRSA Registry Number:" for="trsaRegNmbr"/>
+                    <p:outputLabel for="trsaRegNmbr" value="TRSA Registry Number" id="rowregnmbr">
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowregnmbr" value="Registry number for this TRSA saved on the Dataverse server's Dashboard" position="right"/>
+                    </p:outputLabel>
                     <p:inputText id="trsaRegNmbr" 
                                  value="#{dataverseConfirmationView.hostInfo.trsaRegNmbr}" 
                                  required="true" 
@@ -78,7 +91,7 @@
                 <p:commandButton id="confirmButton" 
                                  value="Confirm" 
                                  widgetVar="confirmBttn"
-                                 actionListener="#{dataverseConfirmationView.confirmDataverseData}" 
+                                 actionListener="#{dataverseConfirmationView.confirmDataverseInfo}" 
                          onstart="PF('confirmBttn').disable();PF('progressPanel').show();"
                          oncomplete="PF('progressPanel').close();"
                                  disabled="#{dataverseConfirmationView.mainButtonEnabled}"
