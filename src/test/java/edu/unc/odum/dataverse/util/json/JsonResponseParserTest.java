@@ -19,8 +19,8 @@ import javax.json.JsonReader;
 import javax.json.JsonString;
 import javax.json.JsonStructure;
 import javax.json.JsonValue;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -47,10 +47,12 @@ public class JsonResponseParserTest {
     
     @BeforeAll
     public static void setUpClass() {
+        logger.log(Level.INFO, "===== JsonResponseParserTest: start =====");
     }
     
     @AfterAll
     public static void tearDownClass() {
+        logger.log(Level.INFO, "===== JsonResponseParserTest: end =====");
     }
     
     @BeforeEach
@@ -263,8 +265,47 @@ public class JsonResponseParserTest {
         assertEquals(expResult, actual);
     }
 
+    @DisplayName("\n\ntesting getDatasetDeaccessionedMsg")
+    @Test
+    public void testGetDatasetDeaccessionedMsg() {
+        logger.log(Level.INFO, "----- testGetDatasetDeaccessionedMsg: start -----");
+        String responseString ="{\"status\":\"ERROR\",\"message\":\"Dataset version :latest of dataset 18 not found\"}";
+        JsonResponseParser instance = new JsonResponseParser();
+        String result = instance.parseTargetStringField(responseString, 
+          JsonPointerForDataset.POINTER_TO_ERR_MSG_DEACCD_DATASET);
+        logger.log(Level.INFO, "result={0}", result);
+        assertEquals("Dataset version :latest of dataset 18 not found", result, "response messages are different");
+        logger.log(Level.INFO, "----- testGetDatasetDeaccessionedMsg: end -----");
+    }
+    
+    @DisplayName("\n\ntesting ParseDatasetDeaccessionedMsg")
+    @Test
+    public void testParseDatasetDeaccessionedMsg() {
+        logger.log(Level.INFO, "----- testParseDatasetDeaccessionedMsg: start -----");
+        String responseString ="{\"status\":\"ERROR\",\"message\":\"Dataset version :latest of dataset 18 not found\"}";
+        JsonResponseParser instance = new JsonResponseParser();
+        String result = instance.parseTargetStringField(responseString, 
+          JsonPointerForDataset.POINTER_TO_ERR_MSG_DEACCD_DATASET);
+        logger.log(Level.INFO, "result={0}", result);
+        Long datasetId = Long.parseLong("18");
+        String expectedResult = "Dataset version :latest of dataset "+ datasetId+" not found";
+        logger.log(Level.INFO, "expectedResult={0}", expectedResult);
+        assertEquals(expectedResult, result, "response messages are different");
+        logger.log(Level.INFO, "----- testParseDatasetDeaccessionedMsg: end -----");
+    }
+    
+    @DisplayName("\n\ntesting isDatasetDeaccessioned")
+    @Test
+    public void testIsDatasetDeaccessioned(){
+        logger.log(Level.INFO, "----- testIsDatasetDeaccessioned: start -----");
+        String responseString ="{\"status\":\"ERROR\",\"message\":\"Dataset version :latest of dataset 18 not found\"}";
+        JsonResponseParser instance = new JsonResponseParser();
 
-    
-    
-    
+        Long datasetId = Long.parseLong("18");
+        String expectedResult = "Dataset version :latest of dataset "+ datasetId+" not found";
+        
+        assertTrue(instance.isDatasetDeaccessioned(responseString, datasetId.toString()),
+          "Dataset is not deaccessioned");
+        logger.log(Level.INFO, "----- testIsDatasetDeaccessioned: end -----");
+    }
 }

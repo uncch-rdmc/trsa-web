@@ -15,6 +15,31 @@
         
     </properties>
     
+    
+    <dependencyManagement>
+        
+        
+    <dependencies>
+        <dependency>
+            <groupId>org.glassfish.jersey</groupId>
+            <artifactId>jersey-bom</artifactId>
+            <version>2.35</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.8.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+    
+    
     <dependencies>
         
         
@@ -291,32 +316,36 @@
             <version>4.1</version>
         </dependency>
         
-        
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
         
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.7.2</version>
+<!--            <version>5.8.2</version>-->
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
-            <version>5.7.2</version>
+<!--            <version>5.8.2</version>-->
             <scope>test</scope>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
-            <version>1.7.2</version>
+            <version>1.8.2</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
+        </dependency>-->
+<!--        <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-runner</artifactId>
-            <version>1.7.2</version>
+            <version>1.8.2</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
         
         
 <dependency>
@@ -386,6 +415,9 @@
     <version>1.0</version>
 </dependency>
         
+        
+
+        
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
@@ -397,7 +429,42 @@
          <artifactId>jersey-media-moxy</artifactId>
          <version>2.27</version>
       </dependency>
+
+
+
+<!-- for Jersey 2 clinet -->
+
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>2.35</version>
+        </dependency>
         
+        
+        <dependency>
+            <groupId>org.glassfish.jersey.connectors</groupId>
+            <artifactId>jersey-apache-connector</artifactId>
+            <version>2.35</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>2.35</version>
+        </dependency>
+<!--        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-moxy</artifactId>
+            <version>2.35</version>
+        </dependency>-->
+
+
+
+
+
+
+
+
         
 <!--<dependency>
     <groupId>org.glassfish.jersey.bundles</groupId>
@@ -449,8 +516,12 @@
             <scope>test</scope>
         </dependency>
         
-        
-        
+        <!-- Eclipse Jersey 2 -->
+<dependency>
+    <groupId>org.glassfish.jersey.core</groupId>
+    <artifactId>jersey-client</artifactId>
+    <version>2.35</version>
+</dependency>
         
     </dependencies>
 

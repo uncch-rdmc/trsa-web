@@ -365,4 +365,23 @@ public class JsonResponseParser {
         }
         return filenameSet;
     }
+
+    public String parseDatasetDeaccessionedMsg(String responseString){
+        JsonResponseParser instance = new JsonResponseParser();
+        String result = instance.parseTargetStringField(responseString, 
+          JsonPointerForDataset.POINTER_TO_ERR_MSG_DEACCD_DATASET);
+        logger.log(Level.INFO, "result={0}", result);
+        return result;
+    }
+    // method pattern in this class: 
+    // parse|get + object-name to be returned;
+    // argument: String responseString
+    public boolean isDatasetDeaccessioned(String responseString, String datasetId){
+        String returnedMsg = parseDatasetDeaccessionedMsg(responseString);
+        String expectedResult = "Dataset version :latest of dataset "+ datasetId+" not found";
+        logger.log(Level.INFO, "expectedResult={0}", expectedResult);
+        
+        return returnedMsg.equals(expectedResult);
+    }
+    
 }

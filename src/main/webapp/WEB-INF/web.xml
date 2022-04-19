@@ -72,7 +72,7 @@
     </error-page>
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/error.xhtml</location>
+        <location>/index.xhtml</location>
     </error-page>
     
 

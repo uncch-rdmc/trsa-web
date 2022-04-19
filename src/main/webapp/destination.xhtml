@@ -25,8 +25,13 @@
                     <p:growl id="topGrowl" showDetail="true" 
                                     for="topGrowl" severity="info"/>
                     <h3 style="margin:5px 5px 30px 5px">Select a destination Dataset</h3>
-
-<p:panel header="List of Saved Datasets">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <p:panel header="List of Saved Datasets" style="width: auto;">
                     
                         
                         
@@ -34,7 +39,7 @@
                  var="hostInfo"
                  value="#{destinationSelectionView.hostInfoTable}" 
                  selection="#{destinationSelectionView.selectedHostInfo}" 
-                 rowKey="#{hostInfo.id}">
+                 rowKey="#{hostInfo.id}" tableStyle="width:auto" resizableColumns="true">
         
         
         <f:facet name="header">

@@ -17,3 +17,15 @@ body {
 }*/
 
 /*.required:before { content:"* ";color: red; }*/
+
+/* copied from Dataverse: structure.css 
+span.glyphicon[data-toggle='tooltip'] {cursor: default;}
+span.glyphicon-question-sign.tooltip-icon {color: #99bcdb !important;}
+span.glyphicon-question-sign.tooltip-icon:hover {color: #337AB7 !important;}
+a.tooltip-icon {color: #99bcdb !important;}
+a.tooltip-icon:hover, a.tool-tip:focus, a.tool-tip:active {text-decoration: none; color: #337AB7 !important;}
+
+*/
+
+/* step progress bar with css */
+

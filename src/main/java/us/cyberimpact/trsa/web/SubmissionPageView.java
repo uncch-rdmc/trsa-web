@@ -38,6 +38,13 @@ import javax.json.JsonReader;
 import javax.json.JsonValue;
 import javax.json.JsonWriter;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.omnifaces.cdi.ViewScoped;
@@ -382,7 +389,8 @@ public class SubmissionPageView implements Serializable {
                 createNewDataset();
                 break;
             case METADATA_ONLY:
-                uploadMetadataOnly();
+                //uploadMetadataOnly();
+                uploadMetadataOnlyVer2();
                 break;
             default:
                 logger.log(Level.SEVERE, "Some uxexpected request was chosen");
@@ -1121,7 +1129,208 @@ public class SubmissionPageView implements Serializable {
         this.designationButtonEnable = designationButtonEnable;
     }
     
+    // ========================================================================
+    // METADATA_ONLY CASE: Jersey-2 based solution
+    // Replacing the Unirest with Jersey 2
+    // ========================================================================
+    void uploadMetadataOnlyVer2(){
+        logger.log(Level.INFO, "========== SubmissionPageView#uploadMetadataOnlyVer2: start ==========");
+        logger.log(Level.INFO, "uploadMetadataOnly case");
+        
+        
+        // step 1: check API-data again
+        try {
+            checkAPIdata();
+            
+        } catch (IllegalArgumentException ex) {
+            logger.log(Level.SEVERE, "Data to construct the API endpoint is incomplete");
+            
+            
+            detailedMsg ="Data to construct the API endpoint is incomplete; complete the required data";
+            Faces.getContext().addMessage("topMessage", 
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+             summaryMsg, detailedMsg));
+            publishButtonEnabled=false;
+            showNsExceptionMsgEnabled=true;
+            
+            Faces.setSessionAttribute("currentMessageKey", "submissionMsg");
+            Faces.setSessionAttribute("submissionMsg", ExceptionUtils.getStackTrace(ex));
+            
+            
+            return;
+        }
+        
+        
+        
+        
+        // step 2: payload creation
+        
+        String fileLocation = trsaFilesPath
+                + localDatasetIdentifier
+                + "/" + WebAppConstants.EXPORT_FILE_NAME_JSON;
+        
+        logger.log(Level.FINE, "fileLocation={0}", fileLocation);
+        String payloadFileName = trsaFilesPath
+                + localDatasetIdentifier
+                + "/" + WebAppConstants.FILTERED_PAYLOAD_FILENAME;
+        logger.log(Level.FINE, "payloadFileName={0}", payloadFileName);
+        
+        try (JsonReader jsonReader = Json.createReader(
+              new FileInputStream(new File(fileLocation)));
+            JsonWriter jsonWriter = Json.createWriter(
+              new PrintWriter(new File(payloadFileName), "UTF-8"))) {
+
+            jsonBody = createPayload(jsonReader, jsonWriter);
+
+        } catch (IOException ex) {
+            logger.log(Level.SEVERE, "IOException was thrown during io operations");
+
+            detailedMsg ="Payload-creation failed with IOException: check server.log";
+//            Faces.getContext().addMessage("topMessage", 
+//                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//                                summaryMsg, detailedMsg));
+//            publishButtonEnabled=false;
+//            String stackTrace = ExceptionUtils.getStackTrace(ex);
+            
+            postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex),
+                  summaryMsg, detailedMsg);
+            
+            
+            
+            return;
+        } catch (Exception ex){
+            logger.log(Level.SEVERE, "Non-IOException was thrown during io operations");
+            detailedMsg="Payload-creation failed with Non-IOException: check server.log";
+//            Faces.getContext().addMessage("topMessage", 
+//                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//                                summaryMsg, detailedMsg));
+//            publishButtonEnabled=false;
+//            String stackTrace = ExceptionUtils.getStackTrace(ex);
+            postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex),
+                  summaryMsg, detailedMsg);
+            return;
+        }
+
+        logger.log(Level.INFO, "payload: jsonbody={0}", jsonBody);
+        
+        
+        if (StringUtils.isBlank(jsonBody)){
+            
+            logger.log(Level.SEVERE, "payload is blank: creating the payload failed");
+            detailedMsg ="The payload is blank for some unknown reason; Check server.log";
+            
+            postExceptionCommonSteps("Creating the metadata has been done without any exception but its content is empty; check server.log",
+                  summaryMsg, detailedMsg);
+            
+            return;
+        }
+        
+        // step 3: submission 
+        logger.log(Level.INFO, "submit-metadata-only API case");
+//        String apiEndpoint = dataverseServer + "/api/datasets/" + selectedDatasetId
+//                + "/" + WebAppConstants.PATH_ADD_METADATA;
+//        logger.log(Level.INFO, "apiEndpoint={0}", apiEndpoint);
+//        Map<String, String> headers = new HashMap<>();
+//        headers.put("X-Dataverse-key", apiKey);
+//        headers.put("X-TRSA-registrationId", trsaRegNmbr.toString());
+
+        Response jsonResponse;
+        try {
+            
+            Client client = ClientBuilder.newClient();
+            WebTarget dsWTroot = client.target(this.dataverseServer).path(WebAppConstants.PATH_DATASET_API).path(this.selectedDatasetId);
+            WebTarget dsWT = dsWTroot.path(WebAppConstants.PATH_ADD_METADATA);
+            Invocation.Builder invocationBuilder = dsWT.request(MediaType.APPLICATION_JSON);
+            invocationBuilder.header("X-Dataverse-key", this.apiKey);
+            invocationBuilder.header("X-TRSA-registrationId", trsaRegNmbr);
+            
+            jsonResponse = invocationBuilder.post(Entity.entity(jsonBody, MediaType.APPLICATION_JSON));
+            
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, "Submission failed with UnirestException");
+
+            detailedMsg ="Submission preparation failed with UnirestException";
+//            Faces.getContext().addMessage("topMessage", 
+//                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//                                summaryMsg, detailedMsg));
+//            publishButtonEnabled=false;
+//            
+//            String stackTrace=ExceptionUtils.getStackTrace(ex);
+            
+            postExceptionCommonSteps(ExceptionUtils.getStackTrace(ex),
+                  summaryMsg, detailedMsg);
+            
+            
+            
+            
+            
+            return;
+        }
+        
+        logger.log(Level.INFO, "Submission ended without throwing any Exception; check the return code");
+        //responseBody = jsonResponse.readEntity(String.class);
+        commonPostRequestStepVer2(jsonResponse);
+        //viewDetailButtonEnabled=true;
+        logger.log(Level.INFO, "========== SubmissionPageView#uploadMetadataOnly: end ==========");
+    }
     
     
+    private void commonPostRequestStepVer2(Response jsonResponse){
+        logger.log(Level.INFO, "#commonPostRequestStep(): start");
+        
+        if (jsonResponse !=null){
+            String responseString = jsonResponse.readEntity(String.class);
+            int statusCode = jsonResponse.getStatus();
+            logger.log(Level.INFO, "status code={0}", statusCode);
+
+            if (statusCode== 200 || statusCode==201){
+                logger.log(Level.INFO, "status code was OK:{0}", statusCode);
+                
+                
+                detailedMsg ="Metadata were successfully submitted";
+                Faces.getContext().addMessage("topMessage", 
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, 
+                                "Submission Success", detailedMsg));
+                
+                publishButtonEnabled=false;
+                
+                
+                
+                
+            } else {
+                // returned code is not 200 nor 201
+                logger.log(Level.WARNING, "Status code is not 200:{0}",
+                        statusCode);
+                
+                
+                detailedMsg ="Submission failed with the status code="+statusCode;
+//                Faces.getContext().addMessage("topMessage", 
+//                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//                                summaryMsg, detailedMsg));
+//                publishButtonEnabled=false;
+                
+                postExceptionCommonSteps(responseString,
+                  summaryMsg, detailedMsg);
+                
+                
+            }
+        } else {
+            logger.log(Level.WARNING, "Response is null");
+            // failed locally or no response
+            
+            detailedMsg ="Failed to get a response from the Dataverse server";
+//            Faces.getContext().addMessage("topMessage", 
+//                    new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//             summaryMsg, detailedMsg));
+//            publishButtonEnabled=false;
+            
+            postExceptionCommonSteps(detailedMsg,
+                  summaryMsg, detailedMsg);
+            
+        }
+        logger.log(Level.INFO, "#commonPostRequestStep(): end");
+        
+
+    }
     
 }

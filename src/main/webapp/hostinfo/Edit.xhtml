@@ -14,52 +14,79 @@
             <h:form id="HostInfoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{hostInfoController.selected != null}">
-                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_id}" for="id" />
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_id}" for="id" id="rowhostid">
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowhostid" value="Machine-Generated ID; not editable" position="right"/>
+                        </p:outputLabel>
                         <p:inputText id="id" 
                             value="#{hostInfoController.selected.id}" 
                             title="#{bundle_host.EditHostInfoTitle_id}" 
                             required="true" 
                             disabled="true"
                             requiredMessage="#{bundle_host.EditHostInfoRequiredMessage_id}"/>
-                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_hosturl}" for="hosturl" />
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_hosturl}" for="hosturl" id="rowhosturl">
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowhosturl" value="The URL of the Dataverse server including https://" position="right"/>
+                        </p:outputLabel>
                         <p:inputText id="hosturl" value="#{hostInfoController.selected.hosturl}" 
                             title="#{bundle_host.EditHostInfoTitle_hosturl}" 
                             required="true" 
                             requiredMessage="#{bundle_host.EditHostInfoRequiredMessage_hosturl}"/>
-                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_apitoken}" for="apitoken" />
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_apitoken}" for="apitoken" id="rowapitoken">
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowapitoken" value="The API token of your Dataverse account" position="right"/>
+                        </p:outputLabel>
                         <p:inputText id="apitoken" 
                             value="#{hostInfoController.selected.apitoken}" 
                             title="#{bundle_host.EditHostInfoTitle_apitoken}" 
                             required="true" 
                             requiredMessage="#{bundle_host.EditHostInfoRequiredMessage_apitoken}"/>
-                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_trsaRegNmbr}" for="trsaRegNmbr" />
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_trsaRegNmbr}" for="trsaRegNmbr" id="rowtrsa">
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowtrsa" value="TRSA registry number saved on Dataverse's Dashboard" position="right"/>
+                        </p:outputLabel>
                         <p:inputText id="trsaRegNmbr" 
                             value="#{hostInfoController.selected.trsaRegNmbr}" 
                             title="#{bundle_host.EditHostInfoTitle_trsaRegNmbr}" 
                             required="true" 
                             requiredMessage="#{bundle_host.EditHostInfoRequiredMessage_trsaRegNmbr}"/>
-                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_dataversealias}" for="dataversealias" />
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_dataversealias}" for="dataversealias" id="rowdvalias">
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowdvalias" value="Dataverse instance's Alias" position="right"/>
+                        </p:outputLabel>
                         <p:inputText id="dataversealias" 
                             value="#{hostInfoController.selected.dataversealias}" 
                             title="#{bundle_host.EditHostInfoTitle_dataversealias}" />
-                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_dataversetitle}" for="dataversetitle" />
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_dataversetitle}" for="dataversetitle" id="rowdvtitle">
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowdvtitle" value="Dataverse instance's Title " position="right"/>
+                        </p:outputLabel>
                         <p:inputText id="dataversetitle" 
                             value="#{hostInfoController.selected.dataversetitle}" 
                             title="#{bundle_host.EditHostInfoTitle_dataversetitle}" />
-                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_datasetid}" for="datasetid" />
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_datasetid}" for="datasetid" id="rowdsid">
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowdsid" value="Dataset's ID number" position="right"/>
+                        </p:outputLabel>
                         <p:inputText id="datasetid" 
                             value="#{hostInfoController.selected.datasetid}"
                             title="#{bundle_host.EditHostInfoTitle_datasetid}" 
                             required="true" 
                             requiredMessage="#{bundle_host.EditHostInfoRequiredMessage_datasetid}"/>
                         
-                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_datasettitle}" for="datasettitle" />
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_datasettitle}" for="datasettitle" id="rowdstitle">
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowdstitle" value="Dataset's Title" position="right"/>
+                        </p:outputLabel>
                         <p:inputText id="datasettitle" 
                             value="#{hostInfoController.selected.datasetTitle}" 
                             title="#{bundle_host.EditHostInfoTitle_datasettitle}" 
                             required="false" 
                             />
-                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_datasetdoi}" for="datasetdoi" />
+                        <p:outputLabel value="#{bundle_host.EditHostInfoLabel_datasetdoi}" for="datasetdoi" id="rowdoi">
+                        <span class="material-icons" style="font-size: 1.5em; color:#99bcdb;">help</span>
+                        <p:tooltip for="rowdoi" value="Dataset's DOI including 'doi:'" position="right"/>
+                        </p:outputLabel>
                         <p:inputText id="datasetdoi" 
                             value="#{hostInfoController.selected.datasetDoi}" 
                             title="#{bundle_host.EditHostInfoTitle_datasetdoi}"
