@@ -1,0 +1,239 @@
+= TRSA-Web Version 3.0: Step-by-Step GUI Guide
+:toc: right 
+:toclevels: 3
+:imagesdir: sbsg_image
+
+
+:figure-caption: Figure 
+
+* last updated: 2022-02-01
+
+== Before you start 
+
+=== Requirements 
+
+* Dataverse
+
+** TRSA-Web Registration
+*** TRSA registration number
+
+** Dataset
+*** Dataset ID
+*** Dataset DOI
+
+* TRSA-Web
+** Application URL 
+
+* Others 
+** Notary-Service Server
+** Policy and Storage Servers  
+
+== GUI Step-by-Step Guide
+
+=== How to set up the paired Dataverse and Dataset 
+
+==== Dataverse
+
+When you start to run the TRSA-Web application very first time or if you have not yet set up a paired dataverse with TRSA-Web, the following warning message in orange shows up when you reach its home page.
+
+image::00_top-page.png[TRSA's Home page]
+
+The first thing you have to do is to let TRSA-Web save key information about the paired Dataverse with its web GUI.
+
+. Click the "Setup the paired Dataverse" button and the following web page shows up:
++
+image::01_dv-info-setup.png[GUI for the paired Dataverse]
++
+. Type key information about the paired Dataverse in each box as the following example shows: 
++
+image::02_after_dv_data_entered.png[Data entry example]
++
+. Click the "Confirm" button to check whether entered data are valid; if successfully confirmed, the message appears above the GUI pane and the "Next: Setup Dataset" button is enabled as shown below:
++
+image::03_after_dv_confirmation.png[After Successful Confirmation]
++
+If failed, the error message appears above the GUI pane
++
+image::ingest-failure-error-message.png[Ingest-Failure message]
++
+and you can check a detailed message by clicking the "Show Exception messages" button:
++
+image::ingest-failure-show-exception-messages.png[Ingest-exception message]
+
+
+
+==== Dataset 
+
+After having clicked the "Next: Setup Dataset" button, the following web page like below appears: 
+
+image::04_fill_dataset_data.png[Incomplete Dataset information]
+
+As you can see the last three columns are not valid or empty.  You must enter valid data in these three columns as follows:
+
+. Select the row you want to edit by clicking it:
++
+image::05_select_dataset.png[Incomplete Dataset row]
++
+. Click the "Edit" button below the table 
++
+image::04_fill_dataset_data.png[Edit Dataset information]
++
+After having clicked the "Edit" button, the following GUI pane pops up: 
++
+image::06_edit_dataset_data_gui.png[GUI Pane for Dataset Information]
+
+Update the data as follows (the figure below shows an example)
+
+. Replace "0" in the box for "DatasetId" with a valid Dataset Id 
+. Enter DOI information in the box for "Datasetdoi"
+. Enter title data in the box for "Datasettitle"
+. Click the Save button
+
+image::07_dataset_data_entered.png[Dataset Information: An Example]
+
+After data for your destination dataset are successfully saved, the table of paired Datasets appears like below:
+
+image::08_after_dataset_data_supplied.png[Table of Paired Dataset]
+
+To return the top menu (home page) of TRSA-Web to upload metadata, click the "TRSA Home" link at the left pane
+
+
+
+=== How to submit the metadata of a local file to a remote Dataset
+
+
+==== TRSA: top menu 
+After information about the paired dataverse was saved, the two menu items are now enabled as follows:
+
+image::09_trsa-top-page-after-dv-setting.png[TRSA-Web Top Page: After the Dataverse was set]
+
+. Select the last option "Upload file metadata to an existing Dataset" to move next step:
++
+image::10_select_upload_menu.png[Upload/Submission Option]
+
+==== Destination (Dataset) selection
+Before submitting the metadata of a local file, you must select its destination (Dataset) from the table of saved Datasets:
+
+. click the "Select" button of your choice (row) and file-upload page appears next: 
+
+image::11_select_destination_dataset.png[Table of Saved Datasets]
+
+==== File upload/ingest
+
+. Click the "CHOOSE" button from the file-upload pane as follows: 
++
+image::12_upload-ingest-page.png[Upload and Ingest Page]
++
+. Select a local file from the pop-up file-selector: 
++
+image::13_select_file.png[file selection: an example]
++
+. click the "Ingest the uploaded file" button: 
++
+image::14_after_file_selection.png[ingest]
++
+If the selected file was successfully uploaded, a success messages appears above the pane and "go to Submission page" button is enabled as shown below:
++
+. click the "go to Submission page" button
++
+image::15_after_successful_ingest.png[After the Ingest request was successful]
+
+==== Submission 
+
+Before submission, the current selection of the Notary Service is shown as follows: 
+
+. Click the "save Notary Service designation" button 
++
+image::16_submission_page.png[Submission Page]
++
+If the above Notary-Service setting was successfully saved, the success message is displayed and the submission pane appears as shown below: 
++
+image::17_after_save_NS_dest.png[submission pane]
++
+. click the "Submit Metadata" button to send the metadata to the pre-selected Dataset: 
++
+image::18_before_submission.png[before submission]
++
+If the above submission request was successful, the success message appears on the page as follows:
++
+image::19_after_successful_submission.png[after submission]
+
+=== Manage Dataverse Settings 
+After you have saved at least one destination Dataset with TRSA-Web, you may want to manage (modify/add/delete) a saved Dataset; you can manage the saved datasets as follows: 
+
+. Click the "TRSA Home" Link of the left Menu Box to return to the top page
+. Click the "Manage the destination datasets" button from the top menu 
+
+Or 
+
+. Click the "Manage Dataverse Settings of left Menu Box"
+
+Either way, the following page appears: 
+
+image::20_manage-dv-settings.png[Manage Dataverse Settings Link]
+
+* To add a new Dataset, click the "+ Create" button:
+* To modify an existing Dataset, click its row and click the "Edit" button 
+* To delete an existing Dataset, click its row and click the "Delete" button
+
+== Appendix A: How to register your TRSA with a Dataverse server
+
+. Log in the Dataverse server with an Admin-level credentials [a non-Admin-level account does not show the following "dashboard" option]
+
+image::21_login-link.png[Log-in Link]
++
+. Click and open the pulldown menu:
++
+image::22_dashboard-pointed.png[Menu: Dashboard]
++
+. Click the Dashboard; the Dashboard page appears
++
+image::23_dashboard-top-menu.png[Dashboard Page]
++
+. Click the "Manage TRSAs" button; the TRSA registry table appears: 
++
+image::24_trsa-registry-table-empty.jpeg[TRSA Registry Table: An Example]
++
+. Click "+ Create" Button to register your TRSA; The data entry pane pops up as follows: 
++
+image::25_trsa-registry-gui.png[Data Entry Pop-up]
++
+. Type data in each entry box
+. Click the calendar icon for each time-entry box to set start/expire times
+. Click the "Save" button 
+
+== Appendix B: How to collect required information about a destination Dataset
+=== API Token 
+
+. Log in the Dataverse server
++
+image::21_login-link.png[Log-in Link]
++
+. Click and open the pulldown menu
++
+image::26_api-token-pointed.png[Menu: API Token]
++
+. Click the API Token option
++
+image::27_api-token-masked.png[API-token page: An Example]
+
+
+=== Dataset: Its ID and DOI information 
+
+. Retrieve the target Dataset and show its top page as follows: 
++
+image::28_dataset-top-page.png[Dataset Page: An Example]
++
+. Click the "Metadata" tab and the value for "Dataset Persistent ID" is the required DOI information 
++
+image::29_dataset-page-metadata-tab.png[Dataset Page: Metadata Tab]
++
+. Click the "Export Metadata" button and select "JSON" as shown below: 
++
+image::30_how-to-show-datasetId.png[JSON Option]
++
+[Depending upon your browser settings,] a downloaded JSON file is rendered in a new tab as shown below.
+. Find the value for the keys: "datasetI" and "datasetPersistentId" from the returned JSON object
++
+image::31_datasetId-in-json.png[DatasetId and DOI data]
+
