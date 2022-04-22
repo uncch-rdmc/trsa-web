@@ -28,7 +28,7 @@
                                     for="topGrowl" severity="info"/>
                     
                     <p:dataTable id="datalist" value="#{hostInfoController.items}" var="item"
-                                 selectionMode="single" selection="#{hostInfoController.selected}"
+                                  selection="#{hostInfoController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"
                                  rows="10"
@@ -41,7 +41,7 @@
                                 update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" 
                                 update="createButton viewButton editButton deleteButton"/>
-
+                        <p:column headerText="" selectionMode="single" style="width:16px;text-align:center" />
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle_host.ListHostInfoTitle_id}"/>
