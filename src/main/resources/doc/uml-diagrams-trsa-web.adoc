@@ -1,6 +1,6 @@
 = UML diagrams for TRSA
 :kroki-server-url: http://localhost:8087
-:kroki-fetch-diagram:
+
 :imagesdir: media
 
 * last updated: {docdatetime}

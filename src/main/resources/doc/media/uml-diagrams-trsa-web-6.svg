@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="725px" preserveAspectRatio="none" style="width:938px;height:725px;background:#FFFFFF;" version="1.1" viewBox="0 0 938 725" width="938px" zoomAndPan="magnify"><defs/><g><rect height="26.2969" style="stroke:#00000000;stroke-width:1.0;fill:none;" width="566" x="187.25" y="10"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="556" x="192.25" y="27.9951">Downloading a remote Datafile with/without-Notary-service-restriction</text><rect height="244.1328" style="stroke:#000000;stroke-width:1.5;fill:none;" width="921.5" x="10" y="383.9219"/><line style="stroke:#181818;stroke-width:0.5;fill:none;stroke-dasharray:5.0,5.0;" x1="63" x2="63" y1="118.5938" y2="645.0547"/><line style="stroke:#181818;stroke-width:0.5;fill:none;stroke-dasharray:5.0,5.0;" x1="261" x2="261" y1="118.5938" y2="645.0547"/><line style="stroke:#181818;stroke-width:0.5;fill:none;stroke-dasharray:5.0,5.0;" x1="481.5" x2="481.5" y1="118.5938" y2="645.0547"/><line style="stroke:#181818;stroke-width:0.5;fill:none;stroke-dasharray:5.0,5.0;" x1="581.5" x2="581.5" y1="118.5938" y2="645.0547"/><line style="stroke:#181818;stroke-width:0.5;fill:none;stroke-dasharray:5.0,5.0;" x1="767.5" x2="767.5" y1="118.5938" y2="645.0547"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="20" y="115.292">Researcher</text><ellipse cx="63" cy="50.7969" fill="#E2E2F0" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M63,58.7969 L63,85.7969 M50,66.7969 L76,66.7969 M63,85.7969 L50,100.7969 M63,85.7969 L76,100.7969 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="20" y="657.0498">Researcher</text><ellipse cx="63" cy="668.8516" fill="#E2E2F0" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M63,676.8516 L63,703.8516 M50,684.8516 L76,684.8516 M63,703.8516 L50,718.8516 M63,703.8516 L76,718.8516 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="106" x="208" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="215" y="107.292">Web Browser</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="106" x="208" y="644.0547"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="215" y="664.0498">Web Browser</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="95" x="434.5" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81" x="441.5" y="107.292">File Storage</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="95" x="434.5" y="644.0547"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81" x="441.5" y="664.0498">File Storage</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="84" x="539.5" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="70" x="546.5" y="107.292">Dataverse</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="84" x="539.5" y="644.0547"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="70" x="546.5" y="664.0498">Dataverse</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="112" x="711.5" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="98" x="718.5" y="107.292">Notary Service</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="112" x="711.5" y="644.0547"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="98" x="718.5" y="664.0498">Notary Service</text><polygon fill="#181818" points="249,160.8594,259,164.8594,249,168.8594,253,164.8594" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="63" x2="255" y1="164.8594" y2="164.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="132" x="70" y="144.6606">type the landing URL</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="74" y="159.7935">of a Dataset</text><polygon fill="#181818" points="569.5,189.9922,579.5,193.9922,569.5,197.9922,573.5,193.9922" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="261" x2="575.5" y1="193.9922" y2="193.9922"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="235" x="268" y="188.9263">request: landing page of the Dataset</text><polygon fill="#181818" points="272,219.125,262,223.125,272,227.125,268,223.125" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="266" x2="580.5" y1="223.125" y2="223.125"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="295" x="278" y="218.0591">response: Landing page with a list of DataFiles</text><polygon fill="#181818" points="249,263.3906,259,267.3906,249,271.3906,253,267.3906" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="63" x2="255" y1="267.3906" y2="267.3906"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="174" x="70" y="247.1919">click the "Download" button</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="80" x="74" y="262.3247">of a DataFile</text><polygon fill="#181818" points="569.5,292.5234,579.5,296.5234,569.5,300.5234,573.5,296.5234" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="261" x2="575.5" y1="296.5234" y2="296.5234"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="219" x="268" y="291.4575">request: Downloading the DataFile</text><line style="stroke:#181818;stroke-width:1.0;" x1="581.5" x2="623.5" y1="355.9219" y2="355.9219"/><line style="stroke:#181818;stroke-width:1.0;" x1="623.5" x2="623.5" y1="355.9219" y2="368.9219"/><line style="stroke:#181818;stroke-width:1.0;" x1="582.5" x2="623.5" y1="368.9219" y2="368.9219"/><polygon fill="#181818" points="592.5,364.9219,582.5,368.9219,592.5,372.9219,588.5,368.9219" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="138" x="588.5" y="320.5903">check the file location</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69" x="592.5" y="335.7231">in terms of</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="592.5" y="350.856">notary service</text><path d="M10,383.9219 L74,383.9219 L74,391.0547 L64,401.0547 L10,401.0547 L10,383.9219 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/><rect fill="none" height="244.1328" style="stroke:#000000;stroke-width:1.5;" width="921.5" x="10" y="383.9219"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="19" x="25" y="396.9888">alt</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="135" x="89" y="396.1323">[with Notary Service]</text><polygon fill="#181818" points="755.5,466.5859,765.5,470.5859,755.5,474.5859,759.5,470.5859" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="581.5" x2="761.5" y1="470.5859" y2="470.5859"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="158" x="588.5" y="435.2544">forward the pre-specified</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="95" x="588.5" y="450.3872">Notary-Service</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="80" x="588.5" y="465.52">project page</text><path d="M772,406.0547 L772,491.0547 L916,491.0547 L916,416.0547 L906,406.0547 L772,406.0547 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M906,406.0547 L906,416.0547 L916,416.0547 L906,406.0547 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="108" x="778" y="423.1216">Notary Service is</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="123" x="778" y="438.2544">expected to handle</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="78" x="778" y="453.3872">the ultimate</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="102" x="778" y="468.52">file-downloading</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="39" x="778" y="483.6528">action</text><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="10" x2="931.5" y1="497.7188" y2="497.7188"/><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="159" x="15" y="507.9292">[withoug Notary Service]</text><polygon fill="#181818" points="272,528.6563,262,532.6563,272,536.6563,268,532.6563" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="266" x2="580.5" y1="532.6563" y2="532.6563"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="92" x="278" y="527.5903">redirect action</text><polygon fill="#181818" points="470,557.7891,480,561.7891,470,565.7891,474,561.7891" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="261" x2="476" y1="561.7891" y2="561.7891"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="132" x="268" y="556.7231">downloading request</text><polygon fill="#181818" points="272,586.9219,262,590.9219,272,594.9219,268,590.9219" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="266" x2="481" y1="590.9219" y2="590.9219"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="197" x="278" y="585.856">response: prompt downloading</text><polygon fill="#181818" points="249,616.0547,259,620.0547,249,624.0547,253,620.0547" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="63" x2="255" y1="620.0547" y2="620.0547"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="73" x="70" y="614.9888">click "Save"</text><!--MD5=[683e83e76827b1d1c99a5b902254230d]
+@startuml
+title Downloading a remote Datafile with/without-Notary-service-restriction
+actor Researcher as rs
+'actor "Data Provider" as dp
+participant "Web Browser" as wb
+'participant TRSA as sa
+participant "File Storage" as fs
+participant  Dataverse as dv
+participant "Notary Service" as ns
+rs -> wb: type the landing URL\n of a Dataset
+wb -> dv: request: landing page of the Dataset
+dv -> wb: response: Landing page with a list of DataFiles
+rs -> wb: click the "Download" button\n of a DataFile
+wb -> dv: request: Downloading the DataFile
+dv -> dv: check the file location\n in terms of\n notary service
+alt with Notary Service
+dv -> ns: forward the pre-specified \nNotary-Service \nproject page
+note right
+Notary Service is
+expected to handle
+the ultimate
+file-downloading
+action
+end note
+else withoug Notary Service
+dv -> wb: redirect action
+wb -> fs: downloading request
+fs -> wb: response: prompt downloading
+rs -> wb: click "Save"
+end
+@enduml
+
+@startuml
+title Downloading a remote Datafile with/without-Notary-service-restriction
+actor Researcher as rs
+participant "Web Browser" as wb
+participant "File Storage" as fs
+participant  Dataverse as dv
+participant "Notary Service" as ns
+rs -> wb: type the landing URL\n of a Dataset
+wb -> dv: request: landing page of the Dataset
+dv -> wb: response: Landing page with a list of DataFiles
+rs -> wb: click the "Download" button\n of a DataFile
+wb -> dv: request: Downloading the DataFile
+dv -> dv: check the file location\n in terms of\n notary service
+alt with Notary Service
+dv -> ns: forward the pre-specified \nNotary-Service \nproject page
+note right
+Notary Service is
+expected to handle
+the ultimate
+file-downloading
+action
+end note
+else withoug Notary Service
+dv -> wb: redirect action
+wb -> fs: downloading request
+fs -> wb: response: prompt downloading
+rs -> wb: click "Save"
+end
+@enduml
+
+PlantUML version 1.2022.4(Sat Apr 09 13:29:17 UTC 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>
