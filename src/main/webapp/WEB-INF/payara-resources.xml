@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this template
--->
-
-
-
-<root>
-    
-</root>
-
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+  <jdbc-connection-pool name="dvnDbPool" datasource-classname="org.postgresql.ds.PGPoolingDataSource" res-type="javax.sql.DataSource">
+    <property name="serverName" value="127.0.0.1" />
+    <property name="User" value="dvnapp" />
+    <property name="password" value="secret" />
+    <property name="databaseName" value="dvndb"></property>
+    <property name="create" value="true"></property>
+    <property name="PortNumber" value="5432"></property>
+  </jdbc-connection-pool>
+  <jdbc-resource enabled="true" jndi-name="java:app/jdbc/VDCNetDS" object-type="user" pool-name="dvnDbPool" />
+</resources>
