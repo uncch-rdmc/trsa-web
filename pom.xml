@@ -4,7 +4,7 @@
 
     <groupId>us.cyberimpact</groupId>
     <artifactId>trsa-web</artifactId>
-    <version>3.0</version>
+    <version>4.0</version>
     <packaging>war</packaging>
 
     <name>Trusted Remote Storage Agent Web GUI</name>
@@ -42,7 +42,11 @@
     
     <dependencies>
         
-        
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.3.5</version>
+</dependency>
         
 <dependency>
 <groupId>javax.xml.bind</groupId>

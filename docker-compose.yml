@@ -1,5 +1,24 @@
 version: '3.9'
 services:
+
+    database:
+      container_name: postgres-db
+      image: postgres:13.1
+      healthcheck:
+        test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+        timeout: 45s
+        interval: 10s
+        retries: 10
+      restart: always
+      environment:
+        - POSTGRES_USER=trsauser
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_DB=trsadb
+      volumes:
+        - ./db/trsa/data:/docker-entrypoint-initdb.d/
+      ports:
+        - "55432:5432"
+      command: -p 5432
     trsa-web:
         container_name: trsa-web-3.210609.0
         ports:
@@ -11,6 +30,11 @@ services:
           dockerfile: v3.Dockerfile
         entrypoint: ["/tini", "--"]
         command: ["/bin/sh", "-c", "/opt/payara/scripts/entrypoint.sh"]
+        depends_on: 
+          database: 
+            condition: service_healthy
+
+
 networks: 
   impact:
     driver: bridge
