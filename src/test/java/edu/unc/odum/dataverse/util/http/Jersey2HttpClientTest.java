@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import us.cyberimpact.trsa.web.WebAppConstants;
@@ -35,7 +36,7 @@ public class Jersey2HttpClientTest {
     @BeforeEach
     public void init() {
         client= new Jersey2HttpClient("https://impacttest.irss.unc.edu", 
-          "4988fbdd-de13-49c9-a6cc-aad6c6261822", "1");
+          "", "1");
         
     }
     
@@ -47,6 +48,7 @@ public class Jersey2HttpClientTest {
      * Test of confirmDataverseSetup method, of class Jersey2HttpClient.
      */
     @DisplayName("testing Jersey2HttpClientTest#confirmDataverseSetup method")
+    @Disabled("local-test only")
     @Test
     public void testConfirmDataverseSetup() {
         logger.log(Level.INFO, "++++++++++++ Jersey2HttpClientTest#testConfirmDataverseSetup: start ++++++++++");
@@ -69,6 +71,7 @@ public class Jersey2HttpClientTest {
     
     
     @DisplayName("testing Jersey2HttpClientTest#confirmDataverseSetup method")
+    @Disabled("local-test only")
     @Test
     public void testConfirmDataverseSetupVer2() {
         logger.log(Level.INFO, "++++++++++++ Jersey2HttpClientTest#confirmDataverseSetupVer2: start ++++++++++");
@@ -93,6 +96,7 @@ public class Jersey2HttpClientTest {
      * Test of get method, of class Jersey2HttpClient.
      */
     @DisplayName("testing Jersey2HttpClientTest#get method")
+    @Disabled("local-test only")
     @Test
     public void testGet() {
         System.out.println("testing get");

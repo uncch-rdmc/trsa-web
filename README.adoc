@@ -42,7 +42,9 @@ docker build -t odumunc/trsa-web:3.211216 -f v3.Dockerfile .
 ----
 
 == Version 4 (currently under development in `postgres` branch)
+
 ==== Major changes 
+
 * H2 Database was replaced with PostgreSQL; PostgreSQL is expected to be running independently from TRSA-Web
 * This version of `docker-compose.yml` relies on `v4.Dockerfile` and `v4.trsa.config`
 * To run with `docker compose`, the JDBC resource/connection settings were set at the server level, i.e., not specified within the war file of TRSA-Web.
