@@ -1,5 +1,9 @@
 = Web Interface for the Dataverse Trusted Remote Storage Agent
-* last updated: 2021-06-03
+:toc: right
+:toclevels: 3
+:icons: font
+
+* last updated: 2022-05-24
 
 == Overview
 
@@ -23,7 +27,7 @@ To build your own Docker container:
 * Edit `trsa.config` to suit your needs, then `docker build` with your desired name and tag.
 
 
-== Version 3 and after : how to build a docker image and run its container
+== Version 3: how to build a docker image and run its container
 
 === Major changes
 
@@ -37,3 +41,9 @@ To build your own Docker container:
 docker build -t odumunc/trsa-web:3.211216 -f v3.Dockerfile .
 ----
 
+== Version 4 (currently under development in `postgres` branch)
+==== Major changes 
+* H2 Database was replaced with PostgreSQL; PostgreSQL is expected to be running independently from TRSA-Web
+* This version of `docker-compose.yml` relies on `v4.Dockerfile` and `v4.trsa.config`
+* To run with `docker compose`, the JDBC resource/connection settings were set at the server level, i.e., not specified within the war file of TRSA-Web.
+* To test the `docker compose` version with a Dockerized Dataverse instance such the Docker-all-in-one version, connect the Docker-all-in-one version via `docker network` command. 

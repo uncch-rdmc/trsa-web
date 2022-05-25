@@ -1,43 +1,72 @@
 version: '3.9'
 services:
 
-    database:
+    PostgreSQLDB:
       container_name: postgres-db
-      image: postgres:13.1
-      healthcheck:
-        test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
-        timeout: 45s
-        interval: 10s
-        retries: 10
-      restart: always
+      image: "postgres:14"
+#      healthcheck:
+#        test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+#        timeout: 45s
+#        interval: 10s
+#        retries: 10
+#      restart: always
       environment:
-        - POSTGRES_USER=trsauser
-        - POSTGRES_PASSWORD=password
-        - POSTGRES_DB=trsadb
+        #- POSTGRES_USER if not specified default =postgres
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=postgres
+#       PGDATA: factory default value is "/var/lib/postgresql/data"
+#       if host-side's volume is a mounting point, 
+#       the value for PGDATA is a subdirectory of the above default value
+        - PGDATA=/var/lib/postgresql/data/pgdata
       volumes:
-        - ./db/trsa/data:/docker-entrypoint-initdb.d/
+        - db:/var/lib/postgresql/data
+         # db.sh => to be executed 
+        - ./psql/db.sh:/docker-entrypoint-initdb.d/db.sh
+         # pg_hba.conf => ../data drive
+        - ./psql/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
+         # postgresql.conf => ../data drive
+        - ./psql/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
       ports:
-        - "55432:5432"
-      command: -p 5432
+        - "65432:5432"
+#      command: -p 5432
+      networks:
+        v4impact: 
+          ipv4_address: 192.168.57.18
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U postgres"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
     trsa-web:
-        container_name: trsa-web-3.210609.0
+        container_name: trsa-web-4.220518
         ports:
             - '8989:8080'
         restart: unless-stopped
-        network_mode: impact
+        networks:
+          v4impact:
+            ipv4_address: 192.168.57.19
         build: 
+          args:
+            DB_SERVER: 192.168.57.18
           context: .
-          dockerfile: v3.Dockerfile
+          dockerfile: v4.Dockerfile
         entrypoint: ["/tini", "--"]
         command: ["/bin/sh", "-c", "/opt/payara/scripts/entrypoint.sh"]
         depends_on: 
-          database: 
+          PostgreSQLDB:
             condition: service_healthy
 
 
 networks: 
-  impact:
-    driver: bridge
+ v4impact:
+   driver: bridge
+   ipam:
+     driver: default
+     config:
+       - subnet: "192.168.57.0/25"
 # base image's ENTRYPOINT AND CMD are as follows:
 # ENTRYPOINT ["/tini" "--"]
 # CMD ["/bin/sh" "-c" "\"${SCRIPT_DIR}/entrypoint.sh\""]
+
+volumes:
+      db: {}
