@@ -1,7 +1,7 @@
 package us.cyberimpact.trsa.api;
 
 
-import javax.ws.rs.ApplicationPath;
+import jakarta.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
 
 /**

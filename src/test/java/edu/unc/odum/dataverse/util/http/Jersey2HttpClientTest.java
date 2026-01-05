@@ -3,7 +3,7 @@ package edu.unc.odum.dataverse.util.http;
 import edu.unc.odum.dataverse.util.json.JsonResponseParser;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;

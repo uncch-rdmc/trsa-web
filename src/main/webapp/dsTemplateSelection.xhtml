@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="primefaces"
       >
     <h:head>
         <title></title>
@@ -30,11 +30,12 @@
                         var="item" 
                         selection="#{dsTemplateSelectionView.selectedDsTemplateData}"
                         rowKey="#{item.id}"
+                        selectionMode="single"
                         >
         <f:facet name="header">
             Select a template
         </f:facet>
-        <p:column selectionMode="single" style="width:16px;text-align:center"/>
+        <p:column  style="width:16px;text-align:center"/>
                         
                         
                         

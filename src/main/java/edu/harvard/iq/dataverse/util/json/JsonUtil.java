@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.json.JsonObjectBuilder;
+import jakarta.json.JsonObjectBuilder;
 
 public class JsonUtil {
 
@@ -35,7 +35,7 @@ public class JsonUtil {
     }
 
     public static void printMinDatasetMetadata(DatasetVersion dsv) {
-        javax.json.JsonObject datasetAsJson = (JsonPrinter.jsonAsDatasetDto(dsv)).build();
+        jakarta.json.JsonObject datasetAsJson = (JsonPrinter.jsonAsDatasetDto(dsv)).build();
         Path JsonMetadataFilePath = Paths.get(dsv.getDataset().getFileSystemDirectory().toString(), dsv.getDataset().getIdentifier() + ".json");
         try (FileOutputStream jsonFileOutputStream = new FileOutputStream(JsonMetadataFilePath.toFile())) {
         JSONExporter jsonExporter = new JSONExporter();

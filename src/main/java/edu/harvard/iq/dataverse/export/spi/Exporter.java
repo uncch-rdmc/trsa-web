@@ -8,7 +8,7 @@ package edu.harvard.iq.dataverse.export.spi;
 import edu.harvard.iq.dataverse.entities.DatasetVersion;
 import edu.harvard.iq.dataverse.export.ExportException;
 import java.io.OutputStream;
-import javax.json.JsonObject;
+import jakarta.json.JsonObject;
 
 /**
  *

@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="primefaces"
           
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="jakarta.tags.core">
     <h:head>
         <title></title>
     </h:head>
@@ -39,13 +39,15 @@
                  var="hostInfo"
                  value="#{destinationSelectionView.hostInfoTable}" 
                  selection="#{destinationSelectionView.selectedHostInfo}" 
-                 rowKey="#{hostInfo.id}" tableStyle="width:auto" resizableColumns="true">
+                 rowKey="#{hostInfo.id}" tableStyle="width:auto" 
+                 selectionMode="single"
+                 resizableColumns="true">
         
         
         <f:facet name="header">
             Select a destination
         </f:facet>
-        <p:column selectionMode="single" style="width:16px;text-align:center"/>
+        <p:column  style="width:16px;text-align:center"/>
         <p:column headerText="Id">
             <h:outputText value="#{hostInfo.id}" />
         </p:column>

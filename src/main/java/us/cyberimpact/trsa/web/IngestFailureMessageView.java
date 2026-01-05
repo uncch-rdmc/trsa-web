@@ -8,8 +8,8 @@ package us.cyberimpact.trsa.web;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
 import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
 

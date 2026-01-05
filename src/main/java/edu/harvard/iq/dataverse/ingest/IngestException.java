@@ -1,6 +1,6 @@
 package edu.harvard.iq.dataverse.ingest;
 
-import javax.ejb.ApplicationException;
+import jakarta.ejb.ApplicationException;
 
 /**
  *

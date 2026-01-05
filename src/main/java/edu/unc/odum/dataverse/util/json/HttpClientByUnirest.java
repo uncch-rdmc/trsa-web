@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.http.conn.HttpHostConnectException;
 import org.json.JSONException;

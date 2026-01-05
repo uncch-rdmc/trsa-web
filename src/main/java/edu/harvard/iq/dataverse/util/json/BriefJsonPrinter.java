@@ -2,7 +2,7 @@ package edu.harvard.iq.dataverse.util.json;
 
 import edu.harvard.iq.dataverse.entities.DatasetVersion;
 import static edu.harvard.iq.dataverse.util.json.NullSafeJsonBuilder.jsonObjectBuilder;
-import javax.json.JsonObjectBuilder;
+import jakarta.json.JsonObjectBuilder;
 
 /**
  * A Json printer that prints minimal data on objects. Useful when embedding 

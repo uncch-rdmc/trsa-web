@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="primefaces"
       >
     <h:head>
         <title></title>
@@ -32,16 +32,16 @@
         <p>When you report this error to the administrator of TRSA, please include the following information:</p>
         <dl>
             <dt>Page (URI) that caught the exception</dt>
-            <dd>#{requestScope['javax.servlet.error.request_uri']}</dd>
+            <dd>#{requestScope['jakarta.servlet.error.request_uri']}</dd>
             <dt>Exception type(class)</dt>
-            <dd>#{requestScope['javax.servlet.error.exception']['class']}</dd>
+            <dd>#{requestScope['jakarta.servlet.error.exception']['class']}</dd>
             <dt>Cause and Solution(Exception message)</dt>
             <dd>#{requestScope['reason']}</dd>
             <dt>Stack trace</dt>
             <dd><pre>#{
                     facesContext.externalContext.response.writer.flush()
              }#{
-                        requestScope['javax.servlet.error.exception'].printStackTrace
+                        requestScope['jakarta.servlet.error.exception'].printStackTrace
                         (facesContext.externalContext.response.writer)
      }</pre></dd>
         </dl>
